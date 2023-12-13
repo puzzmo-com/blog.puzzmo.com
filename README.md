@@ -37,3 +37,7 @@ A C&P example which does the dates for you:
 ```
 hugo new posts/$(date +%Y)/$(date +%m)/$(date +%d)/my-post.md
 ```
+
+### This blog
+
+It uses Hugo as a static site generator, it was chosen because it is is simple to install and run locally and shouldn't break over a very long time period (the Artsy blog [I used to write on](https://artsy.github.io/blog/2019/05/03/ortas-best-of/) once or twice a month was Jekyll and required a lot of custom work to get useful features but those eventually started slowing the system down and getting ruby set up is a pain).
