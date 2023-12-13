@@ -1,7 +1,8 @@
 +++
 title = 'First Post'
 date = 2023-12-13T12:56:32Z
-comments = false
+authors = ["orta"]
+tags = ["meta"]
 +++
 
 ### Hello world!
