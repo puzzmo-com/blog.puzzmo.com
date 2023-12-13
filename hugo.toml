@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://puzzmo-com.github.io/blog.puzzmo.com/'
 languageCode = 'en-us'
 title = 'Puzzmo Blog'
 theme = 'paper'
