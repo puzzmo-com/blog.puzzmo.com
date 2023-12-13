@@ -1,7 +1,6 @@
 +++
 title = 'First Post'
 date = 2023-12-13T12:56:32Z
-draft = true
 comments = false
 +++
 
