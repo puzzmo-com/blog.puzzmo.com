@@ -3,6 +3,7 @@ title = 'First Post'
 date = 2023-12-13T12:56:32Z
 authors = ["orta"]
 tags = ["meta"]
+theme = "foshay"
 +++
 
 ### Hello world!

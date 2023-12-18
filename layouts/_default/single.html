@@ -24,6 +24,12 @@
     {{ end }}
   </header>
 
+  {{ if .Params.theme }}
+  <link rel="stylesheet" type="text/css" href="/assets/themes/{{.Params.theme}}.css" />
+  {{ else }}
+  <link rel="stylesheet" type="text/css" href="/assets/themes/puzzmo-light.css" />
+  {{ end }}
+
   <section>{{ .Content }}</section>
 
   <!-- Post Tags -->
@@ -61,19 +67,6 @@
   </nav>
   {{ end }}<!---->
   {{ end }}
-
-  <!-- Disqus -->
-  {{ if and site.DisqusShortname (not (eq .Params.comments false)) }}
-  <div class="mt-24" id="disqus_thread"></div>
-  <script>
-    const disqusShortname = '{{ site.DisqusShortname }}';
-    const script = document.createElement('script');
-    script.src = 'https://' + disqusShortname + '.disqus.com/embed.js';
-    script.setAttribute('data-timestamp', +new Date());
-    document.head.appendChild(script);
-  </script>
-  {{ end }}
-
 
   <!-- giscus comment -->
   {{ if and site.Params.giscus.repo (eq .Params.comments true) }}
