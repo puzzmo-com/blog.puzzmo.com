@@ -1,5 +1,11 @@
 {
     "deno.enable": true,
     "deno.lint": false,
-    "deno.unstable": true
+    "deno.unstable": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }

@@ -10,31 +10,30 @@ Puzzmo Blog
 
 2. Clone this repo
 
-   ```
+   ```sh
    git clone https://github.com/puzzmo-com/blog.puzzmo.com
    cd blog.puzzmo.com
    ```
 
-3 . Run the server
+3. Run the server
 
-   ```
+   ```sh
    hugo server
    ```
 
 4. Open the site in your browser: http://localhost:1313/
 
-
 ### How to make a new post
 
 Use the CLI:
 
-```
+```sh
 hugo new posts/[year]/[month]/[day]/[post name].md
 ```
 
 A C&P example which does the dates for you:
 
-```
+```sh
 hugo new posts/$(date +%Y)/$(date +%m)/$(date +%d)/my-post.md
 ```
 
