@@ -3,7 +3,7 @@ title = 'Puzzmo Tech Changelog 23Q4'
 date = 2023-12-22T12:56:32Z
 authors = ["orta"]
 tags = ["changlog"]
-theme = "foshay"
+theme = "outlook-hayesy-beta"
 draft = true
 +++
 

@@ -56,15 +56,7 @@
   {{ end }}
   <!---->
 
-  <!-- Highlight JS -->
-  {{ if and .IsPage (not site.Params.disableHLJS) }}
-  <script
-    defer
-    src="{{ `highlight.min.js` | absURL }}"
-    onload="hljs.initHighlightingOnLoad();"
-  ></script>
-  {{ end }}
-
+ 
   <!-- Math -->
   {{ if or .Params.math site.Params.math }}
   <!---->

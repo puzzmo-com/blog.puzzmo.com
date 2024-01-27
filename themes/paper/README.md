@@ -2,6 +2,7 @@
 Imported from nanxiaobei/hugo-paper at 3586c85b77248312ccdd82f9e450cc91f4152a6c as MIT
 
 https://github.com/nanxiaobei/hugo-paper/tree/3586c85b77248312ccdd82f9e450cc91f4152a6c
+imported at https://github.com/puzzmo-com/blog.puzzmo.com/commit/380785947e2ba08b1911df20404088c3d12eb407
 ```
 
 You can see the license in this folder! We want to really make some deep changes and at that point we might
