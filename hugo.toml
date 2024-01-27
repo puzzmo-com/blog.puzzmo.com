@@ -1,4 +1,4 @@
-baseURL = 'https://blog.puzzmo.com/'
+# baseURL = 'https://blog.puzzmo.com/'
 languageCode = 'en-us'
 title = 'Puzzmo Blog'
 theme = 'paper'
