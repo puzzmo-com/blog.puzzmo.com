@@ -20,3 +20,6 @@ theme = 'paper'
   mapping = 'pathname'
   theme = 'light'
   lang = 'en'
+
+staticDir = ['static']
+
