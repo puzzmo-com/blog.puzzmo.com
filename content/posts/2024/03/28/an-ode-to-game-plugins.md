@@ -9,11 +9,13 @@ draft = true
 
 ### Control
 
-At heart, programming is the art of deciding which systems interact with each other and where decision making happens. This tension became very apparent as we started to first build out the leaderboard systems in Puzzmo. At the beginning, decision's around control were easy as there was only 2 leaderboards for each game. The API would provide these two leaderboards for every game at the place where we kept the rest of the leaderboard infra. Done.
+At heart, programming is the art of deciding which systems interact with each other and where decision making happens.
 
-When we decided that each game should start having some different leaderboards, this is still totally easy to contain - we'll make a `leaderboards.ts` file which lists all the games and says what the leaderboards per-game are are. Great.
+This tension became very apparent as we started to first build out the leaderboard systems for Puzzmo. At the beginning, decision's around control were easy as there was only 2 leaderboards for each game. The API would provide these two leaderboards for every game at the place where we kept the rest of the leaderboard infra. _Done_.
 
-So we start looking at another system, news. Again, easy at first, we have time and points of puzzles played by friends or best-ofs. Again, we can put that logic with the news generation code. Also, not a surprise to find out that we want news items to be different on a per-game basis. OK, `news.ts` in a lib file.
+When we decided that each game should start having different leaderboards, this is still totally easy to contain - we'll make a `leaderboards.ts` file which lists all the games and says what the leaderboards per-game are. _Great_.
+
+So we start looking at another system, news. Again, easy at first, we have time and points of puzzles played by friends or best-ofs. Again, we can put that logic with the news generation code. Also, not a surprise to find out that we want news items to be different on a per-game basis. OK, `news.ts` in a lib file. _Sure_.
 
 Repeat this pattern for User Statistics, Puzzle Statistics, Game editorials, Highlights (e.g. looking through your historical records to say 'Least Wednesday rotations') and you start to see yourself in a position where making a new game and integrating into Puzzmo's API-level systems is quite a thing.
 
@@ -21,9 +23,11 @@ So, we needed a new abstraction. I turned to a system I've used a million times 
 
 ### Plugins
 
-Yep, that's the story. Once again, re-inventing plugin infrastructure in another codebase. When I start to get a bit itchy that too many things are in too many places, I re-read up on aspect-oriented programming and try to think "what are the aspects of this system which I want centralizing". So, this is what I came up with.
+Yep, that's the story. Once again, [re-inventing](https://blog.cocoapods.org/CocoaPods-0.28/) [plugin](https://danger.systems/guides/creating_your_first_plugin.html) [infrastructure](https://danger.systems/js/usage/extending-danger) [in another codebase](https://www.typescriptlang.org/dev/playground-plugins/). This is probably my best writing [on when plugins make sense](https://github.com/microsoft/TypeScript-Website/issues/130#issuecomment-582030065).
 
-You use TypeScript's relatively recent "satisfies" operator to allow for custom config game objects which still have literal values, tied to a generic type that handles a lot of the API setup and providing types for the messages between the games/app/api.
+ When I start to get a bit itchy that too many things are in too many places, I re-read up on [aspect-oriented](https://artsy.github.io/blog/2014/08/04/aspect-oriented-programming-and-aranalytics/) programming and try to think "what are the aspects of this system which I want centralizing" (which isn't strictly the point of that theory, but give me some slack). So, this is what I came up with:
+
+You use TypeScript's relatively recent [`satisfies`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator) operator to allow for custom config game objects which still have literal values, tied to a generic type that handles a lot of the API setup and providing types for the messages between the games/app/api.
 
 ```ts
 /** Provides some base-line information about the statistics we which store, a game's specific implementation would override these with real types */
@@ -114,9 +118,11 @@ export type APIGame<Stats extends GameData> = {
 }
 ```
 
-This being the direct type from our API gives you a sense of what sort of integration points we need when thinking about how "Puzzmo" interacts with an individual game. We provide a default fallback implementation that is mostly a NOOP for all of these points, and until someone comes and and says "this game is far along enough to warrant hooking in" then no implementation is needed. This is one of the key "TODO"s on taking a Puzzmo Experimental game like Wordbind to "production".
+This code above is a direct port from our API, which gives you a sense of what sort of integration points we need when thinking about how "Puzzmo" interacts with an individual game.
 
-So, let's take a look at a concrete example of that. This is how we integrate Really Bad Chess into API:
+We provide a default fallback implementation that is mostly a NOOP for all of these extension points, and until someone comes and and says "this game is far along enough to warrant hooking in" then no implementation is needed. Going through this list is one of the key "TODO"s on taking a Puzzmo Experimental game like Wordbind to "production".
+
+So, let's take a look at a concrete example of that. This is how we integrate Really Bad Chess into the API:
 
 ```ts
 import { secondsToHms } from "$shared/secondsToHms"
@@ -248,7 +254,7 @@ const reallyBadChessGame = {
 
       const diff = Math.abs(yourGameplay.metric3 - fGP.metric3)
       const suffix = fGP.metric3 > yourGameplay.metric3 ? "more" : "better"
-      //your PAL Chris solved today's really bad chess in 10m:30s with 23 moves — 2 less than your solve.
+      // Your PAL Chris solved today's really bad chess in 10m:30s with 23 moves — 2 less than your solve.
       const md = `${userRef(friend)} ${solved} today's ${gameName} in ${time} with ${fGP.metric3} moves — ${diff} ${suffix} than your solve.`
       return [{ user: friend, md, topic }]
     }
@@ -480,7 +486,7 @@ By using `satisfies APIGame<ReallyBadChessStats>` we get all of the tooling and 
 // Lost of these for each game
 export function gameExtensionForSlug(slug: typeof reallyBadChessGame.slug): typeof reallyBadChessGame
 
-// order is important, this needs to go last
+// Order is important, this needs to go last
 export function gameExtensionForSlug(slug: string): APIGame<GameData>
 export function gameExtensionForSlug(slug: string): APIGame<GameData> {
   if (allGameExtensions.has(slug as any)) return allGameExtensions.get(slug as any)!
@@ -488,6 +494,8 @@ export function gameExtensionForSlug(slug: string): APIGame<GameData> {
 }
 ```
 
-Yet in the end, all that turned out to just not be worth the overhead when reading error messages in this area of the codebase - it became better to just make it always return the generalized type. So, err, I guess I wasn't satisfied with `satisfies`? ... Either way, this plugin infra makes makes it possible for someone working on a game to load up the API codebase, find the game and know that all of the changes (and tests!) are safely scoped to a single file which they can tweak to their hearst contents. It can go through PR review and make its way to staging for testing, and then production after that. Lots of reasonable checks and balances.
+Yet in the end, all that turned out to just not be worth the overhead when reading error messages in this area of the codebase! It became better to just make it always return the generalized type. So, err, I guess I wasn't satisfied with `satisfies`?
 
-For scaling Puzzmo to more games, abstraction really paid for itself in terms of reducing overall complexity for the folks implementing games and gave us the ability to start working at a higher level, like the leaderboards as a config objects instead hardcoding a list and mapping somewhere inside the internals of the leaderboard generators.
+...Implementation details aside, this plugin infra makes makes it _possible_ for someone working on a game to load up the API codebase, find the game and know that all of the changes (and tests!) are safely scoped to a single file which they can tweak to their hearst contents. Those changes can go through PR review and make their way to staging for real-world testing, and then production after that. Lots of reasonable spots for checks and balances.
+
+As we have scaled Puzzmo to have more games, abstraction really paid for itself in terms of reducing overall complexity for the folks implementing games and gave us the ability to start working at a higher level, like the leaderboards as a config objects instead hardcoding a list and mapping somewhere inside the internals of the leaderboard generators.
