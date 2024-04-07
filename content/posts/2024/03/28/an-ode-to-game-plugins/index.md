@@ -17,7 +17,7 @@ When we decided that each game should start having different leaderboards, this 
 
 So we start looking at another system, news. Again, easy at first, we have time and points of puzzles played by friends or best-ofs. Again, we can put that logic with the news generation code. Also, not a surprise to find out that we want news items to be different on a per-game basis. OK, `news.ts` in a lib file. _Sure_.
 
-Repeat this pattern for User Statistics, Puzzle Statistics, Game editorials, Highlights (e.g. looking through your historical records to say 'Least Wednesday rotations') and you start to see yourself in a position where making a new game and integrating into Puzzmo's API-level systems is quite a thing.
+Repeat this pattern for User Statistics, Puzzle Statistics, Game editorials, Highlights (e.g. looking through your historical records to say 'Least Wednesday rotations') and you start to find yourself in a position where making a new game and integrating into Puzzmo's API-level systems is quite a task due to how spread out these customization points are.
 
 So, we needed a new abstraction. I turned to a system I've used a million times before.
 

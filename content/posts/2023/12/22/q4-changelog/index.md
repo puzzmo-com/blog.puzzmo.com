@@ -13,15 +13,13 @@ This conceptual framing kinda defines itself as not being "games" stuff like _"W
 
 I'd like to try and give myself a bit of a look back at what we shipped back in November 2023 when Puzzmo first became publicly available. As I finish this writeup (started in December) in March, we're starting to look at shipping some of our first major systemic changes and it'd be good to have something which reminds us where we were.
 
-<-- pic of the figma -->
+![A picture of the main Puzzmo figma file](puzzmo-figma.png)
 
 ### What did it take to ship Puzzmo?
 
-We started off with a small jpg, and turned it into that figma above over the course of two years. We were in a bit of a strange position as a mix of "games" and "app" culturally, as well as being a tech startup I guess. This meant we could kind of pick-and-choose ideas from all of those cultures.
+We started off with a small jpg [and a general plan](https://www.youtube.com/watch?v=68TGvXlSSVY), and turned it into that figma above over the course of two years. We were in a bit of a strange position as a mix of "games" and "app" culturally, as well as being a tech startup I guess. This meant we could kind of pick-and-choose ideas from all of those cultures.
 
-I don't think we did a good job of either being a "lean product" nor a "minimum viable product", but we had a pretty strong idea of what we wanted to build and where the edges probably lay. Somewhere after the first year, we had a really solid vertical slice of what Puzzmo would be. We had folks playing daily, and you could see the skeleton of the whole thing pretty quickly.
-
-<!--  old screenshot? -->
+I don't think we did a good job of either being a "lean product" nor a "minimum viable product", but we had a pretty strong idea of what we wanted to build and where the edges probably lay. Somewhere after the six months, we had a [really solid](./puzzmo-today-sept-2022.png) [vertical slice](./puzzmo-games-sept-2022.png) of what Puzzmo would be. We had folks playing daily, and you could see the skeleton of the whole thing pretty quickly.
 
 ### How did we launch?
 
@@ -41,9 +39,9 @@ During the launch period we offered lifetime accounts for Puzzmo.
 
 #### Iframe Embeds
 
-For games which don't require a virtual keyboard on mobile, we felt we could do a good job of making "puzzle previews" which can be embedded [inside articles](https://www.theverge.com/23929222/puzzmo-newspaper-games-crossword-zach-gage) or on blog posts, for example:
+For games which don't require a virtual keyboard on mobile, we felt we could do a good job of making "puzzle previews" which can be embedded [inside articles](https://www.theverge.com/23929222/puzzmo-newspaper-games-crossword-zach-gage) or on blog posts, for example here it is in The Verge:
 
-<iframe title="Puzzmo Presents: Launch Day Puzzle #96" src="https://puzzmo.com/_embed/latest.html?embedID=launch-96" width="100%" height="800px" frameborder="0" allow="clipboard-write"></iframe>
+![The Verge embedding Puzzmo](embed.png)
 
 The iframe embeds are a separate games runtime from our main application, it has less overhead and less features overall - but it's not supposed to be able to do so much anyway as they act more like a preview. This gave us a way to "show, not tell" when talking about Puzzmo to the press.
 
@@ -67,7 +65,7 @@ My opinions have a roughly 50% overlap on things that Redwood provides that we w
 
 We host the API on Render, which occasionally has gone down on us, but not enough to warrant being an issue. Render has a great set of tools for building server-driven apps - we use a lot of their features.
 
-<!-- Picture of render? -->
+![A screenshot of our Render Dashboard](render.png)
 
 ### Games
 
@@ -85,9 +83,9 @@ A thumbnail renderer tends to be significantly simpler code-wise but tends to sh
 
 ### Open Graph Thumbnail PNGs
 
-In exploring how folks share/brag results of a game led us to an idea that maybe URLs could act as a conduit for doing image shares. When creating Puzzmo, we wanted to always have support for live thumbnails inside the site, and this is re-used to generate custom image thumbnails for each puzzle being played. At 2k LOC, it's not a very big system as a lot of the hard work is in the games repo.
+In exploring how folks share/brag results of a game led us to an idea that maybe URLs could act as a conduit for doing image shares. When creating Puzzmo, we wanted to always have support for live thumbnails inside the site, and this is re-used to generate custom image thumbnails for each puzzle being played. At 2k LOC, it's not a very big system as a lot of the hard work is in the games repo. It runs on Deno Deploy, which is pretty cool.
 
-<!-- Examples of ograph iamges -->
+![examples of the thumbnail renderer](thumbs.png)
 
 ### Systems
 
@@ -155,20 +153,32 @@ We split news into two sections "Social News" (e.g. what happened today within y
 
 The "GitHub for Crosswords" mentioned earlier, is called the Submission Review area - and you can think of it as a collection of tools for working on the curated puzzles. At first I built it to be generic to any of our puzzles - but this far into the game it's solely for Crossword.
 
-Submissions go through a ~12 step process, though for a lot of ours, they start about a third of the way. We are often adding the hints, pipes to indicate word separators, metadata to describe related clues and some additional information for generating image thumbnails for completed puzzle shares. These are usually done in the Hint Editor section:
+![Puzzmo studio for my crossword](xword-editor.png)
 
-<!-- Show my xword -->
+_( This is the Crossword my wife, [Brooke Husic](https://www.brookehusic.com) and I made BTW - you can [play it here](https://www.puzzmo.com/play/crossword?puzzleSlug=vgn1l2ttp).)_
 
-Then there are review phases with the original authors, fact checkers and test solvers. These folks all use a commenting system which is effectively the same as GitHub's, the only difference is that I only have one file format to work with. That means comments get attached to AST nodes instead of lines, which is cool - but rarely useful as lines don't change much.
+Submissions go through a ~12 step process, admittedly for a lot of our submissions, they start about a third of the way. We are often adding the hints, pipes to indicate word separators, metadata to describe related clues and some additional information for generating image thumbnails for completed puzzle shares. These are usually done in the Hint Editor section:
+
+![Puzzmo Studio hint editor](xword-hint-editor.png)
+
+Then there are review phases with the original authors, fact checkers and test solvers. These folks all use a commenting system which is effectively the same as GitHub's, only 2 key differences are some comments are private to the public, and as I only have one file format to work with, we can attached to AST nodes instead of lines, which is cool - but rarely useful as lines don't change much during editing. It's a nice factoid though.
 
 Submissions are then scheduled separately from puzzles to give Brooke the ability to figure out her plans without impacting the dailies, and gets synced when a puzzle has fully gone through the submission process.
 
-<!-- Scheduler? -->
-
-We shipped a very solid, very feature-full xd format parser with interactive devtools support using similar patterns from TypeScript's compiler. I helped bump the xd spec two versions over the years as we extended the file format to support some of the features above in a generalizable way. Strictly speaking, this library is the only new open source I've done since leaving TypeScript.
+We shipped a very solid, very feature-full xd format parser with interactive devtools support using similar patterns from TypeScript's compiler. I helped bump [the xd spec two versions](https://github.com/century-arcade/xd/blob/master/doc/xd-format.md) over the years as we extended the file format to support some of the features above in a generalizable way. Strictly speaking, the [JavaScript xd library](https://github.com/puzzmo-com/xd-crossword-tools?tab=readme-ov-file#xd-crossword-tools) is the only new open source I've done since leaving TypeScript.
 
 ### Notifications
 
-Hah, I have definitely forgot I built this. Puzzmo supports web notifications, so you can get a daily reminder! This is one of those gnarly projects that you need to make extremely opt-in. The path to someone using these is so obscure that there's been about a ratio of 1 in 50 people using it though, so maybe I'm under-selling.  I felt like we needed it (or native ones) eventually, and was really up for the challenge for some reason.
+Hah, I have definitely forgot I built this. Puzzmo supports web notifications, so you can get a daily reminder! This is one of those gnarly projects that you need to make extremely opt-in. The path to someone using these is so obscure but there's been about a ratio of 1 in 50 people using it, so maybe I'm under-selling the feature.  I felt like we needed it (or native ones) eventually, and was really up for the challenge as a break.
+
+![Notifications section of Puzzmo](puzzmo-notifications.png)
 
 Sometimes you just gotta enjoy your work.
+
+### Team
+
+I started going full-time on Puzzmo in Feb 2022, with Zach starting to go full-time after the release of [Knotwords](http://www.playknotwords.com/presskit/) in April 2022. Since then the team has grown to (almost!) this big:
+
+![Almost the entire team (sans Gary)](puzzmo-team.jpg)
+
+_( not fully representative, some people weren't at the Crossword Con 2024. )_
