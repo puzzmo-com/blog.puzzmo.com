@@ -91,9 +91,13 @@ In exploring how folks share/brag results of a game led us to an idea that maybe
 
 #### Dailies
 
-The daily system operates largely by the timezone of our servers (which brings all sorts of daylight saving issues) but largely operates on a single function which turns a date / timestamp into a format like `2023-10-16` (which would be day 0.) The daily groups puzzles, editorials, leaderboards and eventually we started to distinguish between a "daily" and a "today". The root page on puzzmo.com we call the "Today" page and a today is responsible for showing you things like "your group scores for today", news, group/friend invites etc.
+The daily system operates largely by the timezone of our servers (which brings all sorts of daylight saving issues) but largely operates on a single function which turns a date / timestamp into a format like `2023-10-16` (which would be day 0.) The daily groups puzzles, editorials, leaderboards and eventually we started to distinguish between a "daily" and a "today".
 
-<!-- Today page at day 1 -->
+The root page on puzzmo.com we call the "Today" page and a today is responsible for showing you things like "your group scores for today", news, group/friend invites etc. Here's the today page for the day Puzzmo went live with the launch site:
+
+![Today page on day one](today-page-1.png)
+
+The prior days are available for folks who pay as an archive.
 
 #### Social
 
@@ -101,35 +105,40 @@ We felt like the ability to talk and interact with folks were pretty important i
 
 We're very careful around letting folks interact, currently we have three tiers of users: admins and crossword contributors, whose profiles are considered public (and get bios, links etc) and users who are largely private.
 
+
+
 #### Groups
 
 Groups act as our competitive angle, anyone who is a subscriber can create a group and anyone with an account can join. Group members collectively pool their scores together, combining the highest score from each game into a single score for the group each day.
 
-Groups are a bit of a strange technical space for us, because some parts of what people see lives in Nakama and others in the API. 
+Groups are a bit of a strange technical space for us, because some parts of what people see lives in Nakama and others in the API.
 
-Groups also act as our system for letting people get Discord and Slack webhooks.
+Groups also act as our system for letting people get Discord and Slack webhooks with updates from the dailies.
 
-<!-- Groups image -->
+![An example of a group page](groups.png)
 
 #### Leaderboards
 
-Our leaderboards system operates mainly inside postgres at request-time, taking a lot of inspiration [from this blog post](https://blog.programster.org/postgresql-leaderboard-query-example). We have daily leaderboards (which are mostly about combining points from puzzles), puzzle leaderboards (which are "how fast did you complete the Cross|word") and group leaderboards (combined points, which gets put against other groups.)
+Our leaderboards system operates mainly inside postgres at request-time, taking a lot of inspiration [from this blog post](https://blog.programster.org/postgresql-leaderboard-query-example). We have daily leaderboards (which are mostly about combining points from puzzles), puzzle leaderboards (which are "how fast did you complete the Cross|word") and group leaderboards (combined points, which gets put against other groups.) You can take a puzzle leaderboard you care about and put it on the today page too.
 
 Leaderboards can be filtered to just be your friends, or to be folks who have signed up to the same partner as you.
 
-<!-- Leaderboards for a game -->
+![Example of the daily leaderboards](daily-leaderboards.png)
 
 #### Partner Subsites
 
-We shipped Puzzmo with a whitelabel-like system that allows for nuanced theming support for folks who we want to work with. This means custom design work, custom themes, unique leaderboards - and the potential for unique games, puzzles, editorials to run. Lots of small configurable tweaks to get everything copacetic.
+We shipped Puzzmo with a whitelabel-like system that allows for nuanced theming support for folks who we want to work with. This means custom design work, custom themes, unique leaderboards - and the potential for unique games, puzzles, editorials to run. Lots of small configurable tweaks to get everything copacetic:
 
-<!-- Show a partner page -->
+![An example of a partner admin change](partners.png)
+
 
 #### Stats Pipelines
 
 When you complete a puzzle, the game emits "pipeline data" and has some "metrics". Metrics are values which stick around, and pipeline data is used only for the processing pipeline after a game is completed in a job process.
 
 The stats pipeline uses both to create a user's aggregate data (e.g. a user's words found across all games, or moves made in chess) and also creates puzzle aggregate data (how many words found _in this puzzle_.) Both of these are the fuel for systems like News or a user's profile stats shown on hovering.
+
+![Stats](stats.png)
 
 #### Cron Jobs
 
@@ -143,7 +152,9 @@ Like many smaller tech companies, we use Stripe to handle our payment infrastruc
 
 Aside from the Crossword, all our games are generated by computers, which at least makes scheduling much easier. We have a shared set of folders in the CDN which are basically piles of text files that the API can grab from to get a puzzle. We then ingest from the pool either via cron jobs system every morning (we generate dailies 3 weeks in advance) or when someone wants to re-generate a puzzle, or we've changed the format.
 
-<!-- Azure portal CDN image -->
+![alt text](puzzle-pool.png)
+
+Having the pool as blob storage (e.g. like S3) gives us the ability to do a lot of scripting around puzzles as a giant pile before moving them up into the CDN to eventually get grabbed,
 
 #### News
 
@@ -182,3 +193,4 @@ I started going full-time on Puzzmo in Feb 2022, with Zach starting to go full-t
 ![Almost the entire team (sans Gary)](puzzmo-team.jpg)
 
 _( not fully representative, some people weren't at the Crossword Con 2024. )_
+
