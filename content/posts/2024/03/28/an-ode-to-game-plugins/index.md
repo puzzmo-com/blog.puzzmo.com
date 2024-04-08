@@ -1,6 +1,6 @@
 +++
 title = 'How the Puzzmo API handles integrations on a per-game basis'
-date = 2023-12-22T12:56:32Z
+date = 2024-04-08T12:00:32Z
 authors = ["orta"]
 tags = ["tech", "api", "plugins"]
 theme = "outlook-hayesy-beta"
@@ -483,8 +483,9 @@ By using `satisfies APIGame<ReallyBadChessStats>` we get all of the tooling and 
 
 
 ```ts
-// Lost of these for each game
+// Lots of these for each game
 export function gameExtensionForSlug(slug: typeof reallyBadChessGame.slug): typeof reallyBadChessGame
+export function gameExtensionForSlug(slug: typeof crossword.slug): typeof crosswordGame
 
 // Order is important, this needs to go last
 export function gameExtensionForSlug(slug: string): APIGame<GameData>

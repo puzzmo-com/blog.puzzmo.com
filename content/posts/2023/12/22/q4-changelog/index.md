@@ -1,6 +1,6 @@
 +++
 title = 'Puzzmo v1 tech deep-dive'
-date = 2023-12-22T12:56:32Z
+date = 2024-04-08T12:56:32Z
 authors = ["orta"]
 tags = ["tech", "launch"]
 theme = "outlook-hayesy-beta"
@@ -27,11 +27,11 @@ I guess this is as good a starting point as any. We launched puzzmo.com and what
 
 #### launch.puzzmo.com
 
-<-- pic of launch site -->
-
 The launch site we built as a separate website, on a separate domain. Keeping it there moved out complexity in the main app and allowed us to try a different technique of writing websites (next.js) than our current strategy for the app (described later)
 
 We based the launch website based on a mix of one of our first strategies for "launching" Puzzmo: start by iterating through the games we have mixed with some ideas for ensuring we don't overwhelm our barely-load-tested servers. This meant creating a mix of only allowing 500 invites a day though the launch system, and then using the postal service to add some lag for American users.
+
+![Puzzmo Launch site](launch-site.png)
 
 This did mean for the first week or so, it was full of europeans who didn't get physical mail, which made for some interesting discussions on the Crossword's Americanness.
 
@@ -61,7 +61,7 @@ The API for this app is a pretty traditional RedwoodJS app, with a reasonable am
 
 A Redwood app provides both APIs and a web interface, we use the web parts of RedwoodJS for an admin dashboard we call "Studio." Studio powers all of the admin tools for managing dailies, puzzles, iframe embeds and offers a "GitHub for Crosswords" which is used to handle editing, reviewing and fact checking every crossword which is put on the daily. This clocks in at roughly 100k LOC, though a lot of it comes from our templating systems. We use react-bootstrap for the majority of the user interface, which is truly a "no-frills get stuff done" framework for writing reasonable code fast.
 
-My opinions have a roughly 50% overlap on things that Redwood provides that we want, vs decisions they made which I don't really agree with. That number used to be higher, as they look to be prioritising the React aspects over the API aspects in a way that means we need to start being careful about the future of our foundations.
+My opinions have a roughly 50% overlap on things that Redwood provides that we want, vs decisions they made which I don't really agree with. That number used to be higher, as they look to be prioritising the web parts over the API parts of Redwood in a way that means we need to start being careful about the future of the API's foundations.
 
 We host the API on Render, which occasionally has gone down on us, but not enough to warrant being an issue. Render has a great set of tools for building server-driven apps - we use a lot of their features.
 
@@ -104,7 +104,6 @@ The prior days are available for folks who pay as an archive.
 We felt like the ability to talk and interact with folks were pretty important in this space. So, Puzzmo has a social graph, where you can friend folks and optionally give friends a "tag". This gives us a way to have a two-tied relationship lookups for news, recommendations and ordering when presenting friends as a list. The technical foundations are based on an external open source project called Nakama, which provides a lot of our social primitives.
 
 We're very careful around letting folks interact, currently we have three tiers of users: admins and crossword contributors, whose profiles are considered public (and get bios, links etc) and users who are largely private.
-
 
 
 #### Groups
