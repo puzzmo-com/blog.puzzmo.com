@@ -992,17 +992,17 @@ body {
 
 .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   color: var(--tw-prose-code);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.875em;
 }
 
-.prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before {
+/* .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before {
   content: "`";
 }
 
 .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after {
   content: "`";
-}
+} */
 
 .prose :where(a code):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   color: inherit;
@@ -1914,16 +1914,26 @@ article blockquote {
   border-color: rgb(255 255 255 / var(--tw-border-opacity)) !important;
 }
 
-article code {
-  display: inline-block;
-  font-size: 0.875rem !important;
-  line-height: 1.5rem !important;
-}
 
 article .highlight {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+article p > code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+article .highlight  code {
+  display: inline-block;
+  color: grey;
+  font-size: 0.7rem !important;
+  line-height: 1.1rem !important;
+}
+
 
 article .highlight pre {
   margin-top: 0px;
@@ -2143,3 +2153,4 @@ article .highlight > div table tr td:last-of-type {
 body {
  background-color: var(--theme-a_bg) !important;
 }
+
