@@ -11,7 +11,7 @@ This post is trying to do a lot. There are a few ways which we split Puzzmo inte
 
 This conceptual framing kinda defines itself as not being "games" stuff like _"We changed Wordbind to use two words"_ or _"We used Redux Toolkit"_, the hows and whys for those sorts of things are not really my story to tell, and I have enough on my plate trying to keep on top of the technical architecture for Puzzmo.
 
-I'd like to try and give myself a bit of a look back at what we shipped back in November 2023 when Puzzmo first became publicly available. As I finish this writeup (started in December) in March, we're starting to look at shipping some of our first major systemic changes and it'd be good to have something which reminds us where we were.
+I'd like to try and give myself a bit of a look back at what we shipped back in November 2023 when Puzzmo first became publicly available. As I finish this writeup (started in December) in April, we're starting to look at shipping some of our first major systemic changes and it'd be good to have something which reminds us where we were.
 
 ![A picture of the main Puzzmo figma file](puzzmo-figma.png)
 

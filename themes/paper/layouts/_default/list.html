@@ -54,9 +54,33 @@
   >
   {{ end }}
   <h2 class="!my-0 pb-1 font-bold !leading-none">{{ .Title }}</h2>
-  <time class="text-sm antialiased opacity-60"
-    >{{ .Date | time.Format ":date_medium" }}</time
-  >
+  
+
+    <!-- Post Tags -->
+    {{ if .Params.tags }}
+    <div class="flex flex-wrap">
+
+      <div class="text-sm mr-1.5" >
+        {{ range .Param "authors" }}
+          {{ $name := . }}
+          {{ $path := printf "/%s/%s" "authors" ($name | urlize) }}
+          {{ with $.Site.GetPage $path }}
+            <span>{{ .Params.name }}</span>
+          {{ end }}
+        {{ end }}
+      </div>
+      
+
+      <time class="text-sm antialiased opacity-60 mr-1.5">
+        {{ .Date | time.Format ":date_medium" }}
+      </time>
+  
+      {{ range .Params.tags }} {{ $href := print (absURL "tags/") (urlize .) }}
+        <a class=" mr-1.5 text-sm no-underline opacity-60 " href="{{ $href }}">{{ . }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
+
   <a class="absolute inset-0 text-[0]" href="{{ .Permalink }}">{{ .Title }}</a>
 </section>
 {{ end }}
@@ -68,9 +92,7 @@
   <a class="btn" href="{{ $paginator.Prev.URL }}">← {{ i18n "prev_page" }}</a>
   {{ end }}<!---->
   {{ if $paginator.HasNext }}
-  <a class="btn ml-auto" href="{{ $paginator.Next.URL }}"
-    >{{ i18n "next_page" }} →</a
-  >
+  <a class="btn ml-auto" href="{{ $paginator.Next.URL }}">{{ i18n "next_page" }} →</a>
   {{ end }}
 </nav>
 {{ end }}<!---->
