@@ -1929,7 +1929,7 @@ article p > code {
 
 article .highlight  code {
   display: inline-block;
-  color: grey;
+  color: darkgrey;
   font-size: 0.7rem !important;
   line-height: 1.1rem !important;
 }
