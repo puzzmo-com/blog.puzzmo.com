@@ -7,10 +7,11 @@ theme = 'paper'
   # color style
   color = 'gray'                           # linen, wheat, gray, light
 
+  description = 'The blog for puzzmo.com news and updates.'
   twitter = 'puzzmotoday'
   github = 'puzzmo-com'
   instagram = 'puzzmo'
-  rss = true     
+  rss = true
 
 [params.giscus]
   repo = 'puzzmo-com/blog.puzzmo.com'                 # see https://giscus.app for more details
