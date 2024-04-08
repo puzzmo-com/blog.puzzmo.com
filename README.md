@@ -28,13 +28,13 @@ Puzzmo Blog
 Use the CLI:
 
 ```sh
-hugo new posts/[year]/[month]/[day]/[post name].md
+hugo new posts/[year]/[month]/[day]/[post name]/index.md
 ```
 
 A C&P example which does the dates for you:
 
 ```sh
-hugo new posts/$(date +%Y)/$(date +%m)/$(date +%d)/my-post.md
+hugo new posts/$(date +%Y)/$(date +%m)/$(date +%d)/my-post/index.md
 ```
 
 ### This blog
