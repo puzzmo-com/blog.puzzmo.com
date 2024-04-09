@@ -165,7 +165,7 @@ The "GitHub for Crosswords" mentioned earlier, is called the Submission Review a
 
 ![Puzzmo studio for my crossword](xword-editor.png)
 
-_( This is the Crossword my wife, [Brooke Husic](https://www.brookehusic.com) and I made BTW - you can [play it here](https://www.puzzmo.com/play/crossword?puzzleSlug=vgn1l2ttp).)_
+_( This is the Crossword my wife (Danger), [Brooke Husic](https://www.brookehusic.com) and I made BTW - you can [play it here](https://www.puzzmo.com/play/crossword?puzzleSlug=vgn1l2ttp).)_
 
 Submissions go through a ~12 step process, admittedly for a lot of our submissions, they start about a third of the way. We are often adding the hints, pipes to indicate word separators, metadata to describe related clues and some additional information for generating image thumbnails for completed puzzle shares. These are usually done in the Hint Editor section:
 
