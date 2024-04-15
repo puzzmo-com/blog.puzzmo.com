@@ -83,7 +83,7 @@ A thumbnail renderer tends to be significantly simpler code-wise but tends to sh
 
 ### Open Graph Thumbnail PNGs
 
-In exploring how folks share/brag results of a game led us to an idea that maybe URLs could act as a conduit for doing image shares. When creating Puzzmo, we wanted to always have support for live thumbnails inside the site, and this is re-used to generate custom image thumbnails for each puzzle being played. At 2k LOC, it's not a very big system as a lot of the hard work is in the games repo. It runs on Deno Deploy, which is pretty cool.
+In exploring how folks share/brag results of a game led us to an idea that maybe URLs could act as a conduit for doing image shares. When creating Puzzmo, we wanted to always have support for live thumbnails inside the site, and this is re-used to generate custom image thumbnails for each puzzle being played. At 2k LOC, it's not a very big system as a lot of the hard work is in the games repo. It runs on Deno Deploy, which we've found to be pretty cool.
 
 ![examples of the thumbnail renderer](thumbs.png)
 
@@ -91,7 +91,7 @@ In exploring how folks share/brag results of a game led us to an idea that maybe
 
 #### Dailies
 
-The daily system operates largely by the timezone of our servers (which brings all sorts of daylight saving issues) but largely operates on a single function which turns a date / timestamp into a format like `2023-10-16` (which would be day 0.) The daily groups puzzles, editorials, leaderboards and eventually we started to distinguish between a "daily" and a "today".
+The daily system operates largely by the timezone of our servers (which brings all sorts of daylight saving issues) but largely revolves around a single function which turns a date / timestamp into a format like `2023-10-16` (which would be day 0.) The daily is used to groupd concepts like: puzzles, editorials, leaderboards, news etc.
 
 The root page on puzzmo.com we call the "Today" page and a today is responsible for showing you things like "your group scores for today", news, group/friend invites etc. Here's the today page for the day Puzzmo went live with the launch site:
 
@@ -104,7 +104,6 @@ The prior days are available for folks who pay as an archive.
 We felt like the ability to talk and interact with folks were pretty important in this space. So, Puzzmo has a social graph, where you can friend folks and optionally give friends a "tag". This gives us a way to have a two-tied relationship lookups for news, recommendations and ordering when presenting friends as a list. The technical foundations are based on an external open source project called Nakama, which provides a lot of our social primitives.
 
 We're very careful around letting folks interact, currently we have three tiers of users: admins and crossword contributors, whose profiles are considered public (and get bios, links etc) and users who are largely private.
-
 
 #### Groups
 
@@ -130,6 +129,12 @@ We shipped Puzzmo with a whitelabel-like system that allows for nuanced theming 
 
 ![An example of a partner admin change](partners.png)
 
+
+#### Partner App Embeds
+
+In addition to white-labeling as a subsite, which works on websites - we have a version of Puzzmo which is built to run inside a tab on a native application. This is a smaller full re-implementation of the today page, which has the constraint of both not allowing logged in users, and being very cautious around app-store rules with respect to Puzzmo's Plus subscription (app store owners want their cut of digital services, and Puzzmo should not accidentally trigger an app to get booted off the store.)
+
+![an image of puzzmo embedded in an app](app-embed.jpeg)
 
 #### Stats Pipelines
 
