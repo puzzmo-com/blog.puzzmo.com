@@ -1,6 +1,6 @@
 +++
 title = 'Puzzmo v1 tech deep-dive'
-date = 2024-04-08T12:56:32Z
+date = 2024-04-15T12:56:32Z
 authors = ["orta"]
 tags = ["tech", "launch"]
 theme = "outlook-hayesy-beta"
@@ -187,9 +187,13 @@ Sometimes you just gotta enjoy your work.
 
 ### Team
 
-I started going full-time on Puzzmo in Feb 2022, with Zach starting to go full-time after the release of [Knotwords](http://www.playknotwords.com/presskit/) in April 2022. Since then the team has grown to (almost!) this big:
+I started going full-time on Puzzmo in Feb 2022, with Zach starting to go full-time after the release of [Knotwords](http://www.playknotwords.com/presskit/) in April 2022. For launch, everyone involved managed to fit into this photo:
 
 ![Almost the entire team (sans Gary)](puzzmo-team.jpg)
 
-_( not fully representative, some people weren't at the Crossword Con 2024. )_
+And today we have more, both in the photo and missing from the photo! 
+
+---
+
+So, that's where we were with the "v1" of Puzzmo, we had a tight vision which took a few years to get right, then we joined up with Hearst to figure out how to scale and make it a "real business".
 
