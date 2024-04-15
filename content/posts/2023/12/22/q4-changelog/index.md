@@ -1,6 +1,6 @@
 +++
 title = 'Puzzmo v1 tech deep-dive'
-date = 2024-04-15T12:56:32Z
+date = 2024-04-13T12:56:32Z
 authors = ["orta"]
 tags = ["tech", "launch"]
 theme = "outlook-hayesy-beta"
