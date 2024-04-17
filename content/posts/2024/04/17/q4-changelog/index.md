@@ -153,7 +153,9 @@ We added the ability to pin leaderboards you care about on your Today page. Lead
 
 #### Partner Subsites
 
-We shipped Puzzmo with a whitelabel-like system that allows for nuanced theming support for folks who we want to work with. This means custom design work, custom themes, unique leaderboards - and the potential for unique games, puzzles or editorials to run. We built a lot of small configurable tweaks in the Studio to get everything copacetic across teams where the only contact can be sales folks on each side:
+[Puzzmo got acquired](https://www.hearst.com/-/hearst-newspapers-acquires-puzzle-games-platform-puzzmo) before launch! This gave us the option to move more of Puzzmo to be free, interestingly enough, but also brought a whole world of opportunities in providing games to newspapers and magazines. So, we went from a goal of "newspaper like games" to actually shipping in papers at launch. 
+
+To handle partnerships, we shipped Puzzmo with a whitelabel-like system that allows for nuanced theming support for folks who we want to work with. This means custom design work, custom themes, unique leaderboards - and the potential for unique games, puzzles or editorials to run. We built a lot of small configurable tweaks in the Studio to get everything copacetic across teams where the only contact can be sales folks on each side:
 
 ![An example of a partner admin change](partners.png)
 
@@ -231,7 +233,7 @@ Sometimes you just gotta enjoy doing a little side-project.
 
 ---
 
-So, that's where we were with the "v1" of Puzzmo, we had a tight vision which took a few years to get right, then we joined up with Hearst to figure out how to scale and make it a _"real business"_ since then the team has shifted quite a lot!
+So, that's where what got us to the "v1" of Puzzmo, we had a tight vision which took a few years to get right, then we joined up with Hearst to figure out how to scale and make it a _"real business"_ since then the team has shifted quite a lot!
 
 ## Team
 
@@ -239,4 +241,4 @@ I started going full-time on Puzzmo in Feb 2022, with Zach committing full-time 
 
 ![Almost the entire team (sans Gary)](puzzmo-team.jpg)
 
-And today we have more, both in the photo and missing from the photo! It's been a wild run.
+And today we have even more folks on staff! It's been a wild run.
