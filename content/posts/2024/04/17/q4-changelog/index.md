@@ -231,7 +231,7 @@ Sometimes you just gotta enjoy doing a little side-project.
 
 ---
 
-So, that's where we were with the "v1" of Puzzmo, we had a tight vision which took a few years to get right, then we joined up with Hearst to figure out how to scale and make it a "real business" since then the team has shifted quite a lot!
+So, that's where we were with the "v1" of Puzzmo, we had a tight vision which took a few years to get right, then we joined up with Hearst to figure out how to scale and make it a _"real business"_ since then the team has shifted quite a lot!
 
 ## Team
 
