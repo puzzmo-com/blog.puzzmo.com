@@ -1,10 +1,9 @@
 +++
-title = 'Puzzmo v1 tech deep-dive'
-date = 2024-04-13T12:56:32Z
+title = 'Puzzmo v1 Launch Tech deep-dive'
+date = 2024-04-16T12:56:32Z
 authors = ["orta"]
 tags = ["tech", "launch"]
 theme = "outlook-hayesy-beta"
-draft = true
 +++
 
 This blog post is trying to do a lot, I want to look back at the initial version of Puzzmo we shipped back in November and talk through what we built. It's a very long read, and sometimes doesn't flow too naturally - but it's comprehensive and a very useful reference for noting a little slice of time when Puzzmo's users were in the hundreds. 
