@@ -16,7 +16,7 @@ I'm mainly going to be concentrating on "Puzzmo" the system, e.g. the bits which
 
 We started off with a small jpg [and a general plan](https://www.youtube.com/watch?v=68TGvXlSSVY), and turned it into that Figma above over the course of two years. We were in a bit of a strange position with Puzzmo being a mix of "games" and "app" culturally, as well as being a tech startup I guess. This meant we could kind of pick and choose ideas from all of those cultures.
 
-Somewhere after the six months, we had a [really](./puzzmo-today-sept-2022.png) [solid]((./puzzmo-games-sept-2022.png)) ["vertical slice"](https://www.whatgamesare.com/vertical-slice.html) of what Puzzmo would be. We had folks playing daily, and you could see the skeleton of what we were trying pretty quickly.
+Somewhere after the six months, we had a [really](./puzzmo-today-sept-2022.png) [solid](./puzzmo-games-sept-2022.png) ["vertical slice"](https://www.whatgamesare.com/vertical-slice.html) of what Puzzmo would be. We had folks playing daily, and you could see the skeleton of what we were trying pretty quickly.
 
 Over the next ~18 months, we plodded on. While I don't think we did a good job of being a ["minimum viable product"](https://en.wikipedia.org/wiki/Minimum_viable_product#/media/File:From_minimum_viable_product_to_more_complex_product.png), we had a pretty strong vision of what we wanted to build and where the edges of that problem space lay`.
 
