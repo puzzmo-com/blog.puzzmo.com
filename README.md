@@ -37,7 +37,16 @@ A C&P example which does the dates for you:
 hugo new posts/$(date +%Y)/$(date +%m)/$(date +%d)/my-post/index.md
 ```
 
-Then just change `my-post` to be a cool URL!
+Then change `my-post` to be a cool URL. Next: set up the metadata at the top of the `index.md` to include your name, the tags and the theme.
+
+```diff
++ authors = ["orta"]
++ tags = ["changelog"]
++ theme = "puzzmo-light"
+```
+
+You can see [the themes here](https://github.com/puzzmo-com/blog.puzzmo.com/tree/main/static/themes).
+
 
 ### How do we handle separate sections?
 
