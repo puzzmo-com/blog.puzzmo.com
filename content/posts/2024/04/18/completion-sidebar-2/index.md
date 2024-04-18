@@ -23,7 +23,7 @@ What are the key changes:
 
 Since launch we've been re-examining ways in which we encourage competition on Puzzmo, and have a better sense of what we're doing which can make folks feel bad about a puzzle which they thought they did well in. 
 
-Some games just seem to have folks competing at a different level, which is cool, but kinda de-motivating to see straight after you completed something tricky. Now, you're mostly competing with past you, and we have kept a way to let you know about interesting highlights (and still offer information on your leaderboard positions when you haven't passed a threshold.)
+Some games just seem to have folks competing at a different level, which is cool, but kinda de-motivating to see straight after you completed something tricky. Now, you're mostly competing with past you, and we have kept a way to let you know about interesting highlights. You would be astute to note that the screenshots above somewhat contradict this, because they still include _"Global rank xth"_ - this is now a choice! If you set your leaderboards to be friends only, the messages will respect that choice!
 
 We're trying to run Puzzmo on a reasonable budget, and so we aren't storing all of the history for folks who are not logged in! They will see a small prompt to sign up. 
 
