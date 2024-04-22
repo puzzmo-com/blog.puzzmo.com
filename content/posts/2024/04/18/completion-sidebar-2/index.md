@@ -29,6 +29,6 @@ We're trying to run Puzzmo on a reasonable budget, and so we aren't storing all 
 
 If, _like me_, you enjoy the histograms - worry not, they are still around. They've moved down to the leaderboards. This has the advantage of letting us show histograms in new places.
 
-![Leaderboards iwth info](leaderboards.png)
+![Leaderboards with info](leaderboards.png)
 
 We've been running this system behind the scenes for a while now, so it's likely that if you are a regular player you have a history already set up to see on the next time you complete a puzzle!
