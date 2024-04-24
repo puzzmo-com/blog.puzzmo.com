@@ -10,7 +10,7 @@ comments = false
 
 ### Premise and statistics.
 
-On December 26, 2023 I announced on Discord that from January 2 through January 9, 2024, Puzzmo players who had never previously been paid for a crossword were welcome to submit one fully-clued crossword to be considered for publication at Puzzmo. This announcement was also made in Cross|word editor notes during the submission window. The spec sheet and style guide can be found [here](https://www.puzzmo.com/link/crossword/open-submissions-2024). I sent all responses from January 17 through February 5, 2024.
+On December 26, 2023 I announced on [Discord](https://discord.gg/7ZSwDSUZbd) that from January 2 through January 9, 2024, [Puzzmo](https://www.puzzmo.com) players who had never previously been paid for a crossword were welcome to submit one fully-clued crossword to be considered for publication at Puzzmo. This announcement was also made in [Cross|word](https://www.puzzmo.com/play/crossword) editor notes during the submission window. The spec sheet and style guide can be found [here](https://www.puzzmo.com/link/crossword/open-submissions-2024). I sent all responses from January 17 through February 5, 2024.
 
 Here are the outcomes:
 
