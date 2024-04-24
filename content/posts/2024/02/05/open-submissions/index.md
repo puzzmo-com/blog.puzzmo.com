@@ -21,7 +21,7 @@ Here are the outcomes:
 | Revision requested | 15 | 1 | 16 |
 | Declined, by offered to review a new puzzle* | 6 | 0 | 6 |
 | Declined | 65 | 5 | 70 |
-| \*Typically, the reason for this outcome was because the grid was clean and strong, but I had an issue with the theme.* |
+| \*Typically, the reason for this outcome was because the grid was clean and strong, but I had an issue with the theme. |
 
 These numbers seem reasonable to me; it is not surprising to me that the number of girds accepted as-is is relatively low, since I am applying to new constructors the standards I always apply to experienced constructors. If every revision and retry is accepted, the Puzzmo Open Submission Class of '24 could comprise **25** puzzles. This would be a 26.3% success rate compared to the **95** submissions. 
 
