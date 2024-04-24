@@ -18,7 +18,7 @@ Puzzmo Blog
 3. Run the server
 
    ```sh
-   hugo server
+   hugo server -D
    ```
 
 4. Open the site in your browser: http://localhost:1313/
