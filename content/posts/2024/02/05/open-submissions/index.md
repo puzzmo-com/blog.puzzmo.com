@@ -2,9 +2,8 @@
 title = 'Reflections on Puzzmo Open Submission Week 2024'
 date = 2024-02-05T12:00:00-04:00
 authors = ["brooke"]
-tags = ["crossword"]
+tags = ["crossword", "open submissions"]
 theme = "bright-white"
-draft = true
 comments = false
 +++
 
