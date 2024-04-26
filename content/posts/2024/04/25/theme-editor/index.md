@@ -18,7 +18,7 @@ Now we're bringing the ability to customize your theme to all Puzzmo Plus users!
 
 ![Greenpath theme](greentheme.png)
 
-We took inspiration from how Slack handles theming, and use a sharable bit of text to pass the theme between people, so here is the theme for the above screenshot:
+I really like how Slack handles theming, which uses a sharable bit of text to pass the theme around, so we replicated it. Here is the theme for the above screenshot:
 
 ```
 Greenpath/1/#704c73/#ffffff/#563359/#8c668f/#c0a3c2/#348782/#000000/#ed4d1c/#ff8764/#000000/#b4813c/#3cb445/#3c6eb4/#000000/#FF3C3C/#1d3c41/#82b8af/#2d7351/#236f78/#3d3846/#1B1B28/#FFFFFF/#000000/#2a725c/#1B1D29/#349272/#31856b/#629994/#eac44f/#000000/#4c836e/#437260/#3572a5/#92b9b4
