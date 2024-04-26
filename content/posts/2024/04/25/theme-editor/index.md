@@ -50,4 +50,6 @@ On desktop, hitting the "Theme Editor" button will bring up a sidebar to Puzzmo.
 
 ![Sidebar](editor.png)
 
-Then you can take the "Share Text" when you're happy and give that around to other folks to share your theme!
+If you have questions - there's a little guide at the bottom of the theme editor highlighting how certain games and pages are themed, if you have more questions than that. We're around in discord!
+
+Then, when completed you can take the "Share Text" and give that around to other folks to share your theme, we've opened up a channel in [the Puzzmo Discord](https://discord.gg/7ZSwDSUZbd) specifically for sharing themes! 
