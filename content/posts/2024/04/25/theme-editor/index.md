@@ -28,7 +28,7 @@ Let's learn how to use the new theming system.
 
 ### How to set a custom theme
 
-The theme settings live in your "Account Settings" screen, you can access via [this link](https://www.puzzmo.com/me) - or by tapping on your avatar in the top-right corner and choosing "Account Settings" in the dorp-down.
+The theme settings live in your "Account Settings" screen, you can access via [this link](https://www.puzzmo.com/me) - or by tapping on your avatar in the top-right corner and choosing "Account Settings" in the drop-down.
 
 If you are a Puzzmo Plus subscriber, you will see a new section "Use custom theme" which toggles between our default themes and the new custom theme support:
 
