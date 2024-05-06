@@ -43,17 +43,24 @@ Here's how it works.
 
 We used to have 4 metric integers which were attached to a gameplay session, each game could store 1-4 values which could be used for leaderboards,  news, the completion table and other app-wide concerns. This concept was dropped.
 
-Now, we have a generalized "Deed" system where completing a gameplay session would create a key value store which looks like:
+Today, we have a generalized "Deed" system where completing a gameplay session would create a key value store which looks like:
 
 ```json
 [
-  { "id": "points", "value": 2998, "persist": true },
-  { "id": "moves", "value": 19, "persist": true },
-  { "id": "excess-moves", "value": 4, "persist": true },
-  { "id": "time", "value": 15.11, "persist": true },
-  { "id": "longest-time-between-rotations", "value": 1416 },
-  { "id": "shortest-time-between-rotations", "value": 308 },
-  { "id": "total-interactions", "value": 19 }
+  { "id": "time", "value": 360.431, "persist": true },
+  { "id": "hints", "value": 0, "persist": true },
+  { "id": "points", "value": 779, "persist": true },
+  { "id": "longest-word", "value": 7, "textRepresentation": "WILDEST", "persist": true },
+  { "id": "best-word", "value": 602, "textRepresentation": "WILDEST", "persist": true },
+  { "id": "completion-type", "value": 0, "persist": true },
+  { "id": "bonus-tiles-used", "value": 1 },
+  { "id": "line-clear-tiles-used", "value": 0 },
+  { "id": "words-longer-than-4", "value": 1 },
+  { "id": "time-before-first-word", "value": 103 },
+  { "id": "words-found", "value": 8 },
+  { "id": "wpm", "value": 1.33 },
+  { "id": "avg-word-length", "value": 3.75 },
+  { "id": "long-word-counts",  "value": [ 0, 0, 0, 0, 0, 0 ]}
 ]
 ```
 
@@ -80,3 +87,5 @@ type PersistedDeed = {
   persist?: true
 }
 ```
+
+To the API, these are 
