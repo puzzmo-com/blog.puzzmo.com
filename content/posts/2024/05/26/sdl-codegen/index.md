@@ -76,6 +76,13 @@ Redwood's answer for solving this is codegen - relying on the popular [GraphQL C
 
 As you might have guessed, it was not enough for me.
 
+What were my biggest issues?
+
+- The runtime description was not accurate enough. I'd end up with code which compiles, but crashes at runtime because types end up being an any.
+- TypeScript error messages in my resolvers were too abstract.
+- The types were so big because they included too much information, making it hard to call the resolvers like functions in my tests.
+
+
 ## Introducing SDL Codegen
 
 To folks who know what it means to use [Relay](https://relay.dev/), I describe [sdl-codegen](https://github.com/puzzmo-com/sdl-codegen) as Relay-like codegen. At its core, the codegen takes three things into account:
@@ -119,7 +126,7 @@ export type PuzzleResolvers<ContextType = RedwoodGraphQLContext, ParentType exte
 
 ```
 
-Which... is a lot, and then this is the equivalent types for the `const Puzzle`  
+Which... is a lot, and that has me omitting the helper types. In comparison, this is the equivalent types for the `const Puzzle`  
 
 ```ts
 export interface PuzzleTypeResolvers {
