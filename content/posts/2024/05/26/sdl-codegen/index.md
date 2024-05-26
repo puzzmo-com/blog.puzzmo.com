@@ -22,7 +22,7 @@ It was [8 years ago (today!)](https://github.com/artsy/metaphysics/pull/282) whe
 
 We're talking about the early days of GraphQL, and may even have pre-dated the [Schema Definition Language (SDL.)](https://graphql.org/learn/schema/#type-language) This programming environment, now called a "Code first" style of writing a GraphQL API had a bunch of advantages: It was easy to keep in sync (_one language_), write tests for (_just use your app's testing tools_) and scaling your schema required the same sorts of abstractions as the rest of your codebase (_functions and objects please_).
 
-When I started figuring out the tech stack for Puzzmo, I opted for Redwood as a base for our API and admin tooling. Redwood out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
+When I started figuring out the tech stack for Puzzmo, I opted [for Redwood](https://redwoodjs.com/) as a base for our API and admin tooling. Redwood out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
 
 - Write a `*.sdl.ts` file which includes the GraphQL definition for your API
 - Write a corresponding 'service/*.ts' file which has functions that map to the SDL declarations
@@ -133,13 +133,13 @@ export interface PuzzleTypeResolvers {
 
 Why so short? 
 
-- It knows that there's only one resolver implementation 
+- It knows that there's only one resolver implementation in `const Puzzle`
 - It also knows that `args` is an `_` and thus unused
-- Both `context` and `info` are also not referenced in the 2nd args
+- Both `context` and `info` are also not referenced in the 2nd args also
 
-A lot of the lookup work can just be computed inside the codegen. This can happen in sdl-codegen because it's not built for a general usecase.
+A lot of the lookup work can instead be computed inside the codegen period. This can happen in sdl-codegen because it knows how to exactly describe Redwood's runtime.
 
-Why is this useful though? There are two key points here
+Why is this useful though? There are two key points here:
 
 #### Error Messages are shorter
 
