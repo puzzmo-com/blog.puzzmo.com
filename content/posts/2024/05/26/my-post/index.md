@@ -1,0 +1,288 @@
++++
+title = 'Typing Schema-first GraphQL Resolvers in TypeScript'
+date = 2024-05-25T14:18:32+01:00
+authors = ["orta"]
+tags = ["changelog"]
+theme = "outlook-hayesy-beta"
++++
+
+It was [8 years ago (today!)](https://github.com/artsy/metaphysics/pull/282) when I made my first change to a GraphQL API. My next, [_real_ schema change](https://github.com/artsy/metaphysics/pull/412) came along a bit later and looked like this:
+
+```diff
+   name: {
+       type: GraphQLString,
+   },
++  description: {
++     type: GraphQLString,
++  },
+   image: Image,
+   artists: {
+       type: new GraphQLList(Artist.type),
+```
+
+We're talking about the early days of GraphQL, and may even have pre-dated the [Schema Definition Language (SDL.)](https://graphql.org/learn/schema/#type-language) This programming environment, now called a "Code first" style of writing a GraphQL API had a bunch of advantages: It was easy to keep in sync (_one language_), write tests for (_just use your app's testing tools_) and scaling your schema required the same sorts of abstractions as the rest of your codebase (_functions and objects please_).
+
+When I started figuring out the tech stack for Puzzmo, I opted for Redwood as a base for our API and admin tooling. Redwood out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
+
+- Write a `*.sdl.ts` file which includes the GraphQL definition for your API
+- Write a corresponding 'service/*.ts' file which has functions that map to the SDL declarations
+
+For example, a simplification of the "Puzzle" in Puzzmo looks like this:
+
+```ts
+export const schema = gql`
+  type Puzzle implements Node {
+    id: ID!
+    slug: String!
+
+    emoji: String
+    name: String
+    puzzle: String!
+
+    currentAccountGamePlayed: GamePlayed
+  }
+
+  type Query {
+    publicPuzzlesSearch(where: JSON!, gameID: String, first: Int, last: Int, before: String, after: String): PuzzleConnection @skipAuth
+  }
+
+  type Mutation {
+    createPuzzle(input: CreatePuzzleInput!): ErrorablePuzzle! @requireAuth(roles: ["admin"])
+  }
+`
+```
+
+With a corresponding service file like:
+
+```ts
+export const Puzzle = {
+  currentAccountGamePlayed: (_, { root }) => _getGameplayForCurrentUserOnPuzzle(root.id) 
+}
+
+export const publicPuzzlesSearch = async (args) => { /* ... */ } 
+
+export const createPuzzle = async (args) => { /* ... */ }
+```
+
+So, "Schema first" means that I am describing all of the GraphQL using the SDL short-hand, then I am filling in the implementations on the GraphQL types. 
+
+What you see above is Redwood doing some special casing here for `Query` and `Mutation` where any top-level function is expected to be on either of those types, and then you can see that I add my own implementation of the Puzzle's `currentAccountGamePlayed`.
+
+This whole system means there's a lot less code, and _I mean a lot_. The way the [Artsy GraphQL API is written](https://github.com/artsy/metaphysics/blob/main/src/schema/v2/gene.ts#L55) results in a lot of code which can  be trivially described in SDL, and definitions often do not need a custom resolver.
+
+That does not make it a magic, easy win though. What I learned over my first year of using Redwood, was that this is a lossy abstraction because **it's hard to reconcile these two disparate areas of concern**.  If you add a new resolver in the SDL, and add a typo to your service file - it will take a long time to discover that.
+
+Redwood's answer for solving this is codegen - relying on the popular [GraphQL Codegen](https://the-guild.dev/graphql/codegen) library/CLI tool to take the schema which you have generated, and then generate TypeScript types from it. GraphQL Codegen is a great project, and is very flexible - Redwood have it configured to roughly approximate their runtime implementation and for the sort of people/project's Redwood is targeted at (new startups, probably writing in JS) - it's enough.
+
+As you might have guessed, it was not enough for me.
+
+## Introducing SDL Codegen
+
+To folks who know what it means to use [Relay](https://relay.dev/), I describe [sdl-codegen](https://github.com/puzzmo-com/sdl-codegen) as Relay-like codegen. At its core, the codegen takes three things into account:
+
+- Prisma as a source of truth for the db
+- The SDL definitions
+- The TS/JS files in your project
+
+I built the core pretty generically, and then built an implementation of a Redwood specific way to describe it's runtime. In theory, other SDL-first projects could re-use this infra, but I'm not interested in doing that work for others. Puzzmo is pretty all-consuming for me. 
+
+So, what are the interesting ideas in it which make it worth the 1-2 hundred hours I put into it?
+
+### Moving all TypeScript computation to Codegen-time
+
+A type like the `const Puzzle` above would look turn into something like this with GraphQL Codegen:
+
+```ts
+export type Puzzle = Node & {
+  __typename?: 'Puzzle';
+  id: Scalars['ID']['output'];
+  slug: Scalars['String']['output'];
+  emoji?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  puzzle: Scalars['String']['output'];
+  currentAccountGamePlayed?: Maybe<GamePlayed>;
+};
+```
+
+Redwood would add it's own layer of typing on top of that which describes possible resolvers implementations on the Puzzle:
+
+```ts
+export type PuzzleResolvers<ContextType = RedwoodGraphQLContext, ParentType extends ResolversParentTypes['Puzzle'] = ResolversParentTypes['Puzzle']> = {
+  currentAccountGamePlayed: OptArgsResolverFn<Maybe<ResolversTypes['GamePlayed']>, ParentType, ContextType>;
+  emoji: OptArgsResolverFn<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id: OptArgsResolverFn<ResolversTypes['ID'], ParentType, ContextType>;
+  name: OptArgsResolverFn<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  puzzle: OptArgsResolverFn<ResolversTypes['String'], ParentType, ContextType>;
+  slug: OptArgsResolverFn<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+```
+
+Which... is a lot, and then this is the equivalent types for the `const Puzzle`  
+
+```ts
+export interface PuzzleTypeResolvers {
+  /** SDL: currentAccountGamePlayed: GamePlayed */
+  game: (
+    args: undefined,
+    obj: { root: PuzzleAsParent; context?: RedwoodGraphQLContext; info?: GraphQLResolveInfo }
+  ) => RTGamePlayed | Promise<RTGamePlayed> | (() => Promise<RTGamePlayed>)
+}
+```
+
+Why so short? 
+
+- It knows that there's only one resolver implementation 
+- It also knows that `args` is an `_` and thus unused
+- Both `context` and `info` are also not referenced in the 2nd args
+
+A lot of the lookup work can just be computed inside the codegen. This can happen in sdl-codegen because it's not built for a general usecase.
+
+Why is this useful though? There are two key points here
+
+#### Error Messages are shorter
+
+You ever thought hard about how TypeScript's error messages work? [I have](https://gist.github.com/orta/f80db73c6e8211211e3d224a5ab47624). If you'll allow a _gross simplification_ - the most common TypeScript error is that the compiler is trying to look at whether two objects' fields match, and then to show an error message when they don't.
+
+This error message has to describe the full traversal from the point in code where the disconnect was found, to the place where the original description originated. It's usually a tree traversal down through the structural relationship of the source, down to a point where it can go up the type relationship of whatever it was assigned to.
+
+So:
+
+```ts
+const a = { c: { d: 123} }
+let b = { c: { d: "asd" }}
+
+b = a
+```
+
+Gives:
+
+```text
+Type '{ c: { d: number; }; }' is not assignable to type '{ c: { d: string; }; }'.
+  The types of 'c.d' are incompatible between these types.
+    Type 'number' is not assignable to type 'string'.(2322)
+```
+
+The error message would come while the compile looks at `b = a`, and to describe the error message to you the compiler needs to be able to reliably go back from `d` to the root scope which holds `a`, then back up `b` till we hit `d` again. So: 
+
+```text
+a.c.d != b.c.d
+```
+
+To get from `a`'s `d` to `b`'s `d` then
+
+```text
+d > c > a ~ b > c > d
+```
+
+This case is pretty streamlined in the error messaging, and the compiler just shortcuts a full report and says that `c.d` are incompatible.
+
+Now, imagine your resolver has all those levels of re-direction above and TypeScript is comparing:
+
+```ts
+export type PuzzleResolvers<ContextType = RedwoodGraphQLContext, ParentType extends ResolversParentTypes['Puzzle'] = ResolversParentTypes['Puzzle']> = {
+  currentAccountGamePlayed: OptArgsResolverFn<Maybe<ResolversTypes['GamePlayed']>, ParentType, ContextType>;
+}
+```
+
+to:
+
+```ts
+const Puzzle = {
+    currentAccountGamePlayed: () => ...
+}
+```
+
+The traversal space necessary for TypeScript to describe to you why the return type is an array instead of an object is massive. That means the error message is gonna get gnarly.
+
+So, all of that work is done during codegen which means the error description traversal is much shorter.
+
+#### Incentivising writing those damn tests
+
+Look, I like tests, I even wrote a little book on ["Pragmatic iOS Testing"](https://github.com/orta/pragmatic-testing) back in 2016 but if it's not easy and fast (and better experience than hitting refresh a few times) - I'm not gonna be writing tests at this phase of Puzzmo's development. We're too small, it's only been out like 6 months, lots of change ahead.
+
+
+In order to test these resolvers, I often made a lib version of the exact same function with a smaller type definition so I didn't need to slather my tests with `any`s. Now, the resolvers are simple to call directly inside the codebase in the test suite, and TypeScript can reliably tell me if I break something.
+
+
+### Prisma input -> GraphQL output
+
+Resolvers are given the most exacting input, and allow for the most liberal output. For example, the resolver for `currentAccountGamePlayed` would be defined to have a Prisma type of a Puzzle as the argument `root` but you can return any sort of object which conforms to the `GamePlayed` type from the GraphQL schema.
+
+If you are the sort of person who treats GraphQL as a ["view model"](https://artsy.github.io/blog/2016/06/19/graphql-for-mobile/#view-models) layer, this very useful because you can return all sorts of useful _derived_ data about your current type and know that it is correctly getting type-checked via the return position of the types in the SDL.
+
+### ESLint auto-fixes
+
+Typing your types, yawn. As there's only one possible way to set up your types with SDL-Codegen then the entire thing can be automated away and you never need to remember the name of the imports or types. 
+
+Pressing save (with the auto-fixer turn on) changes this:
+
+```ts
+export const Puzzle = {
+  currentAccountGamePlayed: (_, { root }) => _getGameplayForCurrentUserOnPuzzle(root.id) 
+}
+
+export const publicPuzzlesSearch = async (args) => { /* ... */ } 
+
+export const createPuzzle = async (args) => { /* ... */ }
+```
+
+To this:
+
+
+```ts
+import { PuzzleTypeResolvers, CreatePuzzleResolver, PublicPuzzlesSearchResolver } from "types/puzzles"
+
+export const Puzzle: PuzzleTypeResolvers = {
+  currentAccountGamePlayed: (_, { root }) => _getGameplayForCurrentUserOnPuzzle(root.id) 
+}
+
+export const publicPuzzlesSearch: PublicPuzzlesSearchResolver = async (args) => { /* ... */ } 
+
+export const createPuzzle: CreatePuzzleResolver = async (args) => { /* ... */ }
+```
+
+### Extending the resolver input
+
+The above is all good and proper, but actually doesn't fully describe how objects are passed through a GraphQL operation. One way in which I try to keep performance reasonable in our API is though making as few database round-trips as possible. This means that in the `currentAccountGamePlayed` resolver, the input object may have _already_ looked up the user's gameplay (because then it could be batched with other puzzles.)
+
+This can't easily be represented at SDL level, and so instead the coedgen looks to see if you have declared the `const Puzzles` as using a generic type instead.
+
+So, normally it would look like:
+
+```ts
+const Puzzle: PuzzleResolvers = {
+   currentAccountGamePlayed: () => ...
+}
+```
+
+But if you wrote:
+
+```ts
+const Puzzle: PuzzleResolvers<{ existingGameplay?: GamePlay }> = {
+   currentAccountGamePlayed: () => ...
+}
+```
+
+Then all of the resolvers would be able to check if `root.existingGameplay` existed before making a db round-trip.  
+
+### File-based Type Separation
+
+Because the source of truth for these resolvers is the service file where they implement the resolvers, SDL Codegen generates a type file per service file. This means each file is smaller and easier to understand at a glance. 
+
+There is also two separate 'whole-schema' style definition files also, one for resolver inputs and one for outputs - incase you want to reference those when passing arguments around your codebase.  
+ 
+
+### Linting Service Files
+
+If you know all of the schema, and all of the resolver implementations - then it's pretty easy to know whether a resolver is implementing something which isn't defined in the schema! SDL Codegen will let you know about orphaned implementations.
+
+### Fast
+
+There's not that much work going on, and it's built for one specific task - codegen is practically instant.
+
+
+## 1.0'd
+
+I gave SDL Codegen the 1.0 release this weekend, it's been used in Puzzmo now for 1.5 years, and has been available in Redwood as an option for your API codegen for about 6 months of that. 
