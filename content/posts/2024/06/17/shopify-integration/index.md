@@ -10,7 +10,7 @@ With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile
 
 - We want admins to handle inventory
 - We want to work with third party fulfillment tools
-- We want people who sign up during the launch period of the game to get the cards for free
+- We want people who sign up during the launch period to get the cards for free
 - We want folks who had already signed up, to get it for a reasonable price
 - Folks who don't care about Puzzmo could have access to getting the cards
 
@@ -20,7 +20,7 @@ The Bungie store have this concept where they create physical gear specific to r
 
 ![Overview of the bungie store](bungie.png)
 
-For example, this raid jacket:
+For example, this raid jacket which is for a new upcoming raid:
 
 ![Bungie raid jacket info](coat.png)
 
