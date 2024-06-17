@@ -82,13 +82,13 @@ OK, this is where you need to learn all of the shopify concepts now. First up, y
 
 You're going to want to add the app ["Headless"](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/getting-started) to your store-front. Next, you will create your own Shopify app. These will provide you with the two access tokens you need:
 
-Go to [shopify.dev](https://shopify.dev) and create a new app. I gave our app these permissions: `write_cart_transforms, read_cart_transforms, read_all_cart_transforms, write_product_listings, read_product_listings, write_products, read_products, write_product_feeds, read_product_feeds, write_orders, read_orders, write_discounts, read_discounts` (basically access to order/card/discounts.)
+Go to [shopify.dev](https://shopify.dev) and create a new app. I gave our app these permissions: `write_cart_transforms, read_cart_transforms, read_all_cart_transforms, write_product_listings, read_product_listings, write_products, read_products, write_product_feeds, read_product_feeds, write_orders, read_orders, write_discounts, read_discounts` (basically read/write access to order/cart/discounts.)
 
 This app needs to be added to your shop!
 
 ![shopify admin dashboard](shopify-admin.png)
 
-I put these in our `.env` as:
+I put with both of those apps ready, I added these environment variables in our API's `.env` as:
 
 ```sh
 # Comes from our "Puzzmo API" shopify app
@@ -102,10 +102,10 @@ Our end goal is to generate a redirect URL which has both the product, and the d
 
 To get there we need to generate (or find) the discount code and create a checkout session for someone. We're going to use these 3 mutations in the 2 Shopify GraphQL APIs.
 
-- Admin: [`discountNodes`](https://shopify.dev/docs/api/admin-graphql/2024-04/queries/discountNodes) (to look up)
-- Admin: [`discountCodeBasicCreate`](https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/discountCodeBasicCreate) (to create if not found)
+- Admin: [`discountNodes`](https://shopify.dev/docs/api/admin-graphql/2024-04/queries/discountNodes) (to look up a code)
+- Admin: [`discountCodeBasicCreate`](https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/discountCodeBasicCreate) (to create discount if not found)
 
-- Storefront: [`cartCreate`](https://shopify.dev/docs/api/storefront/2024-04/mutations/cartCreate) (for the redirect)
+- Storefront: [`cartCreate`](https://shopify.dev/docs/api/storefront/2024-04/mutations/cartCreate) (for the user redirect)
 
 ### Making the mutations
 
