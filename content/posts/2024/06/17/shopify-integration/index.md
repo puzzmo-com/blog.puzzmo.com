@@ -6,7 +6,7 @@ tags = ["tech", "api", "shopify", "graphql"]
 theme = "outlook-hayesy-beta"
 +++
 
-With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile-up-poker-survived-cancellation-to-become-a-puzzmo-hit) we knew that we wanted to sell a [pack of cards](https://shop.puzzmo.com/products/puzzmo-lisa-hanawalt-playing-cards). Systemically thinking, we had a few requirements:
+With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile-up-poker-survived-cancellation-to-become-a-puzzmo-hit) we knew that we wanted to sell a [pack of cards](https://shop.puzzmo.com/products/puzzmo-lisa-hanawalt-playing-cards). Systemically thinking, we had a few requirements for what it means to buy a physical good from us:
 
 - We want admins to handle inventory
 - We want to work with third party fulfillment tools
