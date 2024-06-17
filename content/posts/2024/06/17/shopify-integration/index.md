@@ -30,7 +30,7 @@ Ask me how I know?
 
 ![me in my raid jacket](orta-raid-jacket.png)
 
-What Bungie did for my jacket was [charge $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount from a prior raid. 
+What Bungie did for my jacket was [charge $777,777.77 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount from a prior raid. 
 
 ### How to replicate what Bungie did
 
