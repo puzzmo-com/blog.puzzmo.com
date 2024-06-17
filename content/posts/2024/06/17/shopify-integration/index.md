@@ -30,7 +30,9 @@ Ask me how I know?
 
 ![me in my raid jacket](orta-raid-jacket.png)
 
-What Bungie did for my jacket was [change $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount. I think that could work for us.
+What Bungie did for my jacket was [change $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount. 
+
+This concept that could work for us, we could even have the price a little bit more reasonable (but still pretty unreasonable) and there's _a chance_ that someone could get choose to avoid Puzzmo enough.
 
 ### How to replicate what Bungie did
 
@@ -78,17 +80,22 @@ Next up, you want to send someone to Shopify.
 
 OK, this is where you need to learn all of the shopify concepts now. First up, you need to have a Shopify store set up, with an existing (expensive) product.
 
-You're going to want to add the app ["Headless"](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/getting-started) to your store-front. This is what you'll use to generate the access tokens to **both** the storefront and admin API.
+You're going to want to add the app ["Headless"](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/getting-started) to your store-front. Next, you will create your own Shopify app. These will provide you with the two access tokens you need:
+
+Go to [shopify.dev](https://shopify.dev) and create a new app. I gave our app these permissions: `write_cart_transforms, read_cart_transforms, read_all_cart_transforms, write_product_listings, read_product_listings, write_products, read_products, write_product_feeds, read_product_feeds, write_orders, read_orders, write_discounts, read_discounts` (basically access to order/card/discounts.)
+
+This app needs to be added to your shop!
+
+![shopify admin dashboard](shopify-admin.png)
 
 I put these in our `.env` as:
 
 ```sh
-# Comes from the "Headless" app
-SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN="1e77[.. the rest]"
-SHOPIFY_PRIVATE_STOREFRONT_ACCESS_TOKEN="shpat_127[... the rest]"
-
 # Comes from our "Puzzmo API" shopify app
 SHOPIFY_ADMIN_API_TOKEN="shpat_170[... the rest]"
+
+# Comes from the "Headless" app
+SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN="1e77[.. the rest]"
 ```
 
 Our end goal is to generate a redirect URL which has both the product, and the discount applied - so someone can just go and put in their shipping/card details to purchase the item.
@@ -307,11 +314,7 @@ Now we just need to make sure that your db is kept up-to-date!
 
 ### 3. Updates from the Shop
 
-We're going to want to get a webhook that the user has completed a purchase, so we can mark it used on our side. So, you need to go to [shopify.dev](https://shopify.dev) and create a new app. I gave our app these permissions: `write_cart_transforms, read_cart_transforms, read_all_cart_transforms, write_product_listings, read_product_listings, write_products, read_products, write_product_feeds, read_product_feeds, write_orders, read_orders, write_discounts, read_discounts` (basically access to order/card/discounts.)
-
-This app needs to be added to your shop!
-
-![shopify admin dashboard](shopify-admin.png)
+We're going to want to get a webhook that the user has completed a purchase, so we can mark it used on our side. 
 
 Next you need to be able to receive webhooks, there isn't a user interface for this, so you need to use the GraphQL Admin API for it:
 
