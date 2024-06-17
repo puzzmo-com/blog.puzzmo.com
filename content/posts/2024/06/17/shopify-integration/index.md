@@ -1,5 +1,5 @@
 +++
-title = "How we re-implemented Bungie's   "
+title = "Making a shopify shop with per-user discounts"
 date = 2024-06-17T12:34:31+01:00
 authors = ["orta"]
 tags = ["tech", "api", "shopify", "graphql"]
