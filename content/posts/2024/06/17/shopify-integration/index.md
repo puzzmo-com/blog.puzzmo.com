@@ -24,13 +24,13 @@ For example, this raid jacket which is for a new upcoming raid:
 
 ![Bungie raid jacket info](coat.png)
 
-There is a ~3 week time period where you have to complete the raid and if you pull it off _you have the opportunity_ to buy this ~$170 USD coat.
+There is a ~3 week time period where you have to complete the raid under an additional constraints and if you pull it off _you have the opportunity_ to buy this ~$170 USD coat.
 
 Ask me how I know?
 
 ![me in my raid jacket](orta-raid-jacket.png)
 
-What Bungie did for my jacket was [change $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount. 
+What Bungie did for my jacket was [charge $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount. 
 
 This concept that could work for us, we could even have the price a little bit more reasonable (but still pretty unreasonable) and there's _a chance_ that someone could get choose to avoid Puzzmo and buy it outright.
 
