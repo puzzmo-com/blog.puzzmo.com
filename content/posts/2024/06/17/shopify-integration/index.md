@@ -16,7 +16,7 @@ With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile
 
 There was a heavy push from the business side to use Shopify, and we didn't have any argument against it on the technical side! After a bit of a technical spike, I recommended we implement a system similar to how [Bungie handled their store](https://eu.bungiestore.com/) for the video game Destiny 2.
 
-The Bungie store have this concept where they create physical gear specific to raids which are extremely difficult end-game content (e.g. stuff that you have to have completed the game already) which require you to have completed the raid in-game before you can buy them:
+The Bungie store hs this concept where they create physical gear specific to raids which are extremely difficult end-game content (e.g. stuff after you have "completed" the game,and then really decided to commit to stick around) which requires you to have completed the raid in-game _before_ you can buy them:
 
 ![Overview of the bungie store](bungie.png)
 
@@ -24,7 +24,7 @@ For example, this raid jacket which is for a new upcoming raid:
 
 ![Bungie raid jacket info](coat.png)
 
-There is a week-long time period where you have to complete the game and if you pull it off _you have the opportunity_ to buy this ~$170 USD coat.
+There is a ~3 week time period where you have to complete the raid and if you pull it off _you have the opportunity_ to buy this ~$170 USD coat.
 
 Ask me how I know?
 
@@ -32,7 +32,7 @@ Ask me how I know?
 
 What Bungie did for my jacket was [change $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount. 
 
-This concept that could work for us, we could even have the price a little bit more reasonable (but still pretty unreasonable) and there's _a chance_ that someone could get choose to avoid Puzzmo enough.
+This concept that could work for us, we could even have the price a little bit more reasonable (but still pretty unreasonable) and there's _a chance_ that someone could get choose to avoid Puzzmo and buy it outright.
 
 ### How to replicate what Bungie did
 
