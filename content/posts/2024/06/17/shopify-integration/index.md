@@ -2,8 +2,8 @@
 title = 'How we integrated a shopify shop into Puzzmo'
 date = 2024-06-17T12:34:31+01:00
 authors = ["orta"]
-tags = ["shopify", "graphql"]
-theme = "puzzmo-light"
+tags = ["tech", "api", "shopify", "graphql"]
+theme = "outlook-hayesy-beta"
 +++
 
 With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile-up-poker-survived-cancellation-to-become-a-puzzmo-hit) we knew that we wanted to sell a [pack of cards](https://shop.puzzmo.com/products/puzzmo-lisa-hanawalt-playing-cards). Systemically thinking, we had a few requirements:
