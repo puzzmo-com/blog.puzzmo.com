@@ -1,22 +1,22 @@
 +++
-title = 'How we integrated a shopify shop into Puzzmo'
+title = "How we re-implemented Bungie's   "
 date = 2024-06-17T12:34:31+01:00
 authors = ["orta"]
 tags = ["tech", "api", "shopify", "graphql"]
 theme = "outlook-hayesy-beta"
 +++
 
-With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile-up-poker-survived-cancellation-to-become-a-puzzmo-hit) we knew that we wanted to sell a [pack of cards](https://shop.puzzmo.com/products/puzzmo-lisa-hanawalt-playing-cards). Systemically thinking, we had a few requirements for what it means to buy a physical good from us:
+With the launch of [Pile-Up Poker](https://www.gamedeveloper.com/design/how-pile-up-poker-survived-cancellation-to-become-a-puzzmo-hit) we knew that we wanted to sell a [pack of cards](https://shop.puzzmo.com/products/puzzmo-lisa-hanawalt-playing-cards). Systemically thinking, this meant a few requirements for what it would mean to buy a physical item from us:
 
 - We want admins to handle inventory
 - We want to work with third party fulfillment tools
 - We want people who sign up during the launch period to get the cards for free
 - We want folks who had already signed up, to get it for a reasonable price
-- Folks who don't care about Puzzmo could have access to getting the cards
+- Folks who don't want a Puzzmo subscription could have a route to getting the cards
 
-There was a heavy push from the business side to use Shopify, and we didn't have any argument against it on the technical side! After a bit of a technical spike, I recommended we implement a system similar to how [Bungie handled their store](https://eu.bungiestore.com/) for the video game Destiny 2.
+There was a strong recommendation from the business side to use Shopify, and we didn't have any argument against it on the technical side! After trying out a quick prototype, I recommended we implement a system similar to how [Bungie handled their store](https://eu.bungiestore.com/) for the video game Destiny 2.
 
-The Bungie store hs this concept where they create physical gear specific to raids which are extremely difficult end-game content (e.g. stuff after you have "completed" the game,and then really decided to commit to stick around) which requires you to have completed the raid in-game _before_ you can buy them:
+The Bungie store has this concept where they create physical gear specific to raids which are extremely difficult end-game content (e.g. stuff after you have "completed" the game, and then really decided to commit to sticking around) that requires you to have completed the raid in-game _before_ you can buy them:
 
 ![Overview of the bungie store](bungie.png)
 
@@ -24,22 +24,20 @@ For example, this raid jacket which is for a new upcoming raid:
 
 ![Bungie raid jacket info](coat.png)
 
-There is a ~3 week time period where you have to complete the raid under an additional constraints and if you pull it off _you have the opportunity_ to buy this ~$170 USD coat.
+There is a ~3 week time period where you have to complete the raid under unique constraints and if you pull it off _you have the opportunity_ to buy this ~$170 USD coat.
 
 Ask me how I know?
 
 ![me in my raid jacket](orta-raid-jacket.png)
 
-What Bungie did for my jacket was [charge $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount. 
-
-This concept that could work for us, we could even have the price a little bit more reasonable (but still pretty unreasonable) and there's _a chance_ that someone could get choose to avoid Puzzmo and buy it outright.
+What Bungie did for my jacket was [charge $7777 USD](https://gamerant.com/destiny-2-deep-stone-crypt-raid-jacket/), unless you had a discount from a prior raid. 
 
 ### How to replicate what Bungie did
 
-You need to think of this in three different systems:
+We do it in three different steps:
 
 1. Your app needs to track discounts for users
-2. You need to be able to send someone to a checkout with the discount applied
+2. You need to be able to send someone to a checkout with the discount code
 3. Shopify needs to tell you that a discount was used so you can mark it as applied
 
 ### 1. In your app
@@ -88,7 +86,7 @@ This app needs to be added to your shop!
 
 ![shopify admin dashboard](shopify-admin.png)
 
-I put with both of those apps ready, I added these environment variables in our API's `.env` as:
+With both of those apps ready, I added these environment variables in our API's `.env` as:
 
 ```sh
 # Comes from our "Puzzmo API" shopify app
@@ -109,7 +107,7 @@ To get there we need to generate (or find) the discount code and create a checko
 
 ### Making the mutations
 
-Discount's aren't searchable via the discount code - that would make this a whole lot easier. So, here's how I got it working: You need a consistent title for the discount which is unique per user.
+Discounts aren't searchable via the actual discount 'code' - that would make this a whole lot easier. So, here's how I got the look-up working: You need a consistent title for the discount which is unique per user.
 
 We have a function which looks like this:
 
@@ -147,7 +145,7 @@ export const getOrCreateDiscountCodeForUser = async (user: { username: string; u
     { variables: { title } }
   )
 
-  // [SNIP ERROR CHECKING ETC]
+  // [SNIP Error checking etc]
 
   // [SNIP looking up and comparing the titles, and returning if found]
 
@@ -193,7 +191,7 @@ export const getOrCreateDiscountCodeForUser = async (user: { username: string; u
       }
     )
 
-    // [SNIP ERROR CHECKING ETC]
+    // [SNIP Error checking etc]
     return data.discountCodeBasicCreate.codeDiscountNode.codeDiscount.codes.nodes[0].code
   }
 }
@@ -203,7 +201,7 @@ That function with error handling etc will turn into a pretty serious function, 
 
 I use the slug of the product discount as the code, these are small 7-10 char strings. This makes the third step (marking them as used) easy.
 
-So, we have a discount code now, let's make a checkout session:
+OK, we have a discount made on Shopify and a code for the customer now, let's make a checkout session:
 
 ```ts
 export const getShopifyCheckoutURLForItem = async (
@@ -264,7 +262,7 @@ export const getShopifyCheckoutURLForItem = async (
     }),
   })
 
-  // [SNIP ERROR CHECKING ETC]
+  // [SNIP Error Checking etc]
   const json = await response.json()
   return json.data?.cartCreate?.cart?.checkoutUrl
 }
@@ -310,11 +308,11 @@ export const getShopifyBuyerIdentityFromStripe = async (stripeID: string | undef
 
 There we go! You can see the discounts being created in your shopify shop, and validate the process by running through it yourself.
 
-Now we just need to make sure that your db is kept up-to-date!
+Now we just need to make sure that your database is kept up-to-date!
 
 ### 3. Updates from the Shop
 
-We're going to want to get a webhook that the user has completed a purchase, so we can mark it used on our side. 
+We're going to want to get a webhook that the user has completed a purchase, so we can mark the code as used on our side. 
 
 Next you need to be able to receive webhooks, there isn't a user interface for this, so you need to use the GraphQL Admin API for it:
 
