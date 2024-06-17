@@ -2,5 +2,9 @@
     "packageManager": "yarn@1.22.4",
     "scripts": {
         "dev": "hugo server -D"
+    },
+    "prettier": {
+        "semi": false,
+        "printWidth": 140
     }
 }
