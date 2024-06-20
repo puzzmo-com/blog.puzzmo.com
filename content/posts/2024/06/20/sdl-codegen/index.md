@@ -140,9 +140,9 @@ export interface PuzzleTypeResolvers {
 
 Why so short? 
 
-- SDL-Codegen knows that there's only one resolver implementation in `const Puzzle`, so it omits the rest
-- SDL-Codegen also knows that `args` has a `_` prefix and thus unused, so it too, can be omitted
-- Both `context` and `info` are also not referenced in the 2nd args, so they get marked as optional
+- SDL-Codegen knows that there's only one resolver implementation in `const Puzzle`
+- SDL-Codegen also knows that `args` has a `_` prefix and is thus unused
+- Both `context` and `info` are also not referenced in the 2nd args
 
 On top of that the lookup work can instead be computed, and resolved to the exact types. This can happen in SDL-Codegen because it knows how to exactly describe Redwood's runtime.
 
