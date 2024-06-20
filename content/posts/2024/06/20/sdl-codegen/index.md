@@ -2,7 +2,7 @@
 title = 'Typing Schema-first GraphQL Resolvers in TypeScript'
 date = 2024-06-20T14:18:32+01:00
 authors = ["orta"]
-tags = ["changelog"]
+tags = ["api", "graphql", "redwood"]
 theme = "outlook-hayesy-beta"
 +++
 
