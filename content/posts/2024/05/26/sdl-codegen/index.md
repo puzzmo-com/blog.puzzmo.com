@@ -22,7 +22,7 @@ It was [8 years ago](https://github.com/artsy/metaphysics/pull/282) when I made 
 
 We're talking about the early days of GraphQL, and may even have pre-dated the [Schema Definition Language (SDL.)](https://graphql.org/learn/schema/#type-language) This programming environment, now called a "Code first" style of writing a GraphQL API had a bunch of advantages: It was easy to keep in sync (_one language_), write tests for (_just use your app's testing tools_) and scaling your schema required the same sorts of abstractions as the rest of your codebase (_functions and objects please_).
 
-When I started figuring out the tech stack for Puzzmo, I opted [for Redwood](https://redwoodjs.com/) as a base for our API and admin tooling. Redwood out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
+When I started figuring out the tech stack for Puzzmo, I opted [for RedwoodJS](https://redwoodjs.com/) as a base for our API and admin tooling. RedwoodJS out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
 
 - Write a `*.sdl.ts` file which includes the GraphQL definition for your API
 - Write a corresponding 'service/*.ts' file which has functions that map to the SDL declarations
@@ -66,13 +66,13 @@ export const createPuzzle = async (args) => { /* ... */ }
 
 So, "Schema first" means that I am describing all of the GraphQL using the SDL short-hand, then I am filling in the implementations on the GraphQL types. 
 
-What you see above is Redwood doing some special casing here for `Query` and `Mutation` where any top-level function is expected to be on either of those types, and then you can see that I add my own implementation of the Puzzle's `currentAccountGamePlayed`.
+What you see above is RedwoodJS doing some special casing here for `Query` and `Mutation` where any top-level function is expected to be on either of those types, and then you can see that I add my own implementation of the Puzzle's `currentAccountGamePlayed`.
 
 This whole system means there's a lot less code, and _I mean a lot_. At my job prior to TypeScript, Artsy, we wrote the [Artsy GraphQL API code-first](https://github.com/artsy/metaphysics/blob/main/src/schema/v2/gene.ts#L55) results in a lot of JavaScript which can be trivially described in SDL, and definitions which often do not need custom resolver logic.
 
-That does not make "Schema first" a magic, easy win though. What I learned over my first year of using Redwood, was that "Schema first" is a lossy abstraction because **it's hard to reconcile the two disparate areas of concern**. E.g. The SDL and the resolvers live in different places.  If you add a new resolver in the SDL, and add a typo to your service file - it could take a long time to discover that.
+That does not make "Schema first" a magic, easy win though. What I learned over my first year of using RedwoodJS, was that "Schema first" is a lossy abstraction because **it's hard to reconcile the two disparate areas of concern**. E.g. The SDL and the resolvers live in different places.  If you add a new resolver in the SDL, and add a typo to your service file - it could take a long time to discover that.
 
-Redwood's answer for solving this is codegen - relying on the popular [GraphQL Codegen](https://the-guild.dev/graphql/codegen) library/CLI tool to take the schema which you have generated, and creates TypeScript types from it. GraphQL Codegen is a great project, and is very flexible - Redwood have it configured to roughly approximate their runtime implementation and for the sort of people/project's Redwood is targeted at (new startups, probably writing in JS) - it's enough.
+RedwoodJS's answer for solving this is codegen - relying on the popular [GraphQL Codegen](https://the-guild.dev/graphql/codegen) library/CLI tool to take the schema which you have generated, and creates TypeScript types from it. GraphQL Codegen is a great project, and is very flexible - RedwoodJS have it configured to roughly approximate their runtime implementation and for the sort of people/project's RedwoodJS is targeted at (new startups, probably writing in JS) - it's enough.
 
 As you might have guessed, it was not enough for me.
 
@@ -91,7 +91,7 @@ To folks who know what it means to use [Relay](https://relay.dev/), I describe [
 - Prisma as an optional source of truth for the db
 - The TS/JS files in your project
 
-I built the core pretty generically, and then built an implementation of a Redwood specific way to describe it's runtime. In theory, other SDL-first projects could re-use this infra, but I'm not interested in doing that work for others. Puzzmo is pretty all-consuming for me. 
+I built the core pretty generically, and then built an implementation of a RedwoodJS specific way to describe it's runtime. In theory, other SDL-first projects could re-use this infra, but I'm not interested in doing that work for others. Puzzmo is pretty all-consuming for me. 
 
 So, what are the interesting ideas in SDL-Codegen which make it worth the 1 to 2 hundred hours I put into it?
 
@@ -111,7 +111,7 @@ export type Puzzle = Node & {
 };
 ```
 
-Redwood would add it's own layer of typing on top of that which describes possible resolvers implementations on the Puzzle:
+RedwoodJS would add it's own layer of typing on top of that which describes possible resolvers implementations on the Puzzle:
 
 ```ts
 export type PuzzleResolvers<ContextType = RedwoodGraphQLContext, ParentType extends ResolversParentTypes['Puzzle'] = ResolversParentTypes['Puzzle']> = {
@@ -290,4 +290,4 @@ There's not that much work going on, and it's built for one specific task - SDL-
 
 ## 1.0'd
 
-I gave SDL Codegen the 1.0 release when I started writing this post. It's been used in Puzzmo now for ~1.5 years, and has been available in Redwood as an option for your API codegen for about 6 months of that. So, it's probably pretty production ready!
+I gave SDL Codegen the 1.0 release when I started writing this post. It's been used in Puzzmo now for ~1.5 years, and has been [available in RedwoodJS](https://docs.redwoodjs.com/docs/typescript/generated-types/#experimental-sdl-code-generation) as an option for your API codegen for about 6 months of that. So, it's probably pretty production ready!
