@@ -20,7 +20,7 @@ It was [8 years ago](https://github.com/artsy/metaphysics/pull/282) when I made 
        type: new GraphQLList(Artist.type),
 ```
 
-We're talking about the early days of GraphQL, and may even have pre-dated the [Schema Definition Language (SDL.)](https://graphql.org/learn/schema/#type-language) This programming environment, now called a "Code first" style of writing a GraphQL API had a bunch of advantages: It was easy to keep in sync (_one language_), write tests for (_just use your app's testing tools_) and scaling your schema required the same sorts of abstractions as the rest of your codebase (_functions and objects please_).
+We're talking about the early days of GraphQL, and may even have pre-dated the [Schema Definition Language (SDL)](https://graphql.org/learn/schema/#type-language) being in the spec. This way to craft a schema, now called a "Code first" style of writing a GraphQL API, had a bunch of advantages: It was easy to keep in sync (_one language_), write tests for (_just use your app's testing tools_) and scaling your schema required the same sorts of abstractions as the rest of your codebase (_functions and objects please_).
 
 When I started figuring out the tech stack for Puzzmo, I opted [for RedwoodJS](https://redwoodjs.com/) as a base for our API and admin tooling. RedwoodJS out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
 
@@ -52,7 +52,7 @@ export const schema = gql`
 `
 ```
 
-With a corresponding service file like:
+Which describes the GraphQL type-system in a terse, high level language. Then you 'fill in' that type system with a corresponding service file like:
 
 ```ts
 export const Puzzle = {
@@ -64,11 +64,11 @@ export const publicPuzzlesSearch = async (args) => { /* ... */ }
 export const createPuzzle = async (args) => { /* ... */ }
 ```
 
-So, "Schema first" means that I am describing all of the GraphQL using the SDL short-hand, then I am filling in the implementations on the GraphQL types. 
+So, "Schema first" generally means a separation of the description and the implementation. 
 
 What you see above is RedwoodJS doing some special casing here for `Query` and `Mutation` where any top-level function is expected to be on either of those types, and then you can see that I add my own implementation of the Puzzle's `currentAccountGamePlayed`.
 
-This whole system means there's a lot less code, and _I mean a lot_. At my job prior to TypeScript, Artsy, we wrote the [Artsy GraphQL API code-first](https://github.com/artsy/metaphysics/blob/main/src/schema/v2/gene.ts#L55) results in a lot of JavaScript which can be trivially described in SDL, and definitions which often do not need custom resolver logic.
+This separation means there's a lot less code, and _I mean a lot_. At my job prior to TypeScript, Artsy, we wrote the [Artsy GraphQL API code-first](https://github.com/artsy/metaphysics/blob/main/src/schema/v2/gene.ts#L55) results in a lot of JavaScript which can be trivially described in SDL, and definitions which often do not need custom resolver logic.
 
 That does not make "Schema first" a magic, easy win though. What I learned over my first year of using RedwoodJS, was that "Schema first" is a lossy abstraction because **it's hard to reconcile the two disparate areas of concern**. E.g. The SDL and the resolvers live in different places.  If you add a new resolver in the SDL, and add a typo to your service file - it could take a long time to discover that.
 
