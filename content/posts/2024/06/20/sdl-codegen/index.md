@@ -292,7 +292,7 @@ There's not that much work going on, and it's built for one specific task - SDL-
 
 I gave SDL Codegen the 1.0 release when I started writing this post. The tooling has been used in Puzzmo now for ~1.5 years, and has been [available in RedwoodJS](https://docs.redwoodjs.com/docs/typescript/generated-types/#experimental-sdl-code-generation) as an option for your API codegen for about 6 months of that. So, it's at a point where folks can give it a shot!
 
-So, if you are in a Redwood project, change your `redwood.toml` to use SDL Codengen via: 
+So, if you are in a Redwood project, change your `redwood.toml` to use SDL Codenge via: 
 
 ```toml
 [experimental]
