@@ -25,7 +25,7 @@ We're talking about the early days of GraphQL, and may even have pre-dated the [
 When I started figuring out the tech stack for Puzzmo, I opted [for RedwoodJS](https://redwoodjs.com/) as a base for our API and admin tooling. RedwoodJS out of the box comes with a GraphQL API which uses a "SDL first" style strategy whereby you:
 
 - Write a `*.sdl.ts` file which includes the GraphQL definition for your API
-- Write a corresponding 'service/*.ts' file which has functions that map to the SDL declarations
+- Write a corresponding `service/*.ts` file which has functions that map to the SDL declarations
 
 For example, a simplification of the "Puzzle" in Puzzmo looks like this:
 
@@ -79,7 +79,7 @@ As you might have guessed, it was not enough for me.
 What were my biggest issues?
 
 - The runtime description was not accurate enough. I'd end up with code which TypeScript is happy with, but crashes at runtime.
-- TypeScript error messages in my resolvers very too abstract.
+- TypeScript error messages in my resolvers were too abstract.
 - The generated types lacked nuance, and often included too much information, making it hard to call the resolvers like functions in my tests.
 
 
