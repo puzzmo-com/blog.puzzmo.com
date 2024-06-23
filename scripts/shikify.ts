@@ -51,5 +51,6 @@ for (const file of indexFiles) {
 
   // Write the new HTML
   const newContent = dom.toString()
+  console.log("Updating", posts + "/" + file)
   writeFileSync(posts + "/" + file, newContent)
 }
