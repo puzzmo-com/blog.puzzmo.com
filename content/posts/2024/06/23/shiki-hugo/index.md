@@ -120,7 +120,7 @@ Next, I changed the CI build process to also run the new script:
 
 ```
 
-And... That's kinda it! So, TLDR
+And... That's kinda it! So, TLDR:
 
 - Make the default highlighter not do codefences
 - Add a script to parse the output
