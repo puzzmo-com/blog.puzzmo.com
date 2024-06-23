@@ -101,7 +101,6 @@ Next, I changed the CI build process to also run the new script:
   run: |
     hugo \
     --gc \
-    --minify \
     --baseURL "${{ steps.pages.outputs.base_url }}/"  
 
 - name: Setup Node
@@ -119,6 +118,8 @@ Next, I changed the CI build process to also run the new script:
     path: ./public
 
 ```
+
+_Note: minify is not enabled on the `hugo` command_
 
 And... That's kinda it! So, TLDR:
 
