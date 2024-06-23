@@ -10,7 +10,7 @@ const files = await readdirSync(posts, { recursive: true, encoding: "utf-8" })
 const indexFiles = files.filter((file) => file.endsWith("index.html") && file.split("/").length > 3)
 
 const highlighter = await createHighlighter({
-  themes: ["nord"],
+  themes: ["solarized-light"],
   langs: Object.keys(bundledLanguages),
 })
 
@@ -41,7 +41,7 @@ for (const file of indexFiles) {
     const code = codeElement.textContent
     const highlighted = highlighter.codeToHtml(code, {
       lang: lang || "text",
-      theme: "nord",
+      theme: "solarized-light",
       transformers: [transformerTwoslash({ explicitTrigger: true })],
     })
 
