@@ -2,7 +2,7 @@
 title = 'Using Shiki Syntax Highlighting in Hugo'
 date = 2024-06-23T14:59:00+01:00
 authors = ["orta"]
-tags = ["tech", "api", "graphql", "redwood"]
+tags = ["tech", "ablog", "shiki"]
 theme = "outlook-hayesy-beta"
 +++
 
