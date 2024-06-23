@@ -18,7 +18,7 @@ First up, we need to disable the current syntax highlighting for codefences by e
     codeFences = false
 ```
 
-That means that the hugo process would make a codefenced block look like this HTML:
+That means that the hugo process would make a codefenced block which looks like this HTML:
 
 ```html
 <pre><code class="language-toml">[markup]
