@@ -24,7 +24,6 @@ theme = 'paper'
 
 staticDir = ['static']
 
-
 [markup]
   [markup.highlight]
-    style = 'arduino'
+    codeFences = false

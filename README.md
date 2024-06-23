@@ -68,3 +68,5 @@ This post would appear in 3 sections: tech, api and plugins. Which have their ow
 ### This blog
 
 It uses Hugo as a static site generator, it was chosen because it is is simple to install and run locally and shouldn't break over a very long time period (the Artsy blog [I used to write on](https://artsy.github.io/blog/2019/05/03/ortas-best-of/) once or twice a month was Jekyll and required a lot of custom work to get useful features but those eventually started slowing the system down and getting ruby set up is a pain).
+
+It has an optional post-completion hook which you can test via `yarn build && yarn shikify` which uses Shiki for code samples instead of Hugo's defaults.
