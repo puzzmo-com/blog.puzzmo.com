@@ -2154,3 +2154,11 @@ body {
  background-color: var(--theme-a_bg) !important;
 }
 
+
+.zoomable {
+  transition: transform 200ms ease-in;
+}
+
+.zoomable:hover {
+  transform: scale(1.2);
+}

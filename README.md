@@ -43,6 +43,8 @@ Then change `my-post` to be a cool URL. Next: set up the metadata at the top of 
 + authors = ["orta"]
 + tags = ["changelog"]
 + theme = "puzzmo-light"
+- draft = true
+- comments = false
 ```
 
 You can see [the themes here](https://github.com/puzzmo-com/blog.puzzmo.com/tree/main/static/themes).
