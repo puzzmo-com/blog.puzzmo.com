@@ -6,7 +6,7 @@ tags = ["tech", "leaderboards"]
 theme = "outlook-hayesy-beta"
 +++
 
-After we launched Puzzmo, we sort of hit this moment of _"well... what now?"_. We had such a complete vision of what we wanted to build for v1, and had taken the extra time for polish passes that to a ++reasonable++ extent, we had a solid version one.
+After we launched Puzzmo, we sort of hit this moment of _"well... what now?"_. Zach & I had such a complete vision of what we wanted to build for v1 from the get-go, and we all had taken some extra time for polish pass, so to a ++reasonable++ extent, we had a solid version one.
 
 We'd never _really_ talked about version two, and on top of that, our team had just tripled in the last month. So - _what now?_
 
@@ -29,13 +29,17 @@ What did that look like:
 
 From our side, we introduced a new systemic approach to categorizing the sources of our puzzles. Previously, we had a single dimension of "difficulty" now we have different sets of puzzle variants (e.g. Trioshift) and those variants need to be treated differently systemically!
 
+So, I proposed [an RFC](https://gist.github.com/orta/8d975a33a9be14ca0fba52c6aecfd454) with an idea how we could maybe get there!
+
 ### Augmentations
 
 If you want a comprehensive understanding of what the original version of our per-game extension system looked like, you can read (with code) ["How the Puzzmo API handles integrations on a per-game basis"](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/), the TDLR: each game has a server-level plugin which is encapsulated in a single file.
 
-This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by looking at the code. The downside, is that all of this work happens in the API, which is a system the games team basically never contribute to. This becomes particularly evident looking at plugins for the games I would play daily vs the ones I play mainly for work.
+This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by reading the code. The downside, is that all of this work happens in the API, which is a system the games team basically never contribute to. This becomes particularly evident looking at plugins for the games I would play daily vs the ones I play mainly for work.
 
-This system works great, but it concentrates control the wrong place. So, what did we do to fix that? When making a daily game we have two separate sets of concerns: Making a good game, and making good puzzles for it. I wanted to find a way to distribute control over the systemic parts of Puzzmo across those two sets of folks.
+This system worked great originally, but it concentrates control in the wrong place. 
+
+When making a daily game we have two separate sets of concerns: Making a good game, and making good puzzles for it. I wanted to find a way to distribute control over the systemic parts of Puzzmo across those two sets of folks.
 
 Here's how it works. 
 
