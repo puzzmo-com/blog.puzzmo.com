@@ -333,9 +333,25 @@ We do a lot of post-processing when someone has completed a puzzle; think leader
 
 Similar to how we implemented augmentations into an existing workflow for puzzle creation, the completion infrastructure is also built atop the existing flows for building games inside Puzzmo. In this case, I extended the admin tools for our games to include augmentations:
 
+{{< imageHighlight src="pup-augments.png" alt="Example of our studio" >}}
 
-![Puzzmo Studio ](pup-augments.png)
+{{< imageHighlight src="pup-augments-2.png" alt="The rest of the studio page" >}}
 
+As this is moving away from code, which comes with all sorts of useful tooling: reviews, staging environments and history - we opted to re-create a lot of that infrastructure. You can only edit these augmentations in our staging environment, and then when happy we use GitHub as an external store for the JSON dumps.
+
+This means we get commit histories on changes saved from staging/dev:
+
+{{< imageHighlight src="config.png" alt="A list of git commits" >}}
+
+Then we can use the deployments infrastructure when an update has been applied:
+
+{{< imageHighlight src="config-deploys.png" alt="Example of the crossword deploys" >}}
+
+This gives the API folks pretty robust infra to figure out what happened with the games, but we don't need to be involved in the process at all.
+
+Next then, what sort of hooks do we have in the augmentations? 
+
+Well, first off, it's still a work in progress - so it doesn't cover everything mention [in the games plugin overview](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/) but it's got the essential we need for now.
 
 ```ts
 type Augmentations = {
@@ -355,11 +371,11 @@ type Augmentations = {
    *  The "deedID" is used as storage key, value lookup is done via 'valueExp'. */
   persistedDeeds?: ExpressionSetup[]
 
-  /** Additional info to show on the today page completion table, it is ignored when coming from a game */
+  /** Additional info to show on the today page completion table */
   completionTable?: Array<{ title: string; persistedDeedID: string; formatString: string }>
 
-  /** Additional info to show on the today page completion table, it is ignored when coming from a game. Used for deeds which do not have a leaderboard attached. */
+  /** Additional info to show on the today page completion table. Used for deeds which do not have a leaderboard attached. */
   completionSidebar?: ExpressionSetup[]
 }
-
 ```
+
