@@ -33,7 +33,7 @@ From our side, we introduced a new systemic approach to categorizing the sources
 
 If you want a comprehensive understanding of what the original version of our per-game extension system looked like, you can read (with code) ["How the Puzzmo API handles integrations on a per-game basis"](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/), the TDLR: each game has a server-level plugin which is encapsulated in a single file.
 
-This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by reading the code. The downside, is that all of this work happens in the API, which is a system the games team basically never contribute to. This becomes particularly evident looking at plugins for the games I would play daily being fully featured in news and stats vs the ones I play mainly for to test during development.
+This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by reading the code. The downside, is that all of this work happens in the API, which is a system the games team basically never contribute to. This becomes particularly evident looking at plugins for the games I would play daily being fully featured in news and stats vs the ones I play mainly to test during development.
 
 This system worked great during the creation of our initial set of games because there were only a few of us and we all contributed everywhere, but now it concentrates control in the wrong place. So, we needed _a technical solution which can open the way for a cultural change_ to give the games team more control over app-wide systems inside Puzzmo.
 
@@ -41,7 +41,7 @@ This system worked great during the creation of our initial set of games because
 
 The [answer I came up with](https://gist.github.com/orta/8d975a33a9be14ca0fba52c6aecfd454) is to build out three concurrent systems:
 
-- Deeds: A flat key-value store for game progress/completion data
+- Deeds: A key-value store for game progress/completion data
 - Augmentations: A way to describe system hooks in outside of the API (e.g. in games, puzzles, admin tools)
 - Expressions & Scopes: A way to write simple logic for augmentations in strings
 
@@ -149,7 +149,7 @@ Today, we have a generalized "Deed" system where completing a puzzle has the gam
 ]
 ```
 
-{{< details summary="The TypeScript types"  >}}
+{{< details summary="The TypeScript types" >}}
 
 ```ts
 type PipelineDeed = {
@@ -199,4 +199,128 @@ export type DeedKeys =
 ```
 {{< /details >}}
 
-To the API, these are 
+There's basically hints of all prior systems in this single array:
+
+- A deed can be persisted or transitory
+- A deed value can be any type, unless it is persisted (where it has to be a number)
+- A deed can have text attached to it
+- We have a controlled set of ids for persisted deeds (to try contain complexity)
+
+Then by having it all flattened opens the door for making them available to augmentations and expression strings!
+
+### Augmentations
+
+The core idea is we have existing systems in place (leaderboard, news, groups etc) and "augmentations" provides hooks into those systems and extends those systems without having to write code. Generally speaking, there are two places where this happens:
+
+- A puzzle being added to the daily
+- When someone completes a puzzle
+
+Let's start with the puzzle being created. We extended the puzzle file format to support JSON front-matter. This is a technique used in blogging engines a lot (this post for example has front-matter describing its metadata like my authorship) and it means that we can continue to ensure that the API/App systems continue to not understand/read the puzzle file's content. That's a games concern. 
+
+Here's an example of a puzzle which ran today:
+
+```
+---
+{
+  "_v": 1,
+  "variant": {
+    "slug": "lock",
+    "subvariantSlug": "center-shift"
+  }
+}
+---
+1
+7x6
+6
+18
+0, 0, 3, 4, 2, 2, 0
+WEZCIRS
+*AIDHL*
+*IDLLE*
+**NGRD*
+**EVET*
+***A***
+WAILERS
+WIDGETS
+WADDLES
+WEEVILS
+WIZARDS
+WINCHES
+WADDIES
+[ Snip... ]
+```
+
+You can see the version number, and then we have the `variant` and `subVariant` information, these act like templates for the augmentations JSON. 
+
+{{< details summary="The variant / subvariants" >}}
+
+The `"lock"` variant does not have any augmentations, it looks like:
+
+```json
+{}
+```
+
+That's because for this case, everything is happening in `"center-shift"` which looks like:
+
+```json
+{
+  "_v": 1,
+  "displayName": "|Center|shift",
+  "shortDescription": "Typeshift, but you can only move the center columns!",
+  "augmentations": {
+    "leaderboards": [
+      {
+        "order": "Higher=better",
+        "valueExp": "tilesInFoundWords - tilesInPuzzle",
+        "stableID": "game-typeshift:center:Repeated-letters",
+        "displayName": "Repeated letter uses",
+        "formatString": "%@",
+        "sortValue": -100
+      }
+    ]
+  }
+}
+```
+
+This means when the puzzle is created, we combine all possible augmentations (which in this case is just a leaderboard from the subVariant) and then use that for handling the additional processing.
+
+{{< /details >}}
+
+You can learn a bit more how we used the puzzle and variant infrastructure (we call them Remixes when user-facing) [from Jack on his blog](https://www.jackschlesinger.com/post/remix-postmortem). From this post's perspective, the interesting aspect is the switch to allow an individual puzzle file to quite drastically influence how it is shown on the today page and then influence the completion process:
+
+{{< details summary="JSON Schema for Puzzle Front-Matter" >}}
+
+The front-matter schema:
+
+```jsonc
+/** The schema supported by the API for the JSON front-matter in a puzzle */
+type PuzzleFrontMatter = {
+  /** The current API contract */
+  _v: 1
+
+  /** If we want to prefix this game with an emoji */
+  emoji?: string
+
+  /** A way to replace the puzzle's game name within the Puzzmo UI */
+  displayName?: string
+
+  /** A one-liner which goes above the thumbnail on the today page */
+  shortDescription?: string
+
+  /** Setup for variants */
+  variant?: {
+    /** A unique string which can be used to check against existing declared variants */
+    slug: string
+
+    /** A way to pull out from a templated front-matter on an existing variant */
+    subvariantSlug?: string
+  }
+
+  /** Site wide hooks  */
+  augmentations?: Augmentations
+}
+```
+
+Which is a lot of today page info, and then an "augmentations" object which is what we'll get into next
+
+{{< /details >}}
