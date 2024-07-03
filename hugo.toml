@@ -27,3 +27,9 @@ staticDir = ['static']
 [markup]
   [markup.highlight]
     codeFences = false
+
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
+  controller = "controllers"

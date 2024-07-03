@@ -91,4 +91,10 @@
   {{ end }}
 </article>
 
+{{- if .Params.series -}}
+<div class="post-series-bottom">
+  {{ partial "series.html" . }}
+</div>
+{{- end -}}
+
 {{ end }}

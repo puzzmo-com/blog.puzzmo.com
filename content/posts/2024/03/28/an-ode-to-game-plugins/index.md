@@ -4,6 +4,7 @@ date = 2024-04-08T12:00:32Z
 authors = ["orta"]
 tags = ["tech", "api", "plugins"]
 theme = "outlook-hayesy-beta"
+series = ["Integrating games to the server"]
 +++
 
 ### Control

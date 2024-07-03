@@ -1,9 +1,10 @@
 +++
-title = 'Augmenting Puzzmo'
+title = 'Augmenting Puzzmo: Making weird possible'
 date = 2024-04-28T18:25:53+01:00
 authors = ["orta"]
-tags = ["tech", "leaderboards"]
+tags = ["tech", "api", "systems", "leaderboards"]
 theme = "outlook-hayesy-beta"
+series = ["Integrating games to the server"]
 +++
 
 After we launched Puzzmo, we sort of hit this moment of _"well... what now?"_. Zach & I had such a complete vision of what we wanted to build for v1 from the get-go, and we all had taken some extra time for polish pass, so to a __reasonable__ extent, we had a solid version one.
@@ -24,8 +25,8 @@ For a lot of our users, the sense that something interesting was happening to Pu
 - `TypeShift` - "Trioshift", a version of a Typeshift where there were only three letters, making is vertically massive but horizontally short
 - `Flipart` - "☐☐☐☐art", a version where all the pieces are invisible
 - `Really Bad Chess` - "Really Checkers Chess", a board where chess pieces were framed like checkers pieces
-- `Cube Clear` - "ABCube Clear", instead of the usual scrabble-ish prioritised letters, it's A-Z.
-- `Wordbind` - We presented the puzzle as though it were a placeholder which had been left in
+- `Cube Clear` - "ABCube Clear", no scrabble-ish prioritised letters, now it's A-Z.
+- `Wordbind` - As though it were a placeholder which had been left in
 
 From our side, we introduced a new systemic approach to categorizing the sources of our puzzles. Previously, we had a single dimension of "difficulty" now we have different sets of puzzle variants (e.g. Trioshift) and those variants need to be treated differently systemically!
 
@@ -379,3 +380,142 @@ type Augmentations = {
 }
 ```
 
+These systems allow the games team to be able to influence a lot of different Puzzmo systems without the loss of staging environments, code-review and history. With luck, this leaves the games team in a place to be able to experiment with many more ideas.
+
+### Expressions
+
+All these extension points have `ExpressionSetup` in common, what is that?
+
+```ts
+// Simplified, see below if you want the full details
+type ExpressionSetup = {
+  // A unique ID 
+  stableID?: string
+  // An expression string for the value
+  valueExp?: string
+  // A filter pass expression string to indicate if we should do something
+  filterExp?: string
+}
+```
+
+{{< details summary="The full type definitions" >}}
+
+```ts
+/**
+ * Data given by either via a puzzle in front-matter, or a game in completion.
+ * A general unit of data which can be used to represent a lot of configuration points
+ * from the game to the API.
+ */
+type ExpressionSetup = {
+  /** What do we call this */
+  displayName: string
+
+  /** An optional secondary name for this config. For example, on a leaderboard this is used in the completion sidebar */
+  secondaryName?: string
+
+  /**
+   * For a lot of augmentations, this acts as an "id" and should be unique and treated as a lower, kebab-case string.
+   *
+   * For a leaderboard:
+   * -  A stable ID has to be in the format of `game-[gameslug]:[your value name]` for a game-based leaderboard
+   *    (value here likely can be your deedID). The formatting will get validated on puzzle creation, and in TypeScript.
+   *
+   * */
+  stableID?: `game-${string}:${string}` | string | null
+
+  /** Just saying it how it is, for some augmentations, this isn't necessary */
+  order?: "Higher=better" | "Lower=better"
+
+  /** Sometimes, instead of an expression, you may need to hook up to a deed ID directly, conceptually faster because there's no expression eval */
+  deedID?: DeedKeys
+
+  /** A custom string formatter, slightly based on printf.
+   * - `%+`: Adds a plus sign _only_ to positive numbers
+   * - `%@`: Takes the value and replaces the token with the value. If a number it is 'toLocaleString("en-US")'ed
+   * - `%TD`: Takes the text definition for a deed and replaces the token with the value
+   * - `"[time]"`: Converts a number of seconds to a colon-separated time string (must be exact match)
+   * */
+  formatString: string
+
+  /**
+   * An expression string which can stop something from happening. A concrete example: Whether to post to a leaderboard or not.
+   * If the expression returns true or > 0 then the entry is considered allowed for the leaderboard.
+   */
+  filterExp?: string
+  /**
+   * An expression string which can be used to generate the value for whatever your config is based on. The
+   * API will provide a set of appropriate variables for you to use in this JS-like expression string. They
+   * are based on "AngularJS Expressions" which you can read about here: https://docs.angularjs.org/guide/expression
+   */
+  valueExp?: string
+
+  /**
+   * Different augmentations would do different things with this sort value.
+   * Leaderboards for example use this when displaying on a page.
+   */
+  sortValue?: number
+}
+```
+
+{{< /details >}}
+
+Let's walk through the how the expression configs work with leaderboards, when a game is completed we pluck a set of augmentations from:
+
+- The puzzle frontmatter
+  - (if set) the variant
+  - (if set) the subvariant
+- The game's augmentations from the admin tools
+- Leaderboards defined in code
+
+Now we have an array of configs, what to do now? Let's look at an example expression config from Spelltower:
+
+```json
+{
+  "order": "Lower=better",
+  "valueExp": "time",
+  "stableID": "game-spelltower:full-clear",
+  "filterExp": "completionType == 1",
+  "displayName": "Fastest time to full clear",
+  "secondaryName": "Time",
+  "formatString": "[time]",
+  "sortValue": 3
+}
+```
+
+The first step would be to determine if the gameplay should create a leaderboard entry. We use a filter expression here to determine whether the game is applicable. Processing an expression requires at least two parts:
+
+- Scope
+- An expression
+
+The scope is derived from the deeds, we previously had these deed IDs: `"time"`, `"hints`",`"points"`, `"longest-word"`, `"best-word"`, `"completion-type"`, `"bonus-tiles-used`",`"line-clear-tiles-used`",`"words-longer-than-4`",`"time-before-first-word`",`"words-found"`, `"wpm", "value`",`"avg-word-length`",`"long-word-counts`". You can see the full deeds at the start of the post.
+
+The deeds turn into a scope like:
+
+```json
+{
+  "time": 360.431,
+  "hints": 0,
+  "points": 779,
+  "longestWord": 7,
+  "longestWordText": "WILDEST",
+  "bestWord": 602,
+  "bestWordText": "WILDEST",
+  "completionType": 0,
+  "lineClearTilesUsed": 0,
+  "wordsLongerThan4": 1,
+  "timeBeforeFirstWord": 103,
+  "wordsFound": 8,
+  "wpm": 1.33,
+  "avgWordLength": 3.75
+}
+```
+
+So, for the filter expression (`completionType == 1`), you can see that it will look inside the scope for `completionType` compare the value `0` to `1` and return false. Thus: the system will not post to this leaderboard. The [foundational expression engine](https://docs.angularjs.org/guide/expression) is the same one used by the angular project.
+
+We have two sets of possible scopes inside Puzzmo, there is the "gameplay" scope like above and a "daily" scope for expressions not tied directly to the completion of a puzzle. The daily scope contains the scope of all the games at which you have played that day.
+
+## Inversion of control
+
+This was quite a lot, both to architect, build and ship on time for April first. We got there though, and it really represents a new set of foundational primitives for Puzzmo. These primitives moves control from people writing code in the API to the folks who are thinking about games every day, giving them a space for experimenting and building on ideas which don't require dev team support.
+
+As we've grown, even as a small team of ~11, I've been acutely aware that our communication boundaries dictate a lot of how and what we build. A small microcosm of [Conway's law](https://en.wikipedia.org/wiki/Conway's_law) if you will, and systems like this help ensure that those boundaries are more permeable.
