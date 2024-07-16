@@ -1,6 +1,6 @@
 +++
 title = 'Augmenting Puzzmo: Making weird possible'
-date = 2024-04-28T18:25:53+01:00
+date = 2024-07-16T01:25:53+01:00
 authors = ["orta"]
 tags = ["tech", "api", "systems", "leaderboards"]
 theme = "outlook-hayesy-beta"
