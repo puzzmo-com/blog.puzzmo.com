@@ -7,17 +7,15 @@ theme = "outlook-hayesy-beta"
 series = ["Integrating games to the server"]
 +++
 
-After we launched Puzzmo, we sort of hit this moment of _"well... what now?"_. Zach & I had such a complete vision of what we wanted to build for v1 from the get-go, and we all had taken some extra time for polish pass, so to a __reasonable__ extent, we had a solid version one.
+After we launched Puzzmo, there was this moment of _"well... what now?"_. Zach and I had such a complete vision of what we wanted to build for v1 from the idea phase 3 years ago. We even got a bit of extra time for polish pass due to wanting the acquisition to happen before launch, so to a __reasonable__ extent, we had a solid version 1 we were proud of. We'd never _really_ talked about version 2 in concrete though, and on top of that, our team had just tripled in the last month. So - _what now?_
 
-We'd never _really_ talked about version two, and on top of that, our team had just tripled in the last month. So - _what now?_
+To simplify, after weeks of discussion, we concluded that the path to a Puzzmo version two is _"Weird Puzzmo"_. Our main competitors are less nimble (they tend to have significantly larger support backlogs) and often aim to project a very serious tone. If we ship fast, experiment often and present ourselves as a more playful approach to a daily puzzle space - then we'd ideally be competing on our strengths.
 
-If you'll permit me to simplify, after weeks of discussion, we concluded that the path to a Puzzmo version two is _"Weird Puzzmo"_. Our main competitors are less nimble (they tend to have significantly larger support backlogs) and often aim to project a very serious tone. If we ship fast, experiment often and present ourselves as a more playful approach to daily puzzles - then we'd ideally be competing on our strengths.
+OK. Well... How do we do that?
 
-OK. So... How do we do that?
+This blog post tries to cover the technical "under-the-hood" changes which I felt were necessary to make weird Puzzmo possible.
 
-This blog post tries to cover the technical under-the-hood changes which I felt were necessary to get us to a point where weird Puzzmo was even possible.
-
-For a lot of our users, the sense that something interesting was happening to Puzzmo started on April 1 2024. For alpha users, they'd be used to the idea that we take April Fools seriously, 2023's had Really Bad Chess simply play as the default chess board arrangement. For 2024, it was the first day we shipped something weird across all games.
+For a lot of our users, the sense that something interesting was happening to Puzzmo started on April 1 2024, it was the first day we shipped something weird across all games:
 
 [What did that look like](https://www.puzzmo.com/today/2024-04-01):
 
@@ -28,15 +26,15 @@ For a lot of our users, the sense that something interesting was happening to Pu
 - `Cube Clear` - "ABCube Clear", no scrabble-ish prioritised letters, now it's A-Z.
 - `Wordbind` - As though it were a placeholder which had been left in
 
-From our side, we introduced a new systemic approach to categorizing the sources of our puzzles. Previously, we had a single dimension of "difficulty" now we have different sets of puzzle variants (e.g. Trioshift) and those variants need to be treated differently systemically!
+From our side, we use April Fools' as a deadline for a new systemic approach to categorizing the sources of our puzzles. Previously, we had a single dimension of "difficulty" now we have different sets of puzzle variants (e.g. Trioshift) and those variants have different Puzzmo-level integrations from traditional puzzles.
 
 ## Shifting control
 
-If you want a comprehensive understanding of what the original version of our per-game extension system looked like, you can read (with code) ["How the Puzzmo API handles integrations on a per-game basis"](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/), the TDLR: each game has a server-level plugin which is encapsulated in a single file.
+If you want to understand of what the original version of our per-game extension system looked like, you can read (with code) ["How the Puzzmo API handles integrations on a per-game basis"](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/), the TDLR: each game has a server-level plugin written in TypeScript which is encapsulated in a single file.
 
-This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by reading the code. The downside, is that all of this work happens in the API, which is a system the games team basically never contribute to. This becomes particularly evident looking at plugins for the games I would play daily being fully featured in news and stats vs the ones I play mainly to test during development.
+This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by reading the code. The downside is that all of this work happens in the API, which is a system the games team basically never contributes to. This becomes particularly evident looking at the level of complexity for the games I would play daily being fully featured in news, stats, notables etc vs the ones I play mainly to test during development. 
 
-This system worked great during the creation of our initial set of games because there were only a few of us and we all contributed everywhere, but now it concentrates control in the wrong place. So, we needed _a technical solution which can open the way for a cultural change_ to give the games team more control over app-wide systems inside Puzzmo.
+This system worked great during the creation of our initial set of games because there were only a few of us and we all contributed everywhere, but it concentrated control in the wrong place. A game's level of integration to Pz=uzzmo being tied to how much _I_ think it about isn't a great place to be. So, we needed _a technical solution that could open the way for a cultural change_ to give the games team more control over app-wide systems inside Puzzmo.
 
 ## Augmentations & Deeds & Expressions
 
@@ -44,11 +42,11 @@ The [answer I came up with](https://gist.github.com/orta/8d975a33a9be14ca0fba52c
 
 - Deeds: A key-value store for game progress/completion data
 - Augmentations: A way to describe system hooks in outside of the API (e.g. in games, puzzles, admin tools)
-- Expressions & Scopes: A way to write simple logic for augmentations in strings
+- Expressions & Scopes: A way to write simple logic for augmentation-based integrations in strings
 
 ### Deeds
 
-When I initially designed Puzzmo's data-models, I knew completing a puzzle across all games would create `points`, `time`, `hints` but also accommodated for each game having different values which are unique to that game. So, we had 0 to 4 integers 'metrics' and a 'metrics string' array which correspond to different per-game stats generated while playing the puzzle. These variables get used for leaderboards, news, the completion table and other app-wide concerns. 
+When I initially designed Puzzmo's data-models, I knew completing a puzzle across all games would create like:  `points`, `time`, `hints` etc, but I also accommodated for each game having different values unique to that game. So, we had 1 to 4 integers 'metrics' and a 'metrics string' array which correspond to different per-game stats generated while playing the puzzle. These variables get used for leaderboards, news, the completion table and other app-wide concerns. 
 
 {{< details summary="Read our internal notes for per-game metrics"  >}}
 ```
@@ -100,7 +98,7 @@ When I initially designed Puzzmo's data-models, I knew completing a puzzle acros
 ```
 {{< /details >}}
 
-This isn't enough to do our entire data-pipelining though, so there is also an _additional_ set of variables which come along which we call `pipelineData`. Pipeline data is information the game engine generates which is only valid for the game completion pipeline and is not stored, here's an example of the one for Spelltower:
+This metrics 1-4 aren't enough to do our entire data-pipelining though, so there is also an _additional_ set of variables which come during a game completion which we call `pipelineData`. Pipeline data is information the game engine generates which is only valid for the game completion pipeline and is not stored, here's an example of pipelineData for a Spelltower puzzle:
 
 ```ts
 export type SpelltowerStats = {
@@ -123,13 +121,11 @@ export type SpelltowerStats = {
 
 So, in summary we had information about a completed puzzle in:
 
-- Time, points, hints, cheats, pauses lived on the gameplay
+- Core details like: Time, points, hints, pauses
 - Metrics 1 to 4, and metrics string
 - Pipeline data
 
-In order to provide higher-level tooling, I needed to flatten these storage spaces into a single way to access variables. 
-
-Today, we have a generalized "Deed" system where completing a puzzle has the game emitting an array of `key: value`. Here's one for a game of Spelltower I have just completed:
+To provide better tools, I needed to flatten these into a system. Today, we have a generalized "Deed" system where completing a puzzle has the game emitting an array of `key: value` pairs. Here's one for a game of Spelltower I have just completed:
 
 ```json
 [
@@ -209,16 +205,18 @@ There's basically hints of all prior systems in this single array:
 
 Then by having it all flattened opens the door for making them available to augmentations and expression strings!
 
+To keep the database small, every morning as the day swaps over for Puzzmo, we wipe all non-persisted deeds.
+
 ### Augmentations
 
-The core idea is we have existing systems in place (leaderboard, news, groups etc) and "augmentations" provides hooks into those systems and extends those systems without having to write code. Generally speaking, there are two places where this happens:
+The core idea is we have existing systems in place (leaderboard, news, groups etc) and "augmentations" provide hooks into those systems and extends those systems without having to write code. Generally speaking, there are two places where this happens:
 
 - A puzzle being added to the daily
 - When someone completes a puzzle
 
 #### Puzzle Creation
 
-Let's start with the puzzle being created. We extended the puzzle file format to support JSON front-matter. This is a technique used in blogging engines a lot (this post for example has front-matter describing its metadata like my authorship) and it means that we can continue to ensure that the API/App systems continue to not understand/read the puzzle file's content. That's a games concern. 
+Let's start with the puzzle being created. We extended the puzzle file format to support JSON front-matter. This is a technique used in blogging engines a lot (this post for example has front-matter describing its metadata like my authorship), and it means that we can ensure that the API/App systems continue to not understand/read the puzzle file's contents.
 
 Here's an example of a puzzle which ran today:
 
@@ -289,7 +287,7 @@ This means when the puzzle is created, we combine all possible augmentations (wh
 
 {{< /details >}}
 
-You can learn a bit more how we used the puzzle and variant infrastructure (we call them Remixes when user-facing) [from Jack on his blog](https://www.jackschlesinger.com/post/remix-postmortem). From this post's perspective, the interesting aspect is the switch to allow an individual puzzle file to quite drastically influence how it is shown on the today page and then influence the completion process:
+You can learn a bit more about how we used the puzzle and variant infrastructure (we call them Remixes when user-facing) [from Jack on his blog](https://www.jackschlesinger.com/post/remix-postmortem). From this post's perspective, the interesting aspect is the switch to allow an individual puzzle file to quite drastically influence how it is shown on the today page, and then influence the completion process:
 
 {{< details summary="JSON Schema for Puzzle Front-Matter" >}}
 
@@ -324,13 +322,13 @@ type PuzzleFrontMatter = {
 }
 ```
 
-Which is a lot of today page info, and then an "augmentations" object which is what we'll get into next
+Which is a lot of today page info, and then an "augmentations" object which is what we'll get into next.
 
 {{< /details >}}
 
 #### Puzzle Completion
 
-We do a lot of post-processing when someone has completed a puzzle; think leaderboards, user stats, puzzle stats, group updates, events and site stats. These are the type of systems which we want the games team to be able to influence without making API code changes!
+We do a lot of post-processing when someone has completed a puzzle; think leaderboards, user stats, puzzle stats, group updates, events and site stats. These are the types of systems which we want the games team to be able to influence without making API code changes!
 
 Similar to how we implemented augmentations into an existing workflow for puzzle creation, the completion infrastructure is also built atop the existing flows for building games inside Puzzmo. In this case, I extended the admin tools for our games to include augmentations:
 
@@ -338,7 +336,7 @@ Similar to how we implemented augmentations into an existing workflow for puzzle
 
 {{< imageHighlight src="pup-augments-2.png" alt="The rest of the studio page" >}}
 
-As this is moving away from code, which comes with all sorts of useful tooling: reviews, staging environments and history - we opted to re-create a lot of that infrastructure. You can only edit these augmentations in our staging environment, and then when happy we use GitHub as an external store for the JSON dumps.
+As this is moving away from code, which comes with all sorts of useful tooling: reviews, staging environments and history, we opted to re-create a lot of that infrastructure. You can only edit these augmentations in our staging environment, and then when happy we use GitHub as an external store for the JSON dumps.
 
 This means we get commit histories on changes saved from staging/dev:
 
@@ -352,7 +350,7 @@ This gives the API folks pretty robust infra to figure out what happened with th
 
 Next then, what sort of hooks do we have in the augmentations? 
 
-Well, first off, it's still a work in progress - so it doesn't cover everything mention [in the games plugin overview](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/) but it's got the essential we need for now.
+Well, first off, it's still a work in progress - so it doesn't cover everything mentioned [in the games plugin overview](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/) but it's got the essentials we need for now.
 
 ```ts
 type Augmentations = {
@@ -380,7 +378,7 @@ type Augmentations = {
 }
 ```
 
-These systems allow the games team to be able to influence a lot of different Puzzmo systems without the loss of staging environments, code-review and history. With luck, this leaves the games team in a place to be able to experiment with many more ideas.
+These admin tools and systems allow the games team to be able to influence Puzzmo systems without incurring the cost of losing of staging environments, code-review and history - and with the benefit of not touching the API codebase. With luck, this leaves the games team in a place to be able to experiment with many more ideas.
 
 ### Expressions
 
@@ -459,7 +457,7 @@ type ExpressionSetup = {
 
 {{< /details >}}
 
-Let's walk through the how the expression configs work with leaderboards, when a game is completed we pluck a set of augmentations from:
+To try and make this more concrete, let's walk through how expression configs work with leaderboards. When a game is completed we pluck a set of augmentations from:
 
 - The puzzle frontmatter
   - (if set) the variant
@@ -467,7 +465,7 @@ Let's walk through the how the expression configs work with leaderboards, when a
 - The game's augmentations from the admin tools
 - Leaderboards defined in code
 
-Now we have an array of configs, what to do now? Let's look at an example expression config from Spelltower:
+Now we have an array of augmentation configs, what to do now? Let's look at an example expression config for a leaderboard from Spelltower:
 
 ```json
 {
@@ -482,14 +480,14 @@ Now we have an array of configs, what to do now? Let's look at an example expres
 }
 ```
 
-The first step would be to determine if the gameplay should create a leaderboard entry. We use a filter expression here to determine whether the game is applicable. Processing an expression requires at least two parts:
+The first completion pipeline step would be to determine if the gameplay should create a leaderboard entry. We use a filter expression here from `filterExp` to determine whether the game is applicable. Processing an expression requires at least two parts:
 
 - Scope
 - An expression
 
 The scope is derived from the deeds, we previously had these deed IDs: `"time"`, `"hints`",`"points"`, `"longest-word"`, `"best-word"`, `"completion-type"`, `"bonus-tiles-used`",`"line-clear-tiles-used`",`"words-longer-than-4`",`"time-before-first-word`",`"words-found"`, `"wpm", "value`",`"avg-word-length`",`"long-word-counts`". You can see the full deeds at the start of the post.
 
-The deeds turn into a scope like:
+The deeds turn into an expression scope like:
 
 ```json
 {
@@ -510,12 +508,14 @@ The deeds turn into a scope like:
 }
 ```
 
-So, for the filter expression (`completionType == 1`), you can see that it will look inside the scope for `completionType` compare the value `0` to `1` and return false. Thus: the system will not post to this leaderboard. The [foundational expression engine](https://docs.angularjs.org/guide/expression) is the same one used by the angular project.
+So, for the filter expression of `filterExp`:  `completionType == 1`, you can see that it will look inside the scope for `completionType` compare the value `0` to `1` and return false. Thus: for the game I completed, the API will not post to this leaderboard. The [expression engine](https://docs.angularjs.org/guide/expression) is the same one used by the Angular project.
 
-We have two sets of possible scopes inside Puzzmo, there is the "gameplay" scope like above and a "daily" scope for expressions not tied directly to the completion of a puzzle. The daily scope contains the scope of all the games at which you have played that day.
+If the `filterExp` passed (or was not present), then we would use the same technique with `valueExp` to get the value for the leaderboard. 
 
 ## Inversion of control
 
-This was quite a lot, both to architect, build and ship on time for April first. We got there though, and it really represents a new set of foundational primitives for Puzzmo. These primitives moves control from people writing code in the API to the folks who are thinking about games every day, giving them a space for experimenting and building on ideas which don't require dev team support.
+This was quite a lot to architect, build and ship on time for April first. We got there though, and it really represents a new set of foundational primitives for Puzzmo. 
+
+These three system primitives (deeds/augmentations/expression strings) moves control from people who write code in the API to the folks who are thinking about games every day. Which I hope gives them more space for experimenting and building on ideas which don't require API team support!
 
 As we've grown, even as a small team of ~11, I've been acutely aware that our communication boundaries dictate a lot of how and what we build. A small microcosm of [Conway's law](https://en.wikipedia.org/wiki/Conway's_law) if you will, and systems like this help ensure that those boundaries are more permeable.
