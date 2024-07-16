@@ -52,7 +52,7 @@ const highlighter = await createHighlighter({
 // Find all of the files in the posts directory which are index.html
 for (const file of indexFiles) {
   // Grab the file, and parse it into a DOM
-  const content = readFileSync(posts + "/" + file, { encoding: "utf-8" })
+  const content = readFileSync(posts + "/" + file, { encoding: "utf-8" }) 
   const dom = parse(content)
 
   // This isn't a particularly smart query implementation,
