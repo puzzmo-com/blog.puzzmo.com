@@ -34,7 +34,7 @@ If you want to understand of what the original version of our per-game extension
 
 This plugin system is great because I can easily test it, see changes in pull requests and debug it trivially by reading the code. The downside is that all of this work happens in the API, which is a system the games team basically never contributes to. This becomes particularly evident looking at the level of complexity for the games I would play daily being fully featured in news, stats, notables etc vs the ones I play mainly to test during development. 
 
-This system worked great during the creation of our initial set of games because there were only a few of us and we all contributed everywhere, but it concentrated control in the wrong place. A game's level of integration to Pz=uzzmo being tied to how much _I_ think it about isn't a great place to be. So, we needed _a technical solution that could open the way for a cultural change_ to give the games team more control over app-wide systems inside Puzzmo.
+This system worked great during the creation of our initial set of games because there were only a few of us and we all contributed everywhere, but it concentrated control in the wrong place. A game's level of integration to Puzzmo being tied to how much _I_ think it about isn't a great place to be. So, we needed _a technical solution that could open the way for a cultural change_ to give the games team more control over app-wide systems inside Puzzmo.
 
 ## Augmentations & Deeds & Expressions
 
