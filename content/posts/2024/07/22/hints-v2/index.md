@@ -8,7 +8,7 @@ draft = true
 comments = false
 +++
 
-Today we're launching v2 of our [Cross|word](https://www.puzzmo.com/play/crossword) hint system! We're ditching time penalties for a cooldown timer that appears if you use more than three hints in quick succession. The details are towards the end of the blog post [here](#v2-cooldown-period).
+Today we're launching v2 of our [Cross|word](https://www.puzzmo.com/play/crossword) hint system! We're ditching time penalties for a cooldown timer that appears if you use three hints in quick succession. The details are towards the end of the blog post [here](#v2-cooldown-period).
 
 ### Puzzmo's quest to make crosswords more accessible
 
