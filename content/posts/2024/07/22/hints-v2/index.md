@@ -8,17 +8,21 @@ draft = true
 comments = false
 +++
 
+Today we're launching v2 of our [Cross|word](https://www.puzzmo.com/play/crossword) hint system! We're ditching time penalties for a cooldown timer that appears if you use more than three hints in quick succession. The details are towards the end of the blog post [here](#v2-cooldown-period).
+
+### Puzzmo's quest to make crosswords more accessible
+
 Crossword puzzle solving has a learning curve. There are tons of guidelines that crossword constructors and editors adhere to, and in general these conventions aren't written down anywhere. Instead, solvers typically learn about crossword conventions through the process of solving tens, hundreds, and thousands of puzzles, eventually coming to understand the language of crossword clues and the signals they give to solvers about their answers.
 
 However, this can be a daunting process — and it's not like anyone tells you there's going to be a process at all! Lots of potential crossword solvers attempt a puzzle or two and then think, "well, this isn't for me," often not realizing that *no one* is a natural at solving crosswords and that *everyone* has to learn their conventions and language. (There's a lot to be said about how the *content* of crosswords can be encouraging or discouraging; I've [spoken about that elsewhere](https://www.twitch.tv/videos/1002528362) (the relevant discussion is from 4:35-8:45) and also recommend [this 2021 article](https://www.washingtonpost.com/lifestyle/crossword-puzzle-diversity/2021/03/10/884828e0-753c-11eb-9537-496158cc5fd9_story.html).)
 
-When Zach decided that he wanted Puzzmo to have a crossword, he thought about the ways in which he could ease the new-to-experienced crossword solver transition by presenting a familiar puzzle form in a welcoming, accessible way. The two main "assists" that Zach introduced to [Puzzmo's Cross|word](https://www.puzzmo.com/play/crossword) are hints and word-separating lines,  both of which appear in all of our crosswords. On days when we run rebus puzzles, there are also rebus-specific assists.
+When Zach decided that he wanted Puzzmo to have a crossword, he thought about the ways in which he could ease the new-to-experienced crossword solver transition by presenting a familiar puzzle form in a welcoming, accessible way. The two main "assists" that Zach introduced to Puzzmo's Cross|word are hints and word-separating lines,  both of which appear in all of our crosswords. On days when we run rebus puzzles, there are also rebus-specific assists.
 
 ### Hints
 
 Every Puzzmo Cross|word has two sets of clues: the regular "clues" written by the constructor and edited by the clue editor, and a secondary, easier set of "hints." The second set of hints is written by a hint writer and edited separately from the regular clues. When I joined Puzzmo last summer, the first thing I did was write a detailed style guide describing the philosophy behind what a hint should and shouldn't be, and practical guidelines for writing them. Here's an abbreviated version of my hint philosophy:
 
-A solver who is opting into a clue set is presumed to be stumped by the original clue and seeks an easier clue. In this spirit:
+A solver who is opting into a hint is presumed to be stumped by the original clue and seeks an easier alternative. In this spirit:
 
 - The hint should not be too much of a "gimme"; namely, it should not make the solver feel like they are cheating.
 
