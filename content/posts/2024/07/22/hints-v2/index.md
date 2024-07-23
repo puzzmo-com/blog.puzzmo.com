@@ -57,7 +57,7 @@ The time penalty was our first attempt at conveying this, but we've continued to
 
 Starting today, using a hint will *never* incur a time penalty. Our new system is a combination of a hint cache and a cooldown timer. Every player starts with a full cache of three hints available to use as soon as they want to. Hints replenish every 30 seconds until the cache has three hints again. This means if you immediately use all three hints upon opening the puzzle, you'll have to wait 30 seconds to use another one, and 90 seconds to have your full cache back.
 
-We equilibrated to this paradigm after two rounds of playtesting with volunteers. Each round of testing included two weeks of puzzles, and we encouraged solvers to give feedback only after regularly playing for a week. The first round's mechanics were very similar to what you see today, and we got really exciting feedback about solvers who were playing with newly-possible strategies.
+We settled on this after two rounds of playtesting with volunteers. Each round of testing included two weeks of puzzles, and we encouraged solvers to give feedback only after regularly playing for a week. The first round's mechanics were very similar to what you see today, and we got really exciting feedback about solvers who were playing with newly-possible strategies.
 
 In our second round of playtesting, we dropped the cache and used a shorter cooldown after every hint usage. We found this to be overall less enjoyable for our playtesters, so we brought the cache back. We're very grateful to our volunteers who provided such insightful feedback over the course of playtesting: if this was you, thank you so much!
 
