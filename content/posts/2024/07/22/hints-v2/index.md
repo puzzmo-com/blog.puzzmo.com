@@ -10,13 +10,13 @@ comments = false
 
 Today we're launching v2 of our [Cross|word](https://www.puzzmo.com/play/crossword) hint system! We're ditching time penalties for a cooldown timer that appears if you use three hints in quick succession. The details are towards the end of the blog post [here](#v2-cooldown-period).
 
-### Puzzmo's quest to make crosswords more accessible
+### Puzzmo's quest to make crosswords more approachable
 
 Crossword puzzle solving has a learning curve. There are tons of guidelines that crossword constructors and editors adhere to, and in general these conventions aren't written down anywhere. Instead, solvers typically learn about crossword conventions through the process of solving tens, hundreds, and thousands of puzzles, eventually coming to understand the language of crossword clues and the signals they give to solvers about their answers.
 
 However, this can be a daunting process — and it's not like anyone tells you there's going to be a process at all! Lots of potential crossword solvers attempt a puzzle or two and then think, "well, this isn't for me," often not realizing that *no one* is a natural at solving crosswords and that *everyone* has to learn their conventions and language. (There's a lot to be said about how the *content* of crosswords can be encouraging or discouraging; I've [spoken about that elsewhere](https://www.twitch.tv/videos/1002528362) (the relevant discussion is from 4:35-8:45) and also recommend [this 2021 article](https://www.washingtonpost.com/lifestyle/crossword-puzzle-diversity/2021/03/10/884828e0-753c-11eb-9537-496158cc5fd9_story.html).)
 
-When Zach decided that he wanted Puzzmo to have a crossword, he thought about the ways in which he could ease the new-to-experienced crossword solver transition by presenting a familiar puzzle form in a welcoming, accessible way. The two main "assists" that Zach introduced to Puzzmo's Cross|word are hints and word-separating lines,  both of which appear in all of our crosswords. On days when we run rebus puzzles, there are also rebus-specific assists.
+When Zach decided that he wanted Puzzmo to have a crossword, he thought about the ways in which he could ease the new-to-experienced crossword solver transition by presenting a familiar puzzle form in a welcoming, approachable way. The two main "assists" that Zach introduced to Puzzmo's Cross|word are hints and word-separating lines,  both of which appear in all of our crosswords. On days when we run rebus puzzles, there are also rebus-specific assists.
 
 ### Hints
 
@@ -41,7 +41,7 @@ For example, from the crossword that ran on Monday, June 22 by [Rebecca Goldstei
 
 Elsewhere in the same puzzle, Rebecca's `LIN` clue is "`Moana" songwriter ___-Manuel Miranda`. Matthew's hint is `Name hidden in the phrase "artificial intelligence"`, which avoids the need to know this particular celebrity by instead presenting a lexical problem for the solver to figure out.
 
-Our hints are written and edited with care and for the purpose of helping the solver who requests one. Zach likes to describe hints as similar to a smart friend who's looking over your shoulder giving you a nudge in the right direction. We want you to use them!
+Our hints are written and edited with care and presented inline so that players who want help will not only figure out the answer that goes in the grid, but also understand and appreciate the wording of the original clue. Zach believes that it is this second part — understanding the original clue — that provides players a more approachable on-ramp to learning the language of crosswords. In short: we want you to use the hints!
 
 ### v1: Time penalties
 
@@ -55,7 +55,7 @@ The time penalty was our first attempt at conveying this, but we've continued to
 
 ### v2: Cooldown period
 
-Starting today, using a hint will *never* incur a time penalty. Our new system is a combination of a hint cache and a cooldown timer. Every player starts with a full cache of three hints available to use as soon as they want to. When their cache isn't full, they get a hint back every 30 seconds until the cache has three hints again. This means if you immediately use all three hints upon opening the puzzle, you'll have to wait 30 seconds to use another one, and 90 seconds to have your full cache back.
+Starting today, using a hint will *never* incur a time penalty. Our new system is a combination of a hint cache and a cooldown timer. Every player starts with a full cache of three hints available to use as soon as they want to. Hints replenish every 30 seconds until the cache has three hints again. This means if you immediately use all three hints upon opening the puzzle, you'll have to wait 30 seconds to use another one, and 90 seconds to have your full cache back.
 
 We equilibrated to this paradigm after two rounds of playtesting with volunteers. Each round of testing included two weeks of puzzles, and we encouraged solvers to give feedback only after regularly playing for a week. The first round's mechanics were very similar to what you see today, and we got really exciting feedback about solvers who were playing with newly-possible strategies.
 
