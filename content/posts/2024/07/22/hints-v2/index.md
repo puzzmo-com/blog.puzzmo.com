@@ -34,9 +34,9 @@ A solver who is opting into a hint is presumed to be stumped by the original clu
 - For trivia-based answers or difficult vocabulary, the hint should provide the solver with all or some of the answer. The goal is to minimize the chance that the solver who has requested the hint gains no information from the hint. For this reason, names should often be given lexical "problem solving" clues that feature hidden words, anagrams, or similar.
 
 
-The hints also include a word count if the answer is more than one word, and an abbreviation indicator.
+The hints also include a word count if the answer is more than one word, and an abbreviation indicator if a shortened form is used.
 
-For example, from the crossword that ran on Monday, June 22 by [Rebecca Goldstein](https://www.puzzmo.com/user/xwc/rebecculous), the answer `THRONE ROOMS` gets the clue `Reception areas?`, which is a tricky misdirect that evokes cell phone usage, not castles' ceremonial halls. The easier hint [Matthew](https://www.puzzmo.com/user/xwc/mstock) wrote for this answer is `Places in castles where monarchs sit in fancy chairs: 2 wds.`
+For example, from the crossword that ran on Monday, July 22 by [Rebecca Goldstein](https://www.puzzmo.com/user/xwc/rebecculous), the answer `THRONE ROOMS` gets the clue `Reception areas?`, which is a tricky misdirect that evokes cell phone usage, not castles' ceremonial halls. The easier hint [Matthew](https://www.puzzmo.com/user/xwc/mstock) wrote for this answer is `Places in castles where monarchs sit in fancy chairs: 2 wds.`
 
 Elsewhere in the same puzzle, Rebecca's `LIN` clue is "`Moana" songwriter ___-Manuel Miranda`. Matthew's hint is `Name hidden in the phrase "artificial intelligence"`, which avoids the need to know this particular celebrity by instead presenting a lexical problem for the solver to figure out.
 
@@ -58,6 +58,6 @@ Starting today, using a hint will *never* incur a time penalty. Our new system i
 
 We settled on this after two rounds of playtesting with volunteers. Each round of testing included two weeks of puzzles, and we encouraged solvers to give feedback only after regularly playing for a week. The first round's mechanics were very similar to what you see today, and we got really exciting feedback about solvers who were playing with newly-possible strategies.
 
-In our second round of playtesting, we dropped the cache and used a shorter cooldown after every hint usage. We found this to be overall less enjoyable for our playtesters, so we brought the cache back. We're very grateful to our volunteers who provided such insightful feedback over the course of playtesting: if this was you, thank you so much!
+In our second round of playtesting, we dropped the cache and used a shorter cooldown after every hint use. We found this to be overall less enjoyable for our playtesters, so we brought the cache back. We're very grateful to our volunteers who provided such insightful feedback over the course of playtesting: if this was you, thank you so much!
 
 We're excited for you to try out this new hint system! Maybe you will use a hint for the first time, or maybe you will discover a new, exciting way of playing our Cross|word.
