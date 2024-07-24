@@ -61,7 +61,3 @@ We settled on this after two rounds of playtesting with volunteers. Each round o
 In our second round of playtesting, we dropped the cache and used a shorter cooldown after every hint usage. We found this to be overall less enjoyable for our playtesters, so we brought the cache back. We're very grateful to our volunteers who provided such insightful feedback over the course of playtesting: if this was you, thank you so much!
 
 We're excited for you to try out this new hint system! Maybe you will use a hint for the first time, or maybe you will discover a new, exciting way of playing our Cross|word.
-
-
-
-
