@@ -1,6 +1,6 @@
 +++
 title = 'Hints v2: Moving from a time penalty to a cooldown period'
-date = 2024-07-24T16:40:29-04:00
+date = 2024-07-24T04:40:29-04:00
 authors = ["brooke"]
 tags = ["crossword", "changelog"]
 theme = "bright-white"
