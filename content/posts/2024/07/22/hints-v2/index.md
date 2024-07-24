@@ -4,7 +4,6 @@ date = 2024-07-22T16:40:29-04:00
 authors = ["brooke"]
 tags = ["crossword"]
 theme = "bright-white"
-draft = true
 comments = false
 +++
 
