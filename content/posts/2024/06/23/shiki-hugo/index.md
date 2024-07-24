@@ -23,7 +23,6 @@ That means that the hugo process would make a codefenced block which looks like 
 ```html
 <pre><code class="language-toml">[markup]
   [markup.highlight]
-    codeFences = false
 </code></pre>
 ```
 
