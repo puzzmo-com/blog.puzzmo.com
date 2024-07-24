@@ -34,7 +34,7 @@ To get you started quickly we offer a series of interesting leaderboards for clu
 
 Completing a referenced puzzle in the template will give you a first place! Easy.
 
-![alt text](won.png)
+![An exampple with a score](won.png)
 
 Any member of your group will post to the leaderboard, meaning you can compare scores with non-Puzzmo Plus folks for the first time for most of these games.
 
@@ -54,13 +54,14 @@ These two underwhelming "expression" text boxes are what have been powering all 
 
 This is a live environment where you can safely explore your ideas about what a leaderboard could be, for example:
 
-- A leaderboard which counts how many pawns are converted in Chess
-- A leaderboard which you can only use if you use more than 3 hints
-- A leaderboard which combines the words found in Spelltower and wordbind
+- A leaderboard which counts how many pawns are converted in Really Bad Chess
+- A leaderboard which you can only use if you use more than 3 hints in a Cross|word
+- A leaderboard which combines the words found in Spelltower and Wordbind
 - A leaderboard which counts Flipart time, but only if you get no excess rotates
 - A leaderboard which uses the words per minute on Spelltower and Cubeclear, but only if you have an average word length greater than 5
 - A leaderboard which takes the most points for a word in SpellTower, but only if it contains two `A`s
 - A leaderboard for Cross|word which requires having 'Brooke's expert settings' enabled
+- A leaderboard in Spelltower's scores, where you are not able to use bonus tiles
 
 It's hard to describe how many bits of data you can work with, it's a lot, and you can combine them into all sorts of leaderboards.
 
