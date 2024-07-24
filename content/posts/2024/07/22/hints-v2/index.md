@@ -1,6 +1,6 @@
 +++
 title = 'Hints v2: Moving from a time penalty to a cooldown period'
-date = 2024-07-22T16:40:29-04:00
+date = 2024-07-24T16:40:29-04:00
 authors = ["brooke"]
 tags = ["crossword"]
 theme = "bright-white"
@@ -54,7 +54,7 @@ The time penalty was our first attempt at conveying this, but we've continued to
 
 ### v2: Cooldown period
 
-Starting today, using a hint will *never* incur a time penalty. Our new system is a combination of a hint cache and a cooldown timer. Every player starts with a full cache of three hints available to use as soon as they want to. Hints replenish every 30 seconds until the cache has three hints again. This means if you immediately use all three hints upon opening the puzzle, you'll have to wait 30 seconds to use another one, and 90 seconds to have your full cache back.
+Starting today, using a hint will *never* incur a time penalty. Our new system is a combination of a hint cache and a cooldown timer. Every player starts with a full cache of three hints available to use as soon as they want to. If the cache is empty, hints replenish after a 30 second waiting period. If the cache has 1 or 2 hints, a hint is added every 30 seconds for a maximum of 3.
 
 We settled on this after two rounds of playtesting with volunteers. Each round of testing included two weeks of puzzles, and we encouraged solvers to give feedback only after regularly playing for a week. The first round's mechanics were very similar to what you see today, and we got really exciting feedback about solvers who were playing with newly-possible strategies.
 
