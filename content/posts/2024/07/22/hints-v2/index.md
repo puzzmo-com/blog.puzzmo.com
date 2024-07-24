@@ -34,7 +34,7 @@ A solver who is opting into a hint is presumed to be stumped by the original clu
 - For trivia-based answers or difficult vocabulary, the hint should provide the solver with all or some of the answer. The goal is to minimize the chance that the solver who has requested the hint gains no information from the hint. For this reason, names should often be given lexical "problem solving" clues that feature hidden words, anagrams, or similar.
 
 
-The hints also include a word count if the answer is more than one word, and an abbreviation indicator.
+The hints also include a word count if the answer is more than one word, and an abbreviation indicator if a shortened form is used.
 
 For example, from the crossword that ran on Monday, June 22 by [Rebecca Goldstein](https://www.puzzmo.com/user/xwc/rebecculous), the answer `THRONE ROOMS` gets the clue `Reception areas?`, which is a tricky misdirect that evokes cell phone usage, not castles' ceremonial halls. The easier hint [Matthew](https://www.puzzmo.com/user/xwc/mstock) wrote for this answer is `Places in castles where monarchs sit in fancy chairs: 2 wds.`
 
