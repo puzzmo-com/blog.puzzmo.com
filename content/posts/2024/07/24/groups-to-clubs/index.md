@@ -73,4 +73,4 @@ It's hard to write about how many bits of data you can work with because they ar
 
 I'm hoping folks will creative uses of this leaderboard infrastructure, and am excited to be surprised! We'll be setting up a space in our discord for answering questions and sharing leaderboard ideas, similar to how the theme editing has been going.
 
-Thanks for reading!
+Thanks for reading, and happy clubbing!
