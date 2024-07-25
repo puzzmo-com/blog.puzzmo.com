@@ -24,6 +24,8 @@ Some key things to note:
 
 - Inter-club competitive aspects of Puzzmo, based on the top daily score in games from your club members, are still around below.
 
+- Clicking "edit" will let you set up daily notifications into your own Slack or Discord channels
+
 - There is a big "Set up your leaderboard" button to get started with the new club leaderboards, which we'll dig into now.
 
 ### Club Leaderboards
