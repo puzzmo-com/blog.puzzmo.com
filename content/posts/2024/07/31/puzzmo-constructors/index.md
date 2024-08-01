@@ -43,7 +43,7 @@ Several constructors highlighted how Puzzmo’s unique approach to grid design a
 > When constructing for Puzzmo, I sometimes start with a theme but more often I start with an idea for a fun grid shape.  From there, I build out a tentative grid design and choose appropriate theme entries.  This is often an iterative process since changing the grid shape changes what theme answers the puzzle can accommodate.  Next comes filling the grid with fun words and, eventually, writing the clues. 
 
 **[Adam Aaronson](https://www.puzzmo.com/user/xwc/adam):**
-> I feel a unique sense of freedom constructing puzzles for Puzzmo! Like I told Brooke at one point, it’s like “a Puzzmo puzzle can be whatever you want, as long as it’s good”—of course, there are rules and guidelines for the puzzles, but in general, the restrictions for grid shape, symmetry, fresh words to include, and cluing angles to write are so much looser than other outlets, which is truly freeing and always gets me in the groove when I’m constructing 
+> I feel a unique sense of freedom constructing puzzles for Puzzmo! Like I told Brooke at one point, it’s like “a Puzzmo puzzle can be whatever you want, as long as it’s good”—of course, there are rules and guidelines for the puzzles, but in general, the restrictions for grid shape, symmetry, fresh words to include, and cluing angles to write are so much looser than other outlets, which is truly freeing and always gets me in the groove when I’m constructing.
 
 **[Kate Hawkins](https://www.puzzmo.com/user/xwc/kate):**
 > I love writing themeless mid-sized crosswords: Puzzmo gives me a chance to write them for an audience! The smaller format also gives me a chance to build puzzles around fun mini-theme finds that may only have a few components. 
@@ -88,7 +88,7 @@ All constructors are also sent a proof of their puzzle before they run, allowing
 > For me, I know that my stuff will be largely preserved, and any editing that gets done is, like, editing out a curse word. It doesn’t change the content of it. It may change the word number or if I had a typo. 
 
 **Kelsey Dixon:**
-> i enjoy the puzzmo process, and the transparency of being able to see the alternate clue options etc. before a puzzle runs… i feel that at puzzmo the constructor has a little more control/ownership over the final product that one might have elsewhere. 
+> i enjoy the puzzmo process, and the transparency of being able to see the alternate clue options etc. before a puzzle runs… i feel that at puzzmo the constructor has a little more control/ownership over the final product than one might have elsewhere. 
 
 **Enrique Henestroza Anguiano:**
 > The chance to review clue edits and have a UI to foster conversations about them is totally unique and amazing. 
@@ -116,7 +116,7 @@ When I first started interning at Puzzmo, Brooke underscored the importance of t
 > I love reading the Puzzmo Discord whenever I have a puzzle published! A lot of published crosswords (even ones in newspapers that presumably have a lot of solvers) don’t get much online discussion, so getting to see people I don’t know react to something I made is always nice.
 
 **Enrique Henestroza Anguiano:**
-> I've loved the feedback I get [on the Puzzmo Discord], which is always respectful, and I like that people post a lot of thoughts and reactions that are less critiques (was the the set "good", was the fill "good") and more like e.g. an answer made someone think of a funny story or outside reference. 
+> I've loved the feedback I get [on the Puzzmo Discord], which is always respectful, and I like that people post a lot of thoughts and reactions that are less critiques (was the theme set "good", was the fill "good") and more like e.g. an answer made someone think of a funny story or outside reference. 
 
 Finally, I asked constructors about their biggest takeaways they’ve learned from working with Puzzmo. For some constructors, the international solving base resulted in them being more conscious of U.S.-specific references.
 
@@ -151,7 +151,7 @@ For the Cross|word, a key way that Puzzmo makes solvers feel smart is through th
 As I touched on above, the hint system is a unique aspect of Puzzmo Cross|words that ensures their approachability for all solvers. Matthew Stock, a frequent writer of Cross|word hints (and Cross|words!), wrote to me about his hint-writing process. He explained that much of his process was impacted by the Puzzmo mission of making solvers feel capable and smart.
 
 **[Matthew Stock](https://www.puzzmo.com/user/xwc/matthew):**
-> I generally err on the side of overexplaining than underexplaining. This feels more in line with the ethos of hints as Brooke first presented them to me, which was that we never wanted anyone to still be stuck even after using a hint. 
+> I generally err on the side of overexplaining rather than underexplaining. This feels more in line with the ethos of hints as Brooke first presented them to me, which was that we never wanted anyone to still be stuck even after using a hint. 
 
 Even though hints are meant to provide solvers with an easier and more straightforward clue, Matthew emphasized that there is still ample room for creativity and fun wordplay. 
 
@@ -175,7 +175,9 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 ---
 
-### Constructor bios
+## Constructor bios
+
+![Adam Aaronson](adam_sm.png)
 
 **Name:** [Adam Aaronson](https://www.puzzmo.com/user/xwc/adam) (he/him)
 
@@ -253,9 +255,9 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 **Name:** [Kelsey Dixon](https://www.puzzmo.com/user/xwc/kelsey) (she/her)
 
-**Crossword involvement:** Full-time editor, free-time constructor 
+**Crossword involvement:** full-time editor ([the modern](https://www.puzzlesociety.com/member/crossword-puzzles/modern-crossword), [apple news+](https://submissions.puzzlesociety.com/)), free-time constructor (anywhere that will have me, and [my blog](https://crosstina-aquafina.blogspot.com/))
 
-**Other stuff she does:** Graphic design, watching Love Island, evangelizing sun protection
+**Other stuff she does:** graphic design, eating tomatoes, watching love island, evangelizing sun protection
 
 **Favorite answer she's put in a Puzzmo Cross|word:** `EAT HOT CHIP AND LIE` (January 28, 2024)
 
@@ -326,6 +328,8 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 **Favorite answer they've put in a Puzzmo crossword:** Hmmm is it cheating... or intriguing?! ... to say it's [REDACTED] from my next Puzzmo puzzle?
 
 ---
+
+![Rose Sloan](rose_sm.png)
 
 **Name:** [Rose Sloan](https://www.puzzmo.com/user/xwc/acommonrose) (she/they)
 
