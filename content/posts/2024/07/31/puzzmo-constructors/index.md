@@ -12,7 +12,7 @@ Hi all! [Madison](https://www.puzzmo.com/user/puz/mgreens) (Puzzmo’s Cross|wor
 
 For the past eight weeks, I have been working closely with Brooke on various Cross|word tasks. I have had the opportunity to observe and take part in all the work that goes into publishing Puzzmo Cross|words, and even try my hand at constructing! You can read more about my reflections on [reviewing submissions](https://link.mailer.puzzmo.com/view/652eb296b069b512940514d1lb7eq.dw4/d9fa12e7), [editing](https://link.mailer.puzzmo.com/view/652eb296b069b512940514d1levfb.hr0/0f032ecf), [co-constructing my first puzzle](https://link.mailer.puzzmo.com/view/6606d36670a6f5f63c022f93lggf6.mz5/addffddb), [writing hints](https://link.mailer.puzzmo.com/view/652eb296b069b512940514d1ldbgg.gz8/a7ce782c), and [test solving and fact checking](https://link.mailer.puzzmo.com/view/6606d36670a6f5f63c022f93li4y2.oil/b70da9cc) in more detail in my past newsletters.
 
-While working for Puzzmo, it has become clear to me that its approach to crosswords, and games in general, is special. I asked Zach Gage, the lead designer and one of the Puzzmo co-founders, about this approach. 
+While working for Puzzmo, it has become clear to me that its approach to crosswords, and games in general, is special. I asked Zach Gage, the Creative Director and one of the co-founders of Puzzmo, about this approach.
 
 One of Puzzmo’s main priorities is for “anybody at any skill level to be able to play and win any game they choose to play,” Zach said over Slack DM. In carrying out this goal, “one of the most important jobs Puzzmo has is telling players that they are smart and they are able to play puzzle games and that these games are for them.”
 
@@ -211,7 +211,15 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 ---
 
+![Chandi Deitmer](chandi_sm.png)
+
 **Name:** [Chandi Deitmer](https://www.puzzmo.com/user/xwc/chandi) (she/her)
+
+**Crossword involvement:** Full-time crossword/word stuff writer/editor at Elevate Labs, also freelance other places (puzzmo, atlantic, slate, apple, fun places I like with nice people!)
+
+**Other stuff she does:** Cat snuggles, walking around the world squarely by myself (no one is invited, I assume you will annoy me), eating food that tastes good \*usually served with rice\*
+
+**Favorite answer she's put in a Puzzmo Cross|word:** `TRY TO KEEP UP` - ended up happily and randomly scheduled on my birthday (December 8, 2023)
 
 ---
 
@@ -247,7 +255,7 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 **Other stuff she does:** walking around cities, raising two cute small kids, making beverages, gleaning fruit and veggies
 
-**Favorite answer she's put in a Puzzmo Cross|word:** `COYOTE DOG GIRL` (an answer I've had on my "to put in a puzzle" list since before I started constructing for real) and `RIGAMAROLE` (just a good word) (June 4, 2024 & January 29, 2024) 
+**Favorite answer she's put in a Puzzmo Cross|word:** `COYOTE DOGGIRL` (an answer I've had on my "to put in a puzzle" list since before I started constructing for real) and `RIGAMAROLE` (just a good word) (June 4, 2024 & January 29, 2024) 
 
 ---
 
