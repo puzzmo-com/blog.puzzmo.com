@@ -315,7 +315,15 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 ---
 
+![Rob Dubbin](rob_sm.png)
+
 **Name:** [Rob Dubbin](https://www.puzzmo.com/user/xwc/ardubs) (he/they)
+
+**Crossword involvement:** Fan turned constructor
+
+**Other stuff they do:** Game design, late-night TV, generative poetics, tabletop storytelling, art/code technomancy, animal friendship
+
+**Favorite answer they've put in a Puzzmo crossword:** Hmmm is it cheating... or intriguing?! ... to say it's [REDACTED] from my next Puzzmo puzzle?
 
 ---
 
