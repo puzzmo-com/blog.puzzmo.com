@@ -84,9 +84,6 @@ In my upcoming Cross|word, I have an answer in the grid that I wanted to clue as
 
 All constructors are also sent a proof of their puzzle before they run, allowing them to review any changes that have been made. The Puzzmo editing process was another feature that constructor’s emphasized:
 
-**[Meatdaddy](https://www.puzzmo.com/user/xwc/khrisphamm):**
-> For me, I know that my stuff will be largely preserved, and any editing that gets done is, like, editing out a curse word. It doesn’t change the content of it. It may change the word number or if I had a typo. 
-
 **Kelsey Dixon:**
 > i enjoy the puzzmo process, and the transparency of being able to see the alternate clue options etc. before a puzzle runs… i feel that at puzzmo the constructor has a little more control/ownership over the final product than one might have elsewhere. 
 
@@ -304,12 +301,6 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 **Other stuff he does:** I’m currently a full-time master’s student in school-based mental health counseling. Outside of that, I spend a lot of time birding, cooking, playing ultimate frisbee, and playing board games.
 
 **Favorite answer he’s put in a Puzzmo Cross|word:** `GOOSE FRONTING` (December 15, 2023)
-
----
-
-![Meatdaddy](meat_sm.png)
-
-**Name:** [Meatdaddy](https://www.puzzmo.com/user/xwc/khrisphamm) (they/them)
 
 ---
 
