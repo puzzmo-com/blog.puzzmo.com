@@ -1,6 +1,6 @@
 +++
 title = 'What is it like to construct Puzzmo Cross|words?'
-date = 2024-08-01T05:00:00-04:00
+date = 2024-08-02T05:00:00-04:00
 authors = ["madison"]
 tags = ["crossword"]
 theme = "bright-white"
