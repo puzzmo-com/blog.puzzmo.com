@@ -4,7 +4,6 @@ date = 2024-08-02T05:00:00-04:00
 authors = ["madison"]
 tags = ["crossword"]
 theme = "bright-white"
-draft = true
 comments = false
 +++
 
