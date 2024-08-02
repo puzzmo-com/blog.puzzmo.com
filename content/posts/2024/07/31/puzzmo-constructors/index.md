@@ -240,7 +240,7 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 **Other things she does:** Swim, work in harm reduction, watch BBC cozy mysteries
 
-**Favourite answer she's put in her Puzzmo Cross|word:** Hard to choose, but I will say `SAP` -- I love maple syrup! ([July 1, 2024](https://www.puzzmo.com/link/crossword/2024/07/01))
+**Favourite answer she's put in her Puzzmo Cross|word:** Hard to choose, but I will say my themers, `HONEY BADGER` and `SUGAR GLIDER`! ([July 1, 2024](https://www.puzzmo.com/link/crossword/2024/07/01))
 
 ---
 
