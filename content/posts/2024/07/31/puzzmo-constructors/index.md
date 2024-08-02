@@ -25,7 +25,7 @@ I was curious about constructors’ processes in making Puzzmo Cross|words. What
 > it sounds cliche, but i draw inspiration from the world around me— most of my 'seed' entries or clue ideas are things that come to me as i go about my day-to-day life! someone will send me a silly article, or i'll hear a song, or talk to my friends and the gears start turning. i'm a pop culture junkie and i think that's really apparent in my work. i usually start with that one entry i'm really intentionally putting in a grid, and then try to find a bunch of other answers that resonate with me and feel fun and engaging but don't necessarily draw attention from the star of the show.
 
 **[Kenneth Cortes](https://www.puzzmo.com/user/xwc/kenny):**
-> My favorite puzzle ideas come from phrases I encounter in my day to day life. I learn a lot of funny words and colloquialisms from my physics students (shout out to CANDY SALAD) that inspire me to make new puzzles and develop themes. I think there is a strong connection between words you authentically discover in real life and entries that are entertaining in a crossword puzzle.
+> My favorite puzzle ideas come from phrases I encounter in my day to day life. I learn a lot of funny words and colloquialisms from my physics students (shout out to `CANDY SALAD`) that inspire me to make new puzzles and develop themes. I think there is a strong connection between words you authentically discover in real life and entries that are entertaining in a crossword puzzle.
 
 **[Enrique Henestroza Anguiano](https://www.puzzmo.com/user/xwc/enrique):**
 > I usually find a little piece of inspiration from my life, or from some wordplay that comes up in conversations I'm having with the people around me, and then turn that into a crossword theme.
@@ -81,7 +81,7 @@ Even throughout the editing process, the constructor’s voice is not eliminated
 
 In my upcoming Cross|word, I have an answer in the grid that I wanted to clue as a song title. My original clue was a fill-in-the-blank with a lyric from the song, but test solvers pointed out this was too difficult if they didn’t know the song. Brooke helped me make the clue more inferable by dropping the lyric approach and instead providing a definitional angle for the title, while still referencing the album it’s on. This revision let me keep the reference while also prioritizing solvers! 
 
-All constructors are also sent a proof of their puzzle before they run, allowing them to review any changes that have been made. The Puzzmo editing process was another feature that constructor’s emphasized:
+All constructors are also sent a proof of their puzzle before they run, allowing them to review any changes that have been made. The Puzzmo editing process was another feature that constructors emphasized:
 
 **Kelsey Dixon:**
 > i enjoy the puzzmo process, and the transparency of being able to see the alternate clue options etc. before a puzzle runs… i feel that at puzzmo the constructor has a little more control/ownership over the final product than one might have elsewhere. 
