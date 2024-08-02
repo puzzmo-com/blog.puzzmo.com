@@ -25,7 +25,7 @@ I was curious about constructors’ processes in making Puzzmo Cross|words. What
 **[Kelsey Dixon](https://www.puzzmo.com/user/xwc/kelsey):** 
 > it sounds cliche, but i draw inspiration from the world around me— most of my 'seed' entries or clue ideas are things that come to me as i go about my day-to-day life! someone will send me a silly article, or i'll hear a song, or talk to my friends and the gears start turning. i'm a pop culture junkie and i think that's really apparent in my work. i usually start with that one entry i'm really intentionally putting in a grid, and then try to find a bunch of other answers that resonate with me and feel fun and engaging but don't necessarily draw attention from the star of the show.
 
-**[Kenny Cortes](https://www.puzzmo.com/user/xwc/kenny):**
+**[Kenneth Cortes](https://www.puzzmo.com/user/xwc/kenny):**
 > My favorite puzzle ideas come from phrases I encounter in my day to day life. I learn a lot of funny words and colloquialisms from my physics students (shout out to CANDY SALAD) that inspire me to make new puzzles and develop themes. I think there is a strong connection between words you authentically discover in real life and entries that are entertaining in a crossword puzzle.
 
 **[Enrique Henestroza Anguiano](https://www.puzzmo.com/user/xwc/enrique):**
@@ -63,7 +63,7 @@ This quality of Puzzmo Cross|words is also represented in the effort to preserve
 **[Rob Dubbin](https://www.puzzmo.com/user/xwc/ardubs):**
 > Puzzmo values the specific things constructors have to say and the personal ways they want to say them, and to me that's what makes them feel like they were really written by people and not just turned out by a process. 
 
-**Kenny Cortes:**
+**Kenneth Cortes:**
 > An entry that might be too "obscure" for another crossword venue can be celebrated as the centerpiece of a Puzzmo crossword puzzle. This results in puzzles that feel truly personal to the constructor's life experience and is the main reason I love playing/constructing Puzzmo crosswords! 
 
 **Kate Hawkins:**
