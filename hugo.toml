@@ -28,7 +28,6 @@ staticDir = ['static']
   [markup.highlight]
     codeFences = false
 
-
 [taxonomies]
   tag = "tags"
   series = "series"
