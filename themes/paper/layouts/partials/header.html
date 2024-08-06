@@ -1,18 +1,41 @@
-<header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+<div class="puzzmo-logo-wrapper">
+  <div class="mx-auto px-8 flex max-w-3xl" style="display:flex;justify-content: space-between;">
+    <a class="link" target="_blank" title="Go to puzzmo.com" href="https://www.puzzmo.com/">
+      <img src="/logo.svg" alt="Puzzmo" class="puzzmo-logo" />
+    </a>
+
+        {{ with $.Scratch.Get "social_list" }}
+    <nav
+      style="gap:12px"
+      class="flex justify-center invert"
+    >
+      {{ range . }}<!---->
+      <a
+        class="text-[0] [background:var(--url)_center_center/cover_no-repeat] h-6 w-6"
+        style="--url: url(./{{ . }}.svg)"
+        href="{{ if eq . `rss` }}{{ `index.xml` | absURL }}{{ else if eq . `mastodon` }}{{ index site.Params . }}{{ else }}https://{{ . }}.com/{{ if eq . `linkedin` }}in/{{ end }}{{ index site.Params . }}{{ end }}"
+        target="_blank"
+        rel="{{ if eq . `rss` }}alternate{{ else }}me{{ end }}"
+      >
+        {{ . }}
+      </a>
+      {{ end }}<!---->
+    </nav>
+    {{ end }}<!---->
+
+  </div>
+</div>
+
+<header class="mx-auto flex max-w-3xl px-8 lg:justify-center" style="display:flex">
+
   <div class="relative z-50 mr-auto flex items-center">
     <a
-      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl"
       href="{{ `/` | absURL }}"
       >{{ site.Title }}</a
     >
-  
-  </div>
 
-  <div
-    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-    role="button"
-    aria-label="Menu"
-  ></div>
+  </div>
 
   {{ $bg_color := $.Scratch.Get "bg_color" }}<!---->
 
@@ -23,11 +46,6 @@
       htmlClass.remove('not-ready');
     }, 10);
 
-    // mobile menu
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
 
     // dark theme
    // const metaTheme = document.querySelector('meta[name="theme-color"]');
@@ -64,6 +82,7 @@
   >
     {{ $url := .RelPermalink }}<!---->
     {{ with site.Menus.main }}
+
     <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
       {{ range . }}
       <a
@@ -75,22 +94,5 @@
     </nav>
     {{ end }}<!---->
 
-    {{ with $.Scratch.Get "social_list" }}
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
-    >
-      {{ range . }}<!---->
-      <a
-        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./{{ . }}.svg)"
-        href="{{ if eq . `rss` }}{{ `index.xml` | absURL }}{{ else if eq . `mastodon` }}{{ index site.Params . }}{{ else }}https://{{ . }}.com/{{ if eq . `linkedin` }}in/{{ end }}{{ index site.Params . }}{{ end }}"
-        target="_blank"
-        rel="{{ if eq . `rss` }}alternate{{ else }}me{{ end }}"
-      >
-        {{ . }}
-      </a>
-      {{ end }}<!---->
-    </nav>
-    {{ end }}<!---->
   </div>
 </header>
