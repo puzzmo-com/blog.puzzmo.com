@@ -1,6 +1,6 @@
 +++
 title = "Games changelog, August 2024"
-date = 2024-08-06T15:34:35-07:00
+date = 2024-08-07T15:34:35-07:00
 draft = true
 comments = false
 tags = ["games", "changelog", "crossword", "typeshift", "flipart", "pile-up poker", "really bad chess"]
