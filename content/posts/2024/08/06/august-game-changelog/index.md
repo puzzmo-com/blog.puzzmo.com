@@ -1,5 +1,5 @@
 +++
-title = "Game changelog, August 2024"
+title = "Games changelog, August 2024"
 date = 2024-08-06T15:34:35-07:00
 draft = true
 comments = false
@@ -24,7 +24,7 @@ Here's what changed in our games over the last month.
 
 ### Pile-up Poker
 
-- __Add keyboard support__.
+- __Added keyboard support__.
 - Added a ⭐️ indicator next to quality hand labels on the grid.
 - Removed a small gap between the card slot drop areas to prevent players from accidentally dropping cards between two slots.
 - Uses a lighter key color for hearts cards.
