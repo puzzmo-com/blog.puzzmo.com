@@ -26,7 +26,7 @@ Here's what changed in our games over the last month.
 - __Added keyboard support__.
 - Added a ⭐️ indicator next to quality hand labels on the grid.
 - Removed a small gap between the card slot drop areas to prevent players from accidentally dropping cards between two slots.
-- Uses a lighter key color for hearts cards.
+- Changed the hearts card color to a lighter shade, to better distinguish it from brand colors on partner sites.
 - Fixed a bug that caused performance regressions while dragging cards. This was especially noticeable on low end phones.
 - Fixed a bug so cards will be more accurately centered on player's cursor while being dragged.
 - Fixed a bug that prevented players from being able to rearrange cards in the draw pile.
