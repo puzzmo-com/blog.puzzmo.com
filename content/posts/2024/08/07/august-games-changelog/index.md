@@ -1,10 +1,9 @@
 +++
 title = "Games changelog, August 2024"
 date = 2024-08-07T15:34:35-07:00
-draft = false
-comments = false
-tags = ["games", "changelog", "crossword", "typeshift", "flipart", "pile-up poker", "really bad chess"]
 authors = ["saman"]
+tags = ["games", "changelog", "crossword", "typeshift", "flipart", "pile-up poker", "really bad chess"]
+theme = "puzzmo-light"
 +++
 
 _Hi, Saman here! This is the first of what I hope will be many monthly changelog posts. Note that our team relies on a continuous release process, so while these changelogs will only come once the month, the changes themselves will roll out as they're completed. The changelogs are therefore always a summary of changes that are already live._
