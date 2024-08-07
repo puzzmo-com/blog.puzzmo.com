@@ -14,7 +14,7 @@ Here's what changed in our games over the last month.
 
 ### Crossword
 
-- __Removed the hint time penalty and instead use a timer system instead__ (Read [Hints v2: Moving from a time penalty to a cooldown period](https://blog.puzzmo.com/posts/2024/07/22/hints-v2/) for more details).
+- __Removed the hint time penalty, and added a cooldown period for hints__ (Read [Hints v2: Moving from a time penalty to a cooldown period](https://blog.puzzmo.com/posts/2024/07/22/hints-v2/) for more details).
 - Adjusted the layout of the clue lists depending on the dimensions of the crossword puzzle, so wider puzzles use the stacked column clue layout more readily than narrower puzzles.
 
 ### Flipart
