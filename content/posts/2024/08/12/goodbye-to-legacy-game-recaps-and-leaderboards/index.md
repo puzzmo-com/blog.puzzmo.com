@@ -12,9 +12,9 @@ Hey folks, this week we've had a think about how we can ensure some of the long-
 
     ![A diagram showing three sidebars: 1) the sidebar before sunsetting legacy results for games completed before April 1st, 2) the sidebar after sunsetting for games completed before April 1st, and 3) the sidebar for games completed after April 1st](illustration.png)
 
-    The version of Puzzmo which launched, and the Puzzmo we all use today may visually look very similar, but under-the-hood things are quite different. There's a _long_ technical [write-up here](https://blog.puzzmo.com/posts/2024/07/16/augmentations/) we have new tools to powers things like custom club leaderboards, _[un-announced features in Pile-Up Poker]_ and Puzzle Remixes.
+    The version of Puzzmo which launched, and the Puzzmo we all use today may visually look very similar, but under-the-hood things are quite different. There's a _long_ technical [write-up here](https://blog.puzzmo.com/posts/2024/07/16/augmentations/) but TLDR: we have new tools which powers things like custom club leaderboards, _[un-announced features in Pile-Up Poker]_ and Puzzle Remixes.
 
-    We've been keeping the older systems around to make sure the migration back in April was seamles, but have been finding the older system has been slowing down work on the 2 new games we have in active development. So, we're starting to remove these pieces.
+    We've been keeping the older systems around to make sure the migration back in April was seamless, but have been finding these older system have been slowing down work on the 2 new games we have in active development. So, we're starting to remove these pieces.
 
     This only affects when you look at games completed prior to April 1st, 2024, it will not affect your statistics/streaks etc.
 
