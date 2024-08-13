@@ -16,7 +16,7 @@ Hey folks, this week we've had a think about how we can ensure some of the long-
 
     We've been keeping the older systems around to make sure the migration back in April was seamless, but have been finding these older system have been slowing down work on the 2 new games we have in active development. So, we're starting to remove these pieces.
 
-    This only affects when you look at games completed prior to April 1st, 2024, it will not affect your statistics/streaks etc.
+    You will only notice the difference when you look at games completed prior to April 1st, 2024, it will not affect your statistics/streaks etc.
 
 2. **We are starting to archive old leaderboards for games running on older days**
 
@@ -24,6 +24,6 @@ Hey folks, this week we've had a think about how we can ensure some of the long-
 
     We have recently [opened the floodgates here too with club leaderboards](https://blog.puzzmo.com/posts/2024/07/24/groups-to-clubs/) and Pile-Up Poker currently has public leaderboards, allowing any player to participate. We felt this was possible if we made a trade-off with some older leaderboards: if it's been longer than 30 days since the leaderboard was closed, then we archive the leaderboard.
 
-    **Archiving a leaderboard means only storing the top 100 entries.** It feels very unlikely that someone is going to go to a game they completed a month ago, to brag about a leaderboard entry that requires 5 clicks to get through on the board. This is a little bit complicated with leaderboards where the number of people in first place is massive (like Flipart's least rotations) these I expect we will just mark all of them for deletion.
+    **Archiving a leaderboard means only the top 100 entries will be preserved.** It feels very unlikely that someone is going to go to a game they completed a month ago, to brag about a leaderboard entry that requires 5 clicks to get through on the board. This is a little bit complicated with leaderboards where the number of people in first place is massive (like Flipart's least rotations) these I expect we will just mark all of them for deletion.
 
 This sort of work is normal on long-term software projects, but often not communicated, and we'd trying to get into a good rhythm of writing up what we've been doing, so thanks for reading. Happy to answer questions in the discord.
