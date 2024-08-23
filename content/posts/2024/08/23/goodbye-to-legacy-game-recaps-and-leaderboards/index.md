@@ -1,7 +1,6 @@
 +++
 title = 'Changes to how we handle older games'
 date = 2024-08-23T00:01:00-07:00
-draft = true
 authors = ["saman", "orta"]
 tags = ["games", "changelog", "sunset"]
 +++
