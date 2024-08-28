@@ -26,7 +26,8 @@ When we were spec'ing out the map for what the Pile-Up Poker launch would look l
 - A new tutorial system for games
 - A new side-quest system
 - Revised [club infrastructure](https://blog.puzzmo.com/posts/2024/07/24/groups-to-clubs/)
-- The Shopify integration covered [in this post](https://blog.puzzmo.com/posts/2024/06/17/shopify-integration/)
+- Free 2 week trials
+- The Shopify integration for product discounts covered [in this post](https://blog.puzzmo.com/posts/2024/06/17/shopify-integration/)
 - A game early-unlock system based on a notable
 - Avatar sets unlocked based on notables
 
