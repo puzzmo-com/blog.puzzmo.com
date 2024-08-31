@@ -12,10 +12,11 @@ series = ["Integrating games to the server"]
 When we were spec'ing out the map for what the Pile-Up Poker launch would look like, it was pretty overwhelming:
 
 - A new, fully polished, game
-- A "pro" version of the game, also with full polish
+- A "pro" version of the game
 - A "series" infrastructure for games to account for many plays of one game per day
+- A "go to next game" recommendation system
 - A system for each player having a unique puzzle
-- Press should be able to get in early
+- An early-access system for press
 - A new system for marking games the next day as being "Fantasyland"
 - Custom event hooks into the completion screen
 - Custom event "secret leaderboards"
@@ -43,7 +44,13 @@ I probably only touched the Pile-Up codebase a few times, so I'll leave more det
 
 ### Series
 
--
+We knew that one hand of Pile-Up was too little, and after a bit of experimenting, came to the conclusion that 3 was about right and more than 5 felt like a chore. We spent some time considering what we'd need to build to handle multiple hands, the easiest was to simply have the game track your hands and restart when you have finished a hand.
+
+Having the game handle it felt unsatisfying, because it made the completion of a hand feel underwhelming. Two major issues, we had all these existing design patterns for completing a puzzle, and none of them would trigger in this mode and getting back to an individual hand was not puzzle in our existing puzzle infrastructure.
+
+The solution for this problem came by introducing a "puzzle series", wherein the a daily puzzle has an awareness that it lives within a navigable set of puzzles, each of which is individually completable (and eligible for the usual game completion processing.)
+
+This series system gave us the ability to provide new gates for "you need to be a user" or "you need to be a subscriber", in a way which felt quite natural.
 
 ### Viewer Metadata
 
@@ -54,27 +61,26 @@ I added a new abstraction to how puzzles and users interacted to handle:
 
 The general data-model for playing a puzzle on Puzzmo is that you have:
 
-```
+```text
 [User] starts [Gameplay] of [Puzzle] of type [Game]
 ```
 
 So:
 
- - `User`: A pretty traditional user model
- - `Gameplay`: Someone's play through of a puzzle e.g. their state of completion, progress info, [deeds](https://blog.puzzmo.com/posts/2024/07/16/augmentations/#deeds) etc 
- - `Puzzle`: An instance of a game with a specific string, attribution, custom name etc
- - `Game`: "Pile-Up Poker"'s game describes things like the layout, its readiness/polish, where to find the game's JavaScript etc
+- `User`: A pretty traditional user model
+- `Gameplay`: Someone's play through of a puzzle e.g. their state of completion, progress info, [deeds](https://blog.puzzmo.com/posts/2024/07/16/augmentations/#deeds) etc 
+- `Puzzle`: An instance of a game with a specific string, attribution, custom name etc
+- `Game`: "Pile-Up Poker"'s game describes things like the layout, its readiness/polish, where to find the game's JavaScript etc
 
 This mental model worked well until Pile-Up! Today it's more like:
 
-
-```
+```text
        ╒ starts [Gameplay]      ╕
 [User] ╡                        ├ of [Puzzle] of type [Game]
        ╘ with [Viewer Metadata] ╛
 ```
 
-With the somewhat ambiguously named "Viewer Metadata" representing a relationship between the user and a particular puzzle. This is a new API available via [the games plugin](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/). For Pile-Up, this contained the per-user custom puzzle string and the feasibility of accessing Fantasyland within the current game.   
+With the somewhat ambiguously named "Viewer Metadata" representing a relationship between the user and a particular puzzle. This is a new API available via [the games plugin](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/). For Pile-Up, this contained the per-user custom puzzle string and the feasibility of accessing Fantasyland within the current game.
 
 {{< details summary="The full code for Pile-Up's viewer metadata" >}}
 
@@ -129,7 +135,7 @@ ${gridSize}`
 
 {{< /details >}}
 
-We had some prior systemic hacks in this space too, because there is a "review mode" to the Crossword which lets folks leave direct feedback on individual clues. This was brought into the viewer metadata system, and the next game we have coming up uses this feature heavily.
+If you think critically about this implementation, a more fitting name would be "owner metadata" as all of the responses here are about the relationship between the gameplay owner and puzzle. This tension became less important once I started migrating systemic hacks we had in this space too. For example. there is a "review mode" to the Crossword which lets folks leave direct feedback on individual clues. This was brought into the viewer metadata system, and the next game we have coming up uses this feature heavily.
 
 ### Event Plugins
 
