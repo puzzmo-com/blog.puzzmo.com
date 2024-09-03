@@ -904,6 +904,25 @@ In many ways, the group leaderboard system, like the theme editor before it, is 
 
 Cool for Puzzmo users though, because normally dev teams won't take on that sort of technical debt for such an edge case in the userbase. I've yet to find anything remotely as powerful  as our user-generated leaderboards.
 
+### 2 Week Free Trials
+
+We keep a lot of subscription/payment infrastructure controlled in a single object which acts as a DI global context for triggering deals and 
+
+```ts
+// Sorta app-wide contexts, maybe at some point this can get represented as a bitfield we send down?
+export const defaultAmbientContext = {
+  allowBonusAndExperimentalGamesForEveryone: false,
+  mainSubscriptionIsBOGOF: false,
+  giftForSubsAreDiscounted: true,
+  allSubscriptionsAreTrials: true,
+  createShopifyPurchaseForSignups: "PUPCardsEventually" as ProductDiscountType | null,
+  createShopifyPurchaseForSignupsPayment: "PUPCards100" as ProductDiscountType | null,
+}
+
+export type AppAmbientContext = typeof defaultAmbientContext
+```
+
+
 ### Notables as keys
 
 For both user avatars and letting people have early access to Pile-Up, we relied on the notable system as a secondary access check. Prior to the Pile-Up launch, we solely used roles as the key way to track someone's access to resources in the API. [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) is a great system, and deeply embedded inside how the API works - but we can use a lighter touch and rely on existing other tools/system giving notables. 
