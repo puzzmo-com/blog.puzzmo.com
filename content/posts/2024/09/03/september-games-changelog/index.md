@@ -1,8 +1,9 @@
 +++
 title = "Games changelog, September 2024"
 date = 2024-09-03T15:01:37-07:00
-theme = "puzzmo-light"
+authors = ["saman"]
 tags = ["games", "changelog", "crossword", "typeshift", "pile-up poker"]
+theme = "puzzmo-light"
 +++
 
 ![An illustration of Puzzmo staring intently at a hand of cards. A rainbow arcs across the background.](thinker.png)
