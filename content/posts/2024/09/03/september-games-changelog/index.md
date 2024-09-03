@@ -20,8 +20,8 @@ Here's what changed in our games over the last month.
 
 ### Pile-up Poker
 
-- __Add Pile Up Poker Pro 🃏__.
-- __Add Fantasyland 🌈__.
+- __Added Pile Up Poker Pro 🃏__.
+- __Added Fantasyland 🌈__.
 - Changed the Fantasyland requirements for Pile Up Poker Pro from eight quality hands to seven.
 - Changed flush to no longer count as a quality hand.
 - Fixed a bug that could cause the "view results" button on the end screen to do nothing.
