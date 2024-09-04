@@ -13,6 +13,7 @@ Here's what changed in our games over the last month.
 ### Crossword
 
 - **Added a new crossword social share image that visualizes plonks**.
+- Added the "Wall clock time" leaderboard, which tracks the duration between the moment the daily crossword puzzle is published, and the moment it's completed.
 
 ### Typeshift
 
