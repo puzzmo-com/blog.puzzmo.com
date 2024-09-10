@@ -41,7 +41,7 @@ Then change `my-post` to be a cool URL. Next: set up the metadata at the top of 
 
 ```diff
 + authors = ["orta"]
-+ tags = ["changelog"]
++ tags = ["changelog"
 + theme = "puzzmo-light"
 - draft = true
 - comments = false
