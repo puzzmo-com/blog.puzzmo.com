@@ -19,11 +19,15 @@ Let's go through some of my motivations, things shipped and goals to try get it 
 
 ### De-React Native-ifying
 
-One of the first decisions I made for Puzzmo, was to go with React Native via Expo. The goal was that I could make a single codebase which would account for both the website and native apps. I considered that the "web" aspects of React Native would be the least baked from the framework's perspective, which was fine because that was the first platform we would be shipping on. So, the issues we'd find along the way we can iron out, and the native part would come along pretty easily once we started to focus on supporting the additional platforms.
+One of the first decisions I made for Puzzmo, was to go with React Native via Expo. The goal was that I could make a single codebase which would account for both the website and native apps. I considered that the "web" aspects of React Native would be the least baked from the framework's perspective, which was fine because web was the first platform we would be shipping on. So, the issues we'd find along the way we can iron out, and the native part would come along pretty easily once we started to focus on supporting the additional platforms.
 
-To ensure we weren't losing track of the progress, from day one I had a fully working build of the codebase shipping as a native app via Expo's cloud services. For the first year, while I was the only programmer, I would try to boot up the native builds and handle the changes to make it start working. Over time, I got a sense of what the trickiest things to try keep in sync were:
+To ensure we weren't losing track of the progress, from day one I had a fully working build of the codebase shipping as a native app via Expo's cloud services. For the first year, while I was the only programmer on Puzzmo, I would try to boot up the native builds and handle the changes to make it start working. Over time, I got a sense of what the trickiest things to try keep in sync were:
 
 - Ensuring the game thumbnails weren't crashing the entire app
 - Handling the subtle differences between navigational infrastructure
 
-These both were solvable at the speed I was going at, and were constraints I could keep reasoning about (and kinda anticipate/write tests for with the SVG thumbnail renderer at least) 
+These both were solvable at the speed I was going at, and were constraints I could keep reasoning about (and kinda anticipate/write tests for with the SVG thumbnail renderer at least) but it was difficult to make sure we were only using properties supported in the React Native SVG project 
+
+
+
+### De-Redwoodifying
