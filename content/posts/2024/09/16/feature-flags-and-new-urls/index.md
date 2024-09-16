@@ -75,7 +75,7 @@ This isn't really something you have to think about as a user ideally, as we giv
 
 Here's the two Cross|words I've had published:
 
-- Creature Feature (with my Wife + Brooke):{{< line-break >}}
+- Creature Features (with my Wife + Brooke):{{< line-break >}}
   https://www.puzzmo.com/puzzle/2023-12-11/crossword
   
 - Pick a Side (with Brooke): {{< line-break >}}
