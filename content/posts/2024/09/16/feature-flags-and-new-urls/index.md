@@ -1,7 +1,7 @@
 +++
 title = 'New: Feature Flags and New Gameplay URLs'
 date = 2024-09-16T14:28:19+01:00
-authors = ["gary"]
+authors = ["orta"]
 tags = ["changelog"]
 theme = "outlook-hayesy-beta"
 +++
