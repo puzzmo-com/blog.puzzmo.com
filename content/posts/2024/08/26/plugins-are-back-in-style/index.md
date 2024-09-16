@@ -28,41 +28,65 @@ When we were spec'ing out the map for what the Pile-Up Poker launch would look l
 - A new side-quest system
 - Revised [club infrastructure](https://blog.puzzmo.com/posts/2024/07/24/groups-to-clubs/)
 - Free 2 week trials
+- The ability for a lifetime account to bought 
 - The Shopify integration for product discounts covered [in this post](https://blog.puzzmo.com/posts/2024/06/17/shopify-integration/)
 - A game early-unlock system based on a notable
 - Avatar sets unlocked based on notables
 - App / Game unlockables based on the community pool
 
-Here we are, roughly two months after launch (June 10th) and only a few things from our original list were cut, and a few were added (club leaderboards, side quests, tutorials.)
+Then we shipped it, roughly two months after launch (June 10th) and only a few things from our original list were cut, and a few were added (club leaderboards, side quests, tutorials.)
 
-Given my opinion of _"It's not shipped until it's doc'd"_ - let's try and cover these from a systems/API perspective to understand how it got shipped.
+Given my opinion of _"It's not shipped until it's doc'd"_ - let's try and cover these from a systems/API perspective to understand what we built.
+
+### Showing my hand early
+
+We started with the game being locked behind an invite system, we gave away the keys in Discord and to press in prior emails
+
+![a screenshot of the game being locked with a password](./locked.png)
+
+When it was released, the puzzle thumbnail on the today page started showing a community pot
+
+![the puzzmo today page with the trillion dollar pot showing](./today.png)
+
+Playing a game of Pile-Up added a new sidebar to the right, and had a lot of new info on the completion sidebar/popup:
+
+![In-game screenshot of Pile-Up during the launch](in-game.png)
+
+While the community pot was filled, we kept track of it all on a secrets page which filled out over time, here's the completed version:
+
+[![a screenshot of the secrets page for the launch](./secrets-page.png)](./secrets-fullpage.png)
+
+( Click the above image to see the full page )
 
 ### Pile-Up Poker
 
 The game itself was built by [Saman Bemel-Benrud](https://github.com/samanpwbb) and [Jason Ho](https://github.com/cod1r), like all of the Puzzmo games, it is a React application. You can learn about [the design process here](https://www.gamedeveloper.com/design/here-s-how-zach-gage-prototyped-puzzmo-sensation-pile-up-poker).
 
-The game's logic runs inside Redux, and as it was our first card game - we've started a small card game library which uses nested redux stores to separate general "card stuff" from "this specific game" stuff. Pile-Up was the first game we released using [framer-motion](https://www.framer.com/motion/) for animations.
+The game's logic runs inside Redux, and as it was our first card game - we've started a small card game library which uses nested redux stores to separate general "card stuff" from "this specific game" stuff. Pile-Up was the first game we released using [framer-motion](https://www.framer.com/motion/) for animations. Saman talked highly about framer-motion when I asked for his opinion.
 
 I probably only touched the Pile-Up codebase a few times, so I'll leave more details if/when the games folk decide to do their own write-ups.
 
 ### Series
 
-We knew that one hand of Pile-Up was too little, and after a bit of experimenting, came to the conclusion that 3 was about right and more than 5 felt like a chore. We spent some time considering what we'd need to build to handle multiple hands, the easiest was to simply have the game track your hands and restart when you have finished a hand.
+We knew that one hand of Pile-Up was too little, and after a bit of experimenting, came to the conclusion that 3 was about right and more than 5 felt like a chore. We spent some time considering what we'd need to build to handle multiple hands, the easiest was to simply have the game track your hands and restart internally when you have finished a hand.
 
-Having the game handle the restart felt unsatisfying though, because it made the completion of a hand feel underwhelming. Two major issues, we had all these existing design patterns for completing a puzzle (like the leaderboard entries, sidebar info etc) - none of which would trigger in this mode and second, getting back to an individual hand was not possible as all our existing puzzle infrastructure.
+Having the game handle a restart felt unsatisfying though, because it made the completion of a hand feel underwhelming. There were two major issues with this approach:
 
-The solution for this problem came by introducing a "puzzle series" concept, wherein a daily puzzle recommendation has an awareness that it lives within a navigable set of puzzles, each of which is individually completable (and eligible for the usual game completion processing.)
+- We had all these existing design patterns for completing a puzzle (e.g. the sidebar/popup with info) - none of which would trigger in this mode
+- Showing individual hand information looked particularly gnarly with respect to the today page, and leaderboard entries
 
-This series system gave us the ability to provide new user-signup gates like "you need to be a user" or "you need to be a subscriber" which felt like a natural progression.
+The solution for this problem came by introducing a "puzzle series" concept, wherein a daily puzzle recommendation has an awareness that it lives within a navigable set of puzzles, each of which is individually completable and eligible for the usual game completion processing.
+
+This series system also gave us the ability to provide new user-signup gates like "you need to be a user" or "you need to be a subscriber" which felt like a natural progression of gating parts of Puzzmo to subscribers and users. For example hand 4 in the series requires you to be a signed up user, and hand 5 in the series requires Puzzmo Plus.
 
 ### Viewer Metadata
 
-We had two ideas, which really did not fit with how we built puzzles in Puzzmo:
+We had two ideas for the launch, which really did not fit with how we built puzzles in Puzzmo:
 
 - We wanted each Pile-Up puzzle to be unique for each player
 - We wanted a way to declare a special version of a game as being "Fantasyland"
 
-Prior to the eventm the general data-model for playing a puzzle on Puzzmo is that you have:
+Prior to the event, the general data-model for playing a puzzle on Puzzmo is that you have:
 
 ```text
 [User] starts [Gameplay] of [Puzzle] of type [Game]
@@ -83,7 +107,18 @@ This mental model worked well until Pile-Up! Today it's more like:
        ╘ with [Viewer Metadata] ╛
 ```
 
-With the somewhat ambiguously named "Viewer Metadata" representing a relationship between the user and a particular puzzle. This is a new API available via [the games plugin](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/). For Pile-Up, this contained the per-user custom puzzle string and the feasibility of accessing Fantasyland within the current game.
+With the somewhat ambiguously named "Viewer Metadata" representing a relationship between the user and a particular puzzle. This is a new API available via [the games plugin](https://blog.puzzmo.com/posts/2024/03/28/an-ode-to-game-plugins/). For Pile-Up, this contained the per-user custom puzzle string and the feasibility of accessing Fantasyland within the current game, it looks like this:
+
+```ts
+{
+  // Unique override for the puzzle string
+  puzzleStr?: string
+  // Say why, or why not fantasyland is possible to achieve
+  canFantasyLand? string
+  // Whether this is a fantasyland hand
+  fantasyLand?: boolean
+}
+```
 
 {{< details summary="The full code for Pile-Up's viewer metadata" >}}
 
@@ -878,7 +913,7 @@ export const getPriorLeaderboards = async (args?: { all?: boolean }): Promise<PU
 
 ### The Community Pool
 
-I implemented a new system for tracking 'site-wide' statistics, basically a simple way to quickly add to a single number over time inside our database. To test this out, I built it at the same time as implementing the server infra for counting all Plonks made across every game (10,070,119 as of Aug 26th). This same system was used to handle the Pile-Up pot, it is based on the augmentations system, and so the Pile-Up counter is a single expression: `points * (pupMultiplier || 1)` which is now permanently set to `1,000,043,069,552`.
+I implemented a new system for tracking 'site-wide' statistics, basically a simple way to quickly add to a single number over time inside our database. To test this out, I built it at the same time as implementing the server infra for counting all Plonks made across every game (`10,070,119` as of Aug 26th). This same system was used to handle the Pile-Up pot, it is based on the augmentations system, and so the Pile-Up counter is a single expression: `points * (pupMultiplier || 1)` which is now permanently set to `1,000,043,069,552`.
 
 ### The Multipliers
 
@@ -890,7 +925,7 @@ By tracking the average amount of points earned per day, we can manipulate the m
 
 When we looked at what we wanted for Side Quests and game Tutorials, and then sorta squinted our eyes, it became possible to see them as a single system. [Gary](https://github.com/gmjosack) took this on, and came up with an implementation which powers both and figured out a bunch of gnarly front-end bits to get it all working.
 
-How I think it works, having read most of the code:
+How I think it works, having read most of the code once or twice:
 
 - A `Checklist` is an ordered set of expressions, number values and messages which you create in our admin tools
 - When you start a gameplay, the Puzzmo API looks to see if there are tutorial/side quest `Checklists` for that game
@@ -902,6 +937,11 @@ How I think it works, having read most of the code:
 - The result of running the checkpoint API updates our local Relay cache, and we update your in-game tutorial/side quests
 
 The admin tools are a delight to work with, and we've started exploring what it looks like to bring these systems to other games. We drop all side quest `ChecklistUserProgress`s which are marked as completed from the database the next morning.
+
+For users this meant seeing onboarding tutorials for games for the first time! Here's the initial designs for these, things have changes a bit since but not too significantly.
+
+[![onboarding tutorials for puzzmo](checklists.png)](checklists.png)
+
 
 ### Revised Club Infrastructure
 
@@ -932,14 +972,6 @@ export type AppAmbientContext = typeof defaultAmbientContext
 ```
 
 
-### Notables as keys
-
-For both user avatars and letting people have early access to Pile-Up, we relied on the notable system as a secondary access check. Prior to the Pile-Up launch, we solely used roles as the key way to track someone's access to resources in the API. [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) is a great system, and deeply embedded inside how the API works - but we can use a lighter touch and rely on existing other tools/system giving notables.
-
-As an example, the new Lisa Hanawalt avatars are tied to the notable of having played Pile-Up Poker during the launch, something which the event plugin gives automatically. Now, if we want to give someone access rights, we have tools for giving notables en-mass or printing them like in a pack of cards.
-
-### Trials
-
 In many ways, adding support for trials with Stripe is _"just" kinda_:
 
 ```ts
@@ -953,6 +985,16 @@ if (ambientContext.allSubscriptionsAreTrials) {
 ```
 
 There's a lot of nuance though, ranging from user interface changes across the front-ends to handling all of the emails which need to conform to different legalities across countries.  This turned out to be one of those "easy to do, difficult yo get right" sort of projects that luckily we started right at the beginning of the preparation.
+
+### Purchasing a lifetime
+
+The first set of Lisa Hanawalt cards we sent out included a "golden ticket" - this is a ticket which included a code usable on `puzzmo.com/code` which offers the to buy for yourself, or gift to another a lifetime account. Infrastructure wise this is more Stripe work, simple, reasonable and well tested. We tied whether you could actually pay to unlock based on whether you had bought cards already (see the shopify blog post.) 
+
+### Notables as keys
+
+For both user avatars and letting people have early access to Pile-Up, we relied on the notable system as a secondary access check. Prior to the Pile-Up launch, we solely used roles as the key way to track someone's access to resources in the API. [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) is a great system, and deeply embedded inside how the API works - but we can use a lighter touch and rely on existing other tools/system giving notables.
+
+As an example, the new Lisa Hanawalt avatars are tied to the notable of having played Pile-Up Poker during the launch, something which the event plugin gives automatically. Now, if we want to give someone access rights, we have tools for giving notables en-mass or printing them like in a pack of cards.
 
 ### Unlockables Based on Community Goals
 
