@@ -21,9 +21,9 @@ When we were spec'ing out the map for what the Pile-Up Poker launch would look l
 - Custom event hooks into the completion screen
 - Custom event "secret leaderboards"
 - Custom event leaderboards ("most contributions to pot" for example)
-- A "pool" of winnings
-- A set of unlockables based on the pool of winnings
 - The winnings being based on multipliers (which we can control and use to tweak timings)
+- A community "pool" of winnings
+- A set of unlockables based on the pool of winnings
 - A new tutorial system for games
 - A new side-quest system
 - Revised [club infrastructure](https://blog.puzzmo.com/posts/2024/07/24/groups-to-clubs/)
@@ -31,8 +31,11 @@ When we were spec'ing out the map for what the Pile-Up Poker launch would look l
 - The Shopify integration for product discounts covered [in this post](https://blog.puzzmo.com/posts/2024/06/17/shopify-integration/)
 - A game early-unlock system based on a notable
 - Avatar sets unlocked based on notables
+- App / Game unlockables based on the community pool
 
-Here we are, roughly two months after launch (June 10th) and only a few things from our original list were cut, and a few were added (club leaderboards, side quests, tutorials.) So, given my opinion of "It's not shipped until it's doc'd" let's try and cover these from a systems/API perspective to understand how it got shipped.
+Here we are, roughly two months after launch (June 10th) and only a few things from our original list were cut, and a few were added (club leaderboards, side quests, tutorials.)
+
+Given my opinion of _"It's not shipped until it's doc'd"_ - let's try and cover these from a systems/API perspective to understand how it got shipped.
 
 ### Pile-Up Poker
 
@@ -46,20 +49,20 @@ I probably only touched the Pile-Up codebase a few times, so I'll leave more det
 
 We knew that one hand of Pile-Up was too little, and after a bit of experimenting, came to the conclusion that 3 was about right and more than 5 felt like a chore. We spent some time considering what we'd need to build to handle multiple hands, the easiest was to simply have the game track your hands and restart when you have finished a hand.
 
-Having the game handle it felt unsatisfying, because it made the completion of a hand feel underwhelming. Two major issues, we had all these existing design patterns for completing a puzzle, and none of them would trigger in this mode and getting back to an individual hand was not puzzle in our existing puzzle infrastructure.
+Having the game handle the restart felt unsatisfying though, because it made the completion of a hand feel underwhelming. Two major issues, we had all these existing design patterns for completing a puzzle (like the leaderboard entries, sidebar info etc) - none of which would trigger in this mode and second, getting back to an individual hand was not possible as all our existing puzzle infrastructure.
 
-The solution for this problem came by introducing a "puzzle series", wherein the a daily puzzle has an awareness that it lives within a navigable set of puzzles, each of which is individually completable (and eligible for the usual game completion processing.)
+The solution for this problem came by introducing a "puzzle series" concept, wherein a daily puzzle recommendation has an awareness that it lives within a navigable set of puzzles, each of which is individually completable (and eligible for the usual game completion processing.)
 
-This series system gave us the ability to provide new gates for "you need to be a user" or "you need to be a subscriber", in a way which felt quite natural.
+This series system gave us the ability to provide new user-signup gates like "you need to be a user" or "you need to be a subscriber" which felt like a natural progression.
 
 ### Viewer Metadata
 
-I added a new abstraction to how puzzles and users interacted to handle:
+We had two ideas, which really did not fit with how we built puzzles in Puzzmo:
 
-- A system for each player having a unique puzzle
-- A new system for marking games the next day as being "Fantasyland"
+- We wanted each Pile-Up puzzle to be unique for each player
+- We wanted a way to declare a special version of a game as being "Fantasyland"
 
-The general data-model for playing a puzzle on Puzzmo is that you have:
+Prior to the eventm the general data-model for playing a puzzle on Puzzmo is that you have:
 
 ```text
 [User] starts [Gameplay] of [Puzzle] of type [Game]
@@ -68,7 +71,7 @@ The general data-model for playing a puzzle on Puzzmo is that you have:
 So:
 
 - `User`: A pretty traditional user model
-- `Gameplay`: Someone's play through of a puzzle e.g. their state of completion, progress info, [deeds](https://blog.puzzmo.com/posts/2024/07/16/augmentations/#deeds) etc 
+- `Gameplay`: Someone's play through of a puzzle e.g. their state of completion, progress info, [deeds](https://blog.puzzmo.com/posts/2024/07/16/augmentations/#deeds) etc
 - `Puzzle`: An instance of a game with a specific string, attribution, custom name etc
 - `Game`: "Pile-Up Poker"'s game describes things like the layout, its readiness/polish, where to find the game's JavaScript etc
 
@@ -86,56 +89,58 @@ With the somewhat ambiguously named "Viewer Metadata" representing a relationshi
 
 ```ts
 const puzzleViewerMetadata = async (puzzle, userStateID) => {
-    const isLaunchPuzzle = puzzle.puzzle === ""
-    const isPro = puzzle.game?.slug === "pile-up-poker-pro"
+  const isLaunchPuzzle = puzzle.puzzle === ""
+  const isPro = puzzle.game?.slug === "pile-up-poker-pro"
 
-    const uniquePuzzleSeed = await makeNumberSha(puzzle.id + userStateID)
-    const gridSize = puzzle.game?.slug === "pile-up-poker-pro" ? 5 : 4
-    const puzzleStr = `2
+  const uniquePuzzleSeed = await makeNumberSha(puzzle.id + userStateID)
+  const gridSize = puzzle.game?.slug === "pile-up-poker-pro" ? 5 : 4
+  const puzzleStr = `2
 ${uniquePuzzleSeed}
 ${gridSize}`
 
-    const defaultExport = isLaunchPuzzle ? { puzzleStr } : null
+  const defaultExport = isLaunchPuzzle ? { puzzleStr } : null
 
-    // No daily? No fantasy land
-    if (!("featuredInDaily" in puzzle && puzzle.featuredInDaily?.length)) return { ...defaultExport, canFantasyLand: "not-daily" }
+  // No daily? No fantasy land
+  if (!("featuredInDaily" in puzzle && puzzle.featuredInDaily?.length)) return { ...defaultExport, canFantasyLand: "not-daily" }
 
-    // In an archive game? No fantasy land
-    const today = puzzle.featuredInDaily.find((d: any) => dailyIsToday(d.daily))
-    if (!today) return { ...defaultExport, canFantasyLand: "not-today" }
+  // In an archive game? No fantasy land
+  const today = puzzle.featuredInDaily.find((d: any) => dailyIsToday(d.daily))
+  if (!today) return { ...defaultExport, canFantasyLand: "not-today" }
 
-    const userState = await _getUserState(userStateID)
+  const userState = await _getUserState(userStateID)
 
-    const seriesReferences = puzzle.seriesReferences || (await db.puzzleSeriesPuzzle.findMany({ where: { puzzleID: puzzle.id } }))
-    const isPositionOne = !!seriesReferences.filter((s) => s.position === 1).length || false
+  const seriesReferences = puzzle.seriesReferences || (await db.puzzleSeriesPuzzle.findMany({ where: { puzzleID: puzzle.id } }))
+  const isPositionOne = !!seriesReferences.filter((s) => s.position === 1).length || false
 
-    // Grab the userstate note about when we should do fantasyland
-    const index: keyof UserState = isPro ? "pupProFantasyLandSeriesIndex" : "pupFantasyLandSeriesIndex"
-    const seriesIndex = userState[index]
+  // Grab the userstate note about when we should do fantasyland
+  const index: keyof UserState = isPro ? "pupProFantasyLandSeriesIndex" : "pupFantasyLandSeriesIndex"
+  const seriesIndex = userState[index]
 
-    const dailyNumbers = puzzle.featuredInDaily.map((d: any) => d.daily.seriesNumber).filter(Boolean) as number[]
-    if (seriesIndex) {
-      //  Does it match a daily for this puzzle? if so - you are _in_ fantasy land already
-      // Note that we flip the current series index when you complete the fantasyland game, so after playing it,
-      // you will be able to unlock it again in later games in the series
-      const dailyWithFantasyland = dailyNumbers.includes(seriesIndex)
-      if (dailyWithFantasyland && isPositionOne) {
-        return { ...defaultExport, canFantasyLand: "already-unlocked", fantasyLand: true }
-      }
-
-      //  if so - you are _in_ fantasy land already, but it is tomorrow
-      const isTomorrow = dailyNumbers.includes(seriesIndex - 1)
-      if (isTomorrow) return { ...defaultExport, canFantasyLand: "already-unlocked" }
+  const dailyNumbers = puzzle.featuredInDaily.map((d: any) => d.daily.seriesNumber).filter(Boolean) as number[]
+  if (seriesIndex) {
+    //  Does it match a daily for this puzzle? if so - you are _in_ fantasy land already
+    // Note that we flip the current series index when you complete the fantasyland game, so after playing it,
+    // you will be able to unlock it again in later games in the series
+    const dailyWithFantasyland = dailyNumbers.includes(seriesIndex)
+    if (dailyWithFantasyland && isPositionOne) {
+      return { ...defaultExport, canFantasyLand: "already-unlocked", fantasyLand: true }
     }
 
-    /// You have access to fantasyland
-    return { ...defaultExport, canFantasyLand: "possible" }
+    //  if so - you are _in_ fantasy land already, but it is tomorrow
+    const isTomorrow = dailyNumbers.includes(seriesIndex - 1)
+    if (isTomorrow) return { ...defaultExport, canFantasyLand: "already-unlocked" }
+  }
+
+  /// You have access to fantasyland
+  return { ...defaultExport, canFantasyLand: "possible" }
 }
 ```
 
 {{< /details >}}
 
-If you think critically about this implementation, a more fitting name would be "owner metadata" as all of the responses here are about the relationship between the gameplay owner and puzzle. This tension became less important once I started migrating systemic hacks we had in this space too. For example. there is a "review mode" to the Crossword which lets folks leave direct feedback on individual clues. This was brought into the viewer metadata system, and the next game we have coming up uses this feature heavily.
+If you think critically about this implementation, a more fitting name would have been "owner metadata" as all of the responses here are about the relationship between the gameplay owner and puzzle.
+
+This tension became less important once I started migrating systemic hacks we had in this space too. For example. there is a "review mode" to the Crossword which lets folks leave direct feedback on individual clues. This was brought into the viewer metadata system, and the next game we have coming up uses this feature _heavily_.
 
 ### Event Plugins
 
@@ -151,7 +156,6 @@ Here's those cases:
 - Custom event "secret leaderboards"
 - Custom event leaderboards ("most contributions to pot" for example)
 - The winnings being based on multipliers (which we can control and use to tweak timings)
-
 
 To pull this off, we needed to have very broad hooks for the event:
 
@@ -188,7 +192,7 @@ The plugin conforms to an interface, this grew organically, but eventually settl
 ```ts
 export type EventPlugin = {
   name: string
-  
+
   /** Adds info at the start of the completion screen (for PUP: the ticker) */
   addCalloutsToSidebar: (puzzle: RichGamePlayedForEvent, opts: { ownerIsUser: boolean }) => Promise<CompletionCallouts[]>
 
@@ -872,14 +876,13 @@ export const getPriorLeaderboards = async (args?: { all?: boolean }): Promise<PU
 
 {{< /details >}}
 
-### The Pool
+### The Community Pool
 
-I implemented a new system for tracking 'site-wide' statistics, basically a simple way to quickly add to a single number over time inside our database. To test this out, I built it at the same time as implementing the server infra for counting all Plonks made across every game (10,070,119 as of Aug 26th). This same system was used to handle the Pile-Up pot, it is based on the augmentations system, and so the Pile-Up counter is a single expression: `points * (pupMultiplier || 1)` which is now permanently set to `1,000,043,069,552`. 
+I implemented a new system for tracking 'site-wide' statistics, basically a simple way to quickly add to a single number over time inside our database. To test this out, I built it at the same time as implementing the server infra for counting all Plonks made across every game (10,070,119 as of Aug 26th). This same system was used to handle the Pile-Up pot, it is based on the augmentations system, and so the Pile-Up counter is a single expression: `points * (pupMultiplier || 1)` which is now permanently set to `1,000,043,069,552`.
 
+### The Multipliers
 
-### The Multipliers 
-
-[Jack Schlesinger](https://www.jackschlesinger.com/) came up with this neat abstraction that allowed us to have some control over the deadlines for the event: multipliers. The secrets system effectively meant we were putting ourselves on the line for 6 unpredictable deadlines. 
+[Jack Schlesinger](https://www.jackschlesinger.com/) came up with this neat abstraction that allowed us to have some control over the deadlines for the event: multipliers. The secrets system effectively meant we were putting ourselves on the line for 6 unpredictable deadlines.
 
 By tracking the average amount of points earned per day, we can manipulate the multipliers to create a cadence of roughly every 2-3 weeks revealing a new secret. Jack ran weekly meetings where we tried to figure out when it would land, and whether we would have everything we needed for the expected secret then we'd adjust multiplier accordingly. These levers gave us a lot of flexibility without feeling like we were putting our fingers directly on the scale.
 
@@ -887,28 +890,28 @@ By tracking the average amount of points earned per day, we can manipulate the m
 
 When we looked at what we wanted for Side Quests and game Tutorials, and then sorta squinted our eyes, it became possible to see them as a single system. [Gary](https://github.com/gmjosack) took this on, and came up with an implementation which powers both and figured out a bunch of gnarly front-end bits to get it all working.
 
-How I think it works, having read most of the code: 
- 
- - A `Checklist` is an ordered set of expressions, number values and messages which you create in our admin tools
- - When you start a gameplay, the Puzzmo API looks to see if there are tutorial/side quest `Checklists` for that game
- - If there are, we look to see if you have any `ChecklistUserProgress` for those
-   - If there's a tutorial, that's special cased to only exist once
-   - For sidequests, we have a pool of potential sidequests to pull one from if you don't have one
- - In-games, there is a new API to trigger a "checkpoint" when something "interesting" has happened. This sends the current deeds up to the server.
- - These deeds are then used as expression scopes for running through the checklist
- - The result of running the checkpoint API updates our local Relay cache, and we update your in-game tutorial/side quests
+How I think it works, having read most of the code:
+
+- A `Checklist` is an ordered set of expressions, number values and messages which you create in our admin tools
+- When you start a gameplay, the Puzzmo API looks to see if there are tutorial/side quest `Checklists` for that game
+- If there are, we look to see if you have any `ChecklistUserProgress` for those
+  - If there's a tutorial, that's special cased to only exist once
+  - For sidequests, we have a pool of potential sidequests to pull one from if you don't have one
+- In-games, there is a new API to trigger a "checkpoint" when something "interesting" has happened. This sends the current deeds up to the server.
+- These deeds are then used as expression scopes for running through the checklist
+- The result of running the checkpoint API updates our local Relay cache, and we update your in-game tutorial/side quests
 
 The admin tools are a delight to work with, and we've started exploring what it looks like to bring these systems to other games. We drop all side quest `ChecklistUserProgress`s which are marked as completed from the database the next morning.
 
 ### Revised Club Infrastructure
 
-We're still not quite sure we've fully hit what we want with clubs, but we're certainly closer with the version we released during the Pile-Up launch. I had been sketching out an implementation of custom group leaderboards based on requests from the moment the Augmentations system was working, but it's a very hard system to build and create user-facing tools for. Traditionally, these would stay either in code or as an admin tool where someone can ask 'how X works'. 
+We're still not quite sure we've fully hit what we want with clubs, but we're certainly closer with the version we released during the Pile-Up launch. I had been sketching out an implementation of custom group leaderboards based on requests from the moment the Augmentations system was working, but it's a very hard system to build and create user-facing tools for. Traditionally, these would stay either in code or as an admin tool where someone can ask 'how X works'.
 
 To make it work on Puzzmo, we settled on providing a "game template"-like system which creates a club based on a particular game and that provides a set leaderboard for your club out of the box - then daring folks could go into "Custom" and tweak to their delights. The group leaderboard system provides all the same inputs as the leaderboards we use in the official augmentations, so it should always stay in sync feature-wise.
 
-In many ways, the group leaderboard system, like the theme editor before it, is scratching an itch I have. I left making developer tools to start Puzzmo, and I rarely have time to actively work in that space anymore (because Puzzmo is going well, thanks!) but these sort of features are acquiesces to the fact that my heart still lives in that space. 
+In many ways, the group leaderboard system, like the theme editor before it, is scratching an itch I have. I left making developer tools to start Puzzmo, and I rarely have time to actively work in that space anymore (because Puzzmo is going well, thanks!) but these sort of features are acquiesces to the fact that my heart still lives in that space.
 
-Cool for Puzzmo users though, because normally dev teams won't take on that sort of technical debt for such an edge case in the userbase. I've yet to find anything remotely as powerful  as our user-generated leaderboards.
+Cool for Puzzmo users though, because normally dev teams won't take on that sort of technical debt for such an edge case in the userbase. I've yet to find anything remotely as powerful as our user-generated leaderboards.
 
 ### 2 Week Free Trials
 
@@ -931,8 +934,51 @@ export type AppAmbientContext = typeof defaultAmbientContext
 
 ### Notables as keys
 
-For both user avatars and letting people have early access to Pile-Up, we relied on the notable system as a secondary access check. Prior to the Pile-Up launch, we solely used roles as the key way to track someone's access to resources in the API. [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) is a great system, and deeply embedded inside how the API works - but we can use a lighter touch and rely on existing other tools/system giving notables. 
+For both user avatars and letting people have early access to Pile-Up, we relied on the notable system as a secondary access check. Prior to the Pile-Up launch, we solely used roles as the key way to track someone's access to resources in the API. [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) is a great system, and deeply embedded inside how the API works - but we can use a lighter touch and rely on existing other tools/system giving notables.
 
-As an example, the new Lisa Hanawalt avatars are tied to the notable of having played Pile-Up Poker during the launch, something which the event plugin gaves automatically. Now, if we want to give someone access rights, we have tools for giving notables en-mass or printing them like in a pack of cards. 
+As an example, the new Lisa Hanawalt avatars are tied to the notable of having played Pile-Up Poker during the launch, something which the event plugin gives automatically. Now, if we want to give someone access rights, we have tools for giving notables en-mass or printing them like in a pack of cards.
 
+### Trials
 
+In many ways, adding support for trials with Stripe is _"just" kinda_:
+
+```ts
+if (ambientContext.allSubscriptionsAreTrials) {
+  // Try to only apply this once per user/account
+  const hasStripedBefore = accountsBeforeSetup.some((a) => a.firstSubscriptionDate)
+  if (!hasStripedBefore) {
+    session.subscription_data = { ...(session.subscription_data || {}), trial_period_days: 14 }
+  }
+}
+```
+
+There's a lot of nuance though, ranging from user interface changes across the front-ends to handling all of the emails which need to conform to different legalities across countries.  This turned out to be one of those "easy to do, difficult yo get right" sort of projects that luckily we started right at the beginning of the preparation.
+
+### Unlockables Based on Community Goals
+
+We ended up shipping 6 separate secrets which unlocked as the community hit certain numbers, to make this possible a lot of code had to be ensured to be driven by the API in some form. This didn't prove too tricky, as we had an array containing the lists and would build that out.
+
+What didn't prove easy was the stress of giving ourselves 6 additional, somewhat unpredictable, deadlines! The unlockables being secret meant that we could shift around scope depending on what our availability was, but the post-launch period from Pile-Up was the most intense time I've ever had working on Puzzmo.
+
+## What did we think?
+
+We've been doing a pretty good job of looking back on projects and doing team retros over the last year that Puzzmo has been public: as any new team member means you have a new team and not everyone is involved in every decision (which would be true regardless of team size). We ran two retros for this project.
+
+The first one, after we shipped Pile-Up and started the community pool, the key outcomes:
+
+- We try to have "kick-off" events when we thing a project is at certain stages to encourage feedback: idea / planning / design / implementation / testing
+- We wanted to find central ways to keep info about a project in one place
+- We wanted to try and keep going over that list
+
+The second one, which happened after the final secret was revealed:
+
+- We are not convinced secrets/surprises is a good match for our community
+- Tracking the features/integrations for games is complex and it's easy to miss hooking things up
+
+## Wrap-up
+
+The Pile-Up launch was the "big" game launch event we have done since Puzzmo.com came out and we had a "launch event". We ended up finding a way to take features we wanted to build into Puzzmo and tie them in, as well as really ship a game straight to a fully polished state. Feedback seems good and we definitely pulled off the core idea we wanted with the community pool system.
+
+We shipped a complex new game, with a set of complex new systems (with a reasonably small amount of leaks) in a really short time! But it was pretty ambitious, and it was hard to keep momentum after the event had actually launched because all of the things we had put off in the roll up to the event started to need addressing, but we also had to ship 6 interesting secrets over the course of 8-12 weeks.
+
+Will we do launch events again? Yeah, but differently!
