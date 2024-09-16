@@ -63,10 +63,24 @@ With the new URLs feature flag enabled, when you click on the Cross|word thumbna
 https://www.puzzmo.com/puzzle/2024-09-16/crossword
 ```
 
-This link will always take you to your puzzle for that day and it's very explicit about what you're getting. We are still keeping the old URLs around for when you explicitly want to share your game (for coop, or for bragging) but now the link to play your game would take someone to play a new version of the puzzle. Meaning of the three we saw before, for today's Really Hard Chess:
+This link will always take you to your puzzle for that day and it's very explicit about what you're getting. We are still keeping the old URLs around for when you explicitly want to share your game (for coop, or for bragging) but now the link to play your game would take someone to play a new version of the puzzle. 
 
-- Play themselves: https://www.puzzmo.com/puzzle/2024-09-16/really-bad-chess/hard/1
-- Share invite for Coop: https://puzzmo.com/play/really-bad-chess/sdr162rtn
-- Share for bragging: https://puzzmo.com/play/really-bad-chess/sdr162rtn/share
+Meaning of the three cases we saw before, here are the links for today's Really Hard Chess:
 
-This isn't really something you have to think about as a user ideally, as we give these links to you at specific points for sharing with others. However, it's a pretty substantial change and we'd like to give it a chance to breathe with more folks than just Puzzmo staff testing it out, so if you're interested - head over to the [features flag section on Puzzmo.com](https://puzzmo.com/me/features) and turn it on.
+- Play themselves:{{< line-break >}} https://www.puzzmo.com/puzzle/2024-09-16/really-bad-chess/hard/1
+- Share invite for Coop:{{< line-break >}} https://puzzmo.com/play/really-bad-chess/sdr162rtn
+- Share for bragging:{{< line-break >}} https://puzzmo.com/play/really-bad-chess/sdr162rtn/share
+
+This isn't really something you have to think about as a user ideally, as we give these links to you at specific points for sharing with others. But _not all of our users are just **users**_, some are contributors! For those folks, it's now really easy to link to your puzzle!
+
+Here's the two Cross|words I've had published:
+
+- Creature Feature (with my Wife + Brooke):{{< line-break >}}
+  https://www.puzzmo.com/puzzle/2023-12-11/crossword
+  
+- Pick a Side (with Brooke): {{< line-break >}}
+  https://www.puzzmo.com/puzzle/2024-08-29/crossword
+
+Simple, easy to remember if you are good with dates but very reasonable URLs.
+
+Puzzmo already supports these URLs out of the box, but it's a pretty substantial change to use them daily and we'd like to give it a chance to breathe with more folks than just Puzzmo staff testing it out, so if you're interested - head over to the [features flag section on Puzzmo.com](https://puzzmo.com/me/features) and turn it on.
