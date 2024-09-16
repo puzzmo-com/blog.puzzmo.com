@@ -83,4 +83,4 @@ Here's the two Cross|words I've had published:
 
 Simple, easy to remember if you are good with dates but very reasonable URLs.
 
-Puzzmo already supports these URLs out of the box, but it's a pretty substantial change to use them daily and we'd like to give it a chance to breathe with more folks than just Puzzmo staff testing it out, so if you're interested - head over to the [features flag section on Puzzmo.com](https://puzzmo.com/me/features) and turn it on.
+Puzzmo already supports these URLs out of the box, but it's a pretty substantial change to use them daily and we'd like to give it a chance to breathe with more folks than just Puzzmo staff testing it out, so if you're interested - head over to the [features flag section on Puzzmo.com](https://puzzmo.com/me/features) and turn it on our first public feature flag.
