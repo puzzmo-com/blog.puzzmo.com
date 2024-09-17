@@ -38,8 +38,7 @@ Then, feature flags which you have enabled are shown in the dropdown
 
 ![A screenshot of puzzmo.com  showing an active feature flag](active-ff.png)
 
-We'll also do changelog entries like this, so you can keep up either via the blog, Discord of by looking at news on the Puzzmo homepage.
-
+We'll also do changelog entries like this, so you can keep up either via the blog, Discord or by looking at news on the Puzzmo homepage.
 
 ## New Puzzle URLs
 
