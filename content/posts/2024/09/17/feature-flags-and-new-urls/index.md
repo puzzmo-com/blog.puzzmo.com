@@ -1,6 +1,6 @@
 +++
-title = 'New: Feature Flags and New Gameplay URLs'
-date = 2024-09-16T14:28:19+01:00
+title = 'New: Feature Flags and New URLs for Games'
+date = 2024-09-17T01:01:19+01:00
 authors = ["orta"]
 tags = ["changelog"]
 theme = "outlook-hayesy-beta"
@@ -60,12 +60,12 @@ We try to figure out which thing you are interested in by _asking you_ when you 
 With the new URLs feature flag enabled, when you click on the Cross|word thumbnail, instead of a URL like https://puzzmo.com/play/crossword/2ngl12xsd - you get a URL like:
 
 ```
-https://www.puzzmo.com/puzzle/2024-09-16/crossword
+https://www.puzzmo.com/puzzle/2024-09-17/crossword
 ```
 
 This link will always take you to your puzzle for that day and it's very explicit about what you're getting. We are still keeping the old URLs around for when you explicitly want to share your game (for coop, or for bragging) but now the link to play your game would take someone to play a new version of the puzzle. 
 
-Meaning of the three cases we saw before, here are the links for today's Really Hard Chess:
+Meaning of the three cases we saw before, here are the links for yesterdays's Really Hard Chess:
 
 - Play themselves:{{< line-break >}} https://www.puzzmo.com/puzzle/2024-09-16/really-bad-chess/hard/1
 - Share invite for Coop:{{< line-break >}} https://puzzmo.com/play/really-bad-chess/sdr162rtn
