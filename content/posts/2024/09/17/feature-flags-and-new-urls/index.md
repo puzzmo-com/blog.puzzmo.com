@@ -1,5 +1,5 @@
 +++
-title = 'New: Feature Flags and New URLs for Games'
+title = 'Feature Flags and New URLs for Games'
 date = 2024-09-17T01:00:11+01:00
 authors = ["orta"]
 tags = ["changelog"]
