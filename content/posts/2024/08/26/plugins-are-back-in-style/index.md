@@ -9,7 +9,7 @@ series = ["Integrating games to the server"]
 
 ### Aspects of the launch
 
-When we were spec'ing out the map for what the Pile-Up Poker launch would look like, it was pretty overwhelming:
+When we were spec'ing out what the Pile-Up Poker launch would look like, it was a pretty overwhelming list:
 
 - A new, fully polished, game
 - A "pro" version of the game
@@ -201,13 +201,13 @@ To pull this off, we needed to have very broad hooks for the event:
 - Add to the augmentations scope
 - Extend the cron jobs
 
-So, as Carl from the opening to Grand Theft Auto: San Andreas says:
+So, as [the meme](https://knowyourmeme.com/memes/ah-shit-here-we-go-again) goes:
 
 ![A memified screenshot from the opening to GTA, but he has a british flat cap on and is looking at a symbol typically used to represent a plugin](here-we-are-again.png)
 
-I must admit though, I did explore a hook system ([propeller](https://github.com/WeCanDoBetter/propeller) felt the most interesting) before eventually settling, once again, on the plugin model.
+I must admit though, I did explore a hook system ([propeller](https://github.com/WeCanDoBetter/propeller) felt the most interesting) before eventually settling, once again, on the plugin model for cross-cutting concerns.
 
-Our event plugin start as any JavaScrpt plugin system, you make a function which returns your plugin:
+The event plugin start as any JavaScirpt plugin system, you make a function which returns your plugin (or not):
 
 ```ts
 export const getEventPlugin = async (_roles: string | string[]) => {
@@ -917,7 +917,7 @@ I implemented a new system for tracking 'site-wide' statistics, basically a simp
 
 ### The Multipliers
 
-[Jack Schlesinger](https://www.jackschlesinger.com/) came up with this neat abstraction that allowed us to have some control over the deadlines for the event: multipliers. The secrets system effectively meant we were putting ourselves on the line for 6 unpredictable deadlines.
+[Jack](https://www.jackschlesinger.com/) came up with this neat abstraction that allowed us to have some control over the deadlines for the event: multipliers. The secrets system effectively meant we were putting ourselves on the line for 6 unpredictable deadlines.
 
 By tracking the average amount of points earned per day, we can manipulate the multipliers to create a cadence of roughly every 2-3 weeks revealing a new secret. Jack ran weekly meetings where we tried to figure out when it would land, and whether we would have everything we needed for the expected secret then we'd adjust multiplier accordingly. These levers gave us a lot of flexibility without feeling like we were putting our fingers directly on the scale.
 
@@ -971,7 +971,6 @@ export const defaultAmbientContext = {
 export type AppAmbientContext = typeof defaultAmbientContext
 ```
 
-
 In many ways, adding support for trials with Stripe is _"just" kinda_:
 
 ```ts
@@ -988,7 +987,7 @@ There's a lot of nuance though, ranging from user interface changes across the f
 
 ### Purchasing a lifetime
 
-The first set of Lisa Hanawalt cards we sent out included a "golden ticket" - this is a ticket which included a code usable on `puzzmo.com/code` which offers the to buy for yourself, or gift to another a lifetime account. Infrastructure wise this is more Stripe work, simple, reasonable and well tested. We tied whether you could actually pay to unlock based on whether you had bought cards already (see the shopify blog post.) 
+The first set of Lisa Hanawalt cards we sent out included a "golden ticket" - this is a ticket which included a code usable on `puzzmo.com/code` which offers the to buy for yourself, or gift to another a lifetime account. Infrastructure wise this is more Stripe work, simple, reasonable and well tested. We tied whether you could actually pay to unlock based on whether you had bought cards already (see the shopify blog post.)
 
 ### Notables as keys
 
