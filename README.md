@@ -21,6 +21,8 @@ Puzzmo Blog
    hugo server -D
    ```
 
+   If you want future dated posts to appear use `-F` as well
+
 4. Open the site in your browser: http://localhost:1313/
 
 ### How to make a new post
