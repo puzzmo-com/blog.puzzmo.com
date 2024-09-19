@@ -1,7 +1,8 @@
 +++
 title = 'Making the launch: How we handled releasing Pile-Up Poker'
-date = 2024-08-26T10:56:14+01:00
+date = 2024-09-19T00:56:14+01:00
 comments = false
+authors = ["orta"]
 tags = ["tech", "api", "plugins", "events"]
 theme = "outlook-hayesy-beta"
 series = ["Integrating games to the server"]
