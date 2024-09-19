@@ -1,6 +1,7 @@
 +++
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 date = {{ .Date }}
-draft = true
-comments = false
+authors = ["orta"]
+tags = ["tech"]
+theme = "outlook-hayesy-beta"
 +++

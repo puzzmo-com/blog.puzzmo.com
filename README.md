@@ -41,16 +41,9 @@ hugo new posts/$(date +%Y)/$(date +%m)/$(date +%d)/my-post/index.md
 
 Then change `my-post` to be a cool URL. Next: set up the metadata at the top of the `index.md` to include your name, the tags and the theme.
 
-```diff
-+ authors = ["orta"]
-+ tags = ["changelog"]
-+ theme = "puzzmo-light"
-- draft = true
-- comments = false
-```
-
 You can see [the themes here](https://github.com/puzzmo-com/blog.puzzmo.com/tree/main/static/themes).
 
+If it is your first post, you will need to add yourself to `content/authors/[you]/_index.md`. It'll make sense when you look. Then you can use that as the author.
 
 ### How do we handle separate sections?
 
