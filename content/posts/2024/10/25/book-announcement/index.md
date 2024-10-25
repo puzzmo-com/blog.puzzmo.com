@@ -1,6 +1,6 @@
 +++
 title = "Announcing Puzzmo's first crossword book"
-date = 2024-10-24T23:02:20-04:00
+date = 2024-10-25T00:00:20-04:00
 authors = ["brooke"]
 tags = ["crossword", "merch"]
 theme = "bright-white"
@@ -25,7 +25,7 @@ I’ve known for awhile that I wanted to make a book of Puzzmo Cross|words. I wa
 
 In my capacity as Puzzmo’s crossword editor, I’m always thinking about what conventions our crossword should adhere to, and which ones we can cast aside. For example, [I talked to our summer intern Madison](https://blog.puzzmo.com/posts/2024/07/31/puzzmo-constructors/) about how the physical constraints of the newspaper page continue to inform even crosswords that exist online only: there isn’t a lot of variation in size or shape, and a terse crossword-speak clue language continues to be prevalent despite online-only venues not needing to fit the space limitations imposed by a designated section of a newspaper page.
 
-Crossword conventions exist outside the grid, too. When I first started submitting crosswords to edited venues, I was surprised to learn that payment is nearly always rendered upon publication, not upon acceptance — and the time between acceptance and publication can be years! When I worked with the Puzzmo team to design the creator’s contract for our constructors, it was crucial to me that constructors be paid upon acceptance. For example, our upcoming [October 30 Cross|word](https://www.puzzmo.com/puzzle/2024-10-30/crossword) has been in the Puzzmo queue for something like two years, because it had to run on October 30 (you’ll see), and our fall 2023 launch schedule was in too much flux for me to schedule a date-specific crossword during our launch period. It makes a lot of sense to me that the constructor got paid two years ago instead of now!
+Crossword conventions exist outside the grid, too. When I first started submitting crosswords to edited venues, I was surprised to learn that payment is nearly always rendered upon publication, not upon acceptance — and the time between acceptance and publication can be years! When I worked with the Puzzmo team to design the creator’s contract for our constructors, it was crucial to me that constructors be paid upon acceptance. For example, our upcoming [October 30 Cross|word](https://www.puzzmo.com/puzzle/2024-10-30/crossword) has been in the Puzzmo queue for something like two years, because it had to run on October 30 (you’ll see), and our fall 2023 launch schedule was in too much flux for me to schedule a date-specific crossword during that period. It makes a lot of sense to me that the constructor got paid two years ago instead of now!
 
 Most crossword creator’s contracts at mainstream venues also involve you giving all your rights exclusively to the publisher, who can then reprint your puzzle as many times as they want (such as in, ahem, crossword books) without paying you anything more... or even notifying you. This is also something I wanted to do differently when designing Puzzmo’s crossword program. First, our exclusivity rights are only for two years from acceptance, after which constructors can republish their puzzles essentially as they like. And second, our creator’s contract also outlines a royalty structure for any reprints… such as reruns in a crossword book.
 
