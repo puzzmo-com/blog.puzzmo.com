@@ -18,7 +18,7 @@ Here's what's new in games since the last changelog.
 
 ### Crossword
 
-- Added a new metric for plonks.
+- Added a new user profile statistic for plonks.
 - Fixed bug that could cause plonks to be miscounted if the player exited and revisited the game.
 - Fixed a bug where the color of letters could be incorrect after the completion animation completes.
 
