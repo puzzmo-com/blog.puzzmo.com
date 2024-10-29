@@ -1,6 +1,6 @@
 +++
 title = 'Games changelog, October 2024'
-date = 2024-10-28T17:54:58-07:00
+date = 2024-10-29T15:01:37-07:00
 authors = ["saman"]
 tags = ["games", "changelog", "crossword", "typeshift", "pile-up poker"]
 theme = "puzzmo-light"
