@@ -2,7 +2,7 @@
 title = 'Games changelog, October 2024'
 date = 2024-10-29T15:01:37-07:00
 authors = ["saman"]
-tags = ["games", "changelog", "crossword", "typeshift", "pile-up poker"]
+tags = ["games", "changelog", "memoku", "crossword", "typeshift", "pile-up poker"]
 theme = "puzzmo-light"
 +++
 
@@ -34,4 +34,8 @@ Here's what's new in games since the last changelog.
 ### Typeshift
 
 - Improved the social share link image design. It is now more consistent with newer games.
+
+---
+
+If you have any feedback or just want to talk about these changes, [join our Discord](https://discord.gg/puzzmo)!
 
