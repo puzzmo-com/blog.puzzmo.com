@@ -1,6 +1,6 @@
 +++
 title = 'Games changelog, October 2024'
-date = 2024-10-29T15:01:37-07:00
+date = 2024-10-29T08:00:00-07:00
 authors = ["saman"]
 tags = ["games", "changelog", "memoku", "crossword", "typeshift", "pile-up poker"]
 theme = "puzzmo-light"
@@ -8,9 +8,7 @@ theme = "puzzmo-light"
 
 ![An illustration of Puzzmo surrounded by weather Memoku pieces, holding an umbrella.](brella.png)
 
-
 Here's what's new in games since the last changelog.
-
 
 ### Weather Memoku
 
@@ -25,17 +23,18 @@ Here's what's new in games since the last changelog.
 ### Pile-up Poker
 
 - Improve performance while dragging cards.
-- Added a confirmation message to the fantasyland end button.
+- Added an "are you sure?" confirmation message to the fantasyland "Finish" button.
 
 ### Flip art
 
 - Improved the social share link image design. It is now more consistent with newer games.
+  ![Example flipart share image](https://thumbs.puzzmo.com/play/flip-art/60nrz36n6.png)
 
 ### Typeshift
 
 - Improved the social share link image design. It is now more consistent with newer games.
+  ![Example typeshift share image](https://thumbs.puzzmo.com/play/typeshift/kqrgm3zfu.png)
 
 ---
 
 If you have any feedback or just want to talk about these changes, [join our Discord](https://discord.gg/puzzmo)!
-
