@@ -348,7 +348,7 @@ type ActualUser = {
 We used to have a few key repos:
 
 - app (puzzmo.com)
-- api (api.puzzmo.com)
+- api (api.puzzmo.com and Studio)
 - games
 - shared (code which both api/app/games needed)
 - opengraph (thumbs.puzzmo.com)
@@ -360,12 +360,16 @@ So, I consolidated the key projects into a single monorepo:
 - Monorepo
   - app
   - api
+  - studio
   - shared (creates an npm package on [GPR](https://docs.github.com/en/packages/quickstart))
 
+Moving 300k lines of code with completely different runtime and environmental constraints was pretty tricky, and we're still figuring out some edge cases (I got [WallabyJS](https://wallabyjs.com) working last week for example)
+
+This makes our "repos which count" look more like:
+
+- monorepo
 - games
 - opengraph
-
-Then as I started working on the native app, that also lives in the monorepo now.
 
 We use [turbobuild](https://turbo.build) to handle only building or testing things when they change, and have never had an issue with it in the last 4 months.
 
