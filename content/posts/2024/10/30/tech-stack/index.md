@@ -9,7 +9,7 @@ series = ["Tech Stack"]
 
 We're just over a year since Puzzmo was launched to the public, and it's time to pull out an [old Artsy tradition](https://artsy.github.io/series/artsy-tech-stack/): writing up some of our technical choices for the year.
 
-This builds on the "what did we launch" blog post, but with a significant slant towards the tech powering instead of user-facing features.
+This builds on the prior "[what did we launch](/posts/2024/04/17/v1-launch/)" blog post, but with a significant slant towards the tech powering instead of user-facing features.
 
 Team wise, today, we have two engineers solely focused on the games (and occasionally touching the front-end of the app), an engineer focused on the API and then me, who will do a bit of everything. We have 2 meetings a week, unless we're close to a game launch, then we check-in every day with a focus on that game. We're nearly entirely a slack only team, and we generally use GitHub Issues and GitHub Org Projects to keep track of what we're doing.
 
