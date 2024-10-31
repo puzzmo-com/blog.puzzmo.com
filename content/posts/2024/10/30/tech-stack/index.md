@@ -379,9 +379,10 @@ We have a few technical places where we want to explore in the next year:
 
 - De-React Native Web-ing puzzmo.com - this is a two pronged project, first it needs to run on "react dom" and second we'd need to replace the navigation stack
 - Consolidating puzzmo.com logic into Relay's [client schema extensions](https://relay.dev/docs/guides/client-schema-extensions/) and using fragment references
-- I'd like to hook the API hot reloading to the puzzmo.com API client, and have it re-request recent GraphQL queries and auto-update the Relay cache in dev builds
+- I'd like to hook the API hot reloading to the puzzmo.com API hot-module client, and have it re-request recent GraphQL queries and auto-update the Relay cache in dev builds
 - Figuring out higher level primitives for building admin dashboards
 - Having a stable / long-term external version of RedwoodJS' graphql infra
 - Look at common design patterns in games and turn those into libraries
+- Migrate the opengraph codebase to nodejs, and live inside the games repo
 
 Given that systems like this are living on-going codebases, we'll probably be forced into finding a whole new set of problems.
