@@ -4,7 +4,7 @@
  only works for puzzmo folks, because it requires an internal submodule in the app repo
  */
 
-import { themes } from "../../app/src/shared/themes.ts";
+import { themes } from "../../app/packages/shared/src/shared/themes.ts";
 
 for (const theme of themes) {
     const vars = Object.entries(theme).map(([key, value]) => `--theme-${key}: ${value};`).join("\n");
