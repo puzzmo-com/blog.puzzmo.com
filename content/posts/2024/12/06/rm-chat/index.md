@@ -8,7 +8,7 @@ theme = "outlook-hayesy-beta"
 
 Hey folks, we've just deployed a change which removes the chat section from Puzzmo.
 
-I thought it'd be better that I also pour one out for the chat and give a sense of what we're thinking in that space and give you a sense of what's happening a bit behind the scenes at the minute.
+I thought it'd be better that I also pour one out for the chat and give a sense of what we're thinking in that space and what's happening a bit behind the scenes on the site.
 
 At the core of the problem: _Chat was not pulling its weight_, we have tens of thousands of logged in users, but usually have under ten chat messages posted across friends and groups per day.
 
