@@ -87,7 +87,7 @@ for (const file of indexFiles) {
 }
 ```
 
-_( I saved mine at `scripts/shifify.ts` and use `tsx` to run the file as TypeScript. )_
+_( I saved mine at `scripts/shikify.ts` and use `tsx` to run the file as TypeScript. )_
 
 Next, I changed the CI build process to also run the new script:
 
