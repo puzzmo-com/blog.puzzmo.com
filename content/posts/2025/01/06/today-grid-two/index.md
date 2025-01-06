@@ -1,5 +1,5 @@
 +++
-title = 'New feature flag: Today Page Sorting'
+title = 'Towards a Dynamic Today Page Layout'
 date = 2025-01-06T16:46:47Z
 authors = ["orta"]
 tags = ["changelog", ""]
@@ -25,8 +25,8 @@ Roughly speaking, the new version comes with one or two key changes:
 
 - **Games you don't play move down the page**. We are already tracking the last time you played a game for the streak algorithm, we're now using it to decide how high an individual game should be positioned (relative to a few headline games)
 
-- **Dynamic positions**. It's hard to see it right now, but it's useful for us running Puzzmo to be able to say on a particular day, maybe one of the games should just be higher up or in a particular
+- **Dynamic positions**. It's hard to see it right now, but it's useful for us running Puzzmo to be able to say on a particular day, maybe one of the games should just be higher up or in a particular column
 
 - **Less similar items**. We now have better tools to track what type of items we have on the page, so we can make sure we don't show too many of the same types of items in a row
 
-If you'd like to give it a shot, it's available this week as a feature flag to give it a shot by turning it on in the feature flag section of Puzzmo: https://puzzmo.com/me/features
+We're planning on launching this next week with something cool, but if you'd like to give it a shot early: you can turn on a feature flag for the feature: https://puzzmo.com/me/features
