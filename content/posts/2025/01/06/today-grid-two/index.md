@@ -1,6 +1,6 @@
 +++
 title = 'Towards a Dynamic Today Page Layout'
-date = 2025-01-06T16:46:47Z
+date = 2025-01-06T00:00:47Z
 authors = ["orta"]
 tags = ["changelog", ""]
 theme = "outlook-hayesy-beta"
