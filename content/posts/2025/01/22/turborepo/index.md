@@ -302,7 +302,7 @@ This last one is based on [git-filter-repo](https://github.com/newren/git-filter
 
 ## Migrating repos out
 
-I may have taken a break from open source to build Puzzmo, but we're still shipping some and I wanted to be able to migrate our OSS into the monorepo and still be able to contribute back. I've found that the OSS we're making doesn't really get contributors, so I'm basically treating our public repos as "open-source mirrors" which means we can validate integrations in-house and still push changes to the public.
+I may have taken a break from open source to build Puzzmo, but we're still shipping open source!  I wanted to be able to migrate the public repos for our open source code into the monorepo and still be able to contribute back. I've found that the open source we've made over the last few years doesn't really get contributors, so I opted to treat our public repos as "open-source mirrors" which means we can validate integrations in-house and still push changes to the public when they get used internally.
 
 The example for this integration is [obebel](https://github.com/puzzmo-com/obebel) an OSS library which offers a builder pattern for making babel ASTs. This project lives in our monorepo, and changes to that sub-project are synced out to the OSS repo via GitHub Actions. It looks like this:
 
