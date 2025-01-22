@@ -304,7 +304,7 @@ This last one is based on [git-filter-repo](https://github.com/newren/git-filter
 
 I may have taken a break from open source to build Puzzmo, but we're still shipping open source!  I wanted to be able to migrate the public repos for our open source code into the monorepo and still be able to contribute back. I've found that the open source we've made over the last few years doesn't really get contributors, so I opted to treat our public repos as "open-source mirrors" which means we can validate integrations in-house and still push changes to the public when they get used internally.
 
-The example for this integration is [obebel](https://github.com/puzzmo-com/obebel) an OSS library which offers a builder pattern for making babel ASTs. This project lives in our monorepo, and changes to that sub-project are synced out to the OSS repo via GitHub Actions. It looks like this:
+The example for this integration is [obebel](https://github.com/puzzmo-com/obebel) an OSS library which offers a builder pattern for making babel ASTs. This project lives in our monorepo, and changes to that sub-project are synced out to the OSS repo via GitHub Actions. The Actions workflow file looks like this:
 
 ```yml
 name: Sync Obelel to OSS Repo
@@ -391,7 +391,9 @@ Roughly:
 - Extract the obebel bits and change their paths to act like they were done in the root
 - Apply those commits to the new repo via a bot-generated merge commit
 
-All the commits have different shas from the originals but authors, dates etc are all accurate. Then CI pushes the changes to a branch based on the time the deploy started. Pull requests then look [like this one](https://github.com/puzzmo-com/obebel/pull/3). I'd need to make one of these per open source repo which is a bit of a pain but its a fair trade to me.
+All the generated commits have different SHAs from the original commits in the monorepo but authors, dates etc are all accurate. Then CI pushes the changes to a branch based on the time the deploy started. A pull request from the workflow looks [like this one](https://github.com/puzzmo-com/obebel/pull/3). I'd need to make one of these per open source repo which is a bit of a pain but its a fair trade to me.
+
+The technique is based on [a blog post by Carlos Santillana](https://dev.to/carlossantillana/how-to-open-source-code-from-a-private-monorepo-262o).
 
 ## Overall
 
