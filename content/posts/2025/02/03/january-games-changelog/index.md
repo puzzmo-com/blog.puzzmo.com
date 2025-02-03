@@ -32,3 +32,7 @@ Here's what's new:
 ### Weather Memoku
 
 - Added user profile metrics.
+
+---
+
+If you have any feedback or just want to talk about these changes, [join our Discord](https://discord.gg/puzzmo)!
