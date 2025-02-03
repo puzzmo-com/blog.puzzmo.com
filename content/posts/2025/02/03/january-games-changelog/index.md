@@ -6,7 +6,7 @@ tags = ["games", "changelog", "memoku", "bongo", "crossword"]
 theme = "puzzmo-light"
 +++
 
-Happy new year! This changelog cover changes since [November 2024's changelog](https://blog.puzzmo.com/posts/2024/12/27/november-games-changelog/).
+Happy new year! This changelog covers all changes since [November 2024's changelog](https://blog.puzzmo.com/posts/2024/12/27/november-games-changelog/).
 
 ![](zoom.png)
 
