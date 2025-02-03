@@ -14,7 +14,7 @@ Here's what's new in games since the last changelog.
 
 - Released a new game, **Weather Memoku**. Play it for free on [Weather Channel's Puzzmo page](https://www.puzzmo.com/+/weather/play/weather-memoku/), or anywhere if you are a Puzzmo subscriber.
 
-### Crossword
+### Cross|word
 
 - Added a new user profile statistic for plonks.
 - Fixed bug that could cause plonks to be miscounted if the player exited and revisited the game.
