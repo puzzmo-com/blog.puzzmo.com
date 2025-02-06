@@ -32,7 +32,45 @@ What we have in today is the ability for the entirety of Puzzmo's today page to 
 
 > After: 1 upfront-loader, and then we only need a loader for the puzzle results
 
-Did you spot the reduction in timings for the networking requests? That's part 2
+This works by storing ["inline fragments"](https://relay.dev/docs/api-reference/graphql-and-directives/#inline) for games into a global which lives outside of the React tree 
+
+```ts
+export const playGameReadyFragment = graphql`
+  fragment usePlayGameReady on GamePlayed @inline {
+    id
+    slug
+    boardState
+    completed
+    elapsedTimeSecs
+    additionalTimeAddedSecs
+    ...[the rest]
+  }
+`
+
+const localStorageOfOffline = new Map<string, { gameplay: usePlayGameReady$key; dateKey: string }>()
+
+/** Store any puzzle on a today page into a cache based on the URL path */
+export const useLocalTrackingOfOfflineGameplays = (today: TodayScreenQuery$data) => {
+  useEffect(() => {
+    for (const rec of today.todayPage.daily.puzzles) {
+      const gameplay = rec.puzzle.currentAccountGamePlayed
+      if (gameplay && rec.urlPath) localStorageOfOffline.set(rec.urlPath, { gameplay, dateKey: today.todayPage.daily.dateKey })
+    }
+  }, [today])
+}
+
+/** Prior cached data for a puzzle based on the URL path we'd find */
+export const useGetLocallyTrackedOfflineGameplayInfo = (urlPath: string) => {
+  if (!localStorageOfOffline.has(urlPath)) return null
+
+  const item = localStorageOfOffline.get(urlPath)!
+  const gameplay = readInlineData(playGameReadyFragment, item.gameplay)
+  return { gameplay, dateKey: item.dateKey }
+}
+
+```
+
+We then split playing the Play Game page to first try boot up entirely from this data, and then in the background load the rest of the information for that page. Moving that request to not block playing a game!
 
 ### API Performance Improvements
 
