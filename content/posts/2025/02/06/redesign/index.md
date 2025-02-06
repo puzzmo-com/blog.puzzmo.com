@@ -6,7 +6,7 @@ tags = ["design"]
 theme = "puzzmo-light"
 +++
 
-Every game we launched last year came with at least one big new feature: **Bongo circles, Pile Up Poker Series', Weather Memoku's weather widget**. We launched game variants, customizable group leaderboards, time series sparklines on completion screens, game replays, and even a year-end recap. I could keep going. We've been busy since launch. Along the way, we gathered tons of valuable feedback from players about what they love and what they can't stand about Puzzmo.com.
+Every game we launched last year came with at least one big new feature: **Bongo circles, Pile Up Poker Series, Weather Memoku's weather widget**. We launched game variants, customizable group leaderboards, time series sparklines on completion screens, game replays, and even a year-end recap. I could keep going. We've been busy since launch. Along the way, we gathered tons of valuable feedback from players about what they love and what they can't stand about Puzzmo.com.
 
 We're going to make a set of systemic changes designed to improve the core Puzzmo experience and make space for even more experimentation in the future. Let's take a look at the work we plan to roll out over the next couple of months. Note that these mock-ups may be incomplete, and everything I'm sharing here is subject to change.
 
