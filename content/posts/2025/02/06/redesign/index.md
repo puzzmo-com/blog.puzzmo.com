@@ -31,7 +31,7 @@ We never planned for the calendar to play double duty as an index of games for a
 
 ![Clubs and Friends](Clubs_and_Friends.png)
 
-Social presence on Puzzmo [changed a lot](https://blog.puzzmo.com/posts/2024/12/06/rm-chat/) over the past year. We removed chat, and we've been investing more in ambient and asynchronous social rather than real-time collaboration. Turns out, our players are a lot more interested in leaderboards, daily news, and profile stats than with than trying to collab on a typeshift. In the short term, as you can see fromm the mock-up above, we're making straightforward changes to simplify managing your friends and groups. Stay tuned for more experiments related to Puzzmo's social dimension later in the year.
+Social presence on Puzzmo [changed a lot](https://blog.puzzmo.com/posts/2024/12/06/rm-chat/) over the past year. We removed chat, and we've been investing more in ambient and asynchronous social rather than real-time collaboration. Turns out, our players are a lot more interested in leaderboards, daily news, and profile stats than with than trying to collab on a typeshift. In the short term, as you can see from the mock-up above, we're making straightforward changes to simplify managing your friends and groups. Stay tuned for more experiments related to Puzzmo's social dimension later in the year.
 
 ## Mobile Navigation
 
