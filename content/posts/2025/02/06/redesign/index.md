@@ -73,4 +73,4 @@ By the end of this refactor, there should be very little React Native remaining.
 
 We plan to release pieces of this redesign as they're ready, under public feature flags so there will be opportunities for feedback throughout the process.
 
-Everything I shared in this post is subject to change and we open to feedback. To let us know know what you think, and to stay up to date on the latest releases, [join our Discord](https://discord.gg/puzzmo)!
+Everything I shared in this post is subject to change and we're open to feedback. To let us know know what you think or just to stay up to date on the latest releases, [join our Discord](https://discord.gg/puzzmo)!
