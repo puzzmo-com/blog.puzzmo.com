@@ -62,13 +62,13 @@ So, what was behind the curtain?
 
 At ~25 screens, roughly 70k lines of code and a whole world of spit-shine. The majority of the app which powered puzzmo.com was written by two folks (_Saman & Me_). The app itself is largely a conventional Relay application built in React, but it also talks, via a websocket, to our multiplayer/social side making state management non-trivial.
 
-We do quite a lot of work in the application in terms of having layouts which differ on mobile vs desktop, which causes some interesting tension inside the codebase. This approach is complex, but reviews of Puzzmo have often called it "native-like" which is high praise for a project based on web-tech. It's likely that the choice of using React Native Web via Expo at the start made this report a lot more likely to happen. 
+We do quite a lot of work in the application in terms of having layouts which differ on mobile vs desktop, which causes some interesting tension inside the codebase. This approach is complex, but reviews of Puzzmo have often called it "native-like" which is high praise for a project based on web-tech. It's likely that the choice of using React Native Web via Expo at the start made this report a lot more likely to happen.
 
-Betting of React Native Web gave us an obvious way to have native app when we get start thinking about putting Puzzmo on app stores. 
+Betting of React Native Web gave us an obvious way to have native app when we get start thinking about putting Puzzmo on app stores.
 
 This decision is something we've started to roll back on though, as the number of legally necessary third party systems and policy systems start to make maintaining one codebase across many platforms (each web browser, iOS and Android.) far less compelling. Part of the problem is that the complexity in managing all these constraints really requires at least one engineer's full time focus on each platform, and I'm not sure we're going to be there any time soon.
 
-We host the app on Vercel, where it is bundled as a Single Page App. Similar to techniques seen in Create React App, or Vite projects today. 
+We host the app on Vercel, where it is bundled as a Single Page App. Similar to techniques seen in Create React App, or Vite projects today.
 
 ### API
 
