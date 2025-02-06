@@ -63,7 +63,7 @@ Finally, here's a preview of the new game complete sidebar - this is mostly the 
 
 This will be brief, for the frontend engineers in the audience.
 
-The original puzzmo.com website was written in React Native because we planned to release a cross-platform native app. We have since changed our mobile app strategy (we're excited about the new plans!), which means we don't need to use React Native Web. This is great. React Native for Web is an impressive project, but ultimately quite a leaky abstraction that we all found quite challenging to work with. We are switching to standard React (bundled with Vite), and this project is the first step toward making it happen.
+The original puzzmo.com website was [written in React Native](https://www.youtube.com/watch?v=2NItowAgfNA) because we planned to release a cross-platform native app. We have since changed our mobile app strategy (we're excited about the new plans!), which means we don't need to use React Native Web. This is great. React Native for Web is an impressive project, but ultimately quite a leaky abstraction that we all found quite challenging to work with. We are switching to standard React (bundled with Vite), and this project is the first step toward making it happen.
 
 We've already switched out React Native's router for [wouter](https://github.com/molefrog/wouter), and we've started moving all styling over to [stylex](https://stylexjs.com/), and reworking our internal components to use [Base UI](https://base-ui.com/). These changes have already been _great_ for performance, bundle size, and usability (finally, we will have hover states and real anchor links), and they unlock more flexibility around animation and interactivity in the future.
 
