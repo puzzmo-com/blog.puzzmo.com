@@ -1,6 +1,6 @@
 +++
 title = 'A preview of upcoming Puzzmo.com design changes'
-date = 2025-02-06T15:38:22-08:00
+date = 2025-02-06T10:38:22Z
 authors = ["saman"]
 tags = ["design"]
 theme = "puzzmo-light"
