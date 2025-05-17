@@ -14,7 +14,7 @@ For 2025, we broke this pattern for Q1 because of three major factors:
 - [Saman](https://trashmoon.com), who normally heads up our game efforts felt like it was time to take a serious look at design of puzzmo.com
 - [Gary](https://github.com/gmjosack), who handles our API got monitoring and debugging to a point where he was happy to use these tools to inspect performance
 
-This week we released enough incremental work on these three projects that puzzmo.com both feels significantly faster, and I want to talk through how each project has contributed to it.
+This week we released enough incremental work on these three projects that puzzmo.com feels significantly faster, and I want to talk through how each project has contributed to it.
 
 ### iOS App Infrastructure
 
@@ -32,7 +32,7 @@ What we have in today is the ability for the entirety of Puzzmo's today page to 
 
 > After: 1 upfront-loader, and then we only need a loader for the puzzle results
 
-This works by storing ["inline fragments"](https://relay.dev/docs/api-reference/graphql-and-directives/#inline) for games into a global which lives outside of the React tree 
+This works by storing ["inline fragments"](https://relay.dev/docs/api-reference/graphql-and-directives/#inline) for games into a global which lives outside of the React tree
 
 ```ts
 export const playGameReadyFragment = graphql`
@@ -67,7 +67,6 @@ export const useGetLocallyTrackedOfflineGameplayInfo = (urlPath: string) => {
   const gameplay = readInlineData(playGameReadyFragment, item.gameplay)
   return { gameplay, dateKey: item.dateKey }
 }
-
 ```
 
 We then split playing the Play Game page to first try boot up entirely from this data, and then in the background load the rest of the information for that page. Moving that request to not block playing a game!
@@ -103,7 +102,7 @@ There are two places that ended up being really important here:
 - Navigational metaphors which come from a native design
 - Animation performance from shared abstractions
 
-Saman talks about the impedance mismatch for web developers using React Native Web in his pos here, but the technical parts that are interesting is that in native you keep the whole history of your backlog's DOM in memory vs web where you may use [`pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState#javascript) with an object representation of your prior state.
+Saman talks about the impedance mismatch for web developers using React Native Web in his [post on the re-design here](https://blog.puzzmo.com/posts/2025/02/06/redesign/), but the technical parts that are interesting is that in native you keep the whole history of your backlog's DOM in memory vs web where you may use [`pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState#javascript) with an object representation of your prior state.
 
 Roughly, this means the Today Page is still in the background as you open up the Play Game page! That's the simple case, the more complicated case is that you can have prior games still live also in the background! This comes with a lot of unexpected surprises because off-screen content isn't normally something you need to handle in web development.
 
