@@ -30,9 +30,9 @@ I figured that the macOS dictionary was a good user-interaction pattern to find 
 
 My initial draft built on the fact that whenever we reference a clue by answer, it is in the markdown as a codespan (e.g. `ICE`) and that text corresponds to the answer inside our Crossword's puzzle.
 
-The next week, Zach, Brooke and I chatted through the prototype. Collectively we sketched out a polished design, and changed how we declare the popovers in our completion notes.
+The next week, [Zach](https://www.puzzmo.com/user/puz/helvetica), [Brooke](https://www.puzzmo.com/user/puz/brooke) and I chatted through the prototype. Collectively we sketched out a polished design, and changed how we declare the popovers in our completion notes.
 
-Brooke's opinion was that (paraphasingly) said "automation can sometimes be more work than doing it manually." Which I think is a very astute position. First of all, clue answers aren't the only time we want to make a reference (e.g. "See Across-2") but also there are _always_ edge cases. Ror example our Crossword puzzle above only cares about these letters `NESTCEPAS` but a human opted to write `N'EST-CE PAS` in the screenshots above. Keeping all that in your head, and getting it right every time is probably more work than just writing the link in markdown.
+[Brooke](https://www.puzzmo.com/user/puz/brooke)'s' opinion was that (paraphasingly) said "automation can sometimes be more work than doing it manually." Which I think is a very astute position. First of all, clue answers aren't the only time we want to make a reference (e.g. "See Across-2") but also there are _always_ edge cases. Ror example our Crossword puzzle above only cares about these letters `NESTCEPAS` but a human opted to write `N'EST-CE PAS` in the screenshots above. Keeping all that in your head, and getting it right every time is probably more work than just writing the link in markdown.
 
 So, I knew what I was looking for, but getting it all together is a pretty tricky problem!
 
@@ -102,7 +102,7 @@ Cross-cutting features like this are traditionally hard to build systemically, t
 
 ## Et Voila
 
-Now with it ready, Brooke recommended I update one of the Crosswords I was a collaborator on to validate it works, and so I changed the markdown from:
+Now with it ready, [Brooke](https://www.puzzmo.com/user/puz/brooke) recommended I update one of the Crosswords I was a collaborator on to validate it works, and so I changed the markdown from:
 
 > `(For an explanation of this "apt pair" theme, click on the hints for 14- and 22-Across.)`
 
@@ -116,4 +116,4 @@ Which looks like this on puzzmo.com today!
 
 and it works [on mobile](./mobile-complete.png)!
 
-If you'd like to see it before Brooke starts rolling it out on the daily, you can go play [our Cross|word from the 11th of December 2023](https://www.puzzmo.com/puzzle/2023-12-11/crossword).
+If you'd like to see it before [Brooke](https://www.puzzmo.com/user/puz/brooke) starts rolling it out on the daily, you can go play [our Cross|word from the 11th of December 2023](https://www.puzzmo.com/puzzle/2023-12-11/crossword).
