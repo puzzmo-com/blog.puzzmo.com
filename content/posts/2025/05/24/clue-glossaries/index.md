@@ -2,7 +2,7 @@
 title = 'Introducing: Clue Glossary Popovers'
 date = 2025-05-24T16:16:03+01:00
 authors = ["orta"]
-tags = ["tech"]
+tags = ["changelog", "tech"]
 theme = "outlook-hayesy-beta"
 +++
 
