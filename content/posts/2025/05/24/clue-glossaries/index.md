@@ -98,9 +98,15 @@ Instead I took an off-the-shelf [markdown to abstract syntax tree](https://www.n
 
 I extended our markdown component to listen out for links which start with a hash, e.g. `[text](#23A)` to see if there are corresponding field in glossary from a game completed. If there is, then it will instead render a dotted link!
 
+Cross-cutting features like this are traditionally hard to build systemically, the difficuly comes from crossing many boundaries which is usually different technology stacks and all have their own deployment, testing and verification strategies - luckily, all of Puzzmo is TypeScript with each system built to be deployed interchangingly. Once the code was ready, it only took a hour or two to having it running fully on production!
+
 ## Et Voila
 
-With it all deployed, Brooke recommended I update one of the Crosswords I was a collaborator on to validate it works, and so I updated the markdown to:
+Now with it ready, Brooke recommended I update one of the Crosswords I was a collaborator on to validate it works, and so I changed the markdown from:
+
+> `(For an explanation of this "apt pair" theme, click on the hints for 14- and 22-Across.)`
+
+to:
 
 > `(For an explanation of this "apt pair" theme, click on the hints for [14-](#14A) and [22-Across](#22A).)`
 
