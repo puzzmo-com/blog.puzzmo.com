@@ -8,13 +8,13 @@ theme = "outlook-hayesy-beta"
 
 This is kinda an _off year_ on puzzmo.com for me, astute followers of Puzzmo in the discord might note that [Saman](https://www.puzzmo.com/+/polygon/user/puz/saman) and [Lilith](https://www.puzzmo.com/user/puz/lilith) have been the vanguard on the big, now shipped, re-design effort focusing on the navigation, today page and the play game page.
 
-_Me?_ I was working on [the iOS app](https://www.theverge.com/games/668478/puzzmo-is-finally-getting-an-app), which is mostly invisible work but my main focus is ole' [bizdev](https://en.wikipedia.org/wiki/Business_development). Plumbing Puzzmo [into libraries](https://www.businesswire.com/news/home/20250326593738/en/Hoopla-Digital-Launches-New-Gaming-Experience-with-Puzzmo-BingePass), converting some of our existing infrastructure into services and working with big partner's to put puzzles in un-expected places.
+_Me?_ I was working on [the iOS app](https://www.theverge.com/games/668478/puzzmo-is-finally-getting-an-app), which is mostly invisible work but my main focus is ole' [bizdev](https://en.wikipedia.org/wiki/Business_development). Plumbing Puzzmo [into libraries](https://www.businesswire.com/news/home/20250326593738/en/Hoopla-Digital-Launches-New-Gaming-Experience-with-Puzzmo-BingePass), converting some of our existing infrastructure into services and working with big partners to put puzzles in unexpected places.
 
 It's like critical work to get Puzzmo off the ground, and helps towards making enough money that the suit-y folks will let us do whatever we think is a good idea in the games world. But, sometimes you just need a break.
 
 So, I took a chunky design problem which has been rummaging around in my head the last few years: **Referencing clues inside the completion notes of a Cross|word is kinda sucky**.
 
-On a desktop, it's usable enough - after you've finished the puzzle, you can click on "hint" for any clue to see what we're talking about, but you have to find the position in the grid and when there's multiple clues you've got more searching to to.
+On a desktop, it's usable enough - after you've finished the puzzle, you can click on "hint" for any clue to see what we're talking about, but you have to find the position in the grid and when there are multiple clues you've got more searching to to.
 
 {{< imageHighlight src="desktop.png" alt="An example of the completion screen for a desktop" >}}
 
@@ -32,7 +32,7 @@ My initial draft built on the fact that whenever we reference a clue by answer, 
 
 The next week, [Zach](https://www.puzzmo.com/user/puz/helvetica), [Brooke](https://www.puzzmo.com/user/puz/brooke) and I chatted through the prototype. Collectively we sketched out a polished design, and changed how we declare the popovers in our completion notes.
 
-[Brooke](https://www.puzzmo.com/user/puz/brooke)'s' opinion was that (paraphasingly) said "automation can sometimes be more work than doing it manually." Which I think is a very astute position. First of all, clue answers aren't the only time we want to make a reference (e.g. "See 2-Across") but also there are _always_ edge cases. For example our Crossword puzzle above only cares about these letters `NESTCEPAS` but a human opted to write `N'EST-CE PAS` in the screenshots above. Keeping all that in your head, and getting it right every time is probably more work than just writing the link intentionally in markdown.
+[Brooke](https://www.puzzmo.com/user/puz/brooke)'s opinion was (paraphasingly) that _"automation can sometimes be more work than doing it manually."_ Which I think is a very astute position. First of all, clue answers aren't the only time we want to make a reference (e.g. "See 2-Across") but also there are _always_ edge cases. For example our Crossword puzzle above only cares about these letters `NESTCEPAS` but a human opted to write `N'EST-CE PAS` in the screenshots above. Keeping all that in your head, and getting it right every time is probably more work than just writing the link intentionally in markdown.
 
 So, I knew what I was looking for, but getting it all together is a pretty tricky problem!
 
@@ -41,13 +41,13 @@ So, I knew what I was looking for, but getting it all together is a pretty trick
 
 ## The church-and-state of puzzle files
 
-We operate a pretty tight "church and state" around the puzzles in Puzzmo, the only system which is allowed to understand how a puzzle works is a game engine, or a thumbnail renderer. Every other system, like the site, the API, the iOS app all have to just treat it as an opaque string (e.g. a string which may have semantics but you can only use it as a "token".)
+We operate a pretty tight "church and state" around the puzzles in Puzzmo, the only system which is allowed to understand how a puzzle works is a game engine and thumbnail renderer. Every other system, like the site, the API, the iOS app all have to just treat it as an opaque string (e.g. a string which may have semantics but you can only use it as a "token".)
 
-This leaves games devs + designers with the most amount of flexibility in how they design their file formats, with no backwards compatibility issues or nor surprises from broken systems, but kinda leaves the rest of us having to get creative.
+This leaves games devs + designers with the most amount of flexibility in how they design their file formats, with no backwards compatibility issues or surprises from broken systems, but kinda leaves the rest of us having to get creative.
 
 So, I got creative and introduced a new structured data element which comes from a game when it is completed. About a year ago I revised our "game completed" data with two new systems: [Deeds and Augmentations](/posts/2024/07/16/augmentations/). These are generalizable ways in which the completed puzzle information can talk to the API to handle user stats, [leaderboards](/posts/2024/07/24/groups-to-clubs/), notables etc.
 
-These systems are sometimes useful to the application layer, but for the most, they pass that data right on to the app. This week, we have added a "Glossary" system where it is data from the played puzzle which is explicitly for the application layer. The type isn't particularly clever:
+These systems are sometimes useful to the application layer, but for the most, they pass that data right on to the app. This week, we have added a "Glossary" system where it is data from the played puzzle the is explicitly for the application layer. The type isn't particularly clever:
 
 ```ts
 export type Glossary = Record<
@@ -96,9 +96,9 @@ This codebase started as a React Native app, and I was incredibly suspicious of 
 
 Instead I took an off-the-shelf [markdown to abstract syntax tree](https://www.npmjs.com/package/markdown-ast) dependency and built my own AST -> React components layer inside Puzzmo. It's usable, if occasionally janky. However, because it's built entirely in-house, it's very easy to extend in useful ways. We can override how to render particular links, add unique syntax for special cases and add interactivity on specific components.
 
-I extended our markdown component to listen out for links which start with a hash, e.g. `[text](#23A)` to see if there are corresponding field in glossary from a game completed. If there is, then it will instead render a dotted link!
+I extended our markdown component to listen out for links which start with a hash, e.g. `[text](#23A)` to see if there are corresponding field in glossary from a game completed. If there is, then it will instead render a dotted link which comes with a popover handler.
 
-Cross-cutting features like this are traditionally hard to build systemically, the difficuly comes from crossing many boundaries which is usually different technology stacks and all have their own deployment, testing and verification strategies - luckily, all of Puzzmo is TypeScript with each system built to be deployed interchangingly. Once the code was ready, it only took a hour or two to having it running fully on production!
+Cross-cutting features like this are traditionally hard to build systemically. The difficulty comes from crossing boundaries which can be different technology stacks. Those stacks can all have their own deployment, testing and verification strategies - luckily, all of Puzzmo is TypeScript with each system built to be deployed interchangingly. Only two monorepos "app" and "games." Once the code was ready, it only took a hour or two to having it running fully on production!
 
 ## Et Voila
 
