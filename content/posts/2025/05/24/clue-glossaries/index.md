@@ -32,7 +32,7 @@ My initial draft built on the fact that whenever we reference a clue by answer, 
 
 The next week, [Zach](https://www.puzzmo.com/user/puz/helvetica), [Brooke](https://www.puzzmo.com/user/puz/brooke) and I chatted through the prototype. Collectively we sketched out a polished design, and changed how we declare the popovers in our completion notes.
 
-[Brooke](https://www.puzzmo.com/user/puz/brooke)'s' opinion was that (paraphasingly) said "automation can sometimes be more work than doing it manually." Which I think is a very astute position. First of all, clue answers aren't the only time we want to make a reference (e.g. "See Across-2") but also there are _always_ edge cases. Ror example our Crossword puzzle above only cares about these letters `NESTCEPAS` but a human opted to write `N'EST-CE PAS` in the screenshots above. Keeping all that in your head, and getting it right every time is probably more work than just writing the link in markdown.
+[Brooke](https://www.puzzmo.com/user/puz/brooke)'s' opinion was that (paraphasingly) said "automation can sometimes be more work than doing it manually." Which I think is a very astute position. First of all, clue answers aren't the only time we want to make a reference (e.g. "See 2-Across") but also there are _always_ edge cases. For example our Crossword puzzle above only cares about these letters `NESTCEPAS` but a human opted to write `N'EST-CE PAS` in the screenshots above. Keeping all that in your head, and getting it right every time is probably more work than just writing the link intentionally in markdown.
 
 So, I knew what I was looking for, but getting it all together is a pretty tricky problem!
 
