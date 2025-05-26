@@ -14,7 +14,9 @@ It's like critical work to get Puzzmo off the ground, and helps towards making e
 
 So, I took a chunky design problem which has been rummaging around in my head the last few years: **Referencing clues inside the completion notes of a Cross|word is kinda sucky**.
 
-On a desktop, it's usable enough - after you've finished the puzzle, you can click on "hint" for any clue to see what we're talking about, but you have to find the position in the grid and when there are multiple clues you've got more searching to to.
+In our post-completion write-ups clues can be referenced in a few ways: referencing the answer directly, talking about the clue text from the author, about the hint we've added to assist fols.
+
+On a desktop, it's usable enough because we show both the grid and the notes together on one screen. For a hint though, after you've finished the puzzle, you can click on "hint" for any clue to see what we're talking about, but you have to find the position in the grid and when there are multiple clues you've got more searching to to.
 
 {{< imageHighlight src="desktop.png" alt="An example of the completion screen for a desktop" >}}
 
