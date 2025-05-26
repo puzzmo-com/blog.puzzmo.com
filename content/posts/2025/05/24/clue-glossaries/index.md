@@ -118,4 +118,4 @@ Which looks like this on puzzmo.com today!
 
 and it works [on mobile](./mobile-complete.png)!
 
-If you'd like to see it before [Brooke](https://www.puzzmo.com/user/puz/brooke) starts rolling it out on the daily, you can go play our daily Cross|word [starting from May 23rd](https://www.puzzmo.com/puzzle/2025-05-26/crossword)
+[Brooke](https://www.puzzmo.com/user/puz/brooke) has been rolling it out on new Cross|words on the daily [starting from May 23rd](https://www.puzzmo.com/puzzle/2025-05-26/crossword).
