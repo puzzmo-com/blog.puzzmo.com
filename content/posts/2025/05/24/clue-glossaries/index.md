@@ -67,7 +67,7 @@ Then the corresponding code in the Crossword engine to fill that object isn't no
 
 ```ts
 // Sets up a glossary of terms which gets used by the host (the app) to display tooltips
-const glossary = {} as Record<string, GlossaryObject>
+const glossary = {} as Glossary
 
 for (const clue of [...state.props.clues.across, ...state.props.clues.down]) {
   const aOrD = state.props.clues.across.includes(clue) ? "a" : "d"
