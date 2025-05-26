@@ -6,7 +6,7 @@ tags = ["changelog", "tech"]
 theme = "outlook-hayesy-beta"
 +++
 
-This is kinda an _off year_ on puzzmo.com for me, astute followers of Puzzmo in the discord might note that [Saman](https://www.puzzmo.com/+/polygon/user/puz/saman) and [Lilith](https://www.puzzmo.com/user/puz/lilith) have been the vanguard on the big, now shipped, re-design effort focusing on the navigation, today page and the play game page.
+This is kinda an _off year_ for working on the parts of puzzmo.com which users see for me, astute followers of Puzzmo in the [discord](https://discord.gg/puzzmo) might note that [Saman](https://www.puzzmo.com/+/polygon/user/puz/saman) and [Lilith](https://www.puzzmo.com/user/puz/lilith) have been the vanguard on the big, now shipped, re-design effort focusing on the navigation, today page and the play game page.
 
 _Me?_ I was working on [the iOS app](https://www.theverge.com/games/668478/puzzmo-is-finally-getting-an-app), which is mostly invisible work but my main focus is ole' [bizdev](https://en.wikipedia.org/wiki/Business_development). Plumbing Puzzmo [into libraries](https://www.businesswire.com/news/home/20250326593738/en/Hoopla-Digital-Launches-New-Gaming-Experience-with-Puzzmo-BingePass), converting some of our existing infrastructure into services and working with big partners to put puzzles in unexpected places.
 
@@ -41,13 +41,13 @@ So, I knew what I was looking for, but getting it all together is a pretty trick
 
 ## The church-and-state of puzzle files
 
-We operate a pretty tight "church and state" around the puzzles in Puzzmo, the only system which is allowed to understand how a puzzle works is a game engine and thumbnail renderer. Every other system, like the site, the API, the iOS app all have to just treat it as an opaque string (e.g. a string which may have semantics but you can only use it as a "token".)
+We operate a pretty tight "church and state" around the puzzles in Puzzmo, the only systems which are allowed to understand how the internals of a puzzle works are the game engines and thumbnail renderers. Every other system, like the site, the API, the iOS app all have to just treat it as an opaque string (e.g. a string which may have semantics but you can only use it as a "token".)
 
 This leaves games devs + designers with the most amount of flexibility in how they design their file formats, with no backwards compatibility issues or surprises from broken systems, but kinda leaves the rest of us having to get creative.
 
-So, I got creative and introduced a new structured data element which comes from a game when it is completed. About a year ago I revised our "game completed" data with two new systems: [Deeds and Augmentations](/posts/2024/07/16/augmentations/). These are generalizable ways in which the completed puzzle information can talk to the API to handle user stats, [leaderboards](/posts/2024/07/24/groups-to-clubs/), notables etc.
+So, I got creative and introduced a new structured data element which comes from a completed game. About a year ago I revised the "game completed" data with two new systems: [Deeds and Augmentations](/posts/2024/07/16/augmentations/). These systems are generalizable ways in which the completed game information can talk to our API which lets it handle user stats, [leaderboards](/posts/2024/07/24/groups-to-clubs/), notables etc.
 
-These systems are sometimes useful to the application layer, but for the most, they pass that data right on to the app. This week, we have added a "Glossary" system where it is data from the played puzzle the is explicitly for the application layer. The type isn't particularly clever:
+These systems are sometimes useful to the application layer, but for the most, the front-end passes that data right on to the API. This last week, I have added a "Glossary" system where it is data from the played puzzle is sent explicitly for the application layer. The shape of the data isn't particularly clever:
 
 ```ts
 export type Glossary = Record<
@@ -63,7 +63,7 @@ export type Glossary = Record<
 >
 ```
 
-Then the corresponding code in the Crossword to fill that object isn't notable either:
+Then the corresponding code in the Crossword engine to fill that object isn't notable either:
 
 ```ts
 // Sets up a glossary of terms which gets used by the host (the app) to display tooltips
@@ -88,7 +88,7 @@ for (const clue of [...state.props.clues.across, ...state.props.clues.down]) {
 }
 ```
 
-This glossary comes up to the puzzmo.com application layer upon as rich structured data along with the existing completion data. From, there it's a matter of plumbing glossary data into the component tree which makes up the interface for Puzzmo.
+This glossary object is passed up as rich structured data along with the existing completion data. From there it's a matter of plumbing glossary data into the React component tree which makes up the interface for Puzzmo.
 
 ## Get down with the markup
 
