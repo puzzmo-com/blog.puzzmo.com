@@ -6,7 +6,7 @@ tags = ["changelog", "tech"]
 theme = "outlook-hayesy-beta"
 +++
 
-This is kinda an _off year_ for working on the parts of puzzmo.com which users see for me, followers of Puzzmo in the [discord](https://discord.gg/puzzmo) might note that [Saman](https://www.puzzmo.com/+/polygon/user/puz/saman) and [Lilith](https://www.puzzmo.com/user/puz/lilith) have been the vanguard on the big, now shipped, re-design effort focusing on the navigation, today page and the play game page.
+This is kinda an _off year_ for working on the parts of puzzmo.com which users see for me, followers of Puzzmo in the [discord](https://discord.gg/puzzmo) might note that [Saman](https://www.puzzmo.com/user/puz/saman) and [Lilith](https://www.puzzmo.com/user/puz/lilith) have been the vanguard on the big, now shipped, re-design effort focusing on the navigation, today page and the play game page.
 
 _Me?_ I was working on [the iOS app](https://www.theverge.com/games/668478/puzzmo-is-finally-getting-an-app), which is mostly invisible work but my main focus is ole' [bizdev](https://en.wikipedia.org/wiki/Business_development). Plumbing Puzzmo [into libraries](https://www.businesswire.com/news/home/20250326593738/en/Hoopla-Digital-Launches-New-Gaming-Experience-with-Puzzmo-BingePass), converting some of our existing infrastructure into services and working with big partners to put puzzles in unexpected places.
 
