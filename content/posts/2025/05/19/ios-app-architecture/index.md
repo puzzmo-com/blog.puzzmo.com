@@ -470,3 +470,122 @@ There is no such thing as just "add offline mode" though, its like a tonne of sm
 In the end, timelines got me and we never finished what we'd call a _good enough_ experience for classing the Puzzmo iOS app as having "offline support." Some of this came from the complexity of not shipping the codebase as a React Native app but other parts are just that Puzzmo is a series of interlocked systems built intentionally to be separately deployed/updated and wrangling all these together is a nightmare.
 
 For the sake of a reasonable brevity _in this post_, I have opted to move the offline discussion [into it's own post](posts/2025/06/02/offline-wip/).
+
+## Game Center
+
+We were interested in figuring out what parts of the iOS experience we could integrate outside of payments, and Game Center was an easy win. While being a bit of an under-utilized feature nowadays, Game Center used to be something I used every day during [Jetpack Joyride](https://apps.apple.com/us/app/jetpack-joyride/id457446957)'s heyday. We wondered if it would be possible to replicate a subset of our Puzzmo leaderboards and have those integrate into the existing leaderboard infrastructure we have in Puzzmo today.
+
+When I first thought about this, I felt that maybe the response payload for completing a game could include enough information for the native app to be able to submit to a specific leaderboard itself. This it turned out, didn't need to happen. Instead we sync the temporary Game Center user ID with the database model and on the server we can post to the leaderboards [via an API call.](https://developer.apple.com/documentation/appstoreconnectapi/gamecenterleaderboardentrysubmissioncreaterequest)
+
+Which meant the whole thing ended up being remarkably simple, and easy to maintain:
+
+```ts
+import { DeedValue } from "types/shared-schema-types"
+
+import { PuzzleDaily, UserState } from "@prisma/client"
+
+import { createAppStoreConnectAPI } from "src/lib/appstoreConnectAPI"
+import { isDevAPI, puzzmoAppVendorID } from "src/lib/constants"
+import { GameSlug } from "src/lib/games/gameRepo"
+import { RichGamePlay } from "src/services/games/gameCompleted"
+
+// Leaderboard identifiers can be found in https://appstoreconnect.apple.com/apps/6714482734/distribution/gamecenter
+//
+const gameCenterLeaderboards: Partial<Record<GameSlug, { appleID: string; deed: string; ourStableID?: string }[]>> = {
+  crossword: [
+    {
+      appleID: "com.puzzmo.leaderboard.crossword.time",
+      ourStableID: "game-crossword:time",
+      deed: "time",
+    },
+    {
+      appleID: "com.puzzmo.leaderboard.crossword.plonks",
+      ourStableID: "game-crossword:plonks",
+      deed: "plonks",
+    },
+  ],
+  "flip-art": [
+    {
+      appleID: "com.puzzmo.leaderboard.flipart.rotations",
+      ourStableID: "game-flip-art:moves",
+      deed: "moves",
+    },
+    {
+      appleID: "com.puzzmo.leaderboard.flipart.score.week",
+      ourStableID: "game-flip-art:score-week",
+      deed: "points",
+    },
+  ],
+}
+
+export const gameCenterLeaderboardStableIDMap = new Map(
+  Object.entries(gameCenterLeaderboards).flatMap(([gameSlug, leaderboards]) =>
+    leaderboards.map((lb) => [lb.ourStableID, { gameSlug, ...lb }])
+  )
+)
+
+export const handleGameCenterLeaderboards = async (
+  userStates: UserState[],
+  gameplay: RichGamePlay,
+  puzzleDaily: PuzzleDaily,
+  deedValues: DeedValue[]
+) => {
+  const gameCenterPlayers = userStates.filter((us) => us.gameCenterID)
+  if (!gameCenterPlayers.length) return
+
+  const gameSlug = gameplay.puzzle.game.slug
+  const gameCenterLeaderboard = gameCenterLeaderboards[gameSlug as GameSlug]
+  if (!gameCenterLeaderboard) return
+
+  // Don't submit for bonus puzzles, or variants (e.g. big crossword)
+  if (puzzleDaily.status === "BonusPaidOnly") return
+  if (gameplay.puzzle.subvariantID || gameplay.puzzle.variantID) return
+
+  const api = await createAppStoreConnectAPI()
+
+  for (const leaderboardInfo of gameCenterLeaderboard) {
+    const score = deedValues.find((dv) => dv.id === leaderboardInfo.deed)?.value
+    if (score === undefined && isDevAPI) throw new Error(`No deed value found for leaderboard ${leaderboardInfo.appleID}`)
+    if (typeof score !== "number") throw new Error(`Score for leaderboard ${leaderboardInfo.appleID} is not a number (${score})`)
+
+    for (const player of gameCenterPlayers) {
+      // https://developer.apple.com/help/app-store-connect/reference/leaderboards/
+      // and https://developer.apple.com/documentation/appstoreconnectapi/post-v1-gamecenterleaderboardentrysubmissions
+
+      const attributes = {
+        bundleId: puzzmoAppVendorID,
+        scopedPlayerId: player.gameCenterID!, // e.g. "A:_3e3824d19e3c1a3c79ca0d8076a35a1c",
+        score: Math.round(score).toString(),
+        vendorIdentifier: leaderboardInfo.appleID,
+      }
+
+      // https://developer.apple.com/documentation/appstoreconnectapi/post-v1-gamecenterleaderboardentrysubmissions#Example-Request-and-Response
+      try {
+        const leaderboardCreateResponse = await api.gameCenterLeaderboardEntrySubmissionsCreateInstance({
+          body: {
+            data: {
+              type: "gameCenterLeaderboardEntrySubmissions",
+              attributes,
+            },
+          },
+        })
+
+        if (leaderboardCreateResponse.error) {
+          console.log("Failed to create gc leaderboard entry for", leaderboardInfo.appleID)
+          console.log(JSON.stringify({ request: attributes }, null, 2))
+          console.error(JSON.stringify(leaderboardCreateResponse, null, 2))
+          if (isDevAPI) throw new Error(`Error creating gc leaderboard entry for ${leaderboardInfo.appleID}`)
+        } else {
+          // console.log(`Created gc leaderboard entry for ${leaderboardInfo.appleID}`)
+          // console.log(leaderboardCreateResponse.data)
+        }
+      } catch (e) {
+        console.error(`Error creating gc leaderboard entry for ${leaderboardInfo.appleID}`)
+        console.error(e)
+      }
+    }
+  }
+}
+```
+
+New Game Center leaderboards need to go through the App Store review system and come shipped with a native build deploy, so it'll be a bit tricky to ship leaderboards for un-released games in the future but an ideal state is that we have one or two for each game further down the line. For now we're pretty happy with Flipart and Cross|words leaderboards.
