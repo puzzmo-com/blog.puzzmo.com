@@ -1,5 +1,4 @@
 {{ define "main" }}
-
 <article>
   <header class="mb-16">
     <h1 class="!my-0 pb-2.5">{{ .Title }}</h1>
@@ -11,16 +10,11 @@
       {{ end }}<!---->
       -
       <span>
-        {{ range .Param "authors" }}
-          {{ $name := . }}
-          {{ $path := printf "/%s/%s" "authors" ($name | urlize) }}
-          {{ with $.Site.GetPage $path }}
-            <span>{{ .Params.name }}</span>
-          {{ end }}
-        {{ end }}
+        {{ range .Param "authors" }} {{ $name := . }} {{ $path := printf "/%s/%s" "authors" ($name | urlize) }} {{ with $.Site.GetPage $path
+        }}
+        <span>{{ .Params.name }}</span>
+        {{ end }} {{ end }}
       </span>
-
-
     </div>
     {{ end }}
   </header>
@@ -31,17 +25,15 @@
   <link rel="stylesheet" type="text/css" href="/themes/puzzmo-light.css" />
   {{ end }}
 
-  <section>{{ .Content }}</section>
+<section>
+  {{ .Content | replaceRE "(<h[1-6] id=\"(.+)\".*>)(.*)(</h[1-6]>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Heading anchor">#</a> ${3}${4}` | safeHTML }}
+</section>
 
   <!-- Post Tags -->
   {{ if .Params.tags }}
   <footer class="mt-12 flex flex-wrap">
     {{ range .Params.tags }} {{ $href := print (absURL "tags/") (urlize .) }}
-    <a
-      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
-      href="{{ $href }}"
-      >{{ . }}</a
-    >
+    <a class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]" href="{{ $href }}">{{ . }}</a>
     {{ end }}
   </footer>
   {{ end }}
@@ -69,32 +61,9 @@
   {{ end }}<!---->
   {{ end }}
 
-  <!-- giscus comment -->
-  {{ if and site.Params.giscus.repo (eq .Params.comments true) }}
-    <div class="giscus mt-24"></div>
-    <script src="https://giscus.app/client.js"
-          data-repo="{{ site.Params.giscus.repo }}"
-          data-repo-id="{{ site.Params.giscus.repoId }}"
-          data-category="{{ site.Params.giscus.category }}"
-          data-category-id="{{ site.Params.giscus.categoryId }}"
-          data-mapping="{{ site.Params.giscus.mapping | default (print `pathname`) }}"
-          data-strict="{{ site.Params.giscus.strict | default (print `1`) }}"
-          data-reactions-enabled="{{ site.Params.giscus.reactionsEnabled | default (print `0`) }}"
-          data-emit-metadata="{{ site.Params.giscus.emitMetadata | default (print `0`) }}"
-          data-input-position="{{ site.Params.giscus.inputPosition | default (print `top`) }}"
-          data-theme="{{ site.Params.giscus.theme | default (print `light`) }}"
-          data-lang="{{ site.Params.giscus.lang | default (print `en`) }}"
-          data-loading="{{ site.Params.giscus.loading | default (print `lazy`) }}"
-          crossorigin="anonymous"
-          async>
-    </script>
-  {{ end }}
 </article>
 
 {{- if .Params.series -}}
-<div class="post-series-bottom">
-  {{ partial "series.html" . }}
-</div>
-{{- end -}}
+<div class="post-series-bottom">{{ partial "series.html" . }}</div>
+{{- end -}} {{ end }}
 
-{{ end }}

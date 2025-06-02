@@ -48,7 +48,7 @@ So, I ran a dev team meeting to discuss some of these trade-offs and we conclude
 
 The app itself is about 3k lines of Swift code which is an even split between the app and a natively implemented game tgat lives inside the same codebase.
 
-My iOS knowledge is about 7-8 years out of date, but its still pretty useful in terms of understanding how to build a modern app. I got a lot of respect for Swift the language, but it still feels like a really pedantic language, great for building an Operating System or Camera app, but over-engineered for CRUD / pretty JSON parser. However, nowadays we I have GitHub copilot and the built-in Swift LLM recommendation tools in Xcode. Which certainly soften some of the hard edges.
+My iOS knowledge is about 7-8 years out of date, but its still pretty useful in terms of understanding how to build a modern app. I got a lot of respect for Swift the language, but it [still](https://artsy.github.io/blog/2017/02/05/Retrospective-Swift-at-Artsy/#native-downsides/) feels like a really pedantic language, great for building an Operating System or Camera app, but over-engineered for CRUD / pretty JSON parser. However, nowadays we I have GitHub copilot and the built-in Swift LLM recommendation tools in Xcode. Which certainly soften some of the hard edges.
 
 Because I knew the codebase would stay reasonably small, I fully vendored all our (one) dependencies using SwiftPM into the monorepo which meant that anyone with Xcode installed can open it up and have a working local build. This also meant it worked out of the box with Xcode Cloud (apple's CI service) which I use for all deploys nowadays.
 

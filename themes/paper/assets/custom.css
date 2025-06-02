@@ -1,3 +1,21 @@
 /* Place custom css here. */
 
+.hanchor {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  text-decoration: none;
+}
 
+.hanchor:hover {
+  opacity: 1;
+}
+
+details:not([open]) > summary {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+details[open] > summary {
+  cursor: default;
+  background-color: transparent;
+}

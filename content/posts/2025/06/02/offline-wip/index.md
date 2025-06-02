@@ -62,7 +62,7 @@ We've got to be pretty creative here to not cause a lot of trouble for folks mai
 
 So, we need a level of dynamic introspection which can happen when the device does not have the app running. My eventual answer for this is pretty convoluted, but is flexible.
 
-We start with the native API:
+{{< details summary="Starting with the native background fetch API" >}}
 
 ```swift
 extension AppDelegate {
@@ -99,6 +99,8 @@ extension AppDelegate {
     }
 }
 ```
+
+{{< /details >}}
 
 Simple enough, you pass an `NSOperation` for the OS to handle which downloads the necessary data and stores it somewhere.
 
@@ -655,6 +657,8 @@ Again, working from a user first opening up Puzzmo, the homepage has game thumbn
 
 To get thumbnails working offline, we need to know all of the built assets for the game ahead of time also. This I handled in a custom vite plugin:
 
+{{< details summary="The custom vite plugin" >}}
+
 ```ts
 /** Makes manifest files that we control which gives the studio tooling infra, and offline mode a way to what assets used are used in a game */
 export const createManifestsPLugin = () => ({
@@ -691,7 +695,11 @@ export const createManifestsPLugin = () => ({
 })
 ```
 
+{{< /details >}}
+
 These manifests are at a predictable position in a game's file system, so after we have enough data to grab the data for the home page, we send a message to the service worker with all of the games seen on the today page. This is handled in a relay hook fragment:
+
+{{< details summary="The iOS system for an event emitter" >}}
 
 ```ts
 import { useEffect } from "react"
@@ -871,6 +879,8 @@ const manuallySyncURLsToCache = async (cacheName: string, urls: string[]) => {
   console.debug(`SW ${cacheName} Found`, found, "Downloaded", downloaded)
 }
 ```
+
+{{< /details >}}
 
 That should be enough information for the service worker to be able to cache the thumbnails, and most of the game assets! Which is great, because we've still not got around to going into a game yet.
 
@@ -1170,7 +1180,7 @@ Can games now load offline? Yes, yes they can.
 
 ### Game State
 
-They can load, but they will almost instantly crash. We send incremental updates for games to the server, so you can refresh the page or change devices and carry on. This is going to bail. Simply making it NOOP when offline also isn't a good idea either, the app can be closed for all sorts of reasons and we'll need to keep information about your progress and completed states somewhere. We're gonna need a new system.
+They can load a game, but they will almost instantly crash. We send incremental updates for games to the server, so you can refresh the page or change devices and carry on. This is going to bail. Simply making it NOOP when offline also isn't a good idea either, the app can be closed for all sorts of reasons and we'll need to keep information about your progress and completed states somewhere. We're gonna need a new system.
 
 To replace the "update game" GraphQL mutation I introduced a new gameplay state sync. This sync engine updates three places: the relay cache, localStorage, and the API. We take updates from the in-progress game and always apply updates to the cache and localstorage, then try make the API request to update and if it succeeds we drop the stored information for that game. It tracks completions, and has an API to update the today page when it opens up too. So that you can complete a game offline, it is stored in localStorage and then closing and re-opening the app will keep that state. Then the next time you visit a game it will try sync everything so far.
 
@@ -1503,3 +1513,13 @@ const keysToUpdateOnRelayModel = [
 ```
 
 {{< /details >}}
+
+With progress saving we're in a great place for getting through the game now.
+
+Only kinda one thing left: completing a game!
+
+### Completing A Game
+
+Well, this doesn't exist because I've not built it. Ran out of time.
+
+However, the next big throwing system is going to be the information which is presented at the end of a game. For us, there's quite a lot of funky server-side code going on for our completions but it doesn't have to be that way. My plan was to handle the networking API failure manually, and then show a simplified completion sidebar which uses [the deeds directly](https://blog.puzzmo.com/posts/2024/07/16/augmentations/#augmentations--deeds--expressions) instead of letting the server provide the information.
