@@ -46,7 +46,7 @@ So, I ran a dev team meeting to discuss some of these trade-offs and we conclude
 
 ## Native
 
-The app itself is about 3k lines of Swift code which is an even split between the app and a natively implemented game tgat lives inside the same codebase.
+The app itself is about 3k lines of Swift code which is an even split between the app and a natively implemented game that lives inside the same codebase.
 
 My iOS knowledge is about 7-8 years out of date, but its still pretty useful in terms of understanding how to build a modern app. I got a lot of respect for Swift the language, but it [still](https://artsy.github.io/blog/2017/02/05/Retrospective-Swift-at-Artsy/#native-downsides/) feels like a really pedantic language, great for building an Operating System or Camera app, but over-engineered for CRUD / pretty JSON parser. However, nowadays we I have GitHub copilot and the built-in Swift LLM recommendation tools in Xcode. Which certainly soften some of the hard edges.
 
@@ -66,7 +66,7 @@ This means there's a lot of connective code which operates between pages in puzz
 
 Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible.
 
-The final nail in the coffin for this technique was that I had hoped that I could use a native `UINavigationController` menubar (e.g. the one built into the system) to handle the titlebar info but that too was dropped because we had a team working on a re-design of these components in web-tech and didn't know what it would look like in the end. I didn't want us to be forced into making native builds when there were titlebar design changes - and was especially worried about design slippage between the puzzmo.com on mobile and the iOS version.
+The final nail in the coffin for this technique was that I had hoped that I could use a native `UINavigationController` menubar (e.g. the one built into the system) to handle the title bar info but that too was dropped because we had a team working on a re-design of these components in web-tech and didn't know what it would look like in the end. I didn't want us to be forced into making native builds when there were titlebar design changes - and was especially worried about design slippage between the puzzmo.com on mobile and the iOS version.
 
 After looking at all these dead ends, I eventually just had to conclude that we would have a single webview for puzzmo.com as the root of the site and try to handle making the web view feel more native.
 
