@@ -537,7 +537,7 @@ func userContentController(_ userContentController: WKUserContentController, did
 
 Then, the JS app sends this message instantly on boot-up and if it is set, puts the data into the relay cache:
 
-```TS
+```ts
 /**
  * The native app, via offlineDownloader.ts grabs the today page data via a bg
  * fetch request, we want to make a request for this as early as possible and keep it available
@@ -562,7 +562,6 @@ export const useSetupCachedTodayQuery = () => {
     }
   })
 }
-
 
 // * undefined = not set, null = known to not be there
 let actualData: TodayScreenQuery$data | null | undefined = undefined
