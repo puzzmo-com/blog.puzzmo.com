@@ -479,6 +479,8 @@ When I first thought about this, I felt that maybe the response payload for comp
 
 Which meant the whole thing ended up being remarkably simple, and easy to maintain:
 
+{{< details summary="The post to Game Center leaderboard code" >}}
+
 ```ts
 import { DeedValue } from "types/shared-schema-types"
 
@@ -588,4 +590,8 @@ export const handleGameCenterLeaderboards = async (
 }
 ```
 
-New Game Center leaderboards need to go through the App Store review system and come shipped with a native build deploy, so it'll be a bit tricky to ship leaderboards for un-released games in the future but an ideal state is that we have one or two for each game further down the line. For now we're pretty happy with Flipart and Cross|words leaderboards.
+{{< /details >}}
+
+We allow all users to post to these leaderboards, regardless of whether you have Puzzmo Plus, which is different to the normal Puzzmo leaderboards but we're hopeful that the advantages of interacting with your existing social graph could make the trade-off worth it for us.
+
+New Game Center leaderboards need to go through the App Store review system and come shipped with a native build deploy, so it'll be a bit tricky to ship leaderboards for un-released games in the future but an ideal state is that we have one or two for each game further down the line. For now, we're happy with Flipart and Cross|words leaderboards!

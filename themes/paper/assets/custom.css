@@ -11,12 +11,17 @@
   opacity: 1;
 }
 
-details:not([open]) > summary {
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.1);
+details {
   border-radius: 0.25rem;
   padding: 0.5rem;
+  padding-top: 0.6rem;
+  cursor: pointer;
 }
+
+details:not([open]) > summary {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 details[open] > summary {
-background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
