@@ -59,7 +59,7 @@ My initial goal was to replicate the same type of architecture that we used at A
 
 This pattern worked well back a decade ago, but expectations on a mobile website are higher now, Puzzmo's internal architecture and changes in the tech powering webviews has made this a dead end nowadays.
 
-Today the idea of shipping drastically simplified mobile versions of apps is pretty much dead, with a lot of designers and engineers instead going for a 'mobile-first' approach where the majority of focus is on the mobile and then the desktop is offered a flourish here and there. While I don't do this (I'm a desktop kind of person, and our puzzmo.com traffic is roughly 50/50 desktop/web) I do agree that we should have feature parity with desktop and mobile.
+Today the idea of shipping drastically simplified mobile versions of apps is pretty much dead, with a lot of designers and engineers instead going for a 'mobile-first' approach where the majority of focus is on the mobile and then the desktop is offered a flourish here and there. While I don't do this (I don't use a phone, and our puzzmo.com traffic is roughly 50/50 desktop/mobile) I do agree that we should have feature parity with desktop and mobile.
 
 This means there's a lot of connective code which operates between pages in puzzmo both on mobile and on desktop, which makes for loading a fresh web page for every single navigation both slow and doesn't feel right. We use Relay as this fast internal key-value cache for all sorts, and with the "per screen webview" technique it's being re-created from web data on every page load.
 
@@ -879,7 +879,7 @@ extension JSContext {
 }
 ```
 
-{{ < /details > }}
+{{< /details >}}
 
 For the code downloaded from puzzmo.com I added a new sub-project to the Puzzmo monorepo called "offline-downloader" - it is a TypeScript project using vite with some dynamic code to upload a small script on puzzmo.com which uses the latest version of the today page GraphQL query from the built relay assets to request some data.
 
@@ -963,7 +963,9 @@ outer.getTodaysDailyInfo = (apiURL: string, config: { userToken?: string; gamepl
 }
 ```
 
-This technique sure is convoluted! You have an NSOperation which runs a JavaScript runtime with custom built Promise/fetch that grabs the latest version of the query generated at site build time. All that to grab and store some JSON data!
+{{< /details >}}
+
+This technique sure jumps around a lot! You have an NSOperation which runs a JavaScript runtime with custom built Promise/fetch that grabs the latest version of the query generated at site build time. All that to grab and store some JSON data which is executed from inside that script!
 
 I think when looking at this a second time, I think we can instead just export out the graphql query as a static string, have the NSOperation download that and run the code. This omits the whole JavaScript runtime system, but runs the risk of query params not being correct. But both versions have that problem. So, it'd be a good simplification.
 
@@ -987,7 +989,7 @@ func userContentController(_ userContentController: WKUserContentController, did
 }
 ```
 
-Then, the JS app sends this message instantly on bootup and if it is set, puts the data into the relay cache:
+Then, the JS app sends this message instantly on boot-up and if it is set, puts the data into the relay cache:
 
 ```TS
 /**
@@ -1093,7 +1095,7 @@ export const hydrateLocalCacheWithPuzzmoQuery = (env: Environment, partnerSlug: 
 }
 ```
 
-{{ < /details > }}
+{{< /details >}}
 
 Tada, you've got an offline version of your homepage. In theory, some of this is turned off right now because I've not gone through all the edge cases (and it's a complete nightmare to test because of how many systems need to be in place to test it, and background fetch only runs on a real iOS device and not a simulator.)
 
@@ -1107,4 +1109,521 @@ Our games are built in a different repo, with different deployment infrastructur
 
 Again, working from a user first opening up Puzzmo, the homepage has game thumbnails which are code maintained by the games team. So how do they work offline?
 
-To get thumbnails working offline, we need to know all of the built assets for the game ahead of time! For the moment, all our games come from the same monorepo so
+To get thumbnails working offline, we need to know all of the built assets for the game ahead of time also. This I handled in a custom vite plugin:
+
+```ts
+/** Makes manifest files that we control which gives the studio tooling infra, and offline mode a way to what assets used are used in a game */
+export const createManifestsPLugin = () => ({
+  name: "manifests",
+  generateBundle: {
+    order: "post",
+    async handler(opts, bundle) {
+      const assets = Object.keys(bundle)
+      const files = assets.filter((v) => !v.endsWith(".map"))
+      const subfolder = files[0].split("/").slice(0, 1).join("/")
+
+      const skip = subfolder === "really-bad-chess"
+      this.emitFile({
+        type: "asset",
+        fileName: `${subfolder}/offline.meta.json`,
+        source: JSON.stringify({ files, skip }),
+      })
+
+      // Inject the metadata for a game into the manifest if it exists
+      const lookingFor = `${process.cwd()}/${gameName}/metadata.ts`
+      if (existsSync(lookingFor)) {
+        const module = await import(lookingFor)
+
+        if (module.metadata) {
+          this.emitFile({
+            type: "asset",
+            fileName: `${subfolder}/metadata.json`,
+            source: JSON.stringify(module.metadata),
+          })
+        }
+      }
+    },
+  },
+})
+```
+
+These manifests are at a predictable position in a game's file system, so after we have enough data to grab the data for the home page, we send a message to the service worker with all of the games seen on the today page. This is handled in a relay hook fragment:
+
+```ts
+import { useEffect } from "react"
+import { graphql, useFragment } from "react-relay"
+
+import { gameBootstrapURLInfo } from "@puzzmo-com/shared/gameBootstrapURLInfo"
+import { usePrecacheGameAssets$key } from "@relay/usePrecacheGameAssets.graphql"
+
+import { useAppContext } from "../../../AppContext"
+import { useCoreContext } from "../../CoreContext"
+
+const fragment = graphql`
+  fragment usePrecacheGameAssets on TodayPage {
+    daily {
+      puzzles {
+        puzzle {
+          id
+          game {
+            slug
+            assetsPath
+            assetsSha
+
+            cssPath
+            devCSSPath
+            devJSPath
+            jsPath
+            devThumbnailPath
+          }
+        }
+      }
+    }
+  }
+`
+
+/** Uses the service worker "workbox" APIs to pre-cache assets for the games  */
+export const usePrecacheGameAssets = (data: usePrecacheGameAssets$key) => {
+  const { environment } = useAppContext()
+  const { ambientContext } = useCoreContext()
+  const dailyPuzzles = useFragment(fragment, data)
+  const hasSW = !!navigator.serviceWorker
+  useEffect(() => {
+    if (!ambientContext.precacheAllGameAssets) {
+      if (environment.isDev()) console.log("Skipping precache of game assets")
+      return
+    }
+    // In a private browser, service workers are disabled
+    if (!navigator.serviceWorker) return console.log("SW: Service worker not available")
+
+    // Start with the iframe used to play a game
+    const urlsToCache = [environment.embedURL()]
+
+    for (const rec of dailyPuzzles.daily.puzzles) {
+      const gameURLs = gameBootstrapURLInfo(document.location, rec.puzzle.game)
+      urlsToCache.push(`${gameURLs.root}`)
+    }
+
+    // Send the list of URLs to the service worker
+    navigator.serviceWorker.ready.then((reg) => {
+      if (!reg.active) {
+        console.error("Service worker not active")
+        return
+      }
+      reg.update()
+      reg.active.postMessage({ type: "CACHE_GAME_URLS", payload: { urlsToCache } })
+    })
+    //                                                                  \/ this is intentional, because it affects behavior!
+  }, [dailyPuzzles, environment, ambientContext.precacheAllGameAssets, hasSW])
+}
+```
+
+These are handled inside the server worker via the event listener system:
+
+```ts
+const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis
+// Messages sent from the app to the SW
+sw.addEventListener("message", (event) => {
+  logger.debug("SW Event", event.data)
+  const data = event.data as ServiceWorkerMessagesReceived
+
+  switch (data.type) {
+    case "CACHE_GAME_URLS": {
+      const uniqueURLs = new Set<string>(event.data.payload.urlsToCache)
+      event.waitUntil(getAllPossibleFilesToCache([...uniqueURLs.values()]))
+      break
+    }
+    // ...
+  }
+})
+
+/**
+ * The game sends over roots of the current active games on the today page, we need to go
+ * to each of those games and get the offline manifest, and then cache all the files in that
+ * which are mentioned into the service worker cache so that it can be offered as a response
+ * in the 'fetch' event above.
+ */
+const getAllPossibleFilesToCache = async (initialGameRoots: string[]) => {
+  logger.debug("SW: Getting all possible files to cache", initialGameRoots)
+
+  const htmlFiles = initialGameRoots.filter((url) => url.endsWith(".html"))
+  // TODO: I've added a 'skip' attribute to the manifest in the games repo,
+  //       so we can skip caching some files declaratively later
+  const gameRoots = initialGameRoots.filter(
+    (url) => (url.includes("puzmo.blob") || url.includes("cdn.")) && !url.includes("really-bad-chess")
+  )
+
+  const failLog = (url: string) => {
+    logger.debug(`SW: Failed to fetch game manifest at ${url}`)
+    return null
+  }
+
+  // Grab the offline manifests from the CDN which describe the assets we need ahead of time
+  const manifests = await Promise.all(
+    gameRoots.map(async (url) => {
+      const res = await fetch(`${url}/offline.meta.json`)
+      if (!res.ok) return failLog(url)
+      if (res.status !== 200) return failLog(url)
+      if (!res.headers.get("Content-Type")?.includes("application/json")) return failLog(url)
+
+      const json = await res.json()
+      return [url, json] as const
+    })
+  )
+
+  // Get all those assets, and their manifests into a flat array
+  const allFiles = [...htmlFiles]
+  for (const manifest of manifests) {
+    if (!manifest) continue
+    if (manifest[1].skip) continue
+    for (const file of manifest[1].files) {
+      const dropFinalPathComponent = manifest[0].split("/").slice(0, -1).join("/")
+      allFiles.push(dropFinalPathComponent + "/" + file)
+    }
+    allFiles.push(manifest[0] + "/offline.meta.json")
+  }
+
+  // Chess is a bit of an issue due to the AI being a bg service worker and I've not figured out how to handle it yet, so avoid it
+  const droppingChessAI = allFiles.filter((url) => !url.includes("aiWorker"))
+
+  // Incrementally add the files to the cache, there are helper methods
+  // which do batch work, but you dont get to see the errors.
+  await manuallySyncURLsToCache(cacheKeys.games, droppingChessAI)
+}
+
+/**
+ * A fn which probably manually replicates the logic in `cache.addAll` but
+ * we get better logs, and can see what failed.
+ */
+const manuallySyncURLsToCache = async (cacheName: string, urls: string[]) => {
+  const cache = await caches.open(cacheName)
+  if (!cache) throw new Error("Failed to open cache")
+
+  let found = 0
+  let downloaded = 0
+
+  // Incrementally add the files to the cache, there are helper methods
+  // which do batch work, but you dont get to see the errors.
+  const promiseStack = urls.map(async (file) => {
+    const exists = await cache.match(file)
+    if (exists) {
+      found++
+      return
+    }
+    try {
+      downloaded++
+      const res = await fetch(file)
+      if (!res.ok) throw new TypeError("bad response status")
+      await cache.put(file, res)
+    } catch (error) {
+      console.error("Failed to cache", file, error)
+      // throw error
+    }
+  })
+
+  await Promise.all(promiseStack)
+
+  console.debug(`SW Caching files to ${cacheName}`, { urls })
+  console.debug(`SW ${cacheName} Found`, found, "Downloaded", downloaded)
+}
+```
+
+That should be enough information for the service worker to be able to cache the thumbnails, and most of the game assets! Which is great, because we've still not got around to going into a game yet.
+
+### Starting a Game
+
+Puzzmo has always tried to operate on the relay-style "one navigation, one networking request" policy. The page to play a game is architected on a db model called "GamePlayed" which is when a user/anon plays an instance of a puzzle. So, my first thoughts in this space were: if you have offline play enabled, then when we load the today page and have interacted, behind the scenes the app will make a request to "play" every single game. This would fill up the relay cache with the correct data on the client and acts exactly like the model we've just shown for the home page.
+
+For a while this idea really shook me, it lived well within the seams of the client's architecture but would require creating a gameplay for every puzzle for every user in the database. Super lossy, we're already making almost a million GamePlayeds a week and this would add an ordinal of additional (potentially unused) network traffic to the app as it prepared for all the games to be able to play offline.
+
+That wasn't going to work.
+
+After letting the idea settle for a while, I came up with an amended different plan. These big networking requests for the play game page are nearly all for the "wrapping" around the game (help, sidebars, attribution, tutorials, daily info) but they aren't necessary to play the actual game. For that you need a few things: an iframe, the HTML in that iframe, a set of asset URLs that the iframe requests, a puzzle, any existing game played state and the [viewer metadata](https://blog.puzzmo.com/posts/2024/09/19/plugins-are-back-in-style/#viewer-metadata).
+
+Next, I converted the server API to lie to the client, in our GraphQL API you would ask a `Puzzle` for its `currentUserGamePlayed` to get the state of your current gameplay (or it would be `null` if you haven't played.) Now it will always return a gameplay, either as a blank object waiting to be filled or your own. This drops the problem of creating unnecessary database rows and allows for consistent client-side data modelling.
+
+Next I created what I frame as the minimal possible amount of data necessary to open up a game. This was the idea I talked about in the ["Puzzmo Perf wins"](https://blog.puzzmo.com/posts/2025/02/06/digging-into-perf/) blog post. Roughly, I added a new concept "Core Gameplay data" which is enough information to boot up and play a game. This subset is small enough that was about 90% accounted for already inside the home page query! The next step was then to introduce a fragment hook with a way to pass information between screens.
+
+{{< details summary="The core gameplay fragment which the today page and play game screen reference" >}}
+
+```ts
+import { useCallback, useEffect } from "react"
+import { graphql, readInlineData } from "react-relay"
+
+import { BootstrapGameData, GameConfig } from "@puzzmo-com/shared/hostAPI"
+import { TodayScreenQuery$data } from "@relay/TodayScreenQuery.graphql"
+import { usePlayGameReady$data, usePlayGameReady$key } from "@relay/usePlayGameReady.graphql"
+import { useTheme } from "@theme/useTheme"
+
+import { useAppContext } from "../../../AppContext"
+import { useGetUser } from "../../CoreContext"
+import { usePlayGameSelector } from "../../lib/playGameContext/usePlayGameSelector"
+import { useSubscribeToGameEvent } from "../../lib/playGameContext/useSubscribeToGameEvent"
+import { useIsMobile } from "../../screenMetricsContext/useIsMobile"
+
+export const playGameReadyFragment = graphql`
+  fragment usePlayGameReady on GamePlayed @inline {
+    id
+    slug
+    boardState
+    completed
+    elapsedTimeSecs
+    additionalTimeAddedSecs
+    createdAt
+    hintsUsed
+    cheatsUsed
+    resetsUsed
+    ownerID
+    nakamaMatchID
+    metric1
+    metric2
+    metric3
+    metric4
+    metricStrings
+    pointsAwarded
+    viewerOwnsPuzzle
+    combinedTimeSecs
+
+    puzzle {
+      id
+      slug
+
+      name
+      gameNameOverride
+
+      emoji
+      puzzle
+      difficulty
+      difficultyPointsCap
+
+      seriesNumber
+      accessOverride
+      viewerMetadata(viewerID: $myUserStateID, partnerSlug: $partnerSlug)
+      forceSettings
+
+      authors {
+        id
+        name
+        username
+        usernameID
+        publishingName
+      }
+
+      game {
+        assetsPath
+        assetsSha
+        cssPath
+        devCSSPath
+        devJSPath
+        devThumbnailPath
+        displayName
+        exposedGlobalFunction
+        flags
+        jsPath
+        layout
+        mobileAdPosition
+        readiness
+        slug
+        thumbnailGlobalFunction
+        thumbnailJSPath
+      }
+
+      mostRecentDaily(fullInclude: true, playerID: $myUserStateID) {
+        daily {
+          day
+          dateKey
+          isToday
+        }
+        status
+        vanillaPartnerSlug
+      }
+    }
+  }
+`
+
+export const usePlayGameReady = (gamePlayed: usePlayGameReady$data) => {
+  const sendMessage = usePlayGameSelector((state) => state.gameUIState.sendMessageToGameFn)
+  const theme = useTheme()
+  const isMobile = useIsMobile()
+  const user = useGetUser()
+  const { appRuntime } = useAppContext()
+
+  const onReady = useCallback(async () => {
+    if (!sendMessage) return
+    const hostFlags: GameConfig["hostFlags"] = []
+
+    if (!isMobile) hostFlags.push("desktop")
+    if (appRuntime === "native-apple") hostFlags.push("native-ios")
+
+    const dataToSend = JSON.parse(
+      JSON.stringify({
+        type: "READY_DATA",
+        data: {
+          startOrFindGameplay: {
+            gamePlayed,
+          },
+          theme,
+          hostFlags,
+          hostContext: [],
+          appRuntimeContract: "1.0",
+          userState: user.userState,
+          currentUser: user.currentUser,
+        } satisfies BootstrapGameData,
+      })
+    )
+
+    sendMessage(dataToSend)
+  }, [isMobile, gamePlayed, sendMessage, theme, user.currentUser, user.userState, appRuntime])
+
+  useSubscribeToGameEvent(gamePlayed.slug, "READY", onReady)
+}
+
+const localStorageOfOffline = new Map<string, { gameplay: usePlayGameReady$key; dateKey: string }>()
+
+export const useLocalTrackingOfOfflineGameplays = (today: TodayScreenQuery$data) => {
+  useEffect(() => {
+    for (const rec of today.todayPage.daily.puzzles) {
+      const gameplay = rec.puzzle.currentAccountGamePlayed
+      if (gameplay && rec.urlPath) localStorageOfOffline.set(rec.urlPath, { gameplay, dateKey: today.todayPage.daily.dateKey })
+    }
+  }, [today])
+}
+
+export const useGetLocallyTrackedOfflineGameplayInfo = (urlPath: string) => {
+  if (!localStorageOfOffline.has(urlPath)) return null
+
+  const item = localStorageOfOffline.get(urlPath)!
+  const gameplay = readInlineData(playGameReadyFragment, item.gameplay)
+  return { gameplay, dateKey: item.dateKey }
+}
+```
+
+{{< /details >}}
+
+This means the game could start up at the same time as we start making the API request for the play game screen! Which is a big perf win for everyone. OK, is that enough to play a game? No.
+
+First off, I had to re-architect the play game screen to be able to operate solely on the core gameplay data above. A non-trivial task as this screen has very messy state management. Then we need to start dealing with a new problem: failing networking requests.
+
+Puzzmo's "network request failed" error screen is a big full-screen modal, and there's a lot of assumptions baked into the web app that you are indeed online and have reasonable network access. It is, after all, a website. This model doesn't work when you are building offline support and so I had to introduce a new concept: failable relay queries.
+
+Effectively, we now have a hook which replaces `useLazyLoadQuery` when it's OK for that networking request to fail.
+
+{{< details summary="Our useOfflineableRelayQuery " >}}
+
+```ts
+import { useEffect, useState } from "react"
+import { GraphQLTaggedNode } from "react-relay"
+import { useRelayEnvironment } from "react-relay"
+import { OperationType, fetchQuery } from "relay-runtime"
+
+/**
+ * Typically a fail in a relay query will trigger an error, for this
+ * hook - a network fail is considered generally OK and is just logged
+ */
+export const useOfflineableRelayQuery = <T extends OperationType>(
+  query: GraphQLTaggedNode,
+  variables: T["variables"],
+  fetchKey: string,
+  initialData?: T["response"] | null
+) => {
+  const environment = useRelayEnvironment()
+
+  // We want the variables to be memoized so that we don't trigger a new query
+  // when the variables object changes, but we do want to refresh if the inner
+  // values of the object change
+  const [vars, setVars] = useState(variables)
+
+  useEffect(() => {
+    const oldVars = JSON.stringify(vars)
+    const newVars = JSON.stringify(variables)
+    if (oldVars !== newVars) {
+      setVars(variables)
+    }
+  }, [variables, vars])
+
+  useEffect(() => {
+    // To make the react linter happy
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    fetchKey
+
+    // Create a relay observable
+    const observable = fetchQuery<T>(environment, query, vars, {
+      fetchPolicy: "store-or-network",
+    })
+
+    const sub = observable.subscribe({
+      next: (data) => {
+        console.log("offline relay data", data)
+        setData(data)
+        setError(null)
+      },
+      error: (e: Error) => {
+        console.error("offline relay error on network request")
+        setError(e)
+      },
+      complete: () => {
+        console.log("offline relay complete")
+      },
+    })
+
+    return () => {
+      sub.unsubscribe()
+    }
+  }, [environment, query, vars, fetchKey])
+
+  const [data, setData] = useState<T["response"] | null>(null)
+  const [error, setError] = useState<T["response"] | null>(null)
+
+  return [data || initialData, error] as const
+}
+```
+
+{{< /details >}}
+
+So, we've switched over the `useLazyLoadQuery` to our `useOfflineableRelayQuery` does that load the game offline? Again. no.
+
+### Game Frames
+
+The iframe, and its JavaScript needs to be able to run offline. The architecture I designed for the iframes is a full, separate build in the monorepo (because this code is also re-used in external sites [like this Polygon page](https://www.polygon.com/24074129/flipart-puzzmo)).
+
+It looked something like this:
+
+```html
+<iframe src="https://puzzmo.com/_embed/latest.html?gameplay=1a2b3c&bg=FFEEBB" width="100%" height="100%"></iframe>
+```
+
+Not great, we have a query param which changes for every game played (`gameplay`) and (`bg`) is per theme, changing your theme should not break your offline status! To make this URL safely cachable, I made it possible to pass these params as search params instead. Allowing for a URL like:
+
+```html
+<iframe src="https://puzzmo.com/_embed/latest.html#gameplay=1a2b3c&bg=FFEEBB" width="100%" height="100%"></iframe>
+```
+
+A browser won't distinguish this, and we can add a hardcoded rule in the service worker for tracking `https://puzzmo.com/_embed/latest.html`. That's enough to play a game right? No.
+
+Lets look at the head for that HTML:
+
+```html
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Puzzmo Embedded Game Runner</title>
+  <meta name="description" content="Puzzmo Embedded Game Runner" />
+  <meta name="robots" content="noindex, nofollow" />
+  <script type="module" crossorigin="" src="https://www.puzzmo.com/_embed/assets/index-BTMQ_Qqs.js"></script>
+  ...
+</head>
+```
+
+Ah, we're bundling our JS, and now we need to be able to know where all that JavaScript lives too. This could easily become a game a whack-a-mole where any runtime change would make for broken builds. Hrm.
+
+I solved this by throwing away the idea of separating out the embedded runner and the puzzmo.com runtime. I converted the embed's JavaScript to act as a referenceable package within the monorepo and added a new build target to puzzmo.com which has the same code as the iframe but inside the app. Now there is a `runtime.html` in the root which replicates the HTML inside `https://puzzmo.com/_embed/latest.html` but uses the same bundling pipeline as Puzzmo.com (which makes it available in the original service worker manifest.) Meaning URLs can be:
+
+```html
+<iframe src="https://puzzmo.com/runtime.html#gameplay=1a2b3c&bg=FFEEBB" width="100%" height="100%"></iframe>
+```
+
+Can games now load offline? Yes, yes they can.
+
+### Game State
+
+They can load, but they will almost instantly crash
