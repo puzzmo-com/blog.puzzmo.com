@@ -1,10 +1,15 @@
 /* Place custom css here. */
+h2,h3,h4,h5 {
+  position: relative;
+}
 
 .hanchor {
   opacity: 0.5;
-  font-size: 0.8rem;
-  line-height: 1.2rem;
+  font-size: 1rem;
   text-decoration: none;
+  position: absolute;
+  top: 12px  ;
+  right: -14px;
 }
 
 .hanchor:hover {
@@ -17,6 +22,7 @@ details {
   padding-top: 0.6rem;
   cursor: pointer;
 }
+
 
 details:not([open]) > summary {
   background-color: rgba(0, 0, 0, 0.1);

@@ -26,7 +26,7 @@
   {{ end }}
 
 <section>
-  {{ .Content | replaceRE "(<h[1-6] id=\"(.+)\".*>)(.*)(</h[1-6]>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Heading anchor">#</a> ${3}${4}` | safeHTML }}
+  {{ .Content | replaceRE "(<h[1-6] id=\"(.+)\".*>)(.*)(</h[1-6]>)" `${1}${3}<a href="#${2}" class="hanchor" ariaLabel="Heading anchor">#</a>${4}` | safeHTML }}
 </section>
 
   <!-- Post Tags -->
