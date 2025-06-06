@@ -15,6 +15,7 @@ My theory on blogging has always been write what I wish I had read at the start 
 1. Messaging systems and where responsibilities can lay
 1. Offline Support
 1. Game Center Support
+1. Sounds and Haptics
 
 ## Not so React Native
 
@@ -58,13 +59,13 @@ Xcode itself has had a few interesting improvements since I last used it, I enjo
 
 My initial goal was to replicate the same type of architecture that we used at Artsy for our iOS app: use a native navigation pattern and then have router layer which knew whether to show a webview or a native view for a particular URL route.
 
-This pattern worked well back a decade ago, but expectations on a mobile website are higher now, Puzzmo's internal architecture and changes in the tech powering webviews has made this a dead end nowadays.
+This pattern worked well back a decade ago, but expectations on a mobile website are higher now, Puzzmo's internal architecture and changes in the tech powering webviews has made this path a dead end nowadays.
 
 Today the idea of shipping drastically simplified mobile versions of apps is pretty much dead, with a lot of designers and engineers instead going for a 'mobile-first' approach where the majority of focus is on the mobile and then the desktop is offered a flourish here and there. While I don't do this (I don't use a phone, and our puzzmo.com traffic is roughly 50/50 desktop/mobile) I do agree that we should have feature parity with desktop and mobile.
 
-This means there's a lot of connective code which operates between pages in puzzmo both on mobile and on desktop, which makes for loading a fresh web page for every single navigation both slow and doesn't feel right. We use Relay as this fast internal key-value cache for all sorts, and with the "per screen webview" technique it's being re-created from web data on every page load.
+This means there's a lot of connective code which operates between pages in puzzmo both on mobile and on desktop, which makes for loading a fresh web page for every single navigation both slow and doesn't feel right. For example, we use Relay as this fast internal key-value cache for all sorts, and with the "per screen webview" technique it's being re-created from web data on every page load.
 
-Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible.
+Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible. One strategy I could use is to hot-swap WKWebViews that have been fully cached
 
 The final nail in the coffin for this technique was that I had hoped that I could use a native `UINavigationController` menubar (e.g. the one built into the system) to handle the title bar info but that too was dropped because we had a team working on a re-design of these components in web-tech and didn't know what it would look like in the end. I didn't want us to be forced into making native builds when there were titlebar design changes - and was especially worried about design slippage between the puzzmo.com on mobile and the iOS version.
 
@@ -595,3 +596,9 @@ export const handleGameCenterLeaderboards = async (
 We allow all users to post to these leaderboards, regardless of whether you have Puzzmo Plus, which is different to the normal Puzzmo leaderboards but we're hopeful that the advantages of interacting with your existing social graph could make the trade-off worth it for us.
 
 New Game Center leaderboards need to go through the App Store review system and come shipped with a native build deploy, so it'll be a bit tricky to ship leaderboards for un-released games in the future but an ideal state is that we have one or two for each game further down the line. For now, we're happy with Flipart and Cross|words leaderboards!
+
+## Sounds and Haptics
+
+We timed adding sounds to all of our games with the launch of the app store, while I won't go into all the details (that's for someone else to write )
+
+## Reception
