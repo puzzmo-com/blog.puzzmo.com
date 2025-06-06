@@ -1,1 +1,33 @@
 /* Place custom css here. */
+h2,h3,h4,h5 {
+  position: relative;
+}
+
+.hanchor {
+  opacity: 0.5;
+  font-size: 1rem;
+  text-decoration: none;
+  position: absolute;
+  top: 12px  ;
+  right: -14px;
+}
+
+.hanchor:hover {
+  opacity: 1;
+}
+
+details {
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  padding-top: 0.6rem;
+  cursor: pointer;
+}
+
+
+details:not([open]) > summary {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+details[open] > summary {
+  background-color: rgba(0, 0, 0, 0.05);
+}
