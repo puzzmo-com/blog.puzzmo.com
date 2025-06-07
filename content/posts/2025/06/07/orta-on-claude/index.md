@@ -178,3 +178,42 @@ Over this last week I shipped three projects which were done in concert with Cla
    And repeat as I go through different ideas, bugs and ideas, including a few dead-ends which got reverts.
 
    Throughout this whole process, I am reading the code, editing it between chat messages and thinking about what the long term plan is for it.
+
+What I am finding _stunning_ about working with Claude Code, is its ability to write tests. It is substantial. For some of the Schrödinger's squares pull requests inside the Crossword engine, I built out fixtures and then just said _"make tests based on the file at x/y/z"_.
+
+The tests were arguably better than had I written them, there was more of them, they were commented well to describe the actual [SUT](https://en.wikipedia.org/wiki/System_under_test) better than I would have bothered and represented the type of test you would write for enterprise code and not nimble startup. They were not added at the end, and so were useful as internal details of the pull request changes
+
+```ts
+describe("commitLetter with Schrödinger squares", () => {
+  it("accepts any valid letter for a Schrödinger tile", () => {
+    const xd = withSchrodingerXd
+
+    const { store } = createTestEngine(xd)
+
+    // Move to the Schrödinger square at row 2, col 1
+    store.dispatch(positionCursor({ position: { index: 2, col: 1 } }))
+
+    // Test that 'O' is accepted (from CONE)
+    store.dispatch(commitLetterAtPosition({ letter: "O", position: { index: 2, col: 1 } }))
+    const inputO = getInput(store.getState().userInput, { index: 2, col: 1 })
+    if (inputO?.type === "rebus") throw new Error("Expected input to be a letter, not a rebus")
+
+    expect(inputO?.letter).toBe("O")
+    expect(inputO?.foundAt).toBeDefined() // Should be marked as correct
+
+    // Reset and test that 'A' is also accepted (from CANE)
+    store.dispatch(commitLetterAtPosition({ letter: "A", position: { index: 2, col: 1 } }))
+    const inputA = getInput(store.getState().userInput, { index: 2, col: 1 })
+    if (inputA?.type === "rebus") throw new Error("Expected input to be a letter, not a rebus")
+
+    expect(inputA?.letter).toBe("A")
+    expect(inputA?.foundAt).toBeDefined() // Should be marked as correct
+  })
+
+  // ...
+})
+```
+
+For a pull request which is really touching all of the internal guts of an engine, being able to trivially generate useful and well described tests whenever you want alone is worth the price of Claude Code's most expensive offering to me.
+
+From there its really about keeping your head on and remembering that this is a tool, and tool usage is a part of the thing you are doing but not everything.
