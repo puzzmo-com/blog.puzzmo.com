@@ -22,7 +22,9 @@ After a recent re-read + [podcast review](https://doofmedia.com/kingslingers-sea
 
 In the Dark Tower, there is a prison where telepaths collectively work together to undermine the systems which hold reality together. The prison was a perfectly idyllic space for "getting stuff done" and didn't feel like a prison at all. They loved to use their telepathy, and it felt good to use their skills: ["To break is divine."](https://darktower.fandom.com/wiki/Breakers) As they worked to end everything faster.
 
-Anyone who made the choice to get into Crypto as an experienced engineer in that era knew what they were supporting: a system built for unaccountability, using unbelievable amounts of energy for little to no gains over conventional technology choices. Making the world worse for everybody on the hopes that because you got in earlier you were more likely to gain in a relatively zero-sum game. They are like real-world breakers. I have a very low opinion of these folks.
+Anyone who made the choice to get into Crypto as an experienced western`*` engineer in that era knew what they were supporting: a system built for unaccountability, using unbelievable amounts of energy for little to no gains over conventional technology choices. Making the world worse for everybody on the hopes that because you got in earlier you were more likely to gain in a relatively zero-sum game. They are like real-world breakers.
+
+`*` _I respect that there are folks outside of mainstream internet countries where getting paid is hard, and Crypto can make handling that much easier._
 
 I'm not sure if I think will the same of the folks who have switched to become "prompt engineers" or work on large scale LLM projects. Unlike Crypto, there is something of _real value_ in LLMs, I just don't know if the entire space is worth the social/human costs that we will collectively pay. I don't know if I can know that.
 
