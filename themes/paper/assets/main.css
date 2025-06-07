@@ -2186,6 +2186,7 @@ body {
 
 .zoomable {
   transition: transform 200ms ease-in;
+  margin: 0 auto;
 }
 
 .zoomable:hover {
