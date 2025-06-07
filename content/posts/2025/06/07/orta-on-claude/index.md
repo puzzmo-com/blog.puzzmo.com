@@ -119,9 +119,9 @@ I could have settled in and started learning the ecosystem and environment, but 
 
 I restarted the project, and re-wrote in Electron and it took two evenings. I told it what npm modules to use, and we back and forth'd figuring out a few edge cases during implementation. Making a release build was definitely a struggle, but after a few runs and a bit of elbow work on my part (it was just JavaScript infrastructure after all.)
 
-So, I can feel where the idea of a "kind of programming" that vibe coding is, it's not really my bag but I think its a cool way for people to do prototypes and throw-away projects.
+So, I can see the idea of a "kind of programming" that vibe coding is, it's not really my bag but I think its a cool way for people to do prototypes and throw-away projects.
 
-You can feel this in the codebase, this is not something someone cares about in terms of the maintainability - but again, that was not my goal. I think for small one-offs this might be interesting, but I don't think its the sort of thing I'm really looking for in a tool.
+You can feel this in my own codebase, this is not something someone cares about in terms of the maintainability - but again, that was not my goal. I think for small one-offs this might be interesting, but I don't think its the sort of thing I'm really looking for in a tool.
 
 ## Agentic Pair Programming
 
@@ -227,3 +227,5 @@ Does Claude Code make me faster? At this stage, I'm not totally sure. I do think
 I think with Copilot's _"auto-complete but a bit more"_ it was a more universal _"yes"_. I feel I ship more code which I would have written eventually with such a controlled tool. With a cursor-like aggressive out-of-scope recommendations, they also are nearly always right and what I want. If I don't want them, I don't accept the recommendation. It's worth noting that Copilot now also has the aggressive recommendations (framed as "[Next Edit Suggestions](https://code.visualstudio.com/blogs/2025/02/12/next-edit-suggestions)") which are good enough to not warrant needing Cursor for me, so I'm back to VS Code nightlies.
 
 Letting go of the keyboard, and passing the reins to Claude Code is genuinely an interesting experience as someone with 2 decades of programming under his belt. I think it's likely that Claude Code will be one tool of many which I will find a place where it fits instead of being a broad replacement for writing code on a day-to-day.
+
+On a final note, there is an interesting tension in both _"it's likely that Claude Code will be one tool of many..."_ and _"I don't think LLMs are a good thing for the world."_ I think the core difference here is scale, it's like caring about saving water individually but at the same time the unmaintained pipes which bring the water have 30% leakage (taking a recent example from here in London.) I can do my best but my usage is literally drop compared to the systemic scale of damage.
