@@ -24,7 +24,7 @@ In the Dark Tower, there is a prison where telepaths collectively work together 
 
 Anyone who made the choice to get into Crypto as an experienced engineer in that era knew what they were supporting: a system built for unaccountability, using unbelievable amounts of energy for little to no gains over conventional technology choices. Making the world worse for everybody on the hopes that because you got in earlier you were more likely to gain in a relatively zero-sum game. They are like real-world breakers.
 
-I'm not sure if I think will the same of the folks who have switched to become "prompt engineers" or work on large scale LLM projects. Unlike Crypto, there is something of _real value_ in LLMs, I just don't know if it'd be worth the social/human costs.
+I'm not sure if I think will the same of the folks who have switched to become "prompt engineers" or work on large scale LLM projects. Unlike Crypto, there is something of _real value_ in LLMs, I just don't know if the entire space is worth the social/human costs.
 
 --
 
@@ -117,12 +117,14 @@ I could have settled in and started learning the ecosystem and environment, but 
 
 I restarted the project, and re-wrote in Electron and it took two evenings. I told it what npm modules to use, and we back and forth'd figuring out a few edge cases during implementation. Making a release build was definitely a struggle, but after a few runs and a bit of elbow work on my part (it was just JavaScript infrastructure after all.)
 
-You can feel in the codebase, that this is not something someone cares about in terms of the maintainability - but again, that was not my goal. I think for small one-offs this might be interesting, but I don't think its the sort of thing I'm really looking for in a tool. But I do think there's something interesting about being able to jump into another ecosystem and have it handle some of the boring stuff out of the box.
+So, I can feel where the idea of a "kind of programming" that vibe coding is, it's not really my bag but I think its a cool way for people to do prototypes and throw-away projects.
 
-## MCPs
-
-We're at the cusp of a unified way for LLMs to talk to external build systems and tools. It's a lot like the period when the Language Server Protocol was created where making tools for a programming language, or script suddenly started to be a thing where _everyone_ was now working to a single interface and each developer editor could start supporting tooling for esoteric
+You can feel this in the codebase, this is not something someone cares about in terms of the maintainability - but again, that was not my goal. I think for small one-offs this might be interesting, but I don't think its the sort of thing I'm really looking for in a tool.
 
 ## Agentic Pair Programming
 
+In contrast, I have been exploring the idea of fully giving the keyboard away.
+
 {{< imageHighlight src="claude.png" alt="Yesterday's change graph showing a wild set of curves being flattened" class="slack-inline-image" >}}
+
+Playing with [Claude Code](https://www.anthropic.com/claude-code) is the second epoch, and the reason I think it is worth me writing about this stuff publicly. Claude Code is a background app which runs in the terminal which is sortof a long-running connection to an LLM which can do _very long running tasks_ and has a sense of how to verify things in the way that you would when writing code.
