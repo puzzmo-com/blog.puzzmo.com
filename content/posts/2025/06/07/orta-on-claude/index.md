@@ -101,10 +101,28 @@ This would provide a pretty solid basis for the first pass of a idea, which you 
 
   {{< /details >}}
 
-- Not treating the chat like an annoyance. This one took me a while to adapt to. Because I want to write something like "convert these inline styles to use stylex" but that's really not that much context to go on. If you were talking to a human, you'd at least try offer some advice or y'know point at the screen or something. I think typing this
+- Not treating the chat like an annoyance. This one took me a while to adapt to. Because I want to write something like "convert these inline styles to use stylex" but that's really not that much context to go on. If you were talking to a human, you'd at least try offer some advice or y'know point at the screen or something. I think typing is real the pain here, oddly enough for this case I'd like to be using a voice input. So I expect sometime in the next month I will explore hooking up my OS' speech-to-text system to the LLM I am working with.
+
+- Asking it to write or extend a set of tests with a goal in mind
 
 ## Vibe Coding With No Expectations On Quality
 
+I asked myself, _"what does it mean to not care about the code I am creating?"_ as that seems to largely be the wave that folks doing _"vibe coding"_ are surfing. So, I needed a project which was never going to be production-worthy. I wanted to make a menu-bar application which tracked active deploys to render.com (for our servers) and vercel.com (for the puzzmo.com front-end.)
+
+{{< imageHighlight src="vibe.png" alt="Yesterday's change graph showing a wild set of curves being flattened" class="slack-inline-image" >}}
+
+I have been using a Mac while building the iOS App for Puzzmo, but I've been looking forwards to getting myself back to main Linux box and so I wanted this menu-bar app to be cross-platform. I've got very little experience in rust, but I thought it might be cool to build it in [Tauri](https://tauri.app). No slight to Tauri, but I think the amount of training code and infrastructure for the LLM was not there yet. I couldn't successfully get a build _by just chatting_ which had a menu item I could control based on a few API calls.
+
+I could have settled in and started learning the ecosystem and environment, but that was not the point. That would be just how I roll. Instead, I opted to add ~150mb of node and google chrome by moving to Electron.
+
+I restarted the project, and re-wrote in Electron and it took two evenings. I told it what npm modules to use, and we back and forth'd figuring out a few edge cases during implementation. Making a release build was definitely a struggle, but after a few runs and a bit of elbow work on my part (it was just JavaScript infrastructure after all.)
+
+You can feel in the codebase, that this is not something someone cares about in terms of the maintainability - but again, that was not my goal. I think for small one-offs this might be interesting, but I don't think its the sort of thing I'm really looking for in a tool. But I do think there's something interesting about being able to jump into another ecosystem and have it handle some of the boring stuff out of the box.
+
 ## MCPs
 
+We're at the cusp of a unified way for LLMs to talk to external build systems and tools. It's a lot like the period when the Language Server Protocol was created where making tools for a programming language, or script suddenly started to be a thing where _everyone_ was now working to a single interface and each developer editor could start supporting tooling for esoteric
+
 ## Agentic Pair Programming
+
+{{< imageHighlight src="claude.png" alt="Yesterday's change graph showing a wild set of curves being flattened" class="slack-inline-image" >}}
