@@ -32,7 +32,7 @@ I'm not sure if I think will the same of the folks who have switched to become "
 
 {{< /details >}}
 
-Yet still, LLMs are here. They've already come for artists, and voice actors. Now they are here for programmers. I can't stop that. A lot of my private slacks now have a space where people are using these tools but would not talk about it publicly. I'm going to lose some internet points and try talk through my usage.
+Yet still, LLMs are here. They've already come for artists, and voice actors. Now they are here for programmers. I can't stop that. I dig that for some people absolute embargo is the only option, but I want to understand how things are changing. A lot of my private slacks now have an opt-in space where people are using these tools but no-one would talk about it publicly. I'm going to lose some internet points and try talk through my usage and experiences.
 
 --
 
