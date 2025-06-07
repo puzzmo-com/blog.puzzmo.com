@@ -6,7 +6,7 @@ tags = ["tech", "web", "ios", "native", "app", "graphql"]
 theme = "outlook-hayesy-beta"
 +++
 
-Well, "finally" we got a Puzzmo iOS App. From day 1, I had been anticipating needing to build a native app for Puzzmo eventually, in part because of Zach's rich history of shipping iOS games but also when you tell someone you make games one of the first questions they ask is "do you have an app?".
+Well, _"finally"_ we got a Puzzmo iOS App. From day 1, I had been anticipating needing to build a native app for Puzzmo eventually, in part because of Zach's rich history of shipping iOS games but also when you tell someone you make games one of the first questions they ask is _"do you have an app?"_.
 
 My theory on blogging has always been write what I wish I had read at the start of a project. So, lets look at the process of making the iOS app, key components and techniques I shipped or abandoned in the process of writing the app.
 
@@ -19,7 +19,7 @@ My theory on blogging has always been write what I wish I had read at the start 
 
 ## Not so React Native
 
-Before Puzzmo, I had a decade or so experience in making native apps, they all generally fall into one "type" of App though, which I call a "**"pretty JSON parser"**:
+Before Puzzmo, I had a decade or so experience in making native apps, they all generally fall into one "type" of App though, which I call a **"pretty JSON parser"**:
 
 > Eigen is an app where we take JSON data from the server, and convert it into a user interface. Each view controller can nearly always be described as a function taking data and mapping it to a UI.
 
@@ -27,19 +27,19 @@ Before Puzzmo, I had a decade or so experience in making native apps, they all g
 
 These types of apps can be summerized as taking some API data, making it look pretty and providing some ways for a user to interact back with the data. Puzzmo may be a game system, but everything outside of the games is server-driven data being rendered on a screen in your design system.
 
-I don't think it makes sense to re-implement the core guts of these applications three separate times for the three major platforms most modern companies care about (the web/the mobile duopoly). If you are super well funded as a project and can afford the engineers, I'm still not fully convinced it's worth it for these apps - there's like a set of core shared experiences and then such a slim amount of platform specific work. For example at Artsy we were many years into using React Native, but I still shipped [Augmented Reality](https://artsy.github.io/blog/2018/03/18/ar/) features natively.
+I don't think it makes sense to re-implement the core guts and view layers of these applications three separate times for the three major platforms most modern companies care about (the web/the mobile duopoly). If you are super well funded as a project and can afford the engineers, I'm still not fully convinced it's worth it for these apps - there's like a set of core shared experiences and then such a slim amount of platform specific work. For example at Artsy we were many years into using React Native, but I still shipped [Augmented Reality](https://artsy.github.io/blog/2018/03/18/ar/) features natively using Swift.
 
-There are other key reasons to re-implement though. The team you have may devs _enjoy_ platform specific stuff either, like preferring Kotlin or SwiftUI, or even that they just enjoy focusing on a single platform because they use it and feel like it connects with them. I was one of [those people](https://artsy.github.io/blog/2012/05/11/on-making-it-personal-in-iOS-with-searchbars/). As a company are often [shipping your org chart](https://www.microsoft.com/en-us/microsoft-365-life-hacks/organization/what-is-conways-law), and IMO the desires to make native products for a lot of companies at this point are often about keeping career ladders moving and using the resources you already have.
+There are other key reasons to re-implement though. The team you have may devs _enjoy_ platform specific stuff either, like preferring Kotlin or SwiftUI, or even that they just enjoy focusing on a single platform because they use it and feel like it connects with them. I was one of [those people](https://artsy.github.io/blog/2012/05/11/on-making-it-personal-in-iOS-with-searchbars/). As companies are often [shipping your org chart](https://www.microsoft.com/en-us/microsoft-365-life-hacks/organization/what-is-conways-law), and IMO the desires to make native products for a lot of companies at this point are often about keeping career ladders moving and using the existing resources you already have.
 
 But Puzzmo is a pretty JSON parser, most of the code in this platform (~200k LOC of TS) is outside of running games (~80k LOC of TS) and replicating huge chunks of that in each language and platform is asking for bugs, process and time to ship stuff. I'd like to keep those things all as low as possible. So, I knew I'd be looking for an abstraction.
 
-You can see a week into starting working on Puzzmo in this [a 12m video](https://youtu.be/2NItowAgfNA), that I considered React Native Web as the base for Puzzmo's front-end to probably be a good option from a set of trade-offs. So, I started the codebase using [Expo](https://expo.dev) (a set of extra tools on top of React Native) and while it was just me writing the code, I regularly would Expo's [EAS](https://expo.dev/eas) to create native builds for running a mini-[testflight](https://developer.apple.com/testflight/) experience with Zach.
+When I starting working on Puzzmo, I created [a 12m video](https://youtu.be/2NItowAgfNA) where I talked thought my logic on choosing React Native Web as the base for Puzzmo's front-end. I felt like it was a good option from a set of trade-offs. So, I started the codebase using [Expo](https://expo.dev) (a set of extra tools on top of React Native) and while it was just me writing the code, I regularly would Expo's [EAS](https://expo.dev/eas) to create native builds for running a mini-[testflight](https://developer.apple.com/testflight/) experience with Zach.
 
 And for a time, it was good.
 
-My initial working premise was this: We can build and focus on Puzzmo as a React Native codebase with web being the key platform. The goal was always to ship the web first, and then can work bit-by-bit on getting the native builds solid. Had Puzzmo not [been acquired](https://www.theverge.com/2023/12/4/23984103/puzzmo-acquired-hearst-zach-gage), I think this would have been doable. But the acquisition verson Puzzmo meant bigger budgets, extended scope and a larger team. So, in that world, there were three main things which I felt were blocking the idea of a single React Native codebase working for us:
+My initial working premise was this: We can build and focus on Puzzmo as a React Native codebase with web being the key platform. The goal was always to ship the web first, and then can work bit-by-bit on getting the native builds solid. Had Puzzmo not [been acquired](https://www.theverge.com/2023/12/4/23984103/puzzmo-acquired-hearst-zach-gage), I think this would have been doable. But the acquisition version of Puzzmo meant bigger budgets, extended scope and a larger team. So, in that world, there were three main things which I felt were blocking the idea of having a single React Native codebase working for us:
 
-1. Our team is very web slanted, and React Native's abstractions are based on native concepts, not web
+1. Our team is very web slanted, and React Native's abstractions are based on native concepts, which are distinctly not web
 2. The complexity of legal and SDK requirements inside the codebase
 3. Game code could crash the entire app, and the games team didn't have an easy way to know this ahead of time
 
@@ -51,7 +51,7 @@ The app itself is about 3k lines of Swift code which is an even split between th
 
 My iOS knowledge is about 7-8 years out of date, but its still pretty useful in terms of understanding how to build a modern app. I got a lot of respect for Swift the language, but it [still](https://artsy.github.io/blog/2017/02/05/Retrospective-Swift-at-Artsy/#native-downsides/) feels like a really pedantic language, great for building an Operating System or Camera app, but over-engineered for CRUD / pretty JSON parser. However, nowadays we I have GitHub copilot and the built-in Swift LLM recommendation tools in Xcode. Which certainly soften some of the hard edges.
 
-Because I knew the codebase would stay reasonably small, I fully vendored all our (one) dependencies using SwiftPM into the monorepo which meant that anyone with Xcode installed can open it up and have a working local build. This also meant it worked out of the box with Xcode Cloud (apple's CI service) which I use for all deploys nowadays.
+Because I knew the codebase would stay reasonably small and unchanging, I fully vendored all our (one) dependencies using SwiftPM into the monorepo which meant that anyone with Xcode installed can open it up and have a working local build. This also meant it worked out of the box with Xcode Cloud (Apple's CI service) which I use for all deploys nowadays.
 
 Xcode itself has had a few interesting improvements since I last used it, I enjoy the different fonts for comments and forgot how much I use `cmd + j` a lot and I want it in VS Code. Not having automatic code formatting as you type does make it always feel a bit broken.
 
@@ -61,21 +61,21 @@ My initial goal was to replicate the same type of architecture that we used at A
 
 This pattern worked well back a decade ago, but expectations on a mobile website are higher now, Puzzmo's internal architecture and changes in the tech powering webviews has made this path a dead end nowadays.
 
-Today the idea of shipping drastically simplified mobile versions of apps is pretty much dead, with a lot of designers and engineers instead going for a 'mobile-first' approach where the majority of focus is on the mobile and then the desktop is offered a flourish here and there. While I don't do this (I don't use a phone, and our puzzmo.com traffic is roughly 50/50 desktop/mobile) I do agree that we should have feature parity with desktop and mobile.
+Today the idea of shipping drastically simplified mobile versions of apps doesn't fly, with a lot of designers and engineers instead going for a 'mobile-first' approach where the majority of focus is on the mobile and then the desktop is offered a flourish here and there. While I don't do this (I don't use a phone, and our puzzmo.com traffic is roughly 50/50 desktop/mobile) I've always felt we should have feature parity with desktop and mobile.
 
-This means there's a lot of connective code which operates between pages in puzzmo both on mobile and on desktop, which makes for loading a fresh web page for every single navigation both slow and doesn't feel right. For example, we use Relay as this fast internal key-value cache for all sorts, and with the "per screen webview" technique it's being re-created from web data on every page load.
+This means there's a lot of connective code which operates between pages in puzzmo.com both on mobile and on desktop, which makes for loading a fresh web page for every single navigation both slow and feel in-correct. For example, we use Relay as this fast internal key-value cache for all sorts, and with the "per screen webview" technique it's being re-created from web data on every page load.
 
-Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible. One strategy I could use is to hot-swap WKWebViews that have been fully cached
+Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible. One strategy I could use is to hot-swap WKWebViews that have been fully cached but that's incredibly wasteful.
 
 The final nail in the coffin for this technique was that I had hoped that I could use a native `UINavigationController` menubar (e.g. the one built into the system) to handle the title bar info but that too was dropped because we had a team working on a re-design of these components in web-tech and didn't know what it would look like in the end. I didn't want us to be forced into making native builds when there were titlebar design changes - and was especially worried about design slippage between the puzzmo.com on mobile and the iOS version.
 
-After looking at all these dead ends, I eventually just had to conclude that we would have a single webview for puzzmo.com as the root of the site and try to handle making the web view feel more native.
+After looking at all these "no"s, I eventually just had to conclude that we would have a single webview for puzzmo.com as the root of the site and try to handle making the web view feel more native.
 
-Is this an optimal solution? Not really, I think it's harder nowadays to make a hybrid webview app which could explain why React Native and Flutter usage rises while I rarely hear of much from the "use a webview" crowd.
+Is this an optimal solution? Not really, I think it's harder nowadays to make a good hybrid webview app which could explain why React Native and Flutter usage rises while I rarely hear of much from the "use a webview" crowd.
 
 ## Message Systems
 
-One of the first things I built was a bi-directional message sending system for going between puzzmo.com's embedded app and the iOS native codebase. Inside the Puzzmo codebase we have to distinguish between running in a few different contexts. So, I consolidated some of our logic into a new "app runtime" which gives a sense of the three core but different runtime environments that the codebase needs to support:
+One of the first things I built for the iOS app was a bi-directional message sending system for going between puzzmo.com's embedded app and the iOS native codebase. Inside the Puzzmo codebase we have to distinguish between running in a few different contexts. So, I consolidated some of our logic into a new "app runtime" concept which gives a sense of the three core but different runtime environments that the codebase needs to support:
 
 ```ts
 const isApp = navigator.userAgent.includes("Puzzmo")
@@ -293,7 +293,7 @@ export const useNotifyAppOfPageLoad = (page: "today") => {
 
 TLDR: we call `messageHandlers.app.postMessage()` to send to the iOS app codebase, and listen to a global constant of `nativeEventsEmitter`.
 
-For a time, I explored making a rust CLI tool which converts these types into Swift `struct`s based on the oxc compiler tools. So that the TypeScript unions can be the single source of truth. This was before I had explored using the chat parts of these code assistant tools, and so I didn't get too far but it could be worth giving a second shot nowadays. I'm finding the "chat" bits to be quite useful when working on low-stakes things in environments you don't fully comprehend.
+For a time, I explored [making a rust CLI tool](https://github.com/puzzmo-com/typescript-types-to-swift-objects) which converts these types into Swift `struct`s based on the oxc compiler tools. So that the TypeScript unions can be the single source of truth. This was before I had explored using the chat parts of code assistant tools, and so I didn't get too far but it could be worth giving a second shot nowadays. I'm finding the "chat" bits to be quite useful when working on low-stakes things in environments you don't fully comprehend.
 
 On the native side, we need to set up `messageHandlers.app` which will automatically set up the `postMessage` function too:
 
@@ -557,7 +557,7 @@ export const handleGameCenterLeaderboards = async (
 
       const attributes = {
         bundleId: puzzmoAppVendorID,
-        scopedPlayerId: player.gameCenterID!, // e.g. "A:_3e3824d19e3c1a3c79ca0d8076a35a1c",
+        scopedPlayerId: player.gameCenterID!, // e.g. "A:_3e3824d19e3c1a1c79ca0d8076a35a1c",
         score: Math.round(score).toString(),
         vendorIdentifier: leaderboardInfo.appleID,
       }
@@ -599,6 +599,8 @@ New Game Center leaderboards need to go through the App Store review system and 
 
 ## Sounds and Haptics
 
-We timed adding sounds to all of our games with the launch of the app store, while I won't go into all the details (that's for someone else to write )
+We timed adding sounds to all of our games with the launch of the app store, while I won't go into all the details (that's for someone else to write.) However, sounds are also a reasonable
 
 ## Reception
+
+People seem to like it, there are the occasional reasonable criticisms that it's not an entirely native app, but folks are used to big teams writing solid software and there's just no world in which we slow down that much by re-creating everything until it's _definitely_ worth it. Today, it's not there. It's got a 5 star rating in the UK, and 4,6 in the US. Pretty good!
