@@ -220,8 +220,8 @@ What I think is important to keep in mind is that this is a tool, and not a repl
 
 I do not think Claude Code has generated bad code for me, so far, but I am also careful and take my time with using it. I also build strict systems with TypeScript/GraphQL to ensure that there's less systemic ambiguities which are not ratified by a type system somewhere.
 
-Does Claude Code make me faster? At this stage, I'm not totally sure. I do think the breadth of extra tests and refactors which I do now _because it is easier_ has some real long-term value to the codebases I am contributing to.
+Does Claude Code make me faster? At this stage, I'm not totally sure. I do think the breadth of extra tests and refactors which I do now _because it is easier_ has tangible long term value to the codebases I am contributing to.
 
-I think with Copilot's "auto-complete but a bit more" it was a more universal "yes". I feel I ship more code which I would have written eventually with the controlled tool. With a cursor-like aggressive out-of-scope recommendations, they also are nearly always right and what I want. If I don't want them, I don't accept the recommendation.
+I think with Copilot's _"auto-complete but a bit more"_ it was a more universal _"yes"_. I feel I ship more code which I would have written eventually with such a controlled tool. With a cursor-like aggressive out-of-scope recommendations, they also are nearly always right and what I want. If I don't want them, I don't accept the recommendation. It's worth noting that Copilot now also has the aggressive recommendations (framed as "[Next Edit Suggestions](https://code.visualstudio.com/blogs/2025/02/12/next-edit-suggestions)") which are good enough to not warrant needing Cursor for me, so I'm back to VS Code nightlies.
 
 Letting go of the keyboard, and passing the reins to Claude Code is genuinely an interesting experience as someone with 2 decades of programming under his belt, and I think its likely that it will be one tool of many for me which I will find a place where it fits instead of being a broad replacement for writing code on a day-to-day.
