@@ -17,12 +17,22 @@ h2,h3,h4,h5 {
 }
 
 details {
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  padding-top: 0.6rem;
   cursor: pointer;
 }
 
+details > summary {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+details .details-content {
+
+  margin: 0.5rem;
+  margin-left: -0.2rem;
+  padding-left: 0.7rem;
+  padding-bottom: 0.2rem;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+}
 
 details:not([open]) > summary {
   background-color: rgba(0, 0, 0, 0.1);
