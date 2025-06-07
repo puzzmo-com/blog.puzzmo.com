@@ -14,7 +14,21 @@ So, I always have felt some affinity to GitHub Copilot, and it's been a great to
 
 Over the last three months, I have been trying to really push myself out of that comfort zone and to start exploring the tools that you see the 'vibe coding' folks are using and get a sense for what these systems are like when you are someone who takes this stuff very seriously, and considers programming + systemic design to be the only craft I want to do for the rest of my life.
 
-That said, allow me to self flagellate before we dig in. I don't think LLMs are a good thing for the world. I think they concentrate power to those with capital, I think they will "increase throughput" for folks in ways that will give fewer people jobs and will force higher inter-class competition in culturally unhealthy ways like a concentrated version of the gig economy. If you want to see the epitome of "[worst person you know](https://knowyourmeme.com/memes/worst-person-you-know-made-a-great-point)" meme, Tucker Carlson's point about [what the social cost of driverless trucking looks like](https://www.youtube.com/watch?v=o5zPKxpPHFk) (0m-3m, perhaps open in a private browser to poisoning your algorithms) is something which is always in the back of my mind. I think LLMs are assisting to push the [Overton window](https://en.wikipedia.org/wiki/Overton_window) towards authoritainism by making it easier to spread disinformation, to create false narratives and to remove autonomy in favour of algorithms. Some of this stuff could be OK if we had widescale social safety nets and a healthy labour class, but I don't think something like [UBI](https://en.wikipedia.org/wiki/Universal_basic_income) is coming, and I think LLMs are going to continue to push economic growth over [planet-wide](https://www.youtube.com/watch?v=Mf1FbRaf5gY) health. This technology will help contribute to a worse world for most people.
+That said, allow me to self flagellate before we dig in. I don't think LLMs are a good thing for the world. I think they concentrate power to those with capital, I think they will "increase throughput" for folks in ways that will give fewer people jobs and will force higher inter-class competition in culturally unhealthy ways like a concentrated version of the gig economy. If you want to see the epitome of "[worst person you know](https://knowyourmeme.com/memes/worst-person-you-know-made-a-great-point)" meme, Tucker Carlson's point about [what the social cost of driverless trucking looks like](https://www.youtube.com/watch?v=o5zPKxpPHFk) (0m-3m, perhaps open in a private browser to poisoning your algorithms) is something which is always in the back of my mind. I believe in the [dead internet](https://www.cnet.com/home/internet/what-is-the-dead-internet-theory/) theory and think that using LLMs to make something look like it was authored by a human is unethical. I think LLMs are assisting to push the [Overton window](https://en.wikipedia.org/wiki/Overton_window) towards authoritarianism by making it easier to spread disinformation, to create false narratives and to remove autonomy in favour of algorithms. Some of this stuff could be OK if we had widescale social safety nets and a healthy labour class, but I don't think something like [UBI](https://en.wikipedia.org/wiki/Universal_basic_income) is coming, and I think LLMs are going to continue to push economic growth over [planet-wide](https://www.youtube.com/watch?v=Mf1FbRaf5gY) health. This technology will help contribute to a worse world for most people.
+
+{{< details summary="Technologists" >}}
+
+After a recent re-read + [podcast review](https://doofmedia.com/kingslingers-season-1) of Stephen Kings magnum opus [The Dark Tower](<https://en.wikipedia.org/wiki/The_Dark_Tower_(series)>) series during the "crypto wave" of 2022-2023. I was really hit with the notion that there are a massive set of technologists who will happily work on something they know is a net negative on the world in order to personally benefit.
+
+In the Dark Tower, there is a prison where telepaths collectively work together to undermine the systems which hold reality together. The prison was a perfectly idyllic space for "getting stuff done" and didn't feel like a prison at all. They loved to use their telepathy, and it felt good to use their skills: ["To break is divine."](https://darktower.fandom.com/wiki/Breakers) As they worked to end everything faster.
+
+Anyone who made the choice to get into Crypto as an experienced engineer in that era knew what they were supporting: a system built for unaccountability, using unbelievable amounts of energy for little to no gains over conventional technology choices. Making the world worse for everybody on the hopes that because you got in earlier you were more likely to gain in a relatively zero-sum game. They are like real-world breakers.
+
+I'm not sure if I think will the same of the folks who have switched to become "prompt engineers" or work on large scale LLM projects. Unlike Crypto, there is something of _real value_ in LLMs, I just don't know if it'd be worth the social/human costs.
+
+--
+
+{{< /details >}}
 
 Yet still, LLMs are here. They've already come for artists, and voice actors. Now they are here for programmers. I can't stop that. A lot of my private slacks now have a space where people are using these tools but would not talk about it publicly. I'm going to lose some internet points and try talk through my usage.
 
@@ -22,7 +36,7 @@ Yet still, LLMs are here. They've already come for artists, and voice actors. No
 
 So, a few months ago I decided to buckle in and see what it looks like to be writing code of the same quality which I have been writing and to allow LLMs to creep a bit further into my workflows. **TLDR: Sometimes it feels like magic, but nowadays with [Claude Code](https://www.anthropic.com/claude-code), it feels like pairing with someone a bit less experienced who just needs the occasional nudge**. Then like with pairing, it's review, refactor and test time.
 
-To understand my programming environment, I am mostly always working in and around puzzmo.com - a puzzle game website, which is almost exclusively written in TypeScript and uses very mainstream technology choices which me and some friends [decided on](https://www.youtube.com/watch?v=1Z3loALSVQM&t=481s&pp=0gcJCcYCDuyUWbzu) a [decade](https://github.com/artsy/mobile/issues/22#issuecomment-91199506) ago.
+To understand my programming environment, I am mostly always working in and around puzzmo.com - a puzzle game website, which is almost exclusively written in TypeScript and uses very mainstream technology choices which me and some friends [decided on](https://www.youtube.com/watch?v=1Z3loALSVQM&t=481s&pp=0gcJCcYCDuyUWbzu) a [decade](https://github.com/artsy/mobile/issues/22#issuecomment-91199506) ago. I write code expecting to be maintaining it for ~5 years, I try to write tests when its easy but prefer "easy to change" over "is perfect."
 
 ## From elegant auto-complete to 'let me take the wheel'
 
@@ -38,9 +52,23 @@ And I gave a few videos of the examples:
 
 The key difference I found with Cursor is this idea that we're not going to "just do auto-complete" which was Copilot's approach at the time. Cursor is going to use your cursor as a starting point and start making changes which are outside of your current scope. This took a while to get used to.
 
-I found that this format of tooling has the tools lead you rather than the other way around. For example, this video I gave the smallest change (switching a `<div` to an `<li`) and the LLM starts to take the wheel:
+I found that this format of tooling has the tools lead you rather than the other way around. For example, this video during that period I gave the smallest change (switching a `<div` to an `<li`) and the LLM starts to take the wheel:
 
 {{< video src="cursor-edits.mov" >}}
+
+I think of this approach as trying to infer your intent, and then using the locally available source code to figure out the rest of the pattern. I think for some, this is where the LLM integrations crosses into "who is writing this code?" territory, but I'm not convinced that line is here.
+
+Over the two months I used Cursor, this was my main experience using an LLM for writing software. You would start to write what you were planning on writing, then, most of the time, the LLM would recognise the pattern you were following within the codebase and make the change within the file you were editing.
+
+Often this made me feel like I had more mental space for refactoring. I could copy some code, write a very simple outline-y function to put it in and then have the LLM hook up the correct imports/function args in order to make that work as a new scope. Then when writing tests, assuming you were adding to an existing file, once you had written the description of the test then it was very likely that you had a pretty rough approximation of what you were going to test added ahead of time. If it was a new test suite, then you're kinda back to writing a few tests to get started.
+
+Still very hands on, but kinda occasionally hands off.
+
+## Agents "aka tell the LLM what to do"
+
+Cursor was the first place I explored using the "Chat" style functionality with LLMs.
+
+## Vibe Coding With No Expectations On Quality
 
 ## MCPs
 
