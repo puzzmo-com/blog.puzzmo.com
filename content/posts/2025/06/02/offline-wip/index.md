@@ -18,7 +18,7 @@ Let's start from the start of someone's experience using the app on a daily basi
 
 ### Getting Puzzmo.com running offline
 
-When you are faced with making a webview run offline, there are two options. Have the source code locally and run a server from your device, or use a service worker. I opted for a service worker, because that means adding offline support for the iOS app also benefits all web users too! This also means less conceptual forks in how the entire app is loaded, no-one working on puzzmo.com is going to be loading up the iOS app to work on their features, so having a completely separate system here is just asking for things to break in the future.
+When you are faced with making a webview run offline, there are two options. Have the source code locally and run a server from your device, or use a service worker. I opted for a service worker, because that means adding offline support for the iOS app also benefits all web users too! This also means less conceptual forks in how the entire app is loaded, no-one today working on puzzmo.com loads up the iOS app to work on their features, so having a completely separate system here is just asking for things to break in the future.
 
 Making a webview support a service worker is one of those esoteric bits of knowledge you find spread across the internet, here's the key thing to that search: you need to use `WKAppBoundDomains`.
 
@@ -1522,3 +1522,13 @@ Only kinda one thing left: completing a game!
 Well, this doesn't exist because I've not built it. Ran out of time.
 
 However, the next big throwing system is going to be the information which is presented at the end of a game. For us, there's quite a lot of funky server-side code going on for our completions but it doesn't have to be that way. My plan was to handle the networking API failure manually, and then show a simplified completion sidebar which uses [the deeds directly](https://blog.puzzmo.com/posts/2024/07/16/augmentations/#augmentations--deeds--expressions) instead of letting the server provide the information.
+
+### Yeah but if it's half done?!
+
+I agree, well, actually we agree. Zach and I spent some time considering this issue - if people will assume there is offline support because it is an app. We should probably have some sort of system telling you it's not actually ready when we go offline. We toyed around with some popover concepts but eventually settled on a really cool idea.
+
+We ended up building a secret game just for the native app, and just for when you are offline. Game design wise it's got some heft, making it a bit chunkier than say the jumping dinosaur in Google Chrome. We don't treat it like the rest of the Puzzmo games and so it doesn't apply to dailies or have limits on how much you can play. We shipped with over 300 puzzles in it, so it should be available to take some time if/when you need it.
+
+I liked that, it was a fun (and very Puzzmo) answer to a pretty tricky problem of trying to handle expectations.
+
+So, what now? Well, at some point I will pick this up and try wrap up offline support for everyone (web and iOS) - maybe in 2026. Till then, I hope you can learn something from Puzzmo's first big software abandonment.
