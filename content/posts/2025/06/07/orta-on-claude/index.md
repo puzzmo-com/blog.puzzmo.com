@@ -12,7 +12,7 @@ When I was planning on leaving working on [TypeScript](https://www.typescriptlan
 
 So, I always have felt some affinity to GitHub Copilot, and it's been a great tool for finishing the line of code you are currently writing. A real [incremental revolution](https://github.com/artsy/README/blob/main/culture/engineering-principles.md#incremental-revolution) on the auto-complete. This I think has been a really safe domain for starting off with LLMs, it's well scoped (nearly always right after your cursor), easy to understand (its just greyed out text right where your eyes are) and feels un-intrusive and predictable.
 
-Over the last three months, I have been trying to really push myself out of that comfort zone and to start exploring the tools that you see the 'vibe coding' folks are using and get a sense for what these systems are like when you are someone who takes this stuff very seriously, and considers programming + systemic design to be the only craft I want to do for the rest of my life.
+Over the last three months, I have been trying to really push myself out of that comfort zone and to start exploring the tools that you see the 'vibe coding' folks are using and get a sense for what these systems are like when you are someone who takes this stuff very seriously, and considers programming + systemic design to be the craft I plan to do for the rest of my life.
 
 That said, allow me to self flagellate before we dig in. I don't think LLMs are a good thing for the world. I think they concentrate power to those with capital, I think they will "increase throughput" for folks in ways that will give fewer people jobs and will force higher inter-class competition in culturally unhealthy ways like a concentrated version of the gig economy. If you want to see the epitome of "[worst person you know](https://knowyourmeme.com/memes/worst-person-you-know-made-a-great-point)" meme, Tucker Carlson's point about [what the social cost of driverless trucking looks like](https://www.youtube.com/watch?v=o5zPKxpPHFk) (0m-3m, perhaps open in a private browser to poisoning your algorithms) is something which is always in the back of my mind. I believe in the [dead internet](https://www.cnet.com/home/internet/what-is-the-dead-internet-theory/) theory and think that using LLMs to make something look like it was authored by a human is unethical. I think LLMs are assisting to push the [Overton window](https://en.wikipedia.org/wiki/Overton_window) towards authoritarianism by making it easier to spread disinformation, to create false narratives and to remove autonomy in favour of algorithms. Some of this stuff could be OK if we had widescale social safety nets and a healthy labour class, but I don't think something like [UBI](https://en.wikipedia.org/wiki/Universal_basic_income) is coming, and I think LLMs are going to continue to push economic growth over [planet-wide](https://www.youtube.com/watch?v=Mf1FbRaf5gY) health. This technology will help contribute to a worse world for most people.
 
@@ -34,9 +34,9 @@ Yet still, LLMs are here. They've already come for artists, and voice actors. No
 
 --
 
-So, a few months ago I decided to buckle in and see what it looks like to be writing code of the same quality which I have been writing and to allow LLMs to creep a bit further into my workflows. **TLDR: Sometimes it feels like magic, but nowadays with [Claude Code](https://www.anthropic.com/claude-code), it feels like pairing with someone a bit less experienced who just needs the occasional nudge**. Then like with pairing, it's review, refactor and test time.
+So, a few months ago I decided to buckle in and see what it looks like to be writing code of the same quality which I have been writing and to allow LLMs to creep a bit further into my workflows. **TLDR: There is something real in this space. Occasionally it feels like magic, but nowadays with [Claude Code](https://www.anthropic.com/claude-code), it feels like pairing with someone with a few years under their belt who just needs the occasional nudge**. Then like with pairing, it's review, refactor and test time because it's still your name on the git commit.
 
-To understand my programming environment, I am mostly always working in and around puzzmo.com - a puzzle game website, which is almost exclusively written in TypeScript and uses very mainstream technology choices which me and some friends [decided on](https://www.youtube.com/watch?v=1Z3loALSVQM&t=481s&pp=0gcJCcYCDuyUWbzu) a [decade](https://github.com/artsy/mobile/issues/22#issuecomment-91199506) ago. I write code expecting to be maintaining it for ~5 years, I try to write tests when its easy but prefer "easy to change" over "is perfect."
+For folks who do not know my programming environments, I am mostly always working in and around puzzmo.com - a puzzle game website, which is almost exclusively written in TypeScript and uses very mainstream technology choices which me and some friends [decided on](https://www.youtube.com/watch?v=1Z3loALSVQM&t=481s&pp=0gcJCcYCDuyUWbzu) a [decade](https://github.com/artsy/mobile/issues/22#issuecomment-91199506) ago. React, Relay and GraphQL. I write code expecting to be maintaining it for ~5 years, I try to write tests when its easy but prefer _"easy to change"_ over _"is a perfect abstraction."_
 
 ## From elegant auto-complete to 'let me take the wheel'
 
@@ -56,7 +56,7 @@ I found that this format of tooling has the tools lead you rather than the other
 
 {{< video src="cursor-edits.mov" >}}
 
-I think of this approach as trying to infer your intent, and then using the locally available source code to figure out the rest of the pattern. I think for some, this is where the LLM integrations crosses into "who is writing this code?" territory, but I'm not convinced that line is here.
+I think of this approach as trying to infer your intent, and then using the locally available source code to figure out the rest of the pattern. I think for some, this is where the LLM integrations crosses into "who is writing this code?" territory, but I'm not convinced that is where the line is.
 
 Over the two months I used Cursor, this was my main experience using an LLM for writing software. You would start to write what you were planning on writing, then, most of the time, the LLM would recognise the pattern you were following within the codebase and make the change within the file you were editing.
 
@@ -66,7 +66,42 @@ Still very hands on, but kinda occasionally hands off.
 
 ## Agents "aka tell the LLM what to do"
 
-Cursor was the first place I explored using the "Chat" style functionality with LLMs.
+Cursor was the first place I explored using the "Chat" style functionality with LLMs. I think of this as being closer to a "multi-file request" to the LLM. I found a few easy wins in this space asking for things like "convert these inline styles to use library [x]" for example as we were migrating to use [stylex](https://stylexjs.com/) during the [re-design project](/posts/2025/02/06/redesign/) which just shipped.
+
+These types of changes typically took 10-30 seconds and were pretty localized in their scope. Cursor could use the editor's IDE integrations like TypeScript, oxlint, prettier to double check on the change to make sure it linted correctly and you can provide a screenshot as a part of the text input.
+
+This would provide a pretty solid basis for the first pass of a idea, which you would then take over and bring to completion. To get this system working well, you need to put in some ahead of time effort. There was a few easy wins from my side:
+
+- Using [Cursor Rules](https://docs.cursor.com/context/rules) files to pre-fill the chat with context of your codebase ahead of time. This ranges from some styling recommendations, to opinions on how to use frameworks correctly or what parts of the codebase require a bit of thinking about ahead of time. You can define these rules against file regexes. I'll put ones I use on puzzmo.com's monorepo below.
+
+  {{< details summary="Puzzmo Monorepo Cursor Rules" >}}
+
+  Just mainly collecting the things I gripe about when trying to keep the codebase consistent.
+
+  ```md
+  ---
+  description:
+  globs: apps/puzzmo.com/src/**.ts,apps/puzzmo.com/src/**.tsx
+  alwaysApply: false
+  ---
+
+  The project in `apps/puzzmo.com` uses React, Relay, TypeScript and stylex. We are avoiding using React Native in this codebase, which you will still find in some places.
+
+  You can find a lot of user interface components in [primitives.tsx](mdc:apps/puzzmo.com/src/palette/primitives.tsx) [tokens.stylex.ts](mdc:apps/puzzmo.com/src/palette/tokens.stylex.ts)
+
+  ## General Formatting Rules
+
+  - Always end variables with a capital ID when available (e.g. `userID` not `userId` )
+  - Use `const` functions for react components
+  - Use a separately declared props type
+  - Keep stylex declarations at the end of the file, use `s` for the name of the declaration
+  - For function arguments, prefer inline params, if you have more than 3 arguments add a `config` param which is an object with keys for less critical variables
+  - Never use all-caps variable names
+  ```
+
+  {{< /details >}}
+
+- Not treating the chat like an annoyance. This one took me a while to adapt to. Because I want to write something like "convert these inline styles to use stylex" but that's really not that much context to go on. If you were talking to a human, you'd at least try offer some advice or y'know point at the screen or something. I think typing this
 
 ## Vibe Coding With No Expectations On Quality
 
