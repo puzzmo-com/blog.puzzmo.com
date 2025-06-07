@@ -128,3 +128,53 @@ In contrast, I have been exploring the idea of fully giving the keyboard away.
 {{< imageHighlight src="claude.png" alt="Yesterday's change graph showing a wild set of curves being flattened" class="slack-inline-image" >}}
 
 Playing with [Claude Code](https://www.anthropic.com/claude-code) is the second epoch, and the reason I think it is worth me writing about this stuff publicly. Claude Code is a background app which runs in the terminal which is sortof a long-running connection to an LLM which can do _very long running tasks_ and has a sense of how to verify things in the way that you would when writing code.
+
+To me, using Claude Code is lot like [pair programming](https://artsy.github.io/blog/2018/10/19/pair-programming/) (a programming system I've used successfully in many contexts back at Artsy) where there is someone with energy on the keyboard, and someone with experience drinking a tea and occasionally taking over mid-way and then is responsible for finishing and productionizing.
+
+Over this last week I shipped three projects which were done in concert with Claude Code:
+
+1. Adding support for a Crossword clue to be able to colour a word. [PR](https://github.com/puzzmo-com/xd-crossword-tools/pull/39). I wrote the README change, and then asked Claude to implement that change and to ensure there were some tests. There was very little back-and-forth (it was a very easily scoped project.)
+
+2. Looking at adding Schrödinger's Squares to our Crossword. This I knew was going to be a tricky problem, and took me a full day and a half to get it to a pull request. I started the conversation by telling Claude Code that I wanted to specifically fix [this GitHub issue](https://github.com/puzzmo-com/xd-crossword-tools/issues/29) which gave it a lot of context about how I expected it to work.
+
+3. Building an admin page for a new system for admins. [Here is a full transcript](/posts/2025/06/07/orta-on-claude/chat-on-a-feature.html) over the course of roughly two hours.
+
+   Some highlights, I started with:
+
+   > I would like to make an interface here where we have a split system where people can comment on lines in the puzzlestring on the current version of the submission
+
+   And updated that to:
+
+   > dont use an existing comment, I want the comments to feel more like chat messages in the side. Sorta like how google docs / ms office does it
+
+   I got given a plan back:
+
+   ```
+   I'll create a split interface with the puzzlestring on the left and a
+   chat-like comment system on the right, similar to Google Docs/MS Office.
+   Let me build this for you.
+   ⎿ ☐ Create split layout with puzzlestring lines on left and comments
+   panel on right
+   ☐ Add line numbers and make lines clickable/hoverable
+   ☐ Create comment thread component for chat-like messages
+   ☐ Add comment input form with line association
+   ☐ Style the interface to match Google Docs/Office
+   ```
+
+   Next Claude uses all the techniques I would use:
+
+   - It looks at the `schema.graphql` to find out what queries to make
+   - It runs `yarn type-check`
+   - It knows to compile Relay to generate my queries
+
+   After the first stab. I ask:
+
+   > I want the comments to always be showing and to have the side by side with the lines that they are attached to, and can you make them smaller - it should feel more like a chat client than a forum post
+
+   Again, Claude Code takes a stab, uses all my tools to validates that it thinks the code is correct. I run the code, and tell it that I got an error message
+
+   > I'm getting undefined is not an object (evaluating 'puzzleSubmission.currentVersion.puzzleString')
+
+   And repeat as I go through different ideas, bugs and ideas, including a few dead-ends which got reverts.
+
+   Throughout this whole process, I am reading the code, editing it between chat messages and thinking about what the long term plan is for it.
