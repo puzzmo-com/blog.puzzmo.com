@@ -1,5 +1,5 @@
 +++
-title = 'Offline Progress'
+title = 'Offline in Progress'
 date = 2025-06-08T01:13:00+01:00
 authors = ["orta"]
 tags = ["tech", "native", "ios", "offline"]

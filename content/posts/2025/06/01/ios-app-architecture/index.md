@@ -1,5 +1,5 @@
 +++
-title = 'iOS App Architecture'
+title = 'Shipping the iOS App'
 date = 2025-06-01T10:00:38+01:00
 authors = ["orta"]
 tags = ["tech", "web", "ios", "native", "app", "graphql"]
