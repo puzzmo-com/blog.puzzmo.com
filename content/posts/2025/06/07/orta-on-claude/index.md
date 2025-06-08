@@ -1,8 +1,8 @@
 +++
-title = 'On Coding with LLMs'
+title = 'On Coding with Claude'
 date = 2025-06-07T06:26:14+01:00
 authors = ["orta"]
-tags = ["tech"]
+tags = ["tech", "programming", "autocomplete", "culture"]
 theme = "outlook-hayesy-beta"
 +++
 
@@ -16,7 +16,7 @@ Over the last three months, I have been trying to really push myself out of that
 
 That said, allow me to self flagellate before we dig in. I don't think LLMs are a good thing for the world. I think they concentrate power to those with capital, I think they will "increase throughput" for folks in ways that will give fewer people jobs and will force higher inter-class competition in culturally unhealthy ways like a concentrated version of the gig economy. If you want to see the epitome of "[worst person you know](https://knowyourmeme.com/memes/worst-person-you-know-made-a-great-point)" meme, Tucker Carlson's point about [what the social cost of driverless trucking looks like](https://www.youtube.com/watch?v=o5zPKxpPHFk) (0m-3m, perhaps open in a private browser to avoid poisoning your algorithms) is something which is always in the back of my mind. I believe in the [dead internet](https://www.cnet.com/home/internet/what-is-the-dead-internet-theory/) theory and think that using LLMs to make something look like it was authored by a human is unethical. I think LLMs are assisting to push the [Overton window](https://en.wikipedia.org/wiki/Overton_window) towards authoritarianism by making it easier to spread disinformation, to create false narratives and to remove decision-making autonomy in favour of algorithms. Some of this stuff could be OK if we had widescale social safety nets and a healthy labour class, but I don't think something like [UBI](https://en.wikipedia.org/wiki/Universal_basic_income) is coming, and I think LLMs are going to continue to push economic growth over [planet-wide](https://www.youtube.com/watch?v=Mf1FbRaf5gY) health. This technology will help contribute to a worse world for most people.
 
-{{< details summary="Connections between Crypto and 'AI'" >}}
+{{< details summary="Connections between Crypto and 'AI' technologists" >}}
 
 After a recent re-read + [podcast review](https://doofmedia.com/kingslingers-season-1) of Stephen Kings magnum opus [The Dark Tower](<https://en.wikipedia.org/wiki/The_Dark_Tower_(series)>) series during the "crypto wave" of 2022-2023. I was really hit with the notion that there are a massive set of technologists who will happily work on something they know is a net negative on the world in order to personally benefit.
 
@@ -24,15 +24,13 @@ In the Dark Tower, there is a prison where telepaths collectively work together 
 
 Anyone who made the choice to get into Crypto as an experienced western`*` engineer in that era knew what they were supporting: a system built for unaccountability, using unbelievable amounts of energy for little to no gains over conventional technology choices. Making the world worse for everybody on the hopes that because you got in earlier you were more likely to gain in a relatively zero-sum game. They are like real-world breakers.
 
-`*` _I respect that there are folks outside of mainstream internet countries where getting paid is hard, and Crypto can make handling that much easier._
+`*` _I respect that there are folks outside of mainstream internet countries where getting paid is hard, and Crypto can provide a useful out._
 
-I'm not sure if I think will the same of the folks who have switched to become "prompt engineers" or work on large scale LLM projects. Unlike Crypto, there is something of _real value_ in LLMs, I just don't know if the entire space is worth the social/human costs that we will collectively pay. I don't know if I can know that.
-
---
+I'm not sure if I think will the same of the folks who have switched to become "prompt engineers" or work on large scale LLM projects. Unlike Crypto, there is something of _real value_ in LLMs, I just don't know if the entire space is worth the social/human costs that we will collectively pay.
 
 {{< /details >}}
 
-Yet still, LLMs are here. They've already come for artists, and voice actors. Now they are here for programmers. I can't stop that. I dig that for some people absolute embargo is the only option, but I want to understand how things are changing. A lot of my private slacks now have an opt-in space where people are using these tools but no-one would talk about it publicly. I'm going to lose some internet points and try talk through my usage and experiences.
+Yet still, LLMs are here. They've already come for artists, and voice actors. Now they are here for programmers. I can't stop that. I dig that for some people absolute embargo is the only option, but I want to understand what they are and they are going to affect culture. A lot of my private slacks now have an opt-in space where people are using these tools but no-one would talk about it publicly. I'm going to lose some internet points and try talk through my usage and experiences.
 
 --
 

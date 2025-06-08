@@ -1,6 +1,6 @@
 +++
 title = 'iOS App Architecture'
-date = 2025-05-19T10:00:38+01:00
+date = 2025-06-01T10:00:38+01:00
 authors = ["orta"]
 tags = ["tech", "web", "ios", "native", "app", "graphql"]
 theme = "outlook-hayesy-beta"
@@ -49,11 +49,11 @@ So, I ran a dev team meeting to discuss some of these trade-offs and we conclude
 
 The app itself is about 3k lines of Swift code which is an even split between the app and a natively implemented game that lives inside the same codebase.
 
-My iOS knowledge is about 7-8 years out of date, but its still pretty useful in terms of understanding how to build a modern app. I got a lot of respect for Swift the language, but it [still](https://artsy.github.io/blog/2017/02/05/Retrospective-Swift-at-Artsy/#native-downsides/) feels like a really pedantic language, great for building an Operating System or Camera app, but over-engineered for CRUD / pretty JSON parser. However, nowadays we I have GitHub copilot and the built-in Swift LLM recommendation tools in Xcode. Which certainly soften some of the hard edges.
+My iOS knowledge is about 7-8 years out of date, but its still pretty useful in terms of understanding how to build a modern app. I got a lot of respect for Swift the language, but it [still](https://artsy.github.io/blog/2017/02/05/Retrospective-Swift-at-Artsy/#native-downsides/) feels like a really pedantic language, great for building an Operating System or Camera app, but over-engineered for CRUD / pretty JSON parser. However, nowadays we have [GitHub Copilot/Claude Code](/posts/2025/06/07/orta-on-claude/) and the built-in Swift LLM recommendation tools in Xcode. Which certainly soften some of the hard edges.
 
 Because I knew the codebase would stay reasonably small and unchanging, I fully vendored all our (one) dependencies using SwiftPM into the monorepo which meant that anyone with Xcode installed can open it up and have a working local build. This also meant it worked out of the box with Xcode Cloud (Apple's CI service) which I use for all deploys nowadays.
 
-Xcode itself has had a few interesting improvements since I last used it, I enjoy the different fonts for comments and forgot how much I use `cmd + j` a lot and I want it in VS Code. Not having automatic code formatting as you type does make it always feel a bit broken.
+Xcode itself has had a few interesting improvements since I last used it, I enjoy the different fonts for comments and forgot how much I use `cmd + j` and I want it in VS Code. Not having automatic code formatting as you type does make it feel a bit broken.
 
 ## Webview Wrangling
 
@@ -65,11 +65,11 @@ Today the idea of shipping drastically simplified mobile versions of apps doesn'
 
 This means there's a lot of connective code which operates between pages in puzzmo.com both on mobile and on desktop, which makes for loading a fresh web page for every single navigation both slow and feel in-correct. For example, we use Relay as this fast internal key-value cache for all sorts, and with the "per screen webview" technique it's being re-created from web data on every page load.
 
-Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible. One strategy I could use is to hot-swap WKWebViews that have been fully cached but that's incredibly wasteful.
+Finally, it's now only possible to use Apple's WKWebView tech which runs out-of-process, so user-land systems for sharing caches between webview instances are not possible, this would have made supporting offline mode very difficult. One strategy I could use is to hot-swap WKWebViews that have been fully cached but that's incredibly wasteful, but maybe there would be a way to have the iOS native app coordinate more with the service worker instead? Could be a route to explore sometime.
 
 The final nail in the coffin for this technique was that I had hoped that I could use a native `UINavigationController` menubar (e.g. the one built into the system) to handle the title bar info but that too was dropped because we had a team working on a re-design of these components in web-tech and didn't know what it would look like in the end. I didn't want us to be forced into making native builds when there were titlebar design changes - and was especially worried about design slippage between the puzzmo.com on mobile and the iOS version.
 
-After looking at all these "no"s, I eventually just had to conclude that we would have a single webview for puzzmo.com as the root of the site and try to handle making the web view feel more native.
+After looking at all these _"nopes"_ , I eventually just had to conclude that we would have a single webview for puzzmo.com as the root of the site and my time should be spend making the web view have more of a native feel.
 
 Is this an optimal solution? Not really, I think it's harder nowadays to make a good hybrid webview app which could explain why React Native and Flutter usage rises while I rarely hear of much from the "use a webview" crowd.
 
@@ -387,7 +387,7 @@ That gives you a way to have a button in the web app's code which triggers nativ
 
 For the web, we use Stripe and are super happy with it - it's been incredibly flexible and has allowed for us to have all sorts of interesting dynamic deals and discounts running off a bunch of booleans in our codebase.
 
-Apple's subscription infrastructure is a lot more ahead-of-time and static. Each subscription offer and in-app purchase needs to go through review processes and sticks around on your app store permanently, in addition to Apple taking a 30% cut of all sales.
+Apple's subscription infrastructure is a lot more ahead-of-time and static. Each subscription offer and in-app purchase needs to go through review processes and sticks around on your app store permanently, in addition to Apple taking a 30% cut of all digital sales.
 
 But somewhat critically for our puzzmo.com - the information about pricing, availability, the strings we should show are all things that can only be accessed from the device itself. So, for a "Pretty JSON parser" app, we actually need to be infusing information taken from the app if we want to be able to say "Get a subscription for €40."
 
@@ -460,7 +460,7 @@ func getPricingInfoForProductIDs() async -> Void {
 
 Which is then able to be sent as JSON to the client as the information to build the subscription page. We also re-designed the subscription page, but not comprehensively enough to account for all of the stripe cases, so now there is "subscription page" and "subscription page 2" in the codebase.
 
-I guess it's worth the footnote but in the US and the EU now, it's possible to not support Apple's purchases and subscription infrastructure (30% of all your digital revenue is a massive ask) but doing so would effectively ruin _your_ reputation/relationship with Apple and also because support is piecemeal per country then you are still going to have the duplicate systems regardless.
+I guess it's worth the footnote but in the US and the EU now, it's possible to not support Apple's purchases and subscription infrastructure but doing so would effectively ruin _your_ reputation/relationship with Apple and also because support is piecemeal per country then you are still going to have the duplicate system regardless.
 
 ## Offline
 
@@ -599,8 +599,10 @@ New Game Center leaderboards need to go through the App Store review system and 
 
 ## Sounds and Haptics
 
-We timed adding sounds to all of our games with the launch of the app store, while I won't go into all the details (that's for someone else to write.) However, sounds are also a reasonable
+We timed adding sounds to all of our games with the launch of the app store, while I won't go into all the details (that's for someone else to write.) It's an interesting set of systems which I didn't build.
 
 ## Reception
 
-People seem to like it, there are the occasional reasonable criticisms that it's not an entirely native app, but folks are used to big teams writing solid software and there's just no world in which we slow down that much by re-creating everything until it's _definitely_ worth it. Today, it's not there. It's got a 5 star rating in the UK, and 4,6 in the US. Pretty good!
+People seem to like it, there are the occasional reasonable criticisms that it's not an entirely native app, but folks are used to big teams writing solid software and there's just no world in which we slow down that much by re-creating everything until it's _definitely_ worth it. Today, it's not worth spending a year or two of dev time.
+
+But we've got a 5 star rating in the UK, and 4,6 in the US. Pretty good!
