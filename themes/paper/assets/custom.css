@@ -7,8 +7,8 @@ h2,h3,h4,h5 {
   font-size: 1rem;
   text-decoration: none;
   position: absolute;
-  top: 12px  ;
-  right: -14px;
+  top: 9px;
+  left: -14px;
 }
 
 .hanchor:hover {
@@ -30,6 +30,10 @@ details .details-content {
   padding-left: 0.7rem;
   padding-bottom: 0.1rem;
   border-left: 2px solid  rgba(0, 0, 0, 0.1);
+}
+
+summary:hover   {
+  background-color: rgba(0, 0, 0, 0.13) !important;
 }
 
 details:not([open]) > summary {
