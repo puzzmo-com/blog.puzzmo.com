@@ -1,4 +1,3 @@
-/* Place custom css here. */
 h2,h3,h4,h5 {
   position: relative;
 }
@@ -40,4 +39,8 @@ details:not([open]) > summary {
 
 details[open] > summary {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.slack-inline-image {
+    background-color: #181B1E;
 }
