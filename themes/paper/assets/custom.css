@@ -1,1 +1,49 @@
-/* Place custom css here. */
+h2,h3,h4,h5 {
+  position: relative;
+}
+
+.hanchor {
+  opacity: 0.5;
+  font-size: 1rem;
+  text-decoration: none;
+  position: absolute;
+  top: 9px;
+  left: -14px;
+}
+
+.hanchor:hover {
+  opacity: 1;
+}
+
+details {
+  cursor: pointer;
+}
+
+details > summary {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+details .details-content {
+  margin: 0.5rem;
+  margin-left: -0.2rem;
+  padding-left: 0.7rem;
+  padding-bottom: 0.1rem;
+  border-left: 2px solid  rgba(0, 0, 0, 0.1);
+}
+
+summary:hover   {
+  background-color: rgba(0, 0, 0, 0.13) !important;
+}
+
+details:not([open]) > summary {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+details[open] > summary {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.slack-inline-image {
+    background-color: #181B1E;
+}

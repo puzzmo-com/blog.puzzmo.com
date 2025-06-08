@@ -30,9 +30,9 @@
   <!-- CSS & JS -->
   {{ $main := resources.Get "main.css" }}
   <!---->
-  {{ $custom := resources.Get "custom.css" }}
+  {{ $custom := resources.Get "custom.css"  }}
   <!---->
-  {{ $css := slice $main $custom | resources.Concat "main.css" | minify }}
+  {{ $css := slice $main $custom | resources.Concat "main.css" | minify | resources.Fingerprint "sha512" }}
   <link rel="preload stylesheet" as="style" href="{{ $css.Permalink }}" />
 
   <!-- Dark Icon -->
