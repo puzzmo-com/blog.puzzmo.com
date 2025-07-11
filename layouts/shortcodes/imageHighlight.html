@@ -1,8 +1,8 @@
 </section>
 
 {{ if .Params.src }}
-<div style=" margin-left: -10%; margin-right: -10%" class="grid-item {{ if .Params.class }}{{ .Params.class }}{{ end }}" >
-    <a href="{{ .Params.src }}"><img src="{{ .Params.src }}" alt="{{ .Params.alt }}" class="zoomable"  /></a>
+<div style="{{ if .Params.maxWidth }}max-width: {{ .Params.maxWidth }}; margin-left: auto; margin-right: auto;{{ else }}margin-left: -10%; margin-right: -10%;{{ end }}" class="grid-item {{ if .Params.class }}{{ .Params.class }}{{ end }}" >
+    <a href="{{ .Params.src }}"><img src="{{ .Params.src }}" alt="{{ .Params.alt }}" class="zoomable" style="{{ if .Params.maxWidth }}width: 100%; height: auto;{{ end }}" /></a>
 </div>
 {{ end }}
 
