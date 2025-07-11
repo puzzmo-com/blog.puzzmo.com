@@ -20,11 +20,11 @@ In an ideal world, none of our puzzles would be pre-solvable, and we wouldn't be
 
 With Missing Link, I originally had a design where all of the cells were shuffled in the preview image of the game (if you hadn't clicked in yet). This did a great job presenting the game in a way where you could see what it looked like and start to think about how things might connect. But it also created this sort of low-level anxiety in my head when I looked at the image. Almost like an uncanny valley of puzzle solving. Things almost fit together, but then they never actually did. And it felt to me like this was merely an illusion of a solution to the pre-solving problem. It looked like it was working, but actually it wasn't allowing players to do the most important thing — to imagine what it was like to play the game. Instead, it was tricking them into a sort of secret hell.
 
-{{< imageHighlight src="shuffled.png" alt="An image of a Missing Link puzzle with the cells shuffled." class="slack-inline-image" >}}
+{{< imageHighlight src="shuffled.png" alt="An image of a Missing Link puzzle with the cells shuffled." class="slack-inline-image" maxWidth="600px" >}}
 
 Another thing I tried was simply not showing all of the cells. We actually do this in Memoku (where it works great). But somehow, not showing all of the cells felt even worse than shuffling them. Instead of ending up in an uncanny valley, you ended up just in a valley. The game teased you with a notion of what it was, but not in a way that felt fun, because you couldn't actually figure out what was going on. And remember, the whole idea with showing these thumbnails is to get players like my mom to scroll past a new puzzle enough times that they become naturally curious about it. The last thing we want to do is make our puzzle previews *less compelling*.
 
-{{< imageHighlight src="censored.png" alt="An image of a Missing Link puzzle with some of the cells blanked out." class="slack-inline-image" >}}
+{{< imageHighlight src="censored.png" alt="An image of a Missing Link puzzle with some of the cells blanked out." class="slack-inline-image" maxWidth="600px" >}}
 
 In the end, we decided there wasn't a solution that prevented pre-solving and didn’t also seriously hamper players' ability to play a game in their head before clicking in on it. But that doesn’t mean we just gave up. Instead, we looked for other angles by which we could address pre-solving. One example of this is how we use the champions leaderboards to relocate first place finishers (who are always pre-solving) off the main leaderboard.
 
