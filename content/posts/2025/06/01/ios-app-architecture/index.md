@@ -33,7 +33,7 @@ There are other key reasons to re-implement though. The team you have may devs _
 
 But Puzzmo is a pretty JSON parser, most of the code in this platform (~200k LOC of TS) is outside of running games (~80k LOC of TS) and replicating huge chunks of that in each language and platform is asking for bugs, process and time to ship stuff. I'd like to keep those things all as low as possible. So, I knew I'd be looking for an abstraction.
 
-When I starting working on Puzzmo, I created [a 12m video](https://youtu.be/2NItowAgfNA) where I talked thought my logic on choosing React Native Web as the base for Puzzmo's front-end. I felt like it was a good option from a set of trade-offs. So, I started the codebase using [Expo](https://expo.dev) (a set of extra tools on top of React Native) and while it was just me writing the code, I regularly would Expo's [EAS](https://expo.dev/eas) to create native builds for running a mini-[testflight](https://developer.apple.com/testflight/) experience with Zach.
+When I starting working on Puzzmo, I created [a 12m video](https://youtu.be/2NItowAgfNA) where I talked through my logic on choosing React Native Web as the base for Puzzmo's front-end. I felt like it was a good option from a set of trade-offs. So, I started the codebase using [Expo](https://expo.dev) (a set of extra tools on top of React Native) and while it was just me writing the code, I regularly would Expo's [EAS](https://expo.dev/eas) to create native builds for running a mini-[testflight](https://developer.apple.com/testflight/) experience with Zach.
 
 And for a time, it was good.
 
