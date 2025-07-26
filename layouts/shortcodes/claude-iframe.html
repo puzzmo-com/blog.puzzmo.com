@@ -1,0 +1,130 @@
+{{ $hasContent := ne (trim .Inner " \n\r\t") "" }}
+<div class="claude-iframe-wrapper {{ if $hasContent }}has-content{{ end }}">
+    {{ if $hasContent }}
+    <div class="claude-iframe-content-text">
+        {{ .Inner | markdownify }}
+    </div>
+    {{ end }}
+    <div class="claude-iframe-container" data-iframe-id="{{ .Params.id }}">
+        <div class="claude-iframe-placeholder">
+            <div class="claude-iframe-placeholder-content">
+                <svg width="48" height="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="claude-icon">
+                    <path d="m4.709 15.955 4.72-2.647.08-.23-.08-.128h-.229l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121-.536-.705.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 0 1 -.104-.729l.748-1.013.413-.134.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158v-.146l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055l-6.343 4.116-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312z" fill="#d97757"/>
+                </svg>
+                <p>{{ .Params.message | default "Click to show chat with Claude" }}</p>
+            </div>
+        </div>
+        <iframe 
+            src="{{ .Params.src }}" 
+            class="claude-iframe hidden"
+            width="100%"
+            height="{{ .Params.height | default "400" }}"
+            frameborder="0"
+            loading="lazy"
+            title="Claude conversation"
+            style="border: 1px solid var(--theme-g_outline, #ddd); border-radius: 8px; padding-top: 1px;">
+        </iframe>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.claude-iframe-container[data-iframe-id="{{ .Params.id }}"]');
+    if (!container) return;
+    
+    const placeholder = container.querySelector('.claude-iframe-placeholder');
+    const iframe = container.querySelector('.claude-iframe');
+    
+    placeholder.addEventListener('click', function() {
+        placeholder.style.display = 'none';
+        iframe.classList.remove('hidden');
+    });
+});
+</script>
+
+<style>
+.claude-iframe-wrapper {
+    margin: 1.5rem 0;
+}
+
+.claude-iframe-wrapper.has-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .claude-iframe-wrapper.has-content {
+        flex-direction: row;
+        gap: 2rem;
+    }
+    
+    .claude-iframe-content-text {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .claude-iframe-container {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+.claude-iframe-container {
+    position: relative;
+    width: 100%;
+}
+
+.claude-iframe-placeholder {
+    background-color: var(--theme-g_bgAlt, #f5f5f5);
+    border: 2px dashed var(--theme-g_unsolved, #ddd);
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.claude-iframe-placeholder:hover {
+    background-color: var(--theme-g_bgDark, #efefef);
+    border-color: var(--theme-g_outline, #ccc);
+}
+
+.claude-iframe-placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.claude-icon {
+    display: block;
+}
+
+.claude-iframe-placeholder p {
+    margin: 0;
+    color: var(--theme-g_textDark, #666);
+    font-size: 1.1rem;
+}
+
+.claude-iframe {
+    border: 1px solid var(--theme-g_outline, #ddd);
+    border-radius: 8px;
+}
+
+.claude-iframe.hidden {
+    display: none;
+}
+
+.claude-iframe-content-text {
+    line-height: 1.6;
+}
+
+.claude-iframe-content-text > *:first-child {
+    margin-top: 0;
+}
+
+.claude-iframe-content-text > *:last-child {
+    margin-bottom: 0;
+}
+</style>

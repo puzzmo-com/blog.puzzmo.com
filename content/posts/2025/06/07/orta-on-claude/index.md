@@ -4,6 +4,7 @@ date = 2025-06-07T06:26:14+01:00
 authors = ["orta"]
 tags = ["tech", "programming", "auto-complete++", "culture"]
 theme = "outlook-hayesy-beta"
+series = ["Coding with LLMS"]
 +++
 
 Alright, that's a very straight faced title. Might force more folks to read the contents.
