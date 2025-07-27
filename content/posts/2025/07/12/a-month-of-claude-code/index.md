@@ -23,11 +23,11 @@ This article builds on ["On Coding with Claude"](https://blog.puzzmo.com/posts/2
 
 I want to try look through the last 6 weeks of activity in the Puzzmo engineering space to try and inspect what I've been seeing.
 
-### Maintenance is Significantly Cheaper
+## Maintenance is Significantly Cheaper
 
 I have been on many projects with people which have taken weeks full-time to perform some sort of mundane task: "converting this JS codebase to TypeScript", "Update to Swift X", "Switch to a monorepo" they're the kind of things which are delicate migrations which require a gazillion rebases.
 
-Here is a list of things which I have completed, solo, since getting access to Claude Code:
+Here is a list of things which I have completed, **solo**, since getting access to Claude Code:
 
 - Converting hundreds of React Native components to just React
 - Built complex REPLs for multiple projects
@@ -62,6 +62,12 @@ I wondered if I needed to wait for someone else, so instead of just "adding a te
 Then, after seeing the tests, I deleted them. It added an extra 5m to my process, but gave me an insight each time into different ways in which other projects. After weeks of this, I was ready to start looking at that problem systemically.
 
 The idea of writing tests for every pull request and then deleting it would just be so much time, there would be no way I'd be OK with doing.
+
+Or a recent example from slack where I just vibed for half a day in the background on trying to make an abstraction for CRUD resources in our CMS tools:
+
+{{< imageHighlight src="slack-screenshot-crud.png" alt="A slack statement around making CRUD apps with relay + graphql"  >}}
+
+Did it work? Nope, was it worth an exploration - sure.
 
 ## Living the Two Clones lifestyle
 
@@ -128,17 +134,31 @@ Which I think is correct, within the Puzzmo team the people whose skill-sets are
 
 So I will double-down on saying that everything [in Justin's post](https://justin.searls.co/posts/full-breadth-developers/) echoes what is happening inside the Puzzmo engineering team and his post is really worth musing over.
 
+## What Do I Think Makes It Successful in our Codebases
+
+1. We use monorepos. I was lucky to have spent the time [a year ago](https://.puzzmo.com/posts/2025/01/22/turborepo/) to take every project and move it into a two main environments. This was originally done to reflect the working processes of the engineering teams. My goal was to make it possible to go from db schema change to front-end components in a single pull request.
+
+   That is perfect for working with an LLM, because it can read the file which represents our schema, it can read the sdl files defining the public GraphQL API, read the per-screen requests and figure out what you're trying to do. Having a single place with so much context means that _I_ as user of Claude Code do not need to tell it that sort of stuff and a vague message like _"Add a xyz field to the user model in the db and make it show in this screen"_ is something that Claude Code can do.
+
+2. My tech choices were made a decade ago. This video of a conference talk I [gave from 2018](https://www.youtube.com/watch?v=1Z3loALSVQM) is still the way I introduce people to the Puzzmo codebase and the mentality behind these tech choices. React, Relay, GraphQL, TypeScript and (now StyleX) are boring and _very explicit_ technologies. There are compilation steps in all of these systems which means everything has to be available locally and correct to run, this makes it a bit of a curve to learn but often when you have got it right - you know you have got it right. For our admin tools, its even more boring/mature, I'm still using [Bootstrap](https://getbootstrap.com)!
+
+   For an LLM, these technologies are very well baked into its training set and Claude Code knows to do things like "run the Relay compiler" (when I saw Claude Code first do that, I knew I was in for a wild ride) which gives it incremental ways to be validating the changes it has done are working.
+
+3. This isn't novel work. Most of the stuff we're doing on a day to day basis is pretty normal down-to-earth CRUD style apps.
+
 ## Quantifying the Change is Hard
 
 I thought I would see a pretty drastic change in terms of Pull Requests, Commits and Line of Code merged in the last 6 weeks. I don't think that holds water though:
 
 {{< imageHighlight src="diagrams.png" alt="An image of a Missing Link puzzle with the cells shuffled."  >}}
 
-I think anyone internally would feel like the pace of change inside Puzzmo has most definitely increased (at least in the areas I contribute) but those numbers haven't really changed.
+> This is a 3 month chart, with a month of post-Claude Code. I just asked it to make a script to generate a CSV from looking at repos on my harddrive.
+
+That said, I think anyone internally would feel like the pace of change inside Puzzmo has most definitely increased (at least in the areas I contribute) but those numbers haven't _really_ changed in reality.
 
 There was a [recent paper](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) (which is from the pre-Claude Code days) which says that developers with AI over-estimate its impact and maybe I am.
 
-Doesn't feel it though.
+Doesn't _feel_ it though.
 
 ## "You can just do it" for Side Projects
 
