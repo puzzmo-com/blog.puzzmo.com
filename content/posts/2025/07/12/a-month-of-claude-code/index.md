@@ -146,6 +146,8 @@ So I will double-down on saying that everything [in Justin's post](https://justi
 
 3. This isn't novel work. Most of the stuff we're doing on a day to day basis is pretty normal down-to-earth CRUD style apps.
 
+4. These codebases aren't that big, nor that old. Nothing is older than 2021 and while I keep things up-to-date, I try to have a long-tail of support / backwards compatibility.
+
 ## Quantifying the Change is Hard
 
 I thought I would see a pretty drastic change in terms of Pull Requests, Commits and Line of Code merged in the last 6 weeks. I don't think that holds water though:
@@ -165,6 +167,8 @@ Doesn't _feel_ it though.
 While intoxicating at first, settling in to Claude Code usage just becomes mundane normal tool use after a while. You do not need to spend your time worrying about Sonnet or Opus, or grabbing every Claude Code competitor like Gemini CLI, Qwen Code or some other model that is cool. I have not used anything but Claude Code with whatever it does on the $100 a month account and I am doing very fine.
 
 There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that difference between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
+
+I've never set up an MCP server, I've found doing voice-chat super awkward and not used it and I don't follow the "blue tick-y" people on Twitter who have some "\*.ai" bio. Those folks can do their thing, but I'm very happy not engaging.
 
 ## You Can Let Claude Rest
 
@@ -246,3 +250,15 @@ Once I had a way to visualize the solution, we could start looking at the main c
 I used tests based on ASCII snapshot to hardcode test using the explicit version of the bars in the imported file format jpz, then created a test which relied on the algorithm we were going to create. This meant I, and Claude, had a very explicit way to judge how the algorithm was working.
 
 The import algorithm which existed for a jpz was too naive, and imported clues were wrong which meant we spent a long time trying to get the two snapshots to match. Claude kept cheating and hardcoding the answers! It took till I re-evaluated all of the clues (by making a separate test on the import for these clues) for a fresh re-examination of the algorithm to start getting somewhere.
+
+### Creating a REPL for a Puzzle
+
+{{< claude-iframe id="claude-circuits-repl" src="./claude-circuits-repl/conversation.html"  >}}
+
+A quick, fully vibed prototype of a way to visually design a puzzle for the [game Circuits](https://circuitsgame.com).
+
+I give a screenshot, and try to describe how the game works and how I see a REPL could work. We iterate a bit, and I basically never write any code.
+
+This is then passed off to others to experiment with and figure out their opinions on how to make a working dev tool for the game.
+
+{{< /claude-iframe >}}
