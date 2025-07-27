@@ -202,3 +202,47 @@ If you read the chat, you'll see that I do spend some time figuring out how to f
 {{< /claude-iframe >}}
 
 A feature like this is a _full weekend_ project, easily about 10-12 hours to get right and feel shippable for me. Instead most of the work happened when I was away and then the polishing was sporadic. Maybe the whole thing took ~2 hours of my thinking time? _This is wild_.
+
+## Some Examples of What These Conversations Look Like
+
+I will try to cherry-pick some of the 147 conversations I've had over 19 separate repo/projects since starting. I'll aim for breadth of goals and give my opinion to the side.
+
+### Making a "delete 30 day old games" Task
+
+{{< claude-iframe id="thirty-day-old" src="./thirty-day-deletes/conversation.html"  >}}
+
+This is a chat where I have a general sense of what I want, but know that I don't actually know the answer around postgres indexing and how it effects mass deletes.
+
+So first I ask a general question where it is using my prisma definition file to determine what is currently set up in the db.
+
+We iterate on a scripting improvement, and make it possible to test locally.
+
+After trying locally, I give it a "kinda" and then ask for a more explicit technique.
+
+With that set up I go through all the code, review it locally, fix up style make it work according to how I would write it.
+
+{{< /claude-iframe >}}
+
+You might note that it makes some guesses ("10-20%"" of our gameplays are anon users), then make bold promises from that guess:
+
+> _That's an 80-85% reduction in index size!_
+
+Which I doubt. However, the code was solid, it's got significantly more logs than I would have written (useful for a daily task) and I feel like I understand what the index does. I went and added a bunch of glue comments _"this script works with the index in migration y, so any updates..."_
+
+### Adding Barred Grid Support to a Crossword
+
+{{< claude-iframe id="claude-conversation-xd-tools-barred-0" src="./claude-conversation-xd-tools-barred-0/conversation.html"  >}}
+
+I knew this was going to be nightmare PR, which you can [see here](https://github.com/puzzmo-com/xd-crossword-tools/pull/42).
+
+I started by adding fixtures into the repo, and providing context via [an issue](https://github.com/puzzmo-com/xd-crossword-tools/issues/31) which I had left ideas in. To get started, I framed this task as 'this is the long term goal, to get started we will do Y.'. Y here being an ASCII snapshot of the bars.
+
+We started by building out a way to visualize the work, and Claude Code got very close. In the end, I took it's work and finished the integration myself.
+
+Once I had a way to visualize the solution, we could start looking at the main chunk of the work
+
+{{< /claude-iframe >}}
+
+I used tests based on ASCII snapshot to hardcode test using the explicit version of the bars in the imported file format jpz, then created a test which relied on the algorithm we were going to create. This meant I, and Claude, had a very explicit way to judge how the algorithm was working.
+
+The import algorithm which existed for a jpz was too naive, and imported clues were wrong which meant we spent a long time trying to get the two snapshots to match. Claude kept cheating and hardcoding the answers! It took till I re-evaluated all of the clues (by making a separate test on the import for these clues) for a fresh re-examination of the algorithm to start getting somewhere.
