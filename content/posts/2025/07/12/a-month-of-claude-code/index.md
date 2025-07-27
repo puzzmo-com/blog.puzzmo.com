@@ -19,7 +19,7 @@ If this feels like an intimidating line-of-thought then welcome to the mid-2020s
 
 ## A Retrospective on the last 6 Weeks
 
-This article builds on ["On Coding with Claude"](https://blog.puzzmo.com/posts/2025/06/07/orta-on-claude/) which I wrote after using Claude for a week.
+This article builds on ["On Coding with Claude"](/posts/2025/06/07/orta-on-claude/) which I wrote after using Claude for a week. If you think that I am AI-pilled, you can get my nuanced take on LLMs at [the start](/posts/2025/06/07/orta-on-claude/#before-we-start) of that post.
 
 I want to try look through the last 6 weeks of activity in the Puzzmo engineering space to try and inspect what I've been seeing.
 
