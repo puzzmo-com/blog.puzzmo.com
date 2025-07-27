@@ -23,17 +23,19 @@ This article builds on ["On Coding with Claude"](https://blog.puzzmo.com/posts/2
 
 I want to try look through the last 6 weeks of activity in the Puzzmo engineering space to try and inspect what I've been seeing.
 
-## Maintenance is Significantly Cheaper
+### Maintenance is Significantly Cheaper
 
 I have been on many projects with people which have taken weeks full-time to perform some sort of mundane task: "converting this JS codebase to TypeScript", "Update to Swift X", "Switch to a monorepo" they're the kind of things which are delicate migrations which require a gazillion rebases.
 
 Here is a list of things which I have completed, **solo**, since getting access to Claude Code:
 
 - Converting hundreds of React Native components to just React
+- Replaced 3 non-trivial RedwoodJS systems with home-grown or mature, supported, replacements
 - Built complex REPLs for multiple projects
 - Switched almost every db model to have a consistent 'flags' system
 - Converted from Jest to Vitest
 - Created our front-end testing strategies for React
+- Moved many things defined in code to run via the CMS
 - Made significant headway on server-side rendering
 - Re-wrote the iOS app's launch system due to deprecations
 - Built a suite of LLM created (and framed as such) documentation for the codebase
@@ -41,9 +43,11 @@ Here is a list of things which I have completed, **solo**, since getting access 
 - Converted a significant amount of our design system primitives to use base-ui
 - Migrated significant code from inline styles to stylex
 - Converted all animations in puzzmo.com to use the same techniques as games
+- Fixed multiple bugs which have been around since the start of Puzzmo
 - Updated all Vite integrations
 - Migrate all Puzzmo production projects to node 22
 - Convert the games repo to a real monorepo
+- Built iPad support for the Puzzmo app
 
 None of these projects are the "actual work" which I need to do on a day to day basis as the 'bizdev' guy on Puzzmo for this year. These are _literally side-projects_ which I did _on my own_ while working on something else. If you understand what you are doing, the capacity for building and handling the breadth of tasks which typically live within the remit of "technical debt" do not need to be treated as debt and you can just do it as you are working on other things.
 
@@ -69,7 +73,7 @@ Or a recent example from slack where I just vibed for half a day in the backgrou
 
 Did it work? Nope, was it worth an exploration - sure.
 
-## Living the Two Clones lifestyle
+### Living the Two Clones lifestyle
 
 Anthropic have information about how to use [worktrees](https://docs.anthropic.com/en/docs/claude-code/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees) - I would like to argue for a simpler approach. Two clones, different [VS Code profiles](https://code.visualstudio.com/docs/configure/profiles).
 
@@ -81,7 +85,7 @@ This means you can work in each independently and still visually recognize the d
 
 My best argument is simply that each clone represents a single pull request that you can work on at a time. If you are writing pull requests and collaborating with others then that is still pretty important. I made it so that our dev servers close any processes using the ports you want and its trivial to jump between the two clones as Claude Code is working stuff out before you are looking build.
 
-## Game design collaboration
+### Game design collaboration
 
 Since Puzzmo was created this was the process of creating a game:
 
@@ -108,7 +112,7 @@ The flexibility which allows a game designer to make a prototype is the part tha
 
 All of these have trade-offs, and it isn't obvious what the right idea is. The problem is novel because we weren't in a place to do that prior to Claude Code (I didn't think it was worth my time investment) but it's the same folks making games - just with our individual capacities to contribute widened.
 
-## Taking a Shot During Triage
+### Taking a Shot During Triage
 
 One thing I have been experimenting with during our weekly triage of all raised GitHub issues is asking the Claude Code GitHub action to take a stab at a pull request while we are talking about what we thing
 
@@ -134,7 +138,7 @@ Which I think is correct, within the Puzzmo team the people whose skill-sets are
 
 So I will double-down on saying that everything [in Justin's post](https://justin.searls.co/posts/full-breadth-developers/) echoes what is happening inside the Puzzmo engineering team and his post is really worth musing over.
 
-## What Do I Think Makes It Successful in our Codebases
+### What Do I Think Makes It Successful in our Codebases
 
 1. We use monorepos. I was lucky to have spent the time [a year ago](https://.puzzmo.com/posts/2025/01/22/turborepo/) to take every project and move it into a two main environments. This was originally done to reflect the working processes of the engineering teams. My goal was to make it possible to go from db schema change to front-end components in a single pull request.
 
@@ -148,7 +152,7 @@ So I will double-down on saying that everything [in Justin's post](https://justi
 
 4. These codebases aren't that big, nor that old. Nothing is older than 2021 and while I keep things up-to-date, I try to have a long-tail of support / backwards compatibility.
 
-## Quantifying the Change is Hard
+### Quantifying the Change is Hard
 
 I thought I would see a pretty drastic change in terms of Pull Requests, Commits and Line of Code merged in the last 6 weeks. I don't think that holds water though:
 
@@ -162,7 +166,7 @@ There was a [recent paper](https://metr.org/blog/2025-07-10-early-2025-ai-experi
 
 Doesn't _feel_ it though. I feel like I'm constantly trashing my usual estimation timings to the point where it's hard for me to gauge how long a task will take.
 
-## You Don't Have To Obsess Over LLM Trends
+### You Don't Have To Obsess Over LLM Trends
 
 While intoxicating at first, settling in to Claude Code usage just becomes mundane normal tool use after a while. You do not need to spend your time worrying about Sonnet or Opus, or grabbing every Claude Code competitor like Gemini CLI, Qwen Code or some other model that is cool. I have not used anything but Claude Code with whatever it does on the $100 a month account and I am doing very fine. I've heard good things about asking Gemini when Claude Code is stuck, but I've found that if Claude Code is stuck, I have not been doing a good job framing our work and a re-examination is worth the time.
 
@@ -170,13 +174,13 @@ There will be a future when it makes sense to think about looking at other ecosy
 
 I've never set up an MCP server, I've found doing voice-chat super awkward and not used it and I don't follow the "blue tick-y" people on Twitter who have some "\*.ai" bio. Those folks can do their thing, but I'm very happy not engaging.
 
-## You Can Let Claude Rest
+### You Can Let Claude Rest
 
 Like with a mobile phone, you can become consumed by the notion that because Claude Code can run at all times, you should make it run at all times. Effectively doom-scrolling in your terminal (or phone?!) instead.
 
 It's worth remembering that any tool can be used at any time, but that you are the one driving it and your energy / capacity to make informed decisions is not infinite.
 
-## I run via `claude yolo`
+### I run via `claude yolo`
 
 I have been trying to make a list of everything I'm OK with:
 
@@ -223,7 +227,7 @@ My theory for the latter two is that if a human is expected to read it, a human 
 
 But I'm not slopping about in production.
 
-## "You can just do it" for Side Projects
+### "You can just do it" for Side Projects
 
 Throughout my entire programming career, like all humans I have been largely constrained in my capacity for side-projects and one-offs by the fact I still want to have a life. I choose to devote myself to contributing to large-scale open source to make me feel good about the amount of time I commit to the craft.
 
@@ -231,7 +235,7 @@ In concrete terms, that means spending time on projects like CocoaPods, Danger, 
 
 Now it's different. I can just take a stab and decide if I like the result. In one hour of exploration with Claude Code, I feel like can do roughly a weekends worth of exploration.
 
-### E.g. Inline Chats
+#### E.g. Inline Chats
 
 For example, this blog post. When I was musing about it, I thought, _'it'd be nice to show the Claude Code conversations inline'_ and then subsequently, _"wouldn't it be fun to bring back Adium themes for it"_. So. I just got started.
 
@@ -254,11 +258,11 @@ If you read the chat, you'll see that I do spend some time figuring out how to f
 
 A feature like this is a _full weekend_ project, easily about 10-12 hours to get right and feel shippable for me. Instead most of the work happened when I was away and then the polishing was sporadic. Maybe the whole thing took ~2 hours of my thinking time? _This is wild_.
 
-## Some Examples of What These Conversations Look Like
+### Some Examples of What These Conversations Look Like
 
 I will try to cherry-pick some of the 147 conversations I've had over 19 separate repo/projects since starting. I'll aim for breadth of goals and give my opinion to the side.
 
-### Making a "delete 30 day old games" Task
+#### Making a "delete 30 day old games" Task
 
 {{< claude-iframe id="thirty-day-old" src="./thirty-day-deletes/conversation.html"  >}}
 
@@ -280,7 +284,7 @@ You might note that it makes some guesses ("10-20%"" of our gameplays are anon u
 
 Which I doubt. However, the code was solid, it's got significantly more logs than I would have written (useful for a daily task) and I feel like I understand what the index does. I went and added a bunch of glue comments _"this script works with the index in migration y, so any updates..."_
 
-### Adding Barred Grid Support to a Crossword
+#### Adding Barred Grid Support to a Crossword
 
 {{< claude-iframe id="claude-conversation-xd-tools-barred-0" src="./claude-conversation-xd-tools-barred-0/conversation.html"  >}}
 
@@ -298,7 +302,7 @@ I used tests based on ASCII snapshot to hardcode test using the explicit version
 
 The import algorithm which existed for a jpz was too naive, and imported clues were wrong which meant we spent a long time trying to get the two snapshots to match. Claude kept cheating and hardcoding the answers! It took till I re-evaluated all of the clues (by making a separate test on the import for these clues) for a fresh re-examination of the algorithm to start getting somewhere.
 
-### Creating a REPL for a Puzzle
+#### Creating a REPL for a Puzzle
 
 {{< claude-iframe id="claude-circuits-repl" src="./claude-circuits-repl/conversation.html"  >}}
 
