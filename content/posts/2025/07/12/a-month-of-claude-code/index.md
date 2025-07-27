@@ -160,11 +160,11 @@ That said, I think anyone internally would feel like the pace of change inside P
 
 There was a [recent paper](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) (which is from the pre-Claude Code days) which says that developers with AI over-estimate its impact and maybe I am.
 
-Doesn't _feel_ it though.
+Doesn't _feel_ it though. I feel like I'm constantly trashing my usual estimation timings to the point where it's hard for me to gauge how long a task will take.
 
 ## You Don't Have To Obsess Over LLM Trends
 
-While intoxicating at first, settling in to Claude Code usage just becomes mundane normal tool use after a while. You do not need to spend your time worrying about Sonnet or Opus, or grabbing every Claude Code competitor like Gemini CLI, Qwen Code or some other model that is cool. I have not used anything but Claude Code with whatever it does on the $100 a month account and I am doing very fine.
+While intoxicating at first, settling in to Claude Code usage just becomes mundane normal tool use after a while. You do not need to spend your time worrying about Sonnet or Opus, or grabbing every Claude Code competitor like Gemini CLI, Qwen Code or some other model that is cool. I have not used anything but Claude Code with whatever it does on the $100 a month account and I am doing very fine. I've heard good things about asking Gemini when Claude Code is stuck, but I've found that if Claude Code is stuck, I have not been doing a good job framing our work and a re-examination is worth the time.
 
 There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that difference between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
 
@@ -175,6 +175,53 @@ I've never set up an MCP server, I've found doing voice-chat super awkward and n
 Like with a mobile phone, you can become consumed by the notion that because Claude Code can run at all times, you should make it run at all times. Effectively doom-scrolling in your terminal (or phone?!) instead.
 
 It's worth remembering that any tool can be used at any time, but that you are the one driving it and your energy / capacity to make informed decisions is not infinite.
+
+## I run via `claude yolo`
+
+I have been trying to make a list of everything I'm OK with:
+
+{{< details summary=".claude/settings.json" >}}
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(yarn run *)",
+      "Bash(yarn lint:*)",
+      "Bash(yarn workspace:*)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(awk:*)",
+      "Bash(yarn build)",
+      "Bash(yarn why:*)",
+      "Bash(yarn info:*)",
+      "Edit(*)"
+    ],
+    "deny": ["Bash(npx prisma migrate dev:*)", "Bash(git checkout:*)", "Bash(git add:*)"],
+    "defaultMode": "acceptEdits"
+  }
+}
+```
+
+{{< /details >}}
+
+But it's still not enough to constantly feel like I'm being asked things that I don't need to confirm. So I run `claude --dangerously-skip-permissions` aka `claude yolo`. The worst things that have happened to me have been having my dev db wiped during a bad Prisma migration, and that Claude Code decided it should make a commit, and then a Pull Request.
+
+My theory for the latter two is that if a human is expected to read it, a human should have wrote it. I'm OK with something like:
+
+```
+[Authored description, or one liner]
+
+---
+
+[Codegen'd PR template]
+```
+
+But I'm not slopping about in production.
 
 ## "You can just do it" for Side Projects
 
