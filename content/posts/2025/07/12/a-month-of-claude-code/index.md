@@ -160,6 +160,18 @@ There was a [recent paper](https://metr.org/blog/2025-07-10-early-2025-ai-experi
 
 Doesn't _feel_ it though.
 
+## You Don't Have To Obsess Over LLM Trends
+
+While intoxicating at first, settling in to Claude Code usage just becomes mundane normal tool use after a while. You do not need to spend your time worrying about Sonnet or Opus, or grabbing every Claude Code competitor like Gemini CLI, Qwen Code or some other model that is cool. I have not used anything but Claude Code with whatever it does on the $100 a month account and I am doing very fine.
+
+There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that difference between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
+
+## You Can Let Claude Rest
+
+Like with a mobile phone, you can become consumed by the notion that because Claude Code can run at all times, you should make it run at all times. Effectively doom-scrolling in your terminal (or phone?!) instead.
+
+It's worth remembering that any tool can be used at any time, but that you are the one driving it and your energy / capacity to make informed decisions is not infinite.
+
 ## "You can just do it" for Side Projects
 
 Throughout my entire programming career, like all humans I have been largely constrained in my capacity for side-projects and one-offs by the fact I still want to have a life. I choose to devote myself to contributing to large-scale open source to make me feel good about the amount of time I commit to the craft.
