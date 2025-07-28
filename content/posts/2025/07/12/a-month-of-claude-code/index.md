@@ -170,9 +170,9 @@ Doesn't _feel_ it though. I feel like I'm constantly trashing my usual estimatio
 
 While intoxicating at first, settling in to Claude Code usage just becomes mundane normal tool use after a while. You do not need to spend your time worrying about Sonnet or Opus, or grabbing every Claude Code competitor like Gemini CLI, Qwen Code or some other model that is cool. I have not used anything but Claude Code with whatever it does on the $100 a month account and I am doing very fine. I've heard good things about asking Gemini when Claude Code is stuck, but I've found that if Claude Code is stuck, I have not been doing a good job framing our work and a re-examination is worth the time.
 
-There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that difference between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
-
 I've never set up an MCP server, I've found doing voice-chat super awkward and not used it and I don't follow the "blue tick-y" people on Twitter who have some "\*.ai" bio. Those folks can do their thing, but I'm very happy not engaging.
+
+There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that difference between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
 
 ### You Can Let Claude Rest
 
@@ -313,3 +313,32 @@ I give a screenshot, and try to describe how the game works and how I see a REPL
 This is then passed off to others to experiment with and figure out their opinions on how to make a working dev tool for the game.
 
 {{< /claude-iframe >}}
+
+#### Print Pages for Crosswords
+
+{{< claude-iframe id="claude-pdf-fails" src="./claude-pdf-fails/conversation.html"  >}}
+
+I wanted to build a design for printable PDFs of Crosswords. I already had a working pipeline for generating them and needed to work on the layout specifically.
+
+I would have considered this a relatively easy problem to work with, but it turned out that there just isn't a set of CSS primitives that allows for columns _and_ re-flows around an image.
+
+Claude was good for trying the different css properties and systems I was working with, and I experimented with different ways to describe or show the problem but never managed to get it working.
+
+{{< /claude-iframe >}}
+
+I think I had the wrong core abstraction in mind in these conversations, either by being too specific in my recommendations or experimenting through half answers.
+
+In the end, I will have to re-write it to use JavaScript to do the layouts I think.
+
+### But Seriously, How Good Is This Thing?
+
+Perhaps an interesting place to end it, is how do I think about this tool in terms of its capabilities. Claude Code knows a lot, and you can easily send it reference material in terms of links, screenshots and extra code for context. I've found it to sit somewhere at the stage of ["Post-Junior"](https://artsy.github.io/blog/2016/09/10/Help!-I'm-becoming-Post-Junior/), there's a lot of experience there and a whole boat-load of energy but it doesn't really do a good job remembering things you ask (even via `CLAUDE.md` and the scope of it's ownership is obviously trivial).
+
+At Artsy, early on we had [a 5 step technical ladder](https://artsy.github.io/blog/2015/04/03/artsy-engineering-compensation-framework/) for engineers:
+
+> Engineer 1 - Can ship a well defined product feature.
+> Engineer 2 - Can independently own a product feature and can handle the communication with others around it.
+
+Hitting part 2 requires actually being around in some form, and having some sort of sense of ownership, which I guess they might have in the context of a few parts of the codebase which are fully vibed and Humans do not really read.
+
+However, as a pairing partner with an experienced engineer constantly reviewing, amending and understanding the output - you can really treat Claude like a Pair Programming buddy with infinite time and patience, a bit too much sycophancy, and the ability to ship reasonable code given reasonable constraints in a speed I've not seen before.
