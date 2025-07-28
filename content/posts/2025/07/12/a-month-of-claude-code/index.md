@@ -239,7 +239,7 @@ Now it's different. I can just take a stab and decide if I like the result. In o
 
 For example, this blog post. When I was musing about it, I thought, _'it'd be nice to show the Claude Code conversations inline'_ and then subsequently, _"wouldn't it be fun to bring back Adium themes for it"_. So. I just got started.
 
-{{< claude-iframe id="chat-to-adium-1" src="./claude-claude-code-to-adium--Users-orta-dev-claude-code-to-adium/conversation.html"  >}}
+{{< claude-iframe id="chat-to-adium-1" src="./claude-conversations/claude-claude-code-to-adium--Users-orta-dev-claude-code-to-adium-ae00148f/conversation.html"  >}}
 
 So, I spec'd out a rough idea of what I was looking for. Described it pretty well up-front, took the dogs for an hour-long walk and came back to a reasonable approximation of the CLI which would have taken me a few hours to build by hand.
 
@@ -248,7 +248,7 @@ It wasn't a lot of code, but it was a lot of research, how do I re-create the Ad
 
 With that working enough to be able to correctly mix the ideas, I gave it a polish pass.
 
-{{< claude-iframe id="chat-to-adium-2" src="./claude-conversation--Users-orta-dev-claude-code-to-adium-2/conversation.html"  >}}
+{{< claude-iframe id="chat-to-adium-2" src="./claude-conversations/claude-conversation--Users-orta-dev-claude-code-to-adium-d0a5d724/conversation.html"  >}}
 
 I've polished and deployed enough npm modules ([174?!](https://www.npmjs.com/~orta)), so again, totally within my skills to do this without thinking too hard. Instead I treated this project as a fun side gig while watching [Apex Legends](https://www.youtube.com/watch?v=0LRyOw1R_SE).
 
@@ -257,6 +257,12 @@ If you read the chat, you'll see that I do spend some time figuring out how to f
 {{< /claude-iframe >}}
 
 A feature like this is a _full weekend_ project, easily about 10-12 hours to get right and feel shippable for me. Instead most of the work happened when I was away and then the polishing was sporadic. Maybe the whole thing took ~2 hours of my thinking time? _This is wild_.
+
+If you want to see the rest of the conversations to get it to the point where I shipped this blog post, here they are:
+
+- Chronologically continuing from the 2 above: [3](./claude-conversations/claude-conversation--Users-orta-dev-claude-code-to-adium-ebd791d4/conversation.html), [4](./claude-conversations/claude-claude-code-to-adium--Users-orta-dev-claude-code-to-adium-0ec8943e/conversation.html), [5](./claude-conversations/claude-claude-code-to-adium--Users-orta-dev-claude-code-to-adium-594e201d/conversation.html), [6](./claude-conversations/claude-conversation--Users-orta-dev-claude-code-to-adium-5f5c097b/conversation.html)
+
+You can use it right now if you [install Adium](https://adium.im) then run `npx claude-code-to-adium` and it'll take you through a wizard which ends with a self-contained subfolder full of html/css/images.
 
 ### Some Examples of What These Conversations Look Like
 
