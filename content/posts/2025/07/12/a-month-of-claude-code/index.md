@@ -227,6 +227,14 @@ My theory for the latter two is that if a human is expected to read it, a human 
 
 But I'm not slopping about in production.
 
+### Parallel Construction for Juniors
+
+One thing I've talked with folks earlier in their careers who want to still be doing a lot of the grunt work themselves is to consider writing their work, then comparing their results to the same requested by Claude Code.
+
+[Parallel construction](https://en.wikipedia.org/wiki/Parallel_construction) is a way to have your cake and eat it. You're still learning and growing, but your results can be honed by seeing how the aggregate of training data in Claude Code has also decided to do it. Claude Code likely has a deeper ecosystem understanding, and may read more source code in the current codebase as well as knowing abstractions you've still not learned.
+
+IMO treating it as a competitor which you can learn from is a much healthier alternative to either giving up and just accepting you don't need to know stuff anymore, or putting your head in the sand and assuming somehow this change won't affect you.
+
 ### "You can just do it" for Side Projects
 
 Throughout my entire programming career, like all humans I have been largely constrained in my capacity for side-projects and one-offs by the fact I still want to have a life. I choose to devote myself to contributing to large-scale open source to make me feel good about the amount of time I commit to the craft.
