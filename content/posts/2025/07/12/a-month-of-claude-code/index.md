@@ -130,6 +130,8 @@ I think it's worth noting here that we offered Claude Code to everyone on the te
 
 I would say from our team, the sort of people who have used and found value the most are people with both product, technical skills and agency to feel like they can try things.
 
+One of them said that Claude Code freed them from the anxiety of the first step in programming constantly.
+
 Justin Searls did an interesting write-up where he described an idea of [full-breadth developers](https://justin.searls.co/posts/full-breadth-developers/) where-in he argues that:
 
 > Up until a few months ago, the best developers played the violin. Today, they play the orchestra.
@@ -351,6 +353,7 @@ Perhaps an interesting place to end it, is how do I think about this tool in ter
 At Artsy, early on we had [a 5 step technical ladder](https://artsy.github.io/blog/2015/04/03/artsy-engineering-compensation-framework/) for engineers:
 
 > Engineer 1 - Can ship a well defined product feature.
+>
 > Engineer 2 - Can independently own a product feature and can handle the communication with others around it.
 
 Hitting part 2 requires actually being around in some form, and having some sort of sense of ownership, which I guess they might have in the context of a few parts of the codebase which are fully vibed and Humans do not really read.
