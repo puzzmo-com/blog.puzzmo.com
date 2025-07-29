@@ -110,7 +110,7 @@ The flexibility which allows a game designer to make a prototype is the part tha
 - Explore making it more possible to write 'production worthy' code in prototypes
 - Extend the experiment to give ourselves time to figure another option
 
-All of these have trade-offs, and it isn't obvious what the right idea is. The problem is novel because we weren't in a place to do that prior to Claude Code (I didn't think it was worth my time investment) but it's the same folks making games - just with our individual capacities to contribute widened.
+All of these have trade-offs, and it isn’t obvious what the right idea is. The problem is novel because prior to Claude Code it wasn't worth the effort of integrating prototype code with Puzzmo's systems — now it's trivial and accomplishable by anyone on the team. We can really deliver on the idea of 'experimental' games that we launched with, which means we have to be much more thoughtful about the risk of launching too many games that people want us to keep around.
 
 ### Taking a Shot During Triage
 
