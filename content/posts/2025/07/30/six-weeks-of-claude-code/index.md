@@ -30,16 +30,15 @@ I have been on many projects with people which have taken weeks full-time to per
 Here is a list of things which I have completed, **solo**, since getting access to Claude Code:
 
 - Converting hundreds of React Native components to just React
-- Replaced 3 non-trivial RedwoodJS systems with home-grown or mature, supported, replacements
-- Built complex REPLs for multiple projects
-- Switched almost every db model to have a consistent 'flags' system
+- Replaced 3 non-trivial RedwoodJS systems with home-grown or mature, supported replacements
+- Built complex REPLs for multiple internal and external projects
+- Switched almost every db model to have a consistent 'flags' system for booleans
 - Converted from Jest to Vitest
 - Created our front-end testing strategies for React
 - Moved many things defined in code to run via the CMS
 - Made significant headway on server-side rendering
 - Re-wrote the iOS app's launch system due to deprecations
-- Built a suite of LLM created (and framed as such) documentation for the codebase
-- Re-created our entire API networking stack away from Redwood
+- Built a suite of LLM created (and framed as such, hen hand annotated) documentation for systems like leaderboards, dailies etc
 - Converted a significant amount of our design system primitives to use base-ui
 - Migrated significant code from inline styles to stylex
 - Converted all animations in puzzmo.com to use the same techniques as games
