@@ -1,6 +1,6 @@
 +++
 title = '6 Weeks of Claude Code'
-date = 2025-07-12T20:53:23+01:00
+date = 2025-07-30T00:53:23+01:00
 authors = ["orta"]
 tags = ["tech"]
 theme = "outlook-hayesy-beta"
