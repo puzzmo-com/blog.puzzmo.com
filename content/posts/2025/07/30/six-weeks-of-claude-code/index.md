@@ -117,7 +117,7 @@ All of these have trade-offs, and it isn’t obvious what the right idea is. The
 
 ### Taking a Shot During Triage
 
-One thing I have been experimenting with during our weekly triage of all raised GitHub issues is asking the Claude Code GitHub action to take a stab at a pull request while we are talking about what we thing
+One thing I have been experimenting with during our weekly triage of all raised GitHub issues is asking the Claude Code GitHub action to take a stab at a pull request while we are talking about what we think as a group of engineers:
 
 ![A screenshot of a GitHub issues](claude-code-pr.png)
 
