@@ -66,7 +66,7 @@ Figuring out a testing strategy for the front-end isn't pretty, and I have seen 
 
 I wondered if I needed to wait for someone else, so instead of just "adding a test suite" - I opted to have Claude Code write tests for every pull request I made to the front end over the course of two weeks.
 
-Then, after seeing the tests, I deleted them. It added an extra 5m to my process, but gave me an insight each time into different ways in which other projects. After weeks of this, I was ready to start looking at that problem systemically.
+Then, after seeing the tests, I deleted them. It added an extra 5m to my process, but gave me an insight each time into different ways in which other projects deal with the problem. After weeks of this, I was ready to start looking at that problem systemically.
 
 The idea of writing tests for every pull request and then deleting it would just be so much time, there would be no way I'd be OK with doing.
 
