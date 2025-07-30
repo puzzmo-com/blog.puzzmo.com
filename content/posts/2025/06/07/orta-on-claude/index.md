@@ -4,6 +4,7 @@ date = 2025-06-07T06:26:14+01:00
 authors = ["orta"]
 tags = ["tech", "programming", "auto-complete++", "culture"]
 theme = "outlook-hayesy-beta"
+series = ["Coding with LLMS"]
 +++
 
 Alright, that's a very straight faced title. Might force more folks to read the contents.
@@ -13,6 +14,8 @@ When I was planning on leaving working on [TypeScript](https://www.typescriptlan
 So, I always have felt some affinity to GitHub Copilot, and it's been a great tool for finishing the line of code you are currently writing. A real [incremental revolution](https://github.com/artsy/README/blob/main/culture/engineering-principles.md#incremental-revolution) on the auto-complete. This I think has been a really safe domain for starting off with LLMs, it's well scoped (nearly always right after your cursor), easy to understand (its just greyed out text right where your eyes are) and feels un-intrusive and predictable. I've been using it every day
 
 Over the last three months, I have been trying to really push myself out of that comfort zone and to start exploring the tools that you see the 'vibe coding' folks are using and get a sense for what these systems are like when you are someone who takes this stuff very seriously, and considers programming + systemic design to be the craft I plan to do for the rest of my life.
+
+### Before we start
 
 That said, allow me to self flagellate before we dig in. I don't think LLMs are a good thing for the world. I think they concentrate power to those with capital, I think they will "increase throughput" for folks in ways that will give fewer people jobs and will force higher inter-class competition in culturally unhealthy ways like a concentrated version of the gig economy. If you want to see the epitome of "[worst person you know](https://knowyourmeme.com/memes/worst-person-you-know-made-a-great-point)" meme, Tucker Carlson's point about [what the social cost of driverless trucking looks like](https://www.youtube.com/watch?v=o5zPKxpPHFk) (0m-3m, perhaps open in a private browser to avoid poisoning your algorithms) is something which is always in the back of my mind. I believe in the [dead internet](https://www.cnet.com/home/internet/what-is-the-dead-internet-theory/) theory and think that using LLMs to make slop which looks like it was authored by a human is unethical. I think LLMs are assisting to push the [Overton window](https://en.wikipedia.org/wiki/Overton_window) towards authoritarianism by making it easier to spread disinformation, to create false narratives and to reduce agency in favour of algorithms. Some of this stuff could be OK if we had wide-scale social safety nets and a healthy labour class, but I don't think something like [UBI](https://en.wikipedia.org/wiki/Universal_basic_income) is coming, and I think LLMs are going to continue to push economic growth over [planet-wide](https://www.youtube.com/watch?v=Mf1FbRaf5gY) health. This technology will help contribute to a worse world for most people.
 
