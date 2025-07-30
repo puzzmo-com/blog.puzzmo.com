@@ -2,7 +2,7 @@
 title = '6 Weeks of Claude Code'
 date = 2025-07-30T00:53:23+01:00
 authors = ["orta"]
-tags = ["tech"]
+tags = ["tech", "claude", "llms", "programming"]
 theme = "outlook-hayesy-beta"
 series = ["Coding with LLMS"]
 +++
