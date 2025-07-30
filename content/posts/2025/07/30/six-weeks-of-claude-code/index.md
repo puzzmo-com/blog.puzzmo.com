@@ -5,6 +5,7 @@ authors = ["orta"]
 tags = ["tech", "claude", "llms", "programming"]
 theme = "outlook-hayesy-beta"
 series = ["Coding with LLMS"]
+github_issue_id = 1
 +++
 
 It is wild to think that it has been only a handful of weeks.
@@ -82,7 +83,7 @@ Anthropic have information about how to use [worktrees](https://docs.anthropic.c
 
 {{< imageHighlight src="dual-clone.png" alt="An image of a Missing Link puzzle with the cells shuffled."  >}}
 
-This means you can work in each independently and still visually recognize the different in you work flow by having a different theme:
+This means you can work in each independently and still visually recognize the differences in you workspaces by having a different theme:
 
 ![alt text](clone-2-settings.png)
 
@@ -367,7 +368,7 @@ At Artsy, early on we had [a 5 step technical ladder](https://artsy.github.io/bl
 >
 > Engineer 2 - Can independently own a product feature and can handle the communication with others around it.
 
-Hitting part 2 requires actually being around in some form, and having some sort of sense of ownership. This is an interesting thing to muse about because which I guess it might have some ownership in the sense that parts of the codebase which are fully vibed and humans do not really [read are fully "owned" by these tools](https://www.youtube.com/watch?v=LCEmiRjPEtQ).
+Hitting part 2 requires actually being around in some form, and having some sort of sense of ownership. This is an interesting thing to muse about because I guess it might have some ownership in the sense that parts of the codebase which are fully vibed and humans do not really [read are fully "owned" by these tools](https://www.youtube.com/watch?v=LCEmiRjPEtQ).
 
 However, pragmatically, as a pairing partner with an experienced engineer constantly reviewing, amending and understanding the output - you can really treat Claude like a Pair Programming buddy with infinite time and patience, a bit too much sycophancy, and the ability to ship reasonable code given reasonable constraints in a speed I've not seen before.
 
