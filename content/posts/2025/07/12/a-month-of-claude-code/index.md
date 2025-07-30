@@ -9,19 +9,19 @@ series = ["Coding with LLMS"]
 
 It is wild to think that it has been only a handful of weeks.
 
-Claude Code has considerably changed my relationship to writing and maintaining code at scale. I still write code at the same level of quality, but I feel like I have a new freedom of expression which is hard to fully articulate but I will give it a shot.
+Claude Code has considerably changed my relationship to writing and maintaining code at scale. I still write code at the same level of quality, but I feel like I have a new freedom of expression which is hard to fully articulate.
 
-Claude Code has decoupled myself from writing every line of code, I still consider myself fully responsible for everything I ship to Puzzmo, but the ability to instantly create a whole scene instead of going line by line is incredibly powerful.
+Claude Code has decoupled myself from writing every line of code, I still consider myself fully responsible for everything I ship to Puzzmo, but the ability to instantly create a whole scene instead of going line by line, word by word is incredibly powerful.
 
 I believe with Claude Code, we are at the _"introduction of photography"_ period of programming. Painting by hand just doesn't have the same appeal anymore when a single concept can just appear and you shape it into the thing you want with your code review and editing skills.
 
-If this feels like an intimidating line-of-thought then welcome to the mid-2020s, nothing is stable anymore and change is the only constant. Sorry. I didn't make it so nearly all of culture's changes are _bad_, and think that LLMs are already doing social damage and will do much worse in the future - but this genie is fully out of the bottle and it is substantially going to change what we think of as programming.
+If this feels like an intimidating line-of-thought then welcome to the mid-2020s, nothing is stable anymore and change is the only constant. Sorry. I didn't make it so nearly all of culture's changes are _bad_, and I think that LLMs are already doing social damage and will do much worse in the future - but this genie is fully out of the bottle and it is substantially going to change what we think of as programming.
 
 ## A Retrospective on the last 6 Weeks
 
 This article builds on ["On Coding with Claude"](/posts/2025/06/07/orta-on-claude/) which I wrote after using Claude for a week. If you think that I am AI-pilled, you can get my nuanced take on LLMs at [the start](/posts/2025/06/07/orta-on-claude/#before-we-start) of that post.
 
-I want to try look through the last 6 weeks of activity in the Puzzmo engineering space to try and inspect what I've been seeing.
+That said, this is transformative and I want to try give you some perspective from the last 6 weeks of activity in the Puzzmo engineering space to try and show you what I've been seeing.
 
 ### Maintenance is Significantly Cheaper
 
@@ -49,11 +49,15 @@ Here is a list of things which I have completed, **solo**, since getting access 
 - Convert the games repo to a real monorepo
 - Built iPad support for the Puzzmo app
 
-None of these projects are the "actual work" which I need to do on a day to day basis as the 'bizdev' guy on Puzzmo for this year. These are _literally side-projects_ which I did _on my own_ while working on something else. If you understand what you are doing, the capacity for building and handling the breadth of tasks which typically live within the remit of "technical debt" do not need to be treated as debt and you can just do it as you are working on other things.
+None of these projects are the "actual work" which I need to do on a day to day basis as the 'bizdev' guy on Puzzmo for this year. These are _literally side-projects_ which I did _on my own_ while working on something else.
 
-This was years of _"tech debt" / "tech innovation"_ backlog for me. Done in just over a month.
+For clarity in the back because this is shocking to me, while I was still working on the existing roadmap I had prior to Claude Code over the last 6 weeks, I accomplished all of these things on my own. Mostly in the background (and then with a polish pass day for some of the larger ones). I didn't go from working ~10 hour days to working ~16 hours or anything like that either.
 
-_'carving out some time on the schedule'_ is now so incredibly cheap that getting started and making a serious dint is something you can prime before going into a meeting, then deciding if you thought it was the right thing. Mind-blowing.
+This was years of _"tech debt" / "tech innovation"_ backlog for me! Done in just over a month and a half.
+
+If you understand what you are doing, the capacity for building and handling the breadth of tasks which typically live within the remit of "technical debt" \_do not need to be treated as debt\_ and you can just do it as you are working on other things.
+
+_'carving out some time on the schedule'_ is now so incredibly cheap that getting started and making a serious dint is _something you can prime before going into a meeting_, then deciding if you thought it was the right thing after. Mind-blowing.
 
 ### Write First, Decide Later
 
@@ -144,7 +148,7 @@ So I will double-down on saying that everything [in Justin's post](https://justi
 
 1. We use monorepos. I was lucky to have spent the time [a year ago](https://.puzzmo.com/posts/2025/01/22/turborepo/) to take every project and move it into a two main environments. This was originally done to reflect the working processes of the engineering teams. My goal was to make it possible to go from db schema change to front-end components in a single pull request.
 
-   That is perfect for working with an LLM, because it can read the file which represents our schema, it can read the sdl files defining the public GraphQL API, read the per-screen requests and figure out what you're trying to do. Having a single place with so much context means that _I_ as user of Claude Code do not need to tell it that sort of stuff and a vague message like _"Add a xyz field to the user model in the db and make it show in this screen"_ is something that Claude Code can do.
+   A monorepo is perfect for working with an LLM, because it can read the file which represents our schema, it can read the sdl files defining the public GraphQL API, read the per-screen requests and figure out what you're trying to do. Having a single place with so much context means that _I_ as user of Claude Code do not need to tell it that sort of stuff and a vague message like _"Add a xyz field to the user model in the db and make it show in this screen"_ is something that Claude Code can do.
 
 2. My tech choices were made a decade ago. This video of a conference talk I [gave from 2018](https://www.youtube.com/watch?v=1Z3loALSVQM) is still the way I introduce people to the Puzzmo codebase and the mentality behind these tech choices. React, Relay, GraphQL, TypeScript and (now StyleX) are boring and _very explicit_ technologies. There are compilation steps in all of these systems which means everything has to be available locally and correct to run, this makes it a bit of a curve to learn but often when you have got it right - you know you have got it right. For our admin tools, its even more boring/mature, I'm still using [Bootstrap](https://getbootstrap.com)!
 
@@ -154,19 +158,25 @@ So I will double-down on saying that everything [in Justin's post](https://justi
 
 4. These codebases aren't that big, nor that old. Nothing is older than 2021 and while I keep things up-to-date, I try to have a long-tail of support / backwards compatibility.
 
+5. Our business is literally the test suite / benchmark for these models. For example, on the 28th of June, two days before posting this [GLM-4.5](https://z.ai/blog/glm-4.5) came out. Offering a way to run an ~80% as good as [Claude Code on your computer](https://simonwillison.net/2025/Jul/29/space-invaders/) locally. How do they measure that 80%? Here is [the table from](https://huggingface.co/datasets/zai-org/CC-Bench-trajectories#test-dataset) their benchmarks of what they use:
+
+   ![alt text](dataset-GLM-45.png)
+
+   Puzzmo's day-to-day work is represented in ~(39/52)% of their testing infrastructure!
+
 ### Quantifying the Change is Hard
 
 I thought I would see a pretty drastic change in terms of Pull Requests, Commits and Line of Code merged in the last 6 weeks. I don't think that holds water though:
 
 {{< imageHighlight src="diagrams.png" alt="An image of a Missing Link puzzle with the cells shuffled."  >}}
 
-> This is a 3 month chart, with a month of post-Claude Code. I just asked it to make a script to generate a CSV from looking at repos on my harddrive.
+This is a 3 month chart, with a month of post-Claude Code. I just asked it to make a script to generate a CSV from looking at repos on my harddrive.
 
 That said, I think anyone internally would feel like the pace of change inside Puzzmo has most definitely increased (at least in the areas I contribute) but those numbers haven't _really_ changed in reality.
 
 There was a [recent paper](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) (which is from the pre-Claude Code days) which says that developers with AI over-estimate its impact and maybe I am.
 
-Doesn't _feel_ it though. I feel like I'm constantly trashing my usual estimation timings to the point where it's hard for me to gauge how long a task will take.
+Doesn't _feel_ it though. Did you see that list at the top? I feel like I'm constantly trashing my usual estimation timings to the point where it's hard for me to gauge how long a task will take.
 
 ### You Don't Have To Obsess Over LLM Trends
 
@@ -174,7 +184,9 @@ While intoxicating at first, settling in to Claude Code usage just becomes munda
 
 I've never set up an MCP server, I've found doing voice-chat super awkward and not used it and I don't follow the "blue tick-y" people on Twitter who have some "\*.ai" bio. Those folks can do their thing, but I'm very happy not engaging.
 
-There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that difference between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
+There will be a future when it makes sense to think about looking at other ecosystem tools, but for me the difference between pre-Claude Code and post-Claude Code is so substantial that any increments between it and others (which will be better in some ways, worse in others) is not worth the hassle for such a small incremental win.
+
+Running something locally is tempting, but the networked versions like Claude Code are always gonna be a step ahead, and as long as I do not need to think about usage limits ([yes, I know](https://techcrunch.com/2025/07/17/anthropic-tightens-usage-limits-for-claude-code-without-telling-users/)) then we're in a good spot.
 
 ### You Can Let Claude Rest
 
@@ -356,6 +368,8 @@ At Artsy, early on we had [a 5 step technical ladder](https://artsy.github.io/bl
 >
 > Engineer 2 - Can independently own a product feature and can handle the communication with others around it.
 
-Hitting part 2 requires actually being around in some form, and having some sort of sense of ownership, which I guess they might have in the context of a few parts of the codebase which are fully vibed and Humans do not really read.
+Hitting part 2 requires actually being around in some form, and having some sort of sense of ownership. This is an interesting thing to muse about because which I guess it might have some ownership in the sense that parts of the codebase which are fully vibed and humans do not really [read are fully "owned" by these tools](https://www.youtube.com/watch?v=LCEmiRjPEtQ).
 
-However, as a pairing partner with an experienced engineer constantly reviewing, amending and understanding the output - you can really treat Claude like a Pair Programming buddy with infinite time and patience, a bit too much sycophancy, and the ability to ship reasonable code given reasonable constraints in a speed I've not seen before.
+However, pragmatically, as a pairing partner with an experienced engineer constantly reviewing, amending and understanding the output - you can really treat Claude like a Pair Programming buddy with infinite time and patience, a bit too much sycophancy, and the ability to ship reasonable code given reasonable constraints in a speed I've not seen before.
+
+And that is like a new way to build things.
