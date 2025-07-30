@@ -54,7 +54,7 @@ For clarity in the back because this is shocking to me, while I was still workin
 
 This was years of _"tech debt" / "tech innovation"_ backlog for me! Done in just over a month and a half.
 
-If you understand what you are doing, the capacity for building and handling the breadth of tasks which typically live within the remit of "technical debt" \_do not need to be treated as debt\_ and you can just do it as you are working on other things.
+If you understand what you are doing, the capacity for building and handling the breadth of tasks which typically live within the remit of "technical debt" _do not need to be treated as debt_ and you can just do it as you are working on other things.
 
 _'carving out some time on the schedule'_ is now so incredibly cheap that getting started and making a serious dint is _something you can prime before going into a meeting_, then deciding if you thought it was the right thing after. Mind-blowing.
 
