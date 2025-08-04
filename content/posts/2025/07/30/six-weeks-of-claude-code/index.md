@@ -5,7 +5,6 @@ authors = ["orta"]
 tags = ["tech", "claude", "llms", "programming"]
 theme = "outlook-hayesy-beta"
 series = ["Coding with LLMS"]
-github_issue_id = 1
 +++
 
 It is wild to think that it has been only a handful of weeks.
@@ -146,7 +145,7 @@ So I will double-down on saying that everything [in Justin's post](https://justi
 
 ### What Do I Think Makes It Successful in our Codebases
 
-1. We use monorepos. I was lucky to have spent the time [a year ago](https://.puzzmo.com/posts/2025/01/22/turborepo/) to take every project and move it into a two main environments. This was originally done to reflect the working processes of the engineering teams. My goal was to make it possible to go from db schema change to front-end components in a single pull request.
+1. We use monorepos. I was lucky to have spent the time [a year ago](/posts/2025/01/22/turborepo/) to take every project and move it into a two main environments. This was originally done to reflect the working processes of the engineering teams. My goal was to make it possible to go from db schema change to front-end components in a single pull request.
 
    A monorepo is perfect for working with an LLM, because it can read the file which represents our schema, it can read the sdl files defining the public GraphQL API, read the per-screen requests and figure out what you're trying to do. Having a single place with so much context means that _I_ as user of Claude Code do not need to tell it that sort of stuff and a vague message like _"Add a xyz field to the user model in the db and make it show in this screen"_ is something that Claude Code can do.
 
