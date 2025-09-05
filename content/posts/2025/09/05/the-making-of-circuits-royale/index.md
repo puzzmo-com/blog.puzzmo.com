@@ -1,6 +1,6 @@
 +++
 title = 'The Making of Circuits Royale, a Communal Word Game for the Web'
-date = 2025-09-05T09:00:00-07:00
+date = 2025-09-04T00:00:00-07:00
 authors = ["saman"]
 tags = ["design", "games", "circuits", "multiplayer", "word-games"]
 theme = "puzzmo-light"
