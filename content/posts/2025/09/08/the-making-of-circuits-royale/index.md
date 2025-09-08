@@ -16,7 +16,7 @@ LLMs unlocked the gameplay by serving as word judge. We also leaned on LLMs for 
 
 ## What is _Circuits Royale_?
 
-_Circuits_ is a daily word game designed by [Jacob Land](https://www.puzzmo.com/user/cir/jland) where you connect cells in a grid by finding two-word phrases, like water _bed_ or _day_ job. _Circuits Royale_ shares the same core mechanic. But rather than filling in the blanks in a grid, you find as many connections as possible to one base word. Your submission “falls” for ten seconds, then lands with a verdict. Score points if it’s valid. Duplicates don’t score, and you can see others’ submissions resolve in real time. The base word rotates roughly every 30 seconds, and every accepted answer adds two seconds to keep the round alive.
+_Circuits_ is a daily word game designed by [Jacob Land](https://www.puzzmo.com/user/cir/jland) where you connect cells in a grid by finding two-word phrases, like water _bed_ or _day_ job. _Circuits Royale_ shares the same core mechanic. But rather than filling in the blanks in a grid, you find as many connections as possible to one base word. Your submission “falls” for ten seconds, then lands with a verdict. Score points if it’s valid. Duplicates don’t score, and you can see others’ submissions resolve in real time. The base word rotates roughly every 60 seconds, and every accepted answer adds two seconds to keep the round alive.
 
 {{< image-caption src="GAMEPLAY_GIF.gif" alt="Circuits Royale gameplay showing the submit, wait, and verdict flow" caption="Circuits Royale in action." >}}
 
@@ -42,7 +42,7 @@ I was skeptical at first—what’s with rockets?—but the idea made sense, so 
 
 The time-based mechanics carry the game’s tension. It started with the ten second launch and fell into place from there. Those ten seconds do a lot: pace the room so no one player sprints ahead; give you time to watch other answers resolve and plan your next idea; and let you queue another answer without turning it into a typing race.
 
-The base word lasts for 30 seconds. Later we added extensions: each accepted answer adds two seconds to the round. It’s my favorite detail because it layers collaboration on top of competition. The base ten second cadence means no single player can keep a round alive much beyond the 30 second limit, but if a handful of players lock in, you can push rounds for minutes and rack up thousands of points together. It’s one of the best feelings in _Circuits Royale_.
+The base word lasts for 60 seconds. Later we added extensions: each accepted answer adds two seconds to the round. It’s my favorite detail because it layers collaboration on top of competition. The base ten second cadence means no single player can keep a round alive much beyond the 60 second limit, but if a handful of players lock in, you can push rounds for minutes and rack up thousands of points together. It’s one of the best feelings in _Circuits Royale_.
 
 {{< image-caption src="EXTENDED_ROUND.png" alt="An example of an extended round where each player has thousands of points" caption="An example of an extended round where each player has thousands of points." >}}
 
