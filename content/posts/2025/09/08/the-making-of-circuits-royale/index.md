@@ -52,7 +52,7 @@ Starting with Zach’s core design, I took visual inspiration from a sketch [Ang
 
 {{< image-caption src="ANGIE_COVER_SKETCH.png" alt="Angie Wang's sketch from the World's Most Distracting Notebook" caption="Angie Wang's sketch from the World's Most Distracting Notebook." >}}
 
-My first draft fully swiped her illustration. It had a strong atmosphere but hurt quick readability:
+My first draft fully swiped her illustration. It had a strong atmosphere but at the cost of readability:
 
 {{< image-caption src="MOCK_UP_1.png" alt="Initial visual draft with cozy aesthetic" caption="Initial mock-up, set directly in the world of Angie's sketch." >}}
 
