@@ -29,7 +29,7 @@ staticDir = ['static']
     codeFences = false
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true
+      unsafe = false
 
 [taxonomies]
   tag = "tags"

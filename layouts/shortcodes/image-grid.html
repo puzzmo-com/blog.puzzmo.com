@@ -1,0 +1,37 @@
+{{- $image1_src := .Get "image1_src" -}}
+{{- $image1_alt := .Get "image1_alt" -}}
+{{- $image1_caption := .Get "image1_caption" -}}
+{{- $image2_src := .Get "image2_src" -}}
+{{- $image2_alt := .Get "image2_alt" -}}
+{{- $image2_caption := .Get "image2_caption" -}}
+
+<div class="image-grid">
+  <div class="image-grid-item">
+    <p style="text-align: center; font-size: 0.9em; color: #666;">{{ $image1_caption }}</p>
+    <img src="{{ $image1_src }}" alt="{{ $image1_alt }}" style="margin-top:0;width: 100%; height: auto;">
+  </div>
+  <div class="image-grid-item">
+    <p style="text-align: center; font-size: 0.9em; color: #666;">{{ $image2_caption }}</p>
+    <img src="{{ $image2_src }}" alt="{{ $image2_alt }}" style="margin-top:0;width: 100%; height: auto;">
+  </div>
+</div>
+
+<style>
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 0.5rem -2rem;
+}
+
+.image-grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .image-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>

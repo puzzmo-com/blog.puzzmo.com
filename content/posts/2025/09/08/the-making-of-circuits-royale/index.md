@@ -1,12 +1,12 @@
 +++
 title = 'The Making of Circuits Royale, a Communal Word Game for the Web'
-date = 2025-09-05T09:00:00-07:00
+date = 2025-09-08T09:00:00-07:00
 authors = ["saman"]
 tags = ["design", "games", "circuits", "multiplayer", "word-games"]
 theme = "puzzmo-light"
 +++
 
-We’ve been tossing around ideas for a fast-paced multiplayer variant of a Puzzmo game for a while, and decided the _Circuits_ launch would be a great chance to have a go at it. _Circuits Royale_, released to celebrate the launch of [_Circuits_](https://www.puzzmo.com/play/circuits) on Puzzmo, is a game you can drop into, instantly understand, and play with a ton of people at once.
+We’ve been tossing around ideas for a fast-paced multiplayer variant of a Puzzmo game for a while, and decided the _Circuits_ launch would be a great chance to have a go at it. [_Circuits Royale_](https://royale.circuitsgame.com/), released to celebrate the launch of [_Circuits_](https://www.puzzmo.com/play/circuits) on Puzzmo, is a game you can drop into, instantly understand, and play with a ton of people at once.
 
 {{< details summary="Notes on LLMs" >}}
 
@@ -18,10 +18,7 @@ LLMs unlocked the gameplay by serving as word judge. We also leaned on LLMs for 
 
 _Circuits_ is a daily word game designed by [Jacob Land](https://www.puzzmo.com/user/cir/jland) where you connect cells in a grid by finding two-word phrases, like water _bed_ or _day_ job. _Circuits Royale_ shares the same core mechanic. But rather than filling in the blanks in a grid, you find as many connections as possible to one base word. Your submission “falls” for ten seconds, then lands with a verdict. Score points if it’s valid. Duplicates don’t score, and you can see others’ submissions resolve in real time. The base word rotates roughly every 30 seconds, and every accepted answer adds two seconds to keep the round alive.
 
-![Circuits Royale gameplay showing the submit, wait, and verdict flow](GAMEPLAY_GIF.gif)
-
-<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">Circuits Royale in action. <a href="https://royale.circuitsgame.com/">Play it now →</a>
-</p>
+{{< image-caption src="GAMEPLAY_GIF.gif" alt="Circuits Royale gameplay showing the submit, wait, and verdict flow" caption="Circuits Royale in action." >}}
 
 ## Imagining a communal experience
 
@@ -37,9 +34,7 @@ We can build a digital game around this concept because LLMs are capable of vali
 
 Zach sketched a rough mock-up: launch a rocket, watch its ten second flight path, and see the outcome on impact.
 
-![Zach's initial sketch of the rocket launch concept](ZACH_INITIAL_SKETCH.png)
-
-<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">Zach's initial sketch of the rocket launch concept</p>
+{{< image-caption src="ZACH_INITIAL_SKETCH.png" alt="Zach's initial sketch of the rocket launch concept" caption="Zach's initial sketch of the rocket launch concept." >}}
 
 I was skeptical at first—what’s with rockets?—but the idea made sense, so the sketch did its job. I scaffolded a basic React & Socket.io architecture, Zach vibe-coded the rest with Claude, and we tested it during an unrelated meeting that promptly ran late. It was already fun.
 
@@ -49,31 +44,23 @@ The time-based mechanics carry the game’s tension. It started with the ten sec
 
 The base word lasts for 30 seconds. Later we added extensions: each accepted answer adds two seconds to the round. It’s my favorite detail because it layers collaboration on top of competition. The base ten second cadence means no single player can keep a round alive much beyond the 30 second limit, but if a handful of players lock in, you can push rounds for minutes and rack up thousands of points together. It’s one of the best feelings in _Circuits Royale_.
 
-![An example of an extended round where each player has thousands of points](EXTENDED_ROUND.png)
-
-<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">An example of an extended round where each player has thousands of points</p>
+{{< image-caption src="EXTENDED_ROUND.png" alt="An example of an extended round where each player has thousands of points" caption="An example of an extended round where each player has thousands of points." >}}
 
 ## Polishing the prototype
 
-Starting with Zach’s core design, I took visual inspiration from a sketch Angie Wang made for the [World’s Most Distracting Notebook](https://shop.puzzmo.com/products/circuits-notebook), and swapped rockets for lightning bolts.
+Starting with Zach’s core design, I took visual inspiration from a sketch [Angie Wang](https://okchickadee.com/) made for the [World’s Most Distracting Notebook](https://shop.puzzmo.com/products/circuits-notebook), and swapped rockets for lightning bolts.
 
-![Angie Wang's sketch from the World's Most Distracting Notebook](ANGIE_COVER_SKETCH.png)
+{{< image-caption src="ANGIE_COVER_SKETCH.png" alt="Angie Wang's sketch from the World's Most Distracting Notebook" caption="Angie Wang's sketch from the World's Most Distracting Notebook." >}}
 
-<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">Angie Wang's sketch from the World's Most Distracting Notebook</p>
+My first draft fully swiped her illustration. It had a strong atmosphere but hurt quick readability:
 
-My first draft fully swiped her illustration. It had a cozy vibe but hurt quick readability:
-
-![Initial visual draft with cozy aesthetic](MOCK_UP_1.png)
-
-<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">Initial visual draft with cozy aesthetic</p>
+{{< image-caption src="MOCK_UP_1.png" alt="Initial visual draft with cozy aesthetic" caption="Initial mock-up, set directly in the world of Angie's sketch." >}}
 
 Here’s the last mock-up before we started rebuilding the game (pretty close to the final!):
 
-![Final Figma design direction](MOCK_UP_2.png)
+{{< image-caption src="MOCK_UP_2.png" alt="Final Figma design direction" caption="Final design direction." >}}
 
-<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">Final Figma design direction</p>
-
-At this point [Jason](https://www.puzzmo.com/press#jason-ho) and [Gary](https://www.puzzmo.com/press#gary-josack) joined the project and we built on top of Zach's vibe-coded prototype. It was surprisingly solid as a starting point. I pushed the game in a juicier direction than normal to make the spectator experience, while your bolt is falling, more fun. Claude played a key role. While wrangling some state synchronization bug, I could ask Claude for a sparkle emitter or a procedural bolt generator and get something shippable _while I kept moving_. Claude one-shotted the sparkle systems, most of the bolt generator, a gradient generator (each player gets a unique gradient), and even the settings menu. All nice-to-haves that make the game more fun and friendly.
+At this point [Jason](https://www.puzzmo.com/press#jason-ho) and [Gary](https://www.puzzmo.com/press#gary-josack) joined the project and we built on top of Zach's vibe-coded prototype. It was surprisingly solid as a starting point. I pushed the game in a juicier direction than we normally would go in at Puzzmo. We wanted to make the spectator experience, while your bolt is falling, more fun. Claude played a key role. While wrangling some state synchronization bug, I could ask Claude for a sparkle emitter or a procedural bolt generator _while I kept moving_. It took a few rounds of back and forth to get things right, but the barrier to validating design or animation ideas is so low with agents. Claude implemented the sparkle systems, most of the bolt generator, a gradient generator (each player gets a unique gradient), and even the settings menu. All nice-to-haves that make the game more fun and friendly.
 
 ## Letting the LLM judge: pipeline + rules
 
@@ -182,24 +169,7 @@ In the last couple of weeks, Gary shored up the backend: Postgres for persistenc
 
 From concept to launch, the project took a month – we started July 23 and shipped August 25. On the same day, we relaunched the rebuilt daily _Circuits_ on Puzzmo.
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.5rem -2rem;">
-  <div style="display: flex; flex-direction: column;">
-    <p style="text-align: center; font-size: 0.9em; color: #666;">The original Circuits game</p>
-    <img src="CIRCUITS_GAME.jpeg" alt="The original Circuits game" style="margin-top:0;width: 100%; height: auto;">
-  </div>
-  <div style="display: flex; flex-direction: column;">
-    <p style="text-align: center; font-size: 0.9em; color: #666;">The Puzzmo redesign of Circuits</p>
-    <img src="PUZZMO_REDESIGN.png" alt="The Puzzmo redesign of Circuits" style="margin-top:0;width: 100%; height: auto;">
-  </div>
-</div>
-
-<style>
-@media (max-width: 768px) {
-  div[style*="grid-template-columns: 1fr 1fr"] {
-    grid-template-columns: 1fr !important;
-  }
-}
-</style>
+{{< image-grid image1_src="CIRCUITS_GAME.jpeg" image1_alt="The original Circuits game" image1_caption="The original Circuits game" image2_src="PUZZMO_REDESIGN.png" image2_alt="The Puzzmo redesign of Circuits" image2_caption="The Puzzmo redesign of Circuits" >}}
 
 ### How'd the launch go?
 
@@ -215,11 +185,9 @@ From concept to launch, the project took a month – we started July 23 and shi
 > “What's coolest to me here is that in a very short time we went from a prototype-quality homebrew version of the daily puzzle on circuitsgame.com to a polished authored/edited version with animations, SFX, leaderboards etc. on puzzmo.com, a live MMOG version with Circuits Royale enabled by AI, and a physical print version in the notebook. One core game concept spawns three very different modes.”
 > — [Andrew](https://www.puzzmo.com/press#andrew-daines)
 
-<div style="background: #F5E8C2; padding: 1.5rem; margin: 2rem 0; border-radius: 8px; text-align: center;">
-  <a href="https://royale.circuitsgame.com/" style="cursor: pointer;display: inline-block; background: linear-gradient(135deg, #4F46E5, #7C3AED); color: white; padding: 0.75rem 2rem; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 1.1em;">
-    Play Circuits Royale
-  </a>
-</div>
+{{< cta-button href="https://royale.circuitsgame.com/" text="Play Circuits Royale →" >}}
+
+---
 
 ## Technical details for nerds
 
