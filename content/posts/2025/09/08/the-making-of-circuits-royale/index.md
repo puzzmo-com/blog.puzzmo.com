@@ -70,7 +70,7 @@ For efficiency, the model is the last step in a short pipeline:
 
 1. Cache decisions per phrase-pair.
 2. Run fast prechecks against a banlist (for instant rejections) and the standard Puzzmo dictionary (for instant accepts – e.g., _high_ + _way_ → _highway_).
-3. Make a JSON-mode call to GPT-5 mini with our judgement prompt.
+3. Make a JSON-mode call to GPT-5 mini with our judgment prompt.
 
 To handle cheating, we rate-limit and do all validation server-side.
 
