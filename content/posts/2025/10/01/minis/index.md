@@ -32,7 +32,7 @@ About six months ago, in a conversation with Orta, I broke through. The thing th
 
 * * *
 
-From October 1 to October 30, we'll be running a free crossword "course" on Puzzmo: 30 mini crosswords, each designed to teach you a rule or convention about crossword solving. We're repurposing Puzzmo's [hint architecture](https://blog.puzzmo.com/posts/2024/07/22/hints-v2/) as a tutorial tool\*, and every mini's post-solve notes will lead off with a discussion of the lesson it contains. Just like my former German professor, I won't use any techniques before they're explicitly introduced in a lesson.
+From October 1 to October 30, we'll be running a free crossword "course" on Puzzmo: 30 mini crosswords, each designed to teach you a rule or convention about U.S.-style crossword solving. We're repurposing Puzzmo's [hint architecture](https://blog.puzzmo.com/posts/2024/07/22/hints-v2/) as a tutorial tool\*, and every mini's post-solve notes will lead off with a discussion of the lesson it contains. Just like my former German professor, I won't use any techniques before they're explicitly introduced in a lesson.
 
 I always thought it was funny ([komisch](https://en.wiktionary.org/wiki/komisch#German) — the weird/strange version of funny, not [lustig](https://en.wiktionary.org/wiki/lustig#German) — the enjoyable/pleasing version of funny) that I walked into the wrong classroom one day freshman year and it determined such a huge swath of my life. But the operative moment wasn't nessarily that I arrived, but that I stayed.
 
@@ -42,5 +42,5 @@ If you haven't tried crosswords before, why don't you try our 101 course? If you
 ![Brooke signature](brooke-sig.png)
 
 
-\* Don't worry, your mini stats are separate from your other crossword stats on Puzzmo, so don't let that stop you from clicking the hints. And as always, though, hints clicked *after* a solve don't ever count for any stats.
+\*Don't worry, your mini stats are separate from your other crossword stats on Puzzmo, so don't let that stop you from clicking the hints. And as always, though, hints clicked *after* a solve don't ever count for any stats.
 
