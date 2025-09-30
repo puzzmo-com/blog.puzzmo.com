@@ -1,6 +1,6 @@
 +++
 title = 'Learn the grammar of crosswords with Puzzmo minis'
-date = 2025-09-30T08:06:42-04:00
+date = 2025-10-01T08:00:00-04:00
 authors = ["brooke"]
 tags = ["crossword", "release"]
 theme = "bright-white"
