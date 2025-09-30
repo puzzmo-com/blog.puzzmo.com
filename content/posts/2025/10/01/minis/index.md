@@ -18,9 +18,9 @@ I think a lot about language learning when I'm constructing and editing crosswor
 
 In [my introduction](https://youtu.be/fBXTcrxrR64?feature=shared) for this year's [Crossword Con](https://www.crosswordcon.com/), I said the following:
 
-*No crossword puzzle is neutral. Every crossword has a take on what words are real, what facts are true, and what is reasonable to expect solvers to know. It is my view that crossword programs marquerade as arbiters of intellect by portraying a biased subset of culture as general knowledge — or not correcting you when you mistake it for general knowledge and perhaps as a consequence decide that crosswords are not for you, because you did not know the regional, or upper class, or whitewashed, or cis-normative or ableist content.*
+*No crossword puzzle is neutral. Every crossword has a take on what words are real, what facts are true, and what is reasonable to expect solvers to know. It is my view that crossword programs masquerade as arbiters of intellect by portraying a biased subset of culture as general knowledge — or not correcting you when you mistake it for general knowledge and perhaps as a consequence decide that crosswords are not for you, because you did not know the regional, or upper class, or whitewashed, or cis-normative or ableist content.*
 
-For most of my crossword career I've been concerned with crossword vocabularly: from the editors who dictate the content of a crossword venue, to the constructors whose experiences inform the content they include, to the solvers who may feel validated or alienated by that content. As of today, you have more than 700 Puzzmo Cross|words that establish our vocabulary. For October, I'm excited to turn for a moment to the grammar.
+For most of my crossword career I've been concerned with crossword vocabulary: from the editors who dictate the content of a crossword venue, to the constructors whose experiences inform the content they include, to the solvers who may feel validated or alienated by that content. As of today, you have more than 700 Puzzmo Cross|words that establish our vocabulary. For October, I'm excited to turn for a moment to the grammar.
 
 * * *
 
