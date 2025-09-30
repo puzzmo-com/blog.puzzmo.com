@@ -1,6 +1,6 @@
 +++
 title = 'Learn the grammar of crosswords with Puzzmo minis'
-date = 2025-10-01T08:00:00-04:00
+date = 2025-09-01T08:00:00-04:00
 authors = ["brooke"]
 tags = ["crossword", "release"]
 theme = "bright-white"
@@ -10,7 +10,7 @@ Today is the first day of a series of 30 mini crosswords designed to help you be
 
 * * *
 
-In college, I accidentally majored in German by walking into the wrong classroom. It was my freshman year, and the departments were having open houses for the new students. Their locations were printed out in a big course listings book, and a typo led me unwittingly to the German open house, which was unattended except for me and three professors. We got into an hourlong conversation, I enrolled in German 101, and the rest is history: by the time I finished undergrad, German was the only department in which I had taken a class every single semester, and I graduated with a major.
+In college, I accidentally majored in German by walking into the wrong classroom. It was my freshman year, and the departments were having open houses for the new students. Their locations were printed out in a big course listings book, and a typo led me unwittingly to the German open house, which was unattended except for me and three professors. We got into an hourlong conversation, I enrolled in German 101, and the rest is history: by the time I finished undergrad, German was the only department in which I had taken a class every single semester. I graduated with a [new favorite book](https://en.wikipedia.org/wiki/Cassandra_(novel)), the ability to say [yes and no at the same time](https://en.wiktionary.org/wiki/jein#German), a best friend from studying abroad, and — though I didn't know it yet — a strong foundation for the three years I would later spend living there.
 
 At the time, the German department at my university was top-ranked in the country. English was not to be spoken in class, not even on the first day of the 101 course. Later, I came to learn that the professor in charge of the introductory language classes had been extremely strict with the teachers she supervised: she had them write out every lecture in advance, word for word, in order for her to verify that when they were lecturing us in German, they never used vocabulary or grammar that we hadn't yet covered in class.
 
@@ -28,7 +28,7 @@ Long before I joined Puzzmo, Zach knew that if Puzzmo were going to run a crossw
 
 We have never run a mini on puzzmo.com because Zach has always been skeptical about minis being helpful for learning to solve bigger crosswords. For the past two years, I've turned Zach's critique over and over in my head. It *feels* true: many of my friends solve a mini crossword every day, but don't enjoy or can't complete a larger crossword. Mini crosswords cannot really have themes; there are no meaningful decisions to make about how you navigate the grid as a solver; there is never a difficult corner that has to be "broken into."
 
-About six months ago, in a conversation with Orta, I broke through: the thing that unites mini crosswords and larger crosswords are the *clues*. Despite a mini's extremely limited geometry, it *must* use the same rules and conventions for its clues as any other (U.S.-style) crossword.  Minis can certainy be entertaining as their own variation of the game of crosswords. But if minis are to be useful, it will be because they are tools for — in the context of my language learning metaphor — teaching crossword *grammar*.
+About six months ago, in a conversation with Orta, I broke through: the thing that unites mini crosswords and larger crosswords are the *clues*. Despite a mini's extremely limited geometry, it *must* use the same rules and conventions for its clues as any other (U.S.-style) crossword.  Minis certainly can be entertaining as their own variation of the game of crosswords. But if minis are to be useful, it will be because they are tools for — in the context of my language learning metaphor — teaching crossword *grammar*.
 
 * * *
 
