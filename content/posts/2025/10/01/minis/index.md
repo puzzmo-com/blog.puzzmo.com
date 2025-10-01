@@ -6,7 +6,7 @@ tags = ["crossword", "release"]
 theme = "bright-white"
 +++
 
-Today is the first day of a series of 30 mini crosswords designed to help you become a better crossword solver. They're free for all players, and you can solve the first one [here](https://www.puzzmo.com/puzzle/2025-10-01/crossword/mini).
+Today is the first day of a series of 30 mini crosswords designed to help you become a better crossword solver. They're free for all players. Solve the first one [here](https://www.puzzmo.com/puzzle/2025-10-01/crossword/mini), and follow along on our [Bluesky thread](https://bsky.app/profile/puzzmo.com/post/3m254opdokc2i) for every day's new puzzle.
 
 * * *
 
