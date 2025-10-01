@@ -24,7 +24,7 @@ For most of my crossword career I've been concerned with crossword vocabulary: f
 
 * * *
 
-Long before I joined Puzzmo, Zach knew that if Puzzmo were going to run a crossword puzzle, it had to be more approachable than any crossword he'd seen. To this end, he developed our hint system, the depiction of word boundaries in the grid, and other assists (which you can listen to him [talk about](https://youtu.be/ScUJaXrAc7k?feature=shared&t=83) at the inaugural [Crossword Con](https://www.crosswordcon.com/)).
+Long before I joined Puzzmo, Zach knew that if Puzzmo were going to run a crossword puzzle, it had to be more approachable than any crossword he'd seen. To this end, he developed our hint system, the depiction of word boundaries in the grid, and other assists (which you can listen to him [talk about](https://youtu.be/ScUJaXrAc7k?feature=shared&t=83) at the inaugural [Crossword Con](https://www.crosswordcon.com/2024)).
 
 We have never run a mini on puzzmo.com because Zach has always been skeptical about minis being helpful for learning to solve bigger crosswords. For the past two years, I've turned Zach's critique over and over in my head. It *feels* true: many of my friends solve a mini crossword every day, but don't enjoy or can't complete a larger crossword. Mini crosswords cannot really have themes; there are no meaningful decisions to make about how you navigate the grid as a solver; there is never a difficult corner that has to be "broken into."
 
