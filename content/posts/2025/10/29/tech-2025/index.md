@@ -9,53 +9,69 @@ series = ["Tech Stack"]
 
 It's just over two years since Puzzmo's launch, which means its time to continue my tradition of talking through the technical changes under the hood!
 
-I was a very early GitHub user, signing up in the first 50k users in 2009, and for the first few years the interface and platform was changing very drastically as a user. Then in 2012, GitHub [took venture capital](https://www.wired.com/2012/07/github100m/) and changes to the daily experience of being a GitHub user effectively stopped.
+Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I start to ask around what folks did this year and it turns out that for a few devs we really are shipping a lot of stuff.
 
-To some extent, I think this is what happened/is happening with Puzzmo for the last year, and possibly for the next year. Like early GitHub (but at a much smaller scale) we've nailed the baseline for the consumer facing side and have found a set of enterprise level features which companies are willing to pay for.
+So, this potentially epic yarn is first a rough Puzzmo CHANGELOG for the last year and then, I will try to give some technical details about how and why these things happened!
 
-This influenced our technical changes a lot, as enterprise support has been almost my entire focus for the year!
+## New Things Users Saw
 
-### New Things User Saw
+- New games: Bongo, Memoku, Circuits & Missing Link.
 
 - We shipped a native iOS app for Puzzmo. You can read about this from a [blog post in June](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/). To make it happen we had to add new systems for GameCenter, new subscription infrastructure and handle a lot of App Store review churn. We found lots of [perf wins](https://blog.puzzmo.com/posts/2025/02/06/digging-into-perf/) in the process of exploring offline support.
 
 - We re-designed the two core screens for Puzzmo players, the Today page and the PlayGame page. These two screens represent the majority of the complexity density in the codebase and after 3 years the designs were starting to strain under the incremental changes.
 
+- The markdown renderer for completion notes got very fancy
+
 - We introduced some new easy ways to access archival games, now that we have a pretty large backlog of games.
 
-- New games: Bongo, Memoku, Circuits & Missing Link.
+- Games have sound! Bongo and Circuits have Buzz (realtime info from other players.) We made a credits system to attribute folks working at Puzzmo at the time of a game launching and external contributors. We added champion leaderboards.
 
-- Games have sound! Bongo and Circuits have Buzz (realtime info from other players.) We made a credits system to attribute anyone who was working at Puzzmo at the time of a game launching.
+- We made a competitive multiplayer launch game: [Circuits Royale](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/)
 
-### New Things Users Probably Didn't See
+## New Things Users Probably Didn't See
 
 - The capabilities to embed either Puzzmo as an app in other places. This ranges from allow/deny listing certain games, or full on offering of Puzzmo Plus to users of a [different platform](https://secure.businesswire.com/news/home/20250326593738/en/Hoopla-Digital-Launches-New-Gaming-Experience-with-Puzzmo-BingePass).
 
 - The feature-set of the Cross|word went way beyond the list of features we use on puzzmo.com. This ranges from barred Crossword support, jpz imports, amuselabs JSON support, colour, clue images, Schrondinger's squares, rich markdown processing for clues and an inline version of the Puzzmo keyboard. A significant amount of these changes exist inside our open-source project [xd-crossword-tools](https://github.com/puzzmo-com/xd-crossword-tools/blob/main/CHANGELOG.md) which at a whopping version 12!
 
-- Our curated puzzle editing tools went from being only usable for Crosswords to being usable for many games, and in many contexts. We added both Bongo and Circuits which came with all sorts of tricky authorial problems. Our "GitHub for puzzles" system for admins certainly started to creak as we introduced Mini Cross|words, Big Crosswords and non-staff editors.
+- Our curated puzzle editing tools went from being only usable for Crosswords to being usable for many games, and in many contexts. We added both Bongo and Circuits which came with all sorts of tricky authorial problems. Our "GitHub for puzzles" system for admins certainly started to creak as we introduced Mini Cross|words, Big Crosswords and non-staff editors. We are working on a new system to handle some of these scaling problems
 
 - We have built out a pretty comprehensive printing system for Crosswords, it can handle a lot of edge-case layouts and re-uses the rendering engine from our Crossword game for clues - so esoteric features like making emojis larger to fit the feel, inline images, formatting etc are all the same.
 
-- We have had enterprises make deals for source code access to Puzzmo and/or games.
+- We have had enterprises make deals for source code access to Puzzmo and/or access to games.
 
 - The puzzle [variations](https://blog.puzzmo.com/posts/2024/07/16/augmentations/) system introduced in April Fool's 2024 got a fresh lick of paint for the Crossword Mini to allow for a variant to effectively be treated as its own game. Giving them unique stats, streaks etc. This was made feasible by offloading stats to live in blob storage instead of in the db.
+
+- We consolidated all game thumbnail rendering on a custom runtimeless JSX renderer
+
+- We have extensive server monitoring tools now! Plus the number of servers needed to run Puzzmo has gone down an ordinal on average.
+
+## Things we dropped
+
+- Sidequests for Pile-Up Poker
+
+- Initial implementations of our leaderboards and game data storage
+
+---
 
 ### Where we code
 
 At the end of the last post, I described the "repos which count" as being 3 main places:
 
-- Monorepo
+- Monorepo ("app")
 - Games
 - Opengraph
 
 Today that has been switched to:
 
-- Monorepo
+- Monorepo ("app")
 - Games
 - Prototypes
 
-As the games team started to take more responsibilities for the opengraph images it started to make sense to migrate that repo into the games Monorepo. The games monorepo is now a real [Turborepo](https://github.com/vercel/turborepo?tab=readme-ov-file) codebase where you can trivially boot up a new game based on a template.
+The app monorepo continues to grow with new apps and packages more tech has consolidated in that repo. CI and deployment. We now use [GitHub's labeller](https://github.com/actions/labeler?tab=readme-ov-file#pull-request-labeler) ([example](./labels.png)) for PR scanability.
+
+As the games team started to take more responsibilities for the opengraph images it started to make sense to migrate that repo into the games Monorepo. The games monorepo is now a real [Turborepo](https://github.com/vercel/turborepo?tab=readme-ov-file) codebase where each game is a unique package. This means tests, builds and type-checking can happen on a per-game basis instead of for the whole system.
 
 We spent considerable time on the development environment for working on games this year, so they now have fixtured examples,
 
@@ -135,6 +151,8 @@ My replacement is a small library called burr which replicates only the GraphQL 
 I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - [Pothos](https://pothos-graphql.dev/) maybe?
 
 We've built out support for OAuth in Puzzmo, and new servers are using it.
+
+### Games
 
 ### Things which changed
 
