@@ -81,6 +81,16 @@ The prototypes repo is new, and something [I have written about](https://blog.pu
 
 We have found this to be a strange set of trade-offs, a lot of our shared code in the games repo lives inside some pretty complex shared redux code which handles interacting with the games runtime. We don't want to force prototypes to be using this code, which has meant there's still a lot of persnickity issues on mundane problems like pausing, timers, keyboard support, no multiplayer infra etc. So, we'll probably have to create a new abstraction for runtime integration over there.
 
+## How Programming Changed
+
+2025 was a epochal year for the field of programming. LLMs got good enough. I'm finding myself using Claude Code every day I am programming, and it's capabilities feels to have had quite a boost with the introduction of [Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5). For the engineers who use Claude Code in our team, we're finding it can drastically speed up, or allow for parallel work in ways which can get someone closer to where they want to be.
+
+6 month down the line I'm still regularly impressed by Claude's ability to understand our codebase, and I can find that I can make requests which span multiple sub-projects _"add a 'display name' to this model, and make it editable in the studio"_ would make the correct changes to the db, the GraphQL SDL layer, the application API layer, the backend would get forms and fields updated. This sort of thing is the bread and butter of a well defined system, and the tooling continues to impress.
+
+Because of Claude Code, I feel like I am continually asking myself: how do I make this codebase more explicit and each abstraction boundary more obvious? We've moved the monorepos to contain all context and code about their scopes, I've worked to remove as many 'any's as possible and I test out every new feature for Claude Code.
+
+I even started a [meetup](https://duckduckgo.com/?t=ffab&q=claude+code+anonymous&ia=web) with a friend to get the chance to talk to others who are figuring out this strange new piece of technology.
+
 ## How does Puzzmo run?
 
 Today Puzzmo is a pretty complex set of systems which run together to make it all work:
@@ -109,6 +119,8 @@ I sometimes muse to myself about migrating to a different technique for creating
 
 ### Games
 
+We've spent quite a bit of time thinking about puzzle generation
+
 ## How things got made
 
 ### Bongo
@@ -127,7 +139,9 @@ Bongo forced us to work on a few new problems in the editing space:
 
 We found that courting high profile folks for making Bongs wasn't really worthwhile. Perhaps it was a mix of a puzzle seed being too easy to make, Puzzmo not being established enough for others to put the time in, or not having the right team (or audience) make-up to handle that style of work.
 
-Which meant going back to traditional puzzle generation for Bongo. Instead we have been researching ways to generate themes for puzzles based on emoji
+Which meant going back to traditional puzzle generation for Bongo. We took some time on researching ways to generate themes for puzzles based on emoji combos and single words.
+
+Bongo was also the first time we explored adding some sort of real-time information about other players, we called it "Circles" and it started as a quick client-side cached lookup for the most recent updates to gameplays and then we pull out their best word and score. This worked until it hit production and we instantly hit perf issues, we switched to making the call for the latest be a job which occurs every so often on a Bongo game being updated. The results are then stored in Redis. This also hit new, different scaling issues, so we started using a Redis bounded list via `lpush` and `ltrim` on gameplay updates.
 
 ### Memoku
 
@@ -137,11 +151,75 @@ Memoku had been hiding in our codebase for a long time, given that Weather Memok
 
 Our second game collab!
 
+We expanded on Circles by switching it out with a new abstraction "Buzz." With Circles, we had wondered if we could re-use the design of the player circles with scores and info across many games. It didn't really feel like we could and so Buzz introduced a new game JS bundle integration point which allows for a game to be able to control the user interface for in the sidebar.
+
+The Buzz bundle is handed a copy of React from the application, and with a bit of Vite massaging we get small bundles and we're back to the Puzzmo app/API not having internal information about specific games.
+
+Circuits is the first game we've had where the curation tools can't rely on a text file format which both is machine generatable and relatively easy to amend. For example we assume Crosswords are being made in tools like [Crossfire](https://www.beekeeperlabs.com/crossfire/) and then we support converting the output of these tools into a text-based standard [xd](https://puzzmo-com.github.io/xd-crossword-tools/):
+
+```
+## Metadata
+
+title: Creature Feature
+author: Danger, ./orta, and brooke
+editor: Brooke Husic
+
+## Grid
+
+HISS.NOKIA
+ISNT.OWENS
+PLEA.BINDI
+.EAGLEEYED
+..KEEL.AXE
+ICY.NPR...
+DOGEARED..
+IMOK.IMAGE
+OBOE.ZINES
+MODS.EXALT
+
+## Clues
+
+A1. Serpentine sound ~ HISS
+A5. Big name in bricks? ~ NOKIA
+A10. "___ that the hull?" (what I said to my husband Orta when he suggested "Boat's bottom" as the clue for 16-Across) ~ ISNT
+A11. American who won four Olympic golds in 1936 ~ OWENS
+A12. "Let me keep the 'boat's bottom' clue!1!1!!", for instance ~ PLEA
+A13. Symbol representing the third eye ~ BINDI
+A14. Like Twitch streamers who can spot foes at incredible distances ~ EAGLE|EYED
+... and more
+```
+
+There isn't a Circuits development tool! So, we had to build out a visual editor for creating a Circuits which generates puzzles which look like:
+
+```
+1
+,NOT FOR V,GET V,LATTE V
+NEPO V,*LONG >V,*LOST >V,*ART V
+*BABY >V,*FACE V,AND FOUND,CRITIC
+BOOMER,FACTS,,
+```
+
+I think there's more
+
 ### Missing Link
 
 ### Face/off
 
 ### Markdown Improvements
+
+Because Puzzmo started off as a React Native app, I didn't really trust any of the markdown rendering engine dependencies to hit the quality bar I was looking for. So, I took an off-the-shelf [Markdown to AST](https://github.com/aleclarson/markdown-ast) library and wrote my own rendering front-end for it.
+
+This is one of those decisions that people could very easily dismiss as "not my problem" but I'd argue that rendering text is your problem! It's one of the core user-interface primitives, and when we're rendering markdown it's always something we've thought pretty hard about because it's not just the normal user-interface React components.
+
+By fully controlling all of the rendering paths from the markdown AST, we get all sorts of features:
+
+- Internal links get game icon
+- User links get avatars and profile popovers
+- Custom buttons, CTAs etc
+
+This year, after talking with Brooke about how she writes constructor/editor completion messages we tied metadata from games into the Markdown renderer which we use for [highlighting clues](https://blog.puzzmo.com/posts/2025/05/24/clue-glossaries/).
+
+To me, this is like the super polished stuff that's easy to do while a project is small but then really hard to do on a mature and calcified system.
 
 ### Archival
 
@@ -158,12 +236,6 @@ Our second game collab!
 ### Workshop
 
 ### Game Thumbnail Renderer
-
-## Things which changed
-
-2025 was a epochal year for the field of programming. LLMs got good enough. I'm finding myself using Claude Code every day I am programming, and it's capabilities feels to have had quite a boost with the introduction of [Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5). For the engineers who use Claude Code in our team, we're finding it can drastically speed up, or allow for parallel work in ways which can get someone closer to where they want to be.
-
-6 month down the line I'm still regularly impressed by Claude's ability to understand our codebase, and I can find that I can make requests which span multiple sub-projects _"add a 'display name' to this model, and make it editable in the studio"_ would make the correct changes to the db, the GraphQL SDL layer, the application API layer, the backend would get forms and fields updated. This sort of thing is the bread and butter of a well defined system, and the tooling continues to impress.
 
 ### Things we never got to
 
