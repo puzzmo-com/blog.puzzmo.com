@@ -237,6 +237,260 @@ To me, this is like the super polished stuff that's easy to do while a project i
 
 ### Game Thumbnail Renderer
 
+Previously all our game thumbnails were funky string manipulation, for example, here is Flipart's entire thumbnail renderer:
+
+```ts
+import { blendColors } from "../../lib/blendColors"
+import type { ThumbnailConfig } from "../../shared/hostAPI"
+import { stringToState } from "../engine/stringToState"
+import { updateStateFromInputStr } from "../engine/updateStateFromInputString"
+import { getAbsolutePosition, isOutOfBounds } from "../util"
+
+export function generateThumbnail(puzzleData: string, userStateString?: string, config?: ThumbnailConfig): string {
+  if (!config || !config.theme) throw new Error("Need a config + theme to render a spelltower thumbnail")
+
+  const theme = config.theme
+
+  const state = stringToState(puzzleData, config.theme)
+  updateStateFromInputStr(state, userStateString, true)
+
+  const bgColor = state.bgColor
+  const strokeColor = blendColors(bgColor, theme.alwaysDark, 0.15)
+  const piecesList = Object.entries(state.pieces)
+  const allCorrect = piecesList.every(([_, piece]) => piece.absoluteRotation === 0)
+  const won = config.renderContext === "timeline" ? false : config.gameplay?.completed
+  const timelineWon = config.renderContext === "timeline" ? allCorrect : false
+
+  const isOpenGraphRendered = config.renderHost === "opengraph"
+
+  const renderTileSize = 70
+  const width = renderTileSize * state.dimensions.inner[0]
+  const height = renderTileSize * state.dimensions.inner[1]
+  const outerStrokeWidth = won ? 4 : 2
+  const buffer = won ? outerStrokeWidth * 2 : renderTileSize
+  const viewbox = `0 0 ${width + buffer * 2} ${height + buffer * 2}`
+  const header = `
+<svg style="pointer-events:none;" preserveAspectRatio="xMidYMin meet" aria-labelledby="boardTitle" aria-describedby="boardDesc" xmlns="http://www.w3.org/2000/svg" viewBox="${viewbox}">
+    <title>Flipart Thumbnail</title>
+    <desc>Thumbnail for Flipart</desc>
+`
+
+  const pieces = piecesList
+    .map(([_, piece]) => {
+      // add handles
+      let handle = ""
+      if (config.renderContext === "timeline" && !timelineWon) {
+        const r = renderTileSize / 12
+        const offset = renderTileSize / 2
+        const baseCx = piece.globalPivot[0] * renderTileSize + buffer + offset
+        const baseCy = (state.dimensions.inner[1] - piece.globalPivot[1] - 1) * renderTileSize + buffer + offset
+
+        const offsets = [
+          [0, -2.5],
+          [-2.5, 0],
+          [0, 2.5],
+          [2.5, 0],
+        ]
+
+        let dots = [] as string[]
+        for (let i = 0; i < 4; i++) {
+          const cx = baseCx + offsets[i][0] * r
+          const cy = baseCy + offsets[i][1] * r
+          dots.push(`<circle style='filter: hue-rotate(200deg) brightness(200%);' fill="${theme.fg}" cx="${cx}" cy="${cy}" r="${r}"/>`)
+        }
+        handle = dots.join("")
+      }
+
+      return `${won ? "" : '<g style="mix-blend-mode: hard-light;">'}${piece.tiles
+        .map((tile) => {
+          const absPos = getAbsolutePosition({ tile, piece })
+          const oob = isOutOfBounds(absPos, state.dimensions.inner)
+          if (oob && isOpenGraphRendered) return ""
+          return `<rect x="${absPos[0] * renderTileSize + buffer}" y="${height - (absPos[1] + 1) * renderTileSize + buffer}"
+            width="${renderTileSize}"
+            height="${renderTileSize}"
+            shape-rendering="crispEdges"
+            fill="${oob ? theme.fg : piece.color}" /> `
+        })
+        .join("")}${won ? "" : "</g>"}${handle}`
+    })
+    .join("")
+
+  // prettier-ignore
+  const background = `<defs>
+    <pattern shape-rendering="crispEdges" id="bg" patternUnits="userSpaceOnUse" width="50" height="50">
+      <path fill='${strokeColor}' stroke='${strokeColor}' stroke-width='0.5' d='M99.097 100.6H96.4706L0.22998 4.16407V1.72279L99.097 100.6ZM88.9724 100.6H86.5314L0.24029 14.1147V11.6733L88.9724 100.6ZM79.0229 100.6H76.5818L0.22998 24.2403V21.6136L79.0229 100.6ZM69.0836 100.6H66.4572L0.24029 34.1806V31.5539L69.0836 100.6ZM59.1444 100.6H56.518L0.24029 44.3165V41.6898L59.1444 100.6ZM49.0095 100.6H46.5685L0.22998 54.2568V51.8155L49.0095 100.6ZM39.0703 100.6H36.6292L0.24029 64.2073V61.766L39.0703 100.6ZM29.1207 100.6H26.4943L0.22998 74.333V71.7063L29.1207 100.6ZM19.1815 100.6H16.555L0.22998 84.2733V81.6466L19.1815 100.6ZM9.05685 100.6H6.61582L0.24029 94.2238V91.7825L9.05685 100.6ZM100.22 91.7825V94.2238L6.60551 0.599976H9.04654L100.22 91.7825ZM100.22 81.6466V84.2733L16.555 0.599976H19.1815L100.22 81.6466ZM100.22 71.7063V74.333L26.4943 0.599976H29.1207L100.22 71.7063ZM100.22 61.7558V64.197L36.6292 0.599976H39.0703L100.22 61.7558ZM100.22 51.8155V54.2568L46.5685 0.599976H49.0095L100.22 51.8155ZM59.1444 0.599976L100.23 41.6898V44.3165L56.518 0.599976H59.1444V0.599976ZM69.0836 0.599976L100.22 31.5539V34.1806L66.4572 0.599976H69.0836V0.599976ZM79.0229 0.599976L100.22 21.6136V24.2403L76.5818 0.599976H79.0229V0.599976ZM88.9724 0.599976L100.23 11.6733V14.1147L86.5314 0.610286H88.9724V0.599976ZM99.097 0.599976L100.22 1.72279V4.16407L96.4706 0.599976H99.097Z' />
+    </pattern>
+    </defs>
+    <rect shape-rendering="crispEdges" x='${buffer}' y='${buffer}' width="${width}" height="${height}" fill='transparent' stroke-width='${
+    outerStrokeWidth * 2
+  }px' vector-effect="non-scaling-stroke" stroke='${won || timelineWon ? theme.a_puzmo : theme.fg}' />
+    <rect shape-rendering="crispEdges" x='${buffer}' y='${buffer}' width="${width}" height="${height}" fill='${bgColor}' />
+    <rect shape-rendering="crispEdges" x='${buffer}' y='${buffer}' width="${width}" height="${height}" fill="url(#bg)"/>`
+
+  return `${header}
+  ${background}
+  <g style='isolation: isolate;'>${pieces}</g>
+</svg>`
+}
+```
+
+This idea works for a while, but it is very easy to get wrong, and as the number of games and the complexity of our thumbnail renderers grows - we needed a tighter abstraction!
+
+We all were interested in switching to use JSX, but I was not down in switching to React - we run thumbnails in all sorts of places and forcing the runtime to have React available was asking a lot of ourselves today and in the future. Our thumbnails are not interactive, so there's a lot of systems we don't need.
+
+I started writing my own JSX renderer, but when exploring the space noted that [understated](https://github.com/callmecavs/understated) was hitting all the targets I was looking at. We took understated and gave it a fresh lick of types and started making it handle a lot more of the SVG edge cases till we ended up with
+
+```ts
+// Forked from https://github.com/callmecavs/understated/blob/751d973e31b267cc1a7ed246170beeb673ebc662/src/understated.js
+// Licensed MIT: https://github.com/callmecavs/understated/blob/751d973e31b267cc1a7ed246170beeb673ebc662/package.json#L10
+
+import { ReactElement } from "react"
+
+// Changes:
+// - Converted to TypeScript
+// - Convert to ESM
+// - Comments
+// - Added support for null/false
+// - Added support for camelCase -> kebab attributes
+// - Special case for certain camel case attributes
+//
+
+/** Converts a JSX element into DOM calls, this is sorta your root entry point */
+export const render = (tree: ReactElement, target?: any, ns = false) => {
+  const rootElement = build(tree, ns)
+  if (target && rootElement) target.appendChild(rootElement)
+  return rootElement
+}
+
+/** The JSX factory fn */
+export const h = (tag: string, props: any, ...children: any[]) => {
+  return {
+    tag,
+    props: props || {},
+    children: [].concat(...children),
+  }
+}
+
+const createText = (str: string | number) => document.createTextNode(str.toString())
+
+const setClassAttr = (node: HTMLElement | SVGElement, value: string) => node.setAttribute("class", value)
+
+const setBooleanAttr = (node: HTMLElement | SVGElement, name: keyof HTMLElement | keyof SVGElement, value: any) => {
+  if (value) {
+    node.setAttribute(name, "")
+    ;(node as any)[name as any] = true
+  } else {
+    ;(node as any)[name as any] = false
+  }
+}
+
+const setEventAttr = (node: HTMLElement | SVGElement, name: keyof HTMLElementEventMap, value: any) =>
+  node.addEventListener(name, value, false)
+
+const setStyleAttr = (node: HTMLElement | SVGElement, value: any) => {
+  if (typeof value === "string") {
+    node.setAttribute("style", value)
+  } else {
+    if (!value) return
+    Object.keys(value).forEach((key) => {
+      let styleVal = value[key]
+      if (typeof value[key] === "number") {
+        styleVal = value[key].toString() + "px"
+      }
+      node.style[key as any] = styleVal
+    })
+  }
+}
+
+const createNode = (tag: string, props: any, children: any[], ns?: boolean) => {
+  const svg = ns || tag === "svg"
+
+  // Preserve case for SVG elements that have mixed case
+  const preservedTag = svg && specialCasesForCamelCaseElements.includes(tag) ? tag : tag.toLowerCase()
+
+  const node = svg ? document.createElementNS("http://www.w3.org/2000/svg", preservedTag) : document.createElement(preservedTag)
+
+  if (props) {
+    Object.keys(props).forEach((name) => {
+      const value = props[name]
+
+      if (name === "className") {
+        setClassAttr(node, value)
+      } else if (name === "style") {
+        setStyleAttr(node, value)
+      } else if (typeof value === "boolean") {
+        setBooleanAttr(node, name as any, value)
+      } else if (name.slice(0, 2) === "on") {
+        const eventName = name.slice(2).toLowerCase()
+        setEventAttr(node, eventName as any, value)
+      } else {
+        const hasCap = /[A-Z]/.test(name)
+        const kebabCase =
+          hasCap && !specialCasesForCamelCase.includes(name) ? name.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase() : name
+        if (name.toLowerCase() === "crossorigin") {
+          node.setAttribute(name.toLowerCase(), value)
+        } else {
+          node.setAttribute(kebabCase, value)
+        }
+      }
+    })
+  }
+
+  if (children && children.length > 0) children.forEach((child) => render(child, node, svg))
+
+  return node
+}
+
+const createComponent = (tag: (props: any) => HTMLElement | SVGElement | Text, props: any, children: any[], ns?: boolean) => {
+  props["children"] = children
+  return build(tag(props), ns)
+}
+
+const build = (obj: any, ns?: any): HTMLElement | SVGElement | Text | null => {
+  if (obj === null || obj === undefined || obj === false) {
+    return null
+  } else if (typeof obj === "string" || typeof obj === "number") {
+    return createText(obj)
+  } else if (typeof obj.tag === "function") {
+    return createComponent(obj.tag, obj.props, obj.children, ns)
+  } else {
+    return createNode(obj.tag, obj.props, obj.children, ns)
+  }
+}
+
+/** Known attributes which shouldn't get auto-kebab'd */
+const specialCasesForCamelCase = [
+  "viewBox",
+  "preserveAspectRatio",
+  "patternUnits",
+  "tabIndex",
+  "crossOrigin",
+  "gradientTransform",
+  "gradientUnits",
+  "textLength",
+  "lengthAdjust",
+]
+
+/** Known SVG elements which shouldn't get lowercased */
+const specialCasesForCamelCaseElements = [
+  "linearGradient",
+  "radialGradient",
+  "clipPath",
+  "textPath",
+  "animateMotion",
+  "animateTransform",
+  "feColorMatrix",
+  "feComponentTransfer",
+  "feDropShadow",
+  "feFlood",
+  "feGaussianBlur",
+  "feOffset",
+]
+```
+
+With a single JSX render pass we could now have all of the TypeScript compiler verifying our code with an extra few hundred bytes per thumbnail renderer. This is a very fine trade-off.
+
 ### Things we never got to
 
 From last year:
