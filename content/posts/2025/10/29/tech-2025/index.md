@@ -9,9 +9,11 @@ series = ["Tech Stack"]
 
 It's just over two years since Puzzmo's launch, which means its time to continue my tradition of talking through the technical changes under the hood!
 
-Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I start to ask around what folks did this year and it turns out that for a few devs we really are shipping a lot of stuff.
+I was a very early GitHub user, signing up in the first 50k users in 2009, and for the first few years the interface and platform was changing very drastically as a user. Then in 2012, GitHub [took venture capital](https://www.wired.com/2012/07/github100m/) and changes to the daily experience of being a GitHub user effectively stopped.
 
-So, this potentially epic yarn is first a rough Puzzmo CHANGELOG for the last year and then, I will try to give some technical details about how and why these things happened!
+To some extent, I wondered if this was going to be happening with Puzzmo for the last year, and possibly for the next year. We've really started to find the spaces where we can start getting Puzzmo profitable after we had got a pretty good handle for the consumer facing side and have found a set of enterprise level features which companies are willing to pay for.
+
+Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I start to ask around what folks did this year and it turns out that for a few devs we really are shipping a lot of stuff, so this is going to be a pretty long
 
 ## New Things Users Saw
 
@@ -79,7 +81,7 @@ The prototypes repo is new, and something [I have written about](https://blog.pu
 
 We have found this to be a strange set of trade-offs, a lot of our shared code in the games repo lives inside some pretty complex shared redux code which handles interacting with the games runtime. We don't want to force prototypes to be using this code, which has meant there's still a lot of persnickity issues on mundane problems like pausing, timers, keyboard support, no multiplayer infra etc. So, we'll probably have to create a new abstraction for runtime integration over there.
 
-### What is running on Puzzmo?
+## How does Puzzmo run?
 
 Today Puzzmo is a pretty complex set of systems which run together to make it all work:
 
@@ -87,74 +89,77 @@ Today Puzzmo is a pretty complex set of systems which run together to make it al
 
 Credit to [Gary](https://www.puzzmo.com/user/puz/madebygare) for the diagram.
 
-Honestly, not much has changed. There's grafana which is mentioned below, RevenueCat is handling all our Apple subscription infra (so that we can support Android, and so that we're not doing BI work.) and a Bluesky Labeler which I hacked up but I can never find the time to get back to.
+Honestly, since last year, not much has changed. There's grafana which is mentioned below, RevenueCat is handling all our Apple subscription infra (so that we can support Android, and so that we're not doing BI work.) and a Bluesky Labeler which I hacked up but I can never find the time to get back to.
 
-### Big Tech Swings
+## Big Tech Swings
 
-#### Puzzmo.com
+### Puzzmo.com
 
-This year we removed React Native from the codebase, it was a project which most engineers ended up contributing to as the re-design of today and games pages created a new design system which was web only. Longer [read here](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/#not-so-react-native) and such a big task [became a single line](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#maintenance-is-significantly-cheaper) in the list of Claude Code changes as I wrapped up _every other screen_.
+This year we removed React Native from the codebase, it was a project which most engineers ended up contributing to as the re-design of today and games pages created a new design system which was web only. Longer [read here](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/#not-so-react-native) and such a big task [became a single line](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#maintenance-is-significantly-cheaper) in the list of Claude Code changes as I wrapped up _every other screen_. Which is still shocking to me.
 
-We updated all of the tooling like testing, linting to be based on the [VoidZero](https://voidzero.dev/) stack. Looking forwards to seeing what [Vite+](https://voidzero.dev/posts/announcing-vite-plus) looks like in the future.
+In the process updated all of the tooling like testing, linting to be based on the [VoidZero](https://voidzero.dev/) stack. Looking forwards to seeing what [Vite+](https://voidzero.dev/posts/announcing-vite-plus) looks like in the future.
 
-We have been re-creating a replica of the Puzzmo web infrastructure in a new admin project which should make it possible to do server-side rendering for puzzmo.com - this is great for us developers (faster deploys, single rendering route, only deploy on render.com) and great for users (faster initial loads of a page.) The tech is reasonably complex, but [I have artsy.net](https://github.com/artsy/force/) as a working reference!
+### API
 
-We've got patterns for user interface testing using Relay set up in the front-end:
+We have fully migrated from Redwood on the API side. Redwood was a great starting template for our API, and I think if they were still working on it, I would not feel the need to migrate but realistically we were using a subset of the tool and we were carrying around the dependencies for all of the opinions on which we didn't matc.
 
-```tsx
-import { createMockEnvironment } from "relay-test-utils"
-import type { RelayMockEnvironment } from "relay-test-utils/lib/RelayModernMockEnvironment"
-import { beforeEach, describe, expect, it } from "vitest"
+My replacement is a small library called Burr which replicates only the GraphQL layers (creating the schema, setting up [Yoga](https://the-guild.dev/graphql/yoga-server), handling networking requests) and I archived the [type-system codegen](https://github.com/puzzmo-com/sdl-codegen) library I built for Redwood and migrated it into our monorepo.
 
-import { screen, waitFor } from "@testing-library/react"
-
-import { setupLazyQueryTest } from "../testing/setupTestWrapper"
-import EditorialScreen from "./EditorialScreen"
-
-let mockRelayEnv: RelayMockEnvironment
-beforeEach(() => {
-  mockRelayEnv = createMockEnvironment()
-})
-
-const { renderWithLazyQuery } = setupLazyQueryTest({ Component: EditorialScreen })
-
-describe("EditorialScreen", () => {
-  it("should render editorial content from route parameters", async () => {
-    renderWithLazyQuery(
-      {
-        Editorial: () => ({
-          slug: "test-editorial",
-          bodyMD: "# Editorial Title\n\nThis is editorial content.",
-        }),
-      },
-      {},
-      mockRelayEnv
-    )
-
-    await waitFor(() => {
-      expect(screen.getByText("Editorial Title")).toBeInTheDocument()
-    })
-
-    expect(screen.getByText("This is editorial content.")).toBeInTheDocument()
-  })
-})
-```
-
-Though, no-one is really using them. I don't feel like we're at a maturity point yet as a company, and so testing is an 'at will' sort of thing.
-
-#### API
-
-We have fully migrated from Redwood on the API side. Redwood was a great starting template for our API, and I think if they were still working on it, I would not feel the need to migrate but realistically we were using a subset of the tool and we were carrying around the dependencies for all of their choices.
-
-My replacement is a small library called burr which replicates only the GraphQL layers (creating the schema, setting up [Yoga](https://the-guild.dev/graphql/yoga-server), handling the requests) and I archived the [type-system codegen](https://github.com/puzzmo-com/sdl-codegen) library I built for Redwood and migrated it into our monorepo.
-
-I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - [Pothos](https://pothos-graphql.dev/) maybe?
-
-We've built out support for OAuth in Puzzmo, and new servers are using it.
+I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - but [Pothos](https://pothos-graphql.dev/), maybe?
 
 ### Games
 
-### Things which changed
+## How things got made
+
+### Bongo
+
+Our first game collab! With [Seth Godin](https://en.wikipedia.org/wiki/Seth_Godin) who was a pleasure to work with.
+
+Bongo forced us to work on a few new problems in the editing space:
+
+- We wanted to be able to give authors a more rich profile (bios, photos, links) and so introduced a new
+
+- We were courting big names for creating puzzles, and so we needed a pretty user-facing form for getting set up on a puzzle
+
+- People weren't directly creating the puzzle. Bongo authors generate a set of seed words, and we run a generator which takes those seed words and offers a set of puzzles with different trade-offs.
+
+  The generator itself is an arbitrary CLI program which takes the seed input, and takes about an hour to generate a single puzzle. The time it takes to generate a puzzle wasn't something we could control, so our solution was to have our API trigger 15 GitHub action workflows which gives some
+
+We found that courting high profile folks for making Bongs wasn't really worthwhile. Perhaps it was a mix of a puzzle seed being too easy to make, Puzzmo not being established enough for others to put the time in, or not having the right team (or audience) make-up to handle that style of work.
+
+Which meant going back to traditional puzzle generation for Bongo. Instead we have been researching ways to generate themes for puzzles based on emoji
+
+### Memoku
+
+Memoku had been hiding in our codebase for a long time, given that Weather Memoku had launched six months previously.
+
+### Circuits
+
+Our second game collab!
+
+### Missing Link
+
+### Face/off
+
+### Markdown Improvements
+
+### Archival
+
+### Sound
+
+### Circuits Royale
+
+### Embedding Systems
+
+### Crossword Updates
+
+### Crossword Printing
+
+### Workshop
+
+### Game Thumbnail Renderer
+
+## Things which changed
 
 2025 was a epochal year for the field of programming. LLMs got good enough. I'm finding myself using Claude Code every day I am programming, and it's capabilities feels to have had quite a boost with the introduction of [Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5). For the engineers who use Claude Code in our team, we're finding it can drastically speed up, or allow for parallel work in ways which can get someone closer to where they want to be.
 
@@ -177,3 +182,5 @@ I explored Relay [client schema](https://relay.dev/docs/guides/client-schema-ext
 3. Ask Claude questions. I've found myself wondering things like _"My memory is unreliable (I have [SDAM](https://www.reddit.com/r/SDAM/)) so are there things I've missed for this article"_ - so I asked Claude Code to review every PR for the last year and offer its opinions on what important foundations were added to the codebase this year.
 
 {{< imageHighlight src="talk-to-claude.png" alt="A screenshot of asking claude some questions" >}}
+
+4. It's nice to have a JSON objects in postgres when you are not sure of the design space, but that flexibility comes at the cost of an LLM (or collaborator) being able to fully grok the system without extra digging. We were pretty guilty of this because I optimized for db space instead of clarity in a bunch of places.
