@@ -35,15 +35,15 @@ Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I 
 
 - The capabilities to embed either Puzzmo as an app in other places. This ranges from allow/deny listing certain games, or full on offering of Puzzmo Plus to users of a [different platform](https://secure.businesswire.com/news/home/20250326593738/en/Hoopla-Digital-Launches-New-Gaming-Experience-with-Puzzmo-BingePass).
 
-- The feature-set of the Cross|word went way beyond the list of features we use on puzzmo.com. This ranges from barred Crossword support, jpz imports, amuselabs JSON support, colour, clue images, Schrondinger's squares, rich markdown processing for clues and an inline version of the Puzzmo keyboard. A significant amount of these changes exist inside our open-source project [xd-crossword-tools](https://github.com/puzzmo-com/xd-crossword-tools/blob/main/CHANGELOG.md) which at a whopping version 12!
+- The feature-set of the Cross|word went way beyond the list of features we use on puzzmo.com. This ranges from barred Crossword support, jpz imports, amuselabs JSON support, clue colours, tile colours, clue images, Schrondinger's squares, rich markdown processing for clues and an inline version of the Puzzmo keyboard. A significant amount of these changes exist inside our open-source project [xd-crossword-tools](https://github.com/puzzmo-com/xd-crossword-tools/blob/main/CHANGELOG.md) which at a whopping version 12!
 
-- Our curated puzzle editing tools went from being only usable for Crosswords to being usable for many games, and in many contexts. We added both Bongo and Circuits which came with all sorts of tricky authorial problems. Our "GitHub for puzzles" system for admins certainly started to creak as we introduced Mini Cross|words, Big Crosswords and non-staff editors. We are working on a new system to handle some of these scaling problems
+- Our curated puzzle editing tools went from being only usable for Crosswords to being usable for many games, and in many contexts. We added both Bongo and Circuits which came with all sorts of tricky authorial problems. Our "GitHub for puzzles" system for admins certainly started to creak as we introduced Mini Cross|words, Big Crosswords and non-staff editors.
 
 - We have built out a pretty comprehensive printing system for Crosswords, it can handle a lot of edge-case layouts and re-uses the rendering engine from our Crossword game for clues - so esoteric features like making emojis larger to fit the feel, inline images, formatting etc are all the same.
 
 - We have had enterprises make deals for source code access to Puzzmo and/or access to games.
 
-- The puzzle [variations](https://blog.puzzmo.com/posts/2024/07/16/augmentations/) system introduced in April Fool's 2024 got a fresh lick of paint for the Crossword Mini to allow for a variant to effectively be treated as its own game. Giving them unique stats, streaks etc. This was made feasible by offloading stats to live in blob storage instead of in the db.
+- The puzzle [variations](https://blog.puzzmo.com/posts/2024/07/16/augmentations/) system introduced in April Fool's 2024 got a fresh lick of paint for the Crossword Mini to allow for a variant to effectively be treated as its own game. Giving them unique stats, streaks etc. This was made feasible by offloading more stats to live in blob storage instead of in the db.
 
 - We consolidated all game thumbnail rendering on a custom runtimeless JSX renderer
 
@@ -53,9 +53,7 @@ Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I 
 
 - Sidequests for Pile-Up Poker
 
-- Initial implementations of our leaderboards and game data storage
-
----
+- Initial implementations of our leaderboards, game data storage, and histograms
 
 ### Where we code
 
@@ -75,17 +73,25 @@ The app monorepo continues to grow with new apps and packages more tech has cons
 
 As the games team started to take more responsibilities for the opengraph images it started to make sense to migrate that repo into the games Monorepo. The games monorepo is now a real [Turborepo](https://github.com/vercel/turborepo?tab=readme-ov-file) codebase where each game is a unique package. This means tests, builds and type-checking can happen on a per-game basis instead of for the whole system.
 
-We spent considerable time on the development environment for working on games this year, so they now have fixtured examples,
+We spent considerable time on the development environment for working on games this year.
 
-The prototypes repo is new, and something [I have written about](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#game-design-collaboration) when talking about Claude Code. The repo acts as a place for game design experiments and still feels like a simplified version of our Puzzmo games monorepo.
+{{< imageHighlight src="dev-env.png" alt="An example of the Puzzmo games development environment" >}}
 
-We have found this to be a strange set of trade-offs, a lot of our shared code in the games repo lives inside some pretty complex shared redux code which handles interacting with the games runtime. We don't want to force prototypes to be using this code, which has meant there's still a lot of persnickity issues on mundane problems like pausing, timers, keyboard support, no multiplayer infra etc. So, we'll probably have to create a new abstraction for runtime integration over there.
+The games dev environment (we call 'The Jig') now has the ability to replicate our multiplayer environment, run fixtured puzzles/states, has interactive renderers for thumbnails, can emulate the Buzz section, store per-user puzzle/states for timelining, handle complex bootstrapping payloads and provides rich information about sounds/vibration feedback.
+
+The prototypes repo is new, and something [I have written about](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#game-design-collaboration) when talking about Claude Code. The repo acts as a place for game design experiments and still feels like a simplified version of our Puzzmo games monorepo and Jig.
+
+We have found this repo to be a strange set of trade-offs, a lot of our shared code in the games repo lives inside some pretty complex shared redux code which handles interacting with the games runtime. We don't want to force prototypes to be using this code, which has meant there's still a lot of persnickity issues on mundane problems like pausing, timers, keyboard support, no multiplayer infra etc. So, we'll probably have to create a new abstraction for runtime integration over there.
+
+We're still not at a point that our games folks are choosing to use the prototypes repo as their first place for explorations - more to do here.
 
 ## How Programming Changed
 
-2025 was a epochal year for the field of programming. LLMs got good enough. I'm finding myself using Claude Code every day I am programming, and it's capabilities feels to have had quite a boost with the introduction of [Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5). For the engineers who use Claude Code in our team, we're finding it can drastically speed up, or allow for parallel work in ways which can get someone closer to where they want to be.
+2025 was a epochal year for the field of programming. LLMs got good enough. I'm finding myself using Claude Code almost every time I open up my editor, and it's capabilities feels to have had quite a boost with the introduction of [Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5). For the engineers who use Claude Code in our team, we're finding it can drastically speed up, or allow for parallel work. If I had to guess, I'd estimate about 70% of my lines of code is now written by Claude Code.
 
 6 month down the line I'm still regularly impressed by Claude's ability to understand our codebase, and I can find that I can make requests which span multiple sub-projects _"add a 'display name' to this model, and make it editable in the studio"_ would make the correct changes to the db, the GraphQL SDL layer, the application API layer, the backend would get forms and fields updated. This sort of thing is the bread and butter of a well defined system, and the tooling continues to impress.
+
+We've explored the idea of having Claude Code or Copilot running on web/hosted infrastructure, personally, I've found it uninteresting. While these tools occasionally can do a one-shot exactly what we were looking for, most of the time you need to clone the branch and make your own changes. Could have just asked locally. I think it's useful for making something for you to come to later, (e.g. you're in a lot of meetings in a row, or you're off for the day and want to have something to start with tomorrow) but to me the right abstraction is still that the tool is running locally and being supervised/guided by a developer.
 
 Because of Claude Code, I feel like I am continually asking myself: how do I make this codebase more explicit and each abstraction boundary more obvious? We've moved the monorepos to contain all context and code about their scopes, I've worked to remove as many 'any's as possible and I test out every new feature for Claude Code.
 
@@ -99,15 +105,17 @@ Today Puzzmo is a pretty complex set of systems which run together to make it al
 
 Credit to [Gary](https://www.puzzmo.com/user/puz/madebygare) for the diagram.
 
-Honestly, since last year, not much has changed. There's grafana which is mentioned below, RevenueCat is handling all our Apple subscription infra (so that we can support Android, and so that we're not doing BI work.) and a Bluesky Labeler which I hacked up but I can never find the time to get back to.
+Honestly, since last year, not much has changed. There's grafana which is mentioned below, RevenueCat is handling all our Apple subscription infra (so that we can someday support Android, and so that we're not doing BI work.) and a Bluesky Labeler which I hacked up but I can never find the time to get back to.
 
 ## Big Tech Swings
 
 ### Puzzmo.com
 
-This year we removed React Native from the codebase, it was a project which most engineers ended up contributing to as the re-design of today and games pages created a new design system which was web only. Longer [read here](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/#not-so-react-native) and such a big task [became a single line](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#maintenance-is-significantly-cheaper) in the list of Claude Code changes as I wrapped up _every other screen_. Which is still shocking to me.
+This year we removed React Native from the codebase, it was a project which most engineers ended up contributing to as the re-design of today and games pages created a new design system which was web only. Longer [read here](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/#not-so-react-native) and it is wild that such a big task [became a single line](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#maintenance-is-significantly-cheaper) in the list of Claude Code changes as I wrapped up _every other screen in the app_.
 
-In the process updated all of the tooling like testing, linting to be based on the [VoidZero](https://voidzero.dev/) stack. Looking forwards to seeing what [Vite+](https://voidzero.dev/posts/announcing-vite-plus) looks like in the future.
+In the process we updated all of the tooling like testing, linting to be based on the [VoidZero](https://voidzero.dev/) stack. Looking forwards to seeing what [Vite+](https://voidzero.dev/posts/announcing-vite-plus) looks like in the future.
+
+I've been progressing the tech stack for puzzmo.com and we're getting ready to support moving some pages to run as server-side rendered Reac We have a work in progress library for server-side rendering React, [Tapped](https://github.com/puzzmo-com/tapped?tab=readme-ov-file#tapped), which is tightly tied to our tech stack and off
 
 ### API
 
