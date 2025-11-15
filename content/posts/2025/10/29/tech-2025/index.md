@@ -157,13 +157,13 @@ Memoku had been hiding in our codebase for a long time, given that Weather Memok
 
 ### Circuits
 
-Our second game collab!
+Our second game collab! We launched Circuits with [Circuits Royale](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/), where we created a real-time multiplayer version of the game at the same time.
 
 We expanded on Circles by switching it out with a new abstraction "Buzz." With Circles, we had wondered if we could re-use the design of the player circles with scores and info across many games. It didn't really feel like we could and so Buzz introduced a new game JS bundle integration point which allows for a game to be able to control the user interface for in the sidebar.
 
 The Buzz bundle is handed a copy of React from the application, and with a bit of Vite massaging we get small bundles and we're back to the Puzzmo app/API not having internal information about specific games.
 
-Circuits is the first game we've had where the curation tools can't rely on a text file format which both is machine generatable and relatively easy to amend. For example we assume Crosswords are being made in tools like [Crossfire](https://www.beekeeperlabs.com/crossfire/) and then we support converting the output of these tools into a text-based standard [xd](https://puzzmo-com.github.io/xd-crossword-tools/):
+Circuits is the first game we've had where the curation tools can't rely on a text file format which both is machine generatable and safe for humans to hand edit. For example we assume Crosswords are being made in tools like [Crossfire](https://www.beekeeperlabs.com/crossfire/) and then we support converting the output of these tools into a text-based standard [xd](https://puzzmo-com.github.io/xd-crossword-tools/) which looks like:
 
 ```
 ## Metadata
@@ -197,7 +197,7 @@ A14. Like Twitch streamers who can spot foes at incredible distances ~ EAGLE|EYE
 ... and more
 ```
 
-There isn't a Circuits development tool! So, we had to build out a visual editor for creating a Circuits which generates puzzles which look like:
+There isn't a Circuits development tool like Crossfile! So, we had to build out a visual editor for creating a Circuits which generates puzzles which look like:
 
 ```
 1
@@ -207,11 +207,23 @@ NEPO V,*LONG >V,*LOST >V,*ART V
 BOOMER,FACTS,,
 ```
 
-I think there's more
+![Circuits REPL](circuits-repl.png)
+
+To make that easier to work with, we use the gameplay data from the Circuits Royale to offer recommendations as you are building out a puzzle. This then starts out the process of
 
 ### Missing Link
 
+I persuaded Zach to [write about Missing Link](https://blog.puzzmo.com/posts/2025/07/04/missing-link/) but
+
 ### Face/off
+
+Saman [wrote up the work](https://blog.puzzmo.com/posts/2025/02/06/redesign/) we did on re-designing the homepage, calendar, game page, and social page.
+
+If you're interested in the before and after, I got one of the last builds of puzzmo.com running before we started the migration for the homepage and today's Crossword.
+
+{{< imageHighlight src="today-compare.png" alt="An image showing the before/after for the today page" >}}
+
+{{< imageHighlight src="gameplay-compare.png" alt="An image showing the before/after for the play game page" >}}
 
 ### Markdown Improvements
 
@@ -221,7 +233,7 @@ This is one of those decisions that people could very easily dismiss as "not my 
 
 By fully controlling all of the rendering paths from the markdown AST, we get all sorts of features:
 
-- Internal links get game icon
+- Internal links to puzzles get game icon
 - User links get avatars and profile popovers
 - Custom buttons, CTAs etc
 
