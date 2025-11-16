@@ -245,15 +245,33 @@ To me, this is like the super polished stuff that's easy to do while a project i
 
 ### Sound
 
+We started working with [A Shell In The Pit](https://ashellinthepit.com) who are a sound design team with a focus on indie games. We wanted to be able to give them a tool to be able to run a game and hook in their own sounds, and try out different combinations of sounds. So, we [pretty drastically over-engineered](https://www.figma.com/board/VCiWErTiE2Wz5h4iIFCQbD/Audio-system?node-id=0-1&t=JC8vJieGyMgKtCFU-1) a sound system!
+
+In rough, there is an admin page where you can upload sound files, and then you can combine those sound files to events messages which get triggered from the game. This gave folks the ability to have a deployment of sounds and then a way for people to be able to try different versions of the sounds as a collective.
+
+![Sound deployment studio](sound-deployments.png)
+
+I think we had the best intentions here, but it ended up that no-one actually experimented with sounds, we didn't have A Shell In The Pit folks making changes in our backend and there was only one time that someone other than the developer of the feature used the tool. Tricky!
+
+So, now we have a very clever sound system
+
 ### Circuits Royale
 
 ### Embedding Systems
 
 ### Crossword Updates
 
+We built the infrastructure to run the Puzzmo Cross|word in another domain. We'd punted on this for a lot of reasons, but one of the big ones was that the keyboard for a game lived inside puzzmo.com's app, not inside each game individually. This meant figuring out how to share the keyboard across the games and the application.
+
 ### Crossword Printing
 
-### Workshop
+As a part of being able to replicate a lot of existing 'Crossword in an iframe' experiences. We took on looking at handling printing a Crossword. This is one of those iceberg problems when you start to get into what printing APIs look like on the web, and the differences between what you see in previews and how the actual thing prints.
+
+We wanted to maintain as much compatibility in terms of view-layers for our Crossword implementation as possible. So, in implementing, we knew we wanted to use the same React components used in the Cross|word game code.
+
+My first thoughts on the project were to explore server-side rendering the whole thing as a PDF, this worked in many ways but starts to get tricky with trying to optimize the print sizing and offering any options to users on previews.
+
+My second iteration relied on server-side rendering the React to html, and then re-creating the DOM as an evolutionary algorithm which used the amount of free space on the screen as the way to derive a layout for the Crossword. Roughly, take 4 layouts (2 column, different 2 column, 3 columns, 4 columns) then try 4 different font sizes. Take the amount of free space on the page as being X, then see how space much the grid and clues take up. With a bunch of time, and some help from Saman, we got this working pretty solidly.
 
 ### Game Thumbnail Renderer
 
