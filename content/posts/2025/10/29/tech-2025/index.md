@@ -257,7 +257,11 @@ So, now we have a very clever sound system
 
 ### Circuits Royale
 
+This got a solid write-up in ["The Making of Circuits Royale"](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/) - so I don't have too much to add here. We kept it running for a month or so after the launch of Circuits. Then we removed it from the Puzzmo home page, and after giving it a little bit longer to see if it could run without the homepage link eventually called it. We occasionally chat about bringing it back at specific times, rather than as an always on game.
+
 ### Embedding Systems
+
+The ability to embed Puzzmo in other people's sites and apps has grown pretty dramatically. When we launched Puzzmo, we added a way for publishing partners to create an tab
 
 ### Crossword Updates
 
