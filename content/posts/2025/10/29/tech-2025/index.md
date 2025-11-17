@@ -115,7 +115,7 @@ This year we removed React Native from the codebase, it was a project which most
 
 In the process we updated all of the tooling like testing, linting to be based on the [VoidZero](https://voidzero.dev/) stack. Looking forwards to seeing what [Vite+](https://voidzero.dev/posts/announcing-vite-plus) looks like in the future.
 
-I've been progressing the tech stack for puzzmo.com and we're getting ready to support moving some pages to run as server-side rendered Reac We have a work in progress library for server-side rendering React, [Tapped](https://github.com/puzzmo-com/tapped?tab=readme-ov-file#tapped), which is tightly tied to our tech stack and off
+Now that it's been settled for some time, I've been progressing the tech stack for puzzmo.com and we're getting ready to support moving some pages to run as server-side rendered React. We have a work in progress library for server-side rendering React, [Tapped](https://github.com/puzzmo-com/tapped?tab=readme-ov-file#tapped), which is tightly tied to our tech stack (React/Relay/Vite/Wouter) and is currently in active use in a new project we're working on.
 
 ### API
 
@@ -126,8 +126,6 @@ My replacement is a small library called Burr which replicates only the GraphQL 
 I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - but [Pothos](https://pothos-graphql.dev/), maybe?
 
 ### Games
-
-We've spent quite a bit of time thinking about puzzle generation
 
 ## How things got made
 
@@ -154,6 +152,8 @@ Bongo was also the first time we explored adding some sort of real-time informat
 ### Memoku
 
 Memoku had been hiding in our codebase for a long time, given that Weather Memoku had launched six months previously.
+
+For the launch, we introduced an idea of obtaining a sequence based on the order of completed numbers. This was based on my wife who always completed the game 1 -> 9 during testing as an additional constraint. Roughly 20,000 games of Memoku ended up with the sequence 123456789 and 4,000 with 987654321. This was built on the
 
 ### Circuits
 
@@ -213,13 +213,13 @@ To make that easier to work with, we use the gameplay data from the Circuits Roy
 
 ### Missing Link
 
-I persuaded Zach to [write about Missing Link](https://blog.puzzmo.com/posts/2025/07/04/missing-link/) but
+I persuaded Zach to [write about Missing Link](https://blog.puzzmo.com/posts/2025/07/04/missing-link/) for the goals for that game and I wrote about the technical trade-offs we made around making it possible to ship the game in my "[6 weeks of Claude Code](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#game-design-collaboration)".
 
 ### Face/off
 
-Saman [wrote up the work](https://blog.puzzmo.com/posts/2025/02/06/redesign/) we did on re-designing the homepage, calendar, game page, and social page.
+Saman [wrote up the work](https://blog.puzzmo.com/posts/2025/02/06/redesign/) we did on re-designing the homepage, calendar, game page, and social page which was nicknamed "Face/off" internally.
 
-If you're interested in the before and after, I got one of the last builds of puzzmo.com running before we started the migration for the homepage and today's Crossword.
+If you're interested in the before and after, I've just taken some screenshots of the last builds of puzzmo.com running before we started the migration for the homepage and today's Crossword.
 
 {{< imageHighlight src="today-compare.png" alt="An image showing the before/after for the today page" >}}
 
