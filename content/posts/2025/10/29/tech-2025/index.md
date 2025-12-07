@@ -13,7 +13,7 @@ I was a very early GitHub user, signing up in the first 50k users in 2009, and f
 
 To some extent, I wondered if this was going to be happening with Puzzmo for the last year, and possibly for the next year. We've really started to find the spaces where we can start getting Puzzmo profitable after we had got a pretty good handle for the consumer facing side and have found a set of enterprise level features which companies are willing to pay for.
 
-Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I start to ask around what folks did this year and it turns out that for a few devs we really are shipping a lot of stuff, so this is going to be a pretty long
+Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I start to ask around what folks did this year and it turns out that for a few devs we really are shipping a lot of stuff, so this is going to be a pretty long!
 
 ## New Things Users Saw
 
@@ -29,7 +29,9 @@ Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I 
 
 - Games have sound! Bongo and Circuits have Buzz (realtime info from other players.) We made a credits system to attribute folks working at Puzzmo at the time of a game launching and external contributors. We added champion leaderboards.
 
-- We made a competitive multiplayer launch game: [Circuits Royale](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/)
+- We made a competitive multiplayer launch game: [Circuits Royale](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/).
+
+- We downplayed streaks, moving them from being something on the homepage to being information you get after completing a game only.
 
 ## New Things Users Probably Didn't See
 
@@ -51,9 +53,9 @@ Sometimes I think to myself, _"man, we did kinda have a quiet year"_ and then I 
 
 ## Things we dropped
 
-- Sidequests for Pile-Up Poker
+- Sidequests for Pile-Up Poker. (Not used very much, massive amount of data to store.)
 
-- Initial implementations of our leaderboards, game data storage, and histograms
+- Initial implementations of our leaderboards, game data storage, and histograms. (All of these have had re-writes which increase their scopes)
 
 ### Where we code
 
@@ -71,7 +73,7 @@ Today that has been switched to:
 
 The app monorepo continues to grow with new apps and packages more tech has consolidated in that repo. CI and deployment. We now use [GitHub's labeller](https://github.com/actions/labeler?tab=readme-ov-file#pull-request-labeler) ([example](./labels.png)) for PR scanability.
 
-As the games team started to take more responsibilities for the opengraph images it started to make sense to migrate that repo into the games Monorepo. The games monorepo is now a real [Turborepo](https://github.com/vercel/turborepo?tab=readme-ov-file) codebase where each game is a unique package. This means tests, builds and type-checking can happen on a per-game basis instead of for the whole system.
+As the games team started to take more responsibilities for the opengraph images it started to make sense to migrate that repo into the games Monorepo. The games monorepo is now a real [Turborepo](https://github.com/vercel/turborepo?tab=readme-ov-file) codebase where each game is a unique package. This means tests, builds and type-checking can happen on a per-game basis instead of for the whole system which is a massive time-saver on git hooks like pre-commit and pre-push.
 
 We spent considerable time on the development environment for working on games this year.
 
@@ -95,7 +97,7 @@ We've explored the idea of having Claude Code or Copilot running on web/hosted i
 
 Because of Claude Code, I feel like I am continually asking myself: how do I make this codebase more explicit and each abstraction boundary more obvious? We've moved the monorepos to contain all context and code about their scopes, I've worked to remove as many 'any's as possible and I test out every new feature for Claude Code.
 
-I even started a [meetup](https://duckduckgo.com/?t=ffab&q=claude+code+anonymous&ia=web) with a friend to get the chance to talk to others who are figuring out this strange new piece of technology.
+I even started a [meetup](https://duckduckgo.com/?t=ffab&q=claude+code+anonymous&ia=web) with a friend to get the chance to talk to others who are figuring out this strange new piece of technology. I'd like to do a final introspection on using Claude Code on this blog after this one is shipped.
 
 ## How does Puzzmo run?
 
@@ -109,7 +111,7 @@ Honestly, since last year, not much has changed. There's grafana which is mentio
 
 ## Big Tech Swings
 
-### Puzzmo.com
+### Puzzmo.com -> RN -> Web -> SSR
 
 This year we removed React Native from the codebase, it was a project which most engineers ended up contributing to as the re-design of today and games pages created a new design system which was web only. Longer [read here](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/#not-so-react-native) and it is wild that such a big task [became a single line](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#maintenance-is-significantly-cheaper) in the list of Claude Code changes as I wrapped up _every other screen in the app_.
 
@@ -117,17 +119,21 @@ In the process we updated all of the tooling like testing, linting to be based o
 
 Now that it's been settled for some time, I've been progressing the tech stack for puzzmo.com and we're getting ready to support moving some pages to run as server-side rendered React. We have a work in progress library for server-side rendering React, [Tapped](https://github.com/puzzmo-com/tapped?tab=readme-ov-file#tapped), which is tightly tied to our tech stack (React/Relay/Vite/Wouter) and is currently in active use in a new project we're working on.
 
-### API
+We took the time to migrate to [wouter](https://github.com/molefrog/wouter), [StyleX.](https://stylexjs.com/) and [Base UI](https://base-ui.com/) during this process. I've found them all to be a pleasure.
 
-We have fully migrated from Redwood on the API side. Redwood was a great starting template for our API, and I think if they were still working on it, I would not feel the need to migrate but realistically we were using a subset of the tool and we were carrying around the dependencies for all of the opinions on which we didn't matc.
+### API -> Burr
 
-My replacement is a small library called Burr which replicates only the GraphQL layers (creating the schema, setting up [Yoga](https://the-guild.dev/graphql/yoga-server), handling networking requests) and I archived the [type-system codegen](https://github.com/puzzmo-com/sdl-codegen) library I built for Redwood and migrated it into our monorepo.
+We have fully migrated from Redwood on the API side. Redwood was a great starting template for our API, and I think if they were still working on it, I would not feel the need to migrate but realistically we were using a subset of the tool and we were carrying around the dependencies for all of the opinions on which we didn't match.
 
-I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - but [Pothos](https://pothos-graphql.dev/), maybe?
+My replacement is a small library called Burr which replicates only the GraphQL layers (creating the schema, setting up [Yoga](https://the-guild.dev/graphql/yoga-server), handling networking requests) and I archived the [type-system codegen](https://github.com/puzzmo-com/sdl-codegen) library I built for Redwood and migrated it into our monorepo. We run the API in Vite via [vite-plugin-node]()
 
-### Games
+I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - but [Pothos](https://pothos-graphql.dev/)... maybe?
 
-## How things got made
+### iOS App
+
+I've written pretty extensively on the [iOS app.](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/) It took many months of my time to get it to a place we were happy with, and even then we had to drop some pretty serious features like offline.
+
+## Games
 
 ### Bongo
 
@@ -135,9 +141,9 @@ Our first game collab! With [Seth Godin](https://en.wikipedia.org/wiki/Seth_Godi
 
 Bongo forced us to work on a few new problems in the editing space:
 
-- We wanted to be able to give authors a more rich profile (bios, photos, links) and so introduced a new
+- We wanted to be able to give authors a more rich profile (bios, photos, links) and so introduced a new "Publishing Profile" system.
 
-- We were courting big names for creating puzzles, and so we needed a pretty user-facing form for getting set up on a puzzle
+- We were courting big names for creating puzzles, and so we needed a pretty user-facing form for getting set up on a puzzle. This gave us a new set of form abstractions for Puzzmo.com (which historically didn't really any forms more complex then 3 items.)
 
 - People weren't directly creating the puzzle. Bongo authors generate a set of seed words, and we run a generator which takes those seed words and offers a set of puzzles with different trade-offs.
 
@@ -153,7 +159,7 @@ Bongo was also the first time we explored adding some sort of real-time informat
 
 Memoku had been hiding in our codebase for a long time, given that Weather Memoku had launched six months previously.
 
-For the launch, we introduced an idea of obtaining a sequence based on the order of completed numbers. This was based on my wife who always completed the game 1 -> 9 during testing as an additional constraint. Roughly 20,000 games of Memoku ended up with the sequence 123456789 and 4,000 with 987654321. This was built on the
+For the launch, we introduced an idea of obtaining a sequence based on the order of completed numbers. This was based on my wife who always completed the game 1 -> 9 during testing as an additional constraint. Roughly 20,000 games of Memoku ended up with the sequence 123456789 and 4,000 with 987654321. This was built on the [existing event](/posts/2024/09/19/plugins-are-back-in-style/#event-plugins) plugin infrastructure, then migrated into Puzzmo API core and people can still unlock sequences.
 
 ### Circuits
 
@@ -197,7 +203,7 @@ A14. Like Twitch streamers who can spot foes at incredible distances ~ EAGLE|EYE
 ... and more
 ```
 
-There isn't a Circuits development tool like Crossfile! So, we had to build out a visual editor for creating a Circuits which generates puzzles which look like:
+There isn't a Circuits development tool like Crossfire! So, we had to build out a visual editor for creating a Circuits which generates puzzles which look like:
 
 ```
 1
@@ -214,6 +220,42 @@ To make that easier to work with, we use the gameplay data from the Circuits Roy
 ### Missing Link
 
 I persuaded Zach to [write about Missing Link](https://blog.puzzmo.com/posts/2025/07/04/missing-link/) for the goals for that game and I wrote about the technical trade-offs we made around making it possible to ship the game in my "[6 weeks of Claude Code](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#game-design-collaboration)".
+
+### Crossword Updates
+
+We built the infrastructure to run the Puzzmo Cross|word in another domain. We'd punted on this for a lot of reasons, but one of the big ones was that the keyboard for a game lived inside puzzmo.com's app, not inside each game individually. This meant figuring out how to share the keyboard across the games and the application.
+
+We spent a considerable amount of time adding new features to our Crossword implementation which to get feature parity with other Crossword players which are used in embeds. I worked within The [New Yorker's games](https://www.newyorker.com/crossword-puzzles-and-games) team to help integrate our Crossword software into their site (e.g. get all our bundling patterns all in sync) as a React component (something we don't do ourselves!)
+
+We shipped many new features to our implementation of the [xd](https://github.com/century-arcade/xd/blob/master/doc/xd-format.md) file format tooling: [xd-crossword-tools](https://puzzmo-com.github.io/xd-crossword-tools). This ranges from extensive support for JPZ files, and internal representations of [Amuselab's](https://amuselabs.com/) JSON Crossword storage. Then also support for describing barred Crosswords, Schrödinger squares, inline clue colors, inline clue images, rebuses in Schrödingers and advanced markup.
+
+### Crossword Printing
+
+As a part of being able to replicate a lot of existing 'Crossword in an iframe' experiences. We took on looking at handling printing a Crossword. This is one of those iceberg problems when you start to get into what printing APIs look like on the web, and the differences between what you see in previews and how the actual thing prints.
+
+We wanted to maintain as much compatibility in terms of view-layers for our Crossword implementation as possible. So, in implementing, we knew we wanted to use the same React components used in the Cross|word game code.
+
+My first thoughts on the project were to explore server-side rendering the whole thing as a PDF, this worked in many ways but starts to get tricky with trying to optimize the print sizing and offering any options to users on previews.
+
+My second iteration relied on server-side rendering the React to html, and then re-creating the DOM as an evolutionary algorithm which used the amount of free space on the screen as the way to derive a layout for the Crossword. Roughly, take 4 layouts (2 column, different 2 column, 3 columns, 4 columns) then try 4 different font sizes. Take the amount of free space on the page as being X, then see how space much the grid and clues take up. With a bunch of time, and some help from Saman, we got this working pretty solidly.
+
+### Sound
+
+We started working with [A Shell In The Pit](https://ashellinthepit.com) who are a sound design team with a focus on indie games. We wanted to be able to give them a tool to be able to run a game and hook in their own sounds, and try out different combinations of sounds. So, we [pretty drastically over-engineered](https://www.figma.com/board/VCiWErTiE2Wz5h4iIFCQbD/Audio-system?node-id=0-1&t=JC8vJieGyMgKtCFU-1) a sound system!
+
+In rough, there is an admin page where you can upload sound files, and then you can combine those sound files to events messages which get triggered from the game. This gave folks the ability to have a deployment of sounds and then a way for people to be able to try different versions of the sounds as a collective.
+
+![Sound deployment studio](sound-deployments.png)
+
+I think we had the best intentions here, but it ended up that no-one actually experimented with sounds, we didn't have A Shell In The Pit folks making changes in our backend and there was only one time that someone other than the developer of the feature used the tool. Tricky!
+
+So, now we have a very clever sound system and we grafted the haptic interactions into that system as they nearly always correlate.
+
+### Circuits Royale
+
+This got a solid write-up in ["The Making of Circuits Royale"](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/) - so I don't have too much to add here. We kept it running for a month or so after the launch of Circuits. Then we removed it from the Puzzmo home page, and after giving it a little bit longer to see if it could run without the homepage link eventually called it. We occasionally chat about bringing it back at specific times, rather than as an always on game.
+
+## Other Key Systems
 
 ### Face/off
 
@@ -243,39 +285,29 @@ To me, this is like the super polished stuff that's easy to do while a project i
 
 ### Archival
 
-### Sound
-
-We started working with [A Shell In The Pit](https://ashellinthepit.com) who are a sound design team with a focus on indie games. We wanted to be able to give them a tool to be able to run a game and hook in their own sounds, and try out different combinations of sounds. So, we [pretty drastically over-engineered](https://www.figma.com/board/VCiWErTiE2Wz5h4iIFCQbD/Audio-system?node-id=0-1&t=JC8vJieGyMgKtCFU-1) a sound system!
-
-In rough, there is an admin page where you can upload sound files, and then you can combine those sound files to events messages which get triggered from the game. This gave folks the ability to have a deployment of sounds and then a way for people to be able to try different versions of the sounds as a collective.
-
-![Sound deployment studio](sound-deployments.png)
-
-I think we had the best intentions here, but it ended up that no-one actually experimented with sounds, we didn't have A Shell In The Pit folks making changes in our backend and there was only one time that someone other than the developer of the feature used the tool. Tricky!
-
-So, now we have a very clever sound system
-
-### Circuits Royale
-
-This got a solid write-up in ["The Making of Circuits Royale"](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/) - so I don't have too much to add here. We kept it running for a month or so after the launch of Circuits. Then we removed it from the Puzzmo home page, and after giving it a little bit longer to see if it could run without the homepage link eventually called it. We occasionally chat about bringing it back at specific times, rather than as an always on game.
+We were interested in making the archives for a puzzle more accessible, this both made the business folks happy (because archives was well hidden behind the calendar) but also solved one of our issues of navigating the site. Now we have a way to create a button which offers a way to go back a daily for a particular game.
 
 ### Embedding Systems
 
-The ability to embed Puzzmo in other people's sites and apps has grown pretty dramatically. When we launched Puzzmo, we added a way for publishing partners to create an tab
+#### Game Iframe
 
-### Crossword Updates
+The ability to embed Puzzmo in other people's sites and apps has grown pretty dramatically. When we launched Puzzmo, we added a way for publishing partners to embed a single game iframe. For example you might go to polygon.com and play [Really Bad Chess](https://www.polygon.com/24126394/really-bad-chess-puzzmo/).
 
-We built the infrastructure to run the Puzzmo Cross|word in another domain. We'd punted on this for a lot of reasons, but one of the big ones was that the keyboard for a game lived inside puzzmo.com's app, not inside each game individually. This meant figuring out how to share the keyboard across the games and the application.
+Pretty early in the year, We had an iframe version of Flipart running on https://www.weather.com - this site had many ordinals more traffic than we were used to on puzzmo.com! This forced us to adapt and create a CDN version of our iframe game embeds. Meaning all of the traffic for running and playing an embedded game operates without touching our API. Today, this works by using a new library we have called [Belay](https://github.com/puzzmo-com/belay) which lets you use Relay Compiler compiled queries via a fetch instead of the whole Relay runtime. The API makes the same API call, and then uploads the results to our blob storage. This is on a cron job to update every CDN embed every hour.
 
-### Crossword Printing
+We added all sorts of modes for game embeds: cycling through games, infinite plays on a particular game, running from a particular puzzle queue
 
-As a part of being able to replicate a lot of existing 'Crossword in an iframe' experiences. We took on looking at handling printing a Crossword. This is one of those iceberg problems when you start to get into what printing APIs look like on the web, and the differences between what you see in previews and how the actual thing prints.
+Iframes now have an [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) API for folks to be able to handle their own analytics tracking, or show/hiding them based on game state.
 
-We wanted to maintain as much compatibility in terms of view-layers for our Crossword implementation as possible. So, in implementing, we knew we wanted to use the same React components used in the Cross|word game code.
+#### App Embeds
 
-My first thoughts on the project were to explore server-side rendering the whole thing as a PDF, this worked in many ways but starts to get tricky with trying to optimize the print sizing and offering any options to users on previews.
+It's possible for publishing partners to be able to embed Puzzmo in their apps and sites. We have two versions of that, a simplified version of puzzmo.com with no experimental games, interactive systems and a more complete puzzmo.com experience for Puzzmo Plus users.
 
-My second iteration relied on server-side rendering the React to html, and then re-creating the DOM as an evolutionary algorithm which used the amount of free space on the screen as the way to derive a layout for the Crossword. Roughly, take 4 layouts (2 column, different 2 column, 3 columns, 4 columns) then try 4 different font sizes. Take the amount of free space on the page as being X, then see how space much the grid and clues take up. With a bunch of time, and some help from Saman, we got this working pretty solidly.
+The first version of this came from working with [Hoopla](https://www.hoopladigital.com/) to get Puzzmo into libraries. We had to create a system for creating/logging in people who have 'checked out' Puzzmo from their hoopla account. This works by redirecting a user to a particular server API route which will either create a user or re-log them in based on their Hoopla unique ID passed to the URL.
+
+Then we had to add a cron job for uploading usage stats back to Hoopla for two-way accounting.
+
+These iframes have pretty extensive `postMessage` APIs for sizing. Lately I've been wondering if offering a `<script>` tag to handle the embeds is the right abstraction. We have extensive developer docs for folks integrating.
 
 ### Game Thumbnail Renderer
 
@@ -381,7 +413,7 @@ This idea works for a while, but it is very easy to get wrong, and as the number
 
 We all were interested in switching to use JSX, but I was not down in switching to React - we run thumbnails in all sorts of places and forcing the runtime to have React available was asking a lot of ourselves today and in the future. Our thumbnails are not interactive, so there's a lot of systems we don't need.
 
-I started writing my own JSX renderer, but when exploring the space noted that [understated](https://github.com/callmecavs/understated) was hitting all the targets I was looking at. We took understated and gave it a fresh lick of types and started making it handle a lot more of the SVG edge cases till we ended up with
+I started writing my own JSX renderer, but when exploring the space noted that [understated](https://github.com/callmecavs/understated) was hitting all the goals I was looking for. We took understated and gave it a fresh lick of types and started making it handle a lot more of the SVG edge cases till we ended up with
 
 ```ts
 // Forked from https://github.com/callmecavs/understated/blob/751d973e31b267cc1a7ed246170beeb673ebc662/src/understated.js
