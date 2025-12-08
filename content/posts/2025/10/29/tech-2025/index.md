@@ -143,13 +143,13 @@ Bongo forced us to work on a few new problems in the editing space:
 
 - We wanted to be able to give authors a more rich profile (bios, photos, links) and so introduced a new "Publishing Profile" system.
 
-- We were courting big names for creating puzzles, and so we needed a pretty user-facing form for getting set up on a puzzle. This gave us a new set of form abstractions for Puzzmo.com (which historically didn't really any forms more complex then 3 items.)
+- We were courting big names for creating puzzles and mixing in community member puzzles, and so we needed a pretty user-facing form for getting set up on a puzzle. This gave us a new set of form abstractions for Puzzmo.com (which historically didn't really any forms more complex then 3 items.)
 
 - People weren't directly creating the puzzle. Bongo authors generate a set of seed words, and we run a generator which takes those seed words and offers a set of puzzles with different trade-offs.
 
   The generator itself is an arbitrary CLI program which takes the seed input, and takes about an hour to generate a single puzzle. The time it takes to generate a puzzle wasn't something we could control, so our solution was to have our API trigger 15 GitHub action workflows which gives some
 
-We found that courting high profile folks for making Bongs wasn't really worthwhile. Perhaps it was a mix of a puzzle seed being too easy to make, Puzzmo not being established enough for others to put the time in, or not having the right team (or audience) make-up to handle that style of work.
+We found that getting high profile folks for making Bongos wasn't really worthwhile. Perhaps it was a mix of a puzzle seed being too easy to make, Puzzmo not being established enough for others to put the time in, or not having the right team (or audience) make-up to handle that style of work. The community ones were very cool though!
 
 Which meant going back to traditional puzzle generation for Bongo. We took some time on researching ways to generate themes for puzzles based on emoji combos and single words.
 
