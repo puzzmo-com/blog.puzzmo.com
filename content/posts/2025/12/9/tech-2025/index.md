@@ -167,11 +167,11 @@ Bongo was also the first time we explored adding some sort of real-time informat
 
 Memoku had been hiding in our codebase for a long time, given that Weather Memoku had launched six months previously.
 
-For the launch, we introduced an idea of obtaining a sequence based on the order of completed numbers. This was based on my wife who always completed the game 1 -> 9 during testing as an additional constraint. Roughly 20,000 games of Memoku ended up with the sequence 123456789 and 4,000 with 987654321. This was built on the [existing event](/posts/2024/09/19/plugins-are-back-in-style/#event-plugins) plugin infrastructure, then migrated into Puzzmo API core and people can still unlock sequences.
+For the launch, we introduced an idea of obtaining a sequence based on the order of completed numbers. This was based on my wife who always completed the game 1 -> 9 during testing as an additional constraint. Roughly 20,000 games of Memoku ended up with the sequence 123456789 and 4,000 with 987654321. This was built on the [existing event](/posts/2024/09/19/plugins-are-back-in-style/#event-plugins) plugin infrastructure, then migrated into Puzzmo API core and people can still unlock sequences today.
 
 ### Circuits
 
-Our second game collab! We launched Circuits with [Circuits Royale](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/), where we created a real-time multiplayer version of the game at the same time.
+Our second game collab! We launched Circuits with [Circuits Royale](https://blog.puzzmo.com/posts/2025/09/08/the-making-of-circuits-royale/), and we created a real-time multiplayer version of the game at the same time.
 
 We expanded on Circles by switching it out with a new abstraction "Buzz." With Circles, we had wondered if we could re-use the design of the player circles with scores and info across many games. It didn't really feel like we could and so Buzz introduced a new game JS bundle integration point which allows for a game to be able to control the user interface for in the sidebar.
 
