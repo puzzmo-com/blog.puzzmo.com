@@ -1,6 +1,6 @@
 +++
 title = 'Puzzmo Tech Stack: 2025'
-date = 2025-10-29T08:11:39Z
+date = 2025-12-09T00:11:39Z
 authors = ["orta"]
 tags = ["tech"]
 theme = "outlook-hayesy-beta"
@@ -125,13 +125,21 @@ We took the time to migrate to [wouter](https://github.com/molefrog/wouter), [St
 
 We have fully migrated from Redwood on the API side. Redwood was a great starting template for our API, and I think if they were still working on it, I would not feel the need to migrate but realistically we were using a subset of the tool and we were carrying around the dependencies for all of the opinions on which we didn't match.
 
-My replacement is a small library called Burr which replicates only the GraphQL layers (creating the schema, setting up [Yoga](https://the-guild.dev/graphql/yoga-server), handling networking requests) and I archived the [type-system codegen](https://github.com/puzzmo-com/sdl-codegen) library I built for Redwood and migrated it into our monorepo. We run the API in Vite via [vite-plugin-node]()
+My replacement is a small library called Burr which replicates only the GraphQL layers (creating the schema, setting up [Yoga](https://the-guild.dev/graphql/yoga-server), handling networking requests) and I archived the [type-system codegen](https://github.com/puzzmo-com/sdl-codegen) library I built for Redwood and migrated it into our monorepo. We run the API in Vite via [vite-plugin-node](https://github.com/axe-me/vite-plugin-node) which gives HMR on API routes and we can use vite plugins everywhere.
 
 I sometimes muse to myself about migrating to a different technique for creating our GraphQL API. I ran a non-trivial experiment with [Postgraphile](https://www.graphile.org/postgraphile/) and found it to be a really interesting foundation, but I'm not willing to commit to moving such a big existing project to Postgraphile - but [Pothos](https://pothos-graphql.dev/)... maybe?
 
 ### iOS App
 
-I've written pretty extensively on the [iOS app.](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/) It took many months of my time to get it to a place we were happy with, and even then we had to drop some pretty serious features like offline.
+I've written pretty extensively on the [iOS app.](https://blog.puzzmo.com/posts/2025/06/01/ios-app-architecture/) It took many months of my time to get it to a place we were happy with, and even then we had to drop some pretty serious features like full offline support.
+
+### Self-hosted Analytics
+
+Like most startups, we use a mix of google analytics and some db queries to get some sense of puzzmo.com usage. Google analytics is easily blocked by clients, and making a query like _'on average which game was last played before subscribing'_ is very time expensive in a traditional database like Postgres.
+
+We were looking at needing to be able to provide analytics for a lot of diverse sets of users, and for accuracy the analytics just kinda needs to be first-party. I'd heard good rumours of [Clickhouse](https://clickhouse.com/) being well suited for this type of task. I thought this [3 minute video](https://www.youtube.com/watch?v=a7rmLeGK1v8) explains the difference in architecture, so you are encouraged to make a single table with all of yor data for incredibly fast queries.
+
+[![A screenshot of our games event db](db.png)](db.png)
 
 ## Games
 
@@ -227,8 +235,6 @@ We built the infrastructure to run the Puzzmo Cross|word in another domain. We'd
 
 We spent a considerable amount of time adding new features to our Crossword implementation which to get feature parity with other Crossword players which are used in embeds. I worked within The [New Yorker's games](https://www.newyorker.com/crossword-puzzles-and-games) team to help integrate our Crossword software into their site (e.g. get all our bundling patterns all in sync) as a React component (something we don't do ourselves!)
 
-We shipped many new features to our implementation of the [xd](https://github.com/century-arcade/xd/blob/master/doc/xd-format.md) file format tooling: [xd-crossword-tools](https://puzzmo-com.github.io/xd-crossword-tools). This ranges from extensive support for JPZ files, and internal representations of [Amuselab's](https://amuselabs.com/) JSON Crossword storage. Then also support for describing barred Crosswords, Schrödinger squares, inline clue colors, inline clue images, rebuses in Schrödingers and advanced markup.
-
 ### Crossword Printing
 
 As a part of being able to replicate a lot of existing 'Crossword in an iframe' experiences. We took on looking at handling printing a Crossword. This is one of those iceberg problems when you start to get into what printing APIs look like on the web, and the differences between what you see in previews and how the actual thing prints.
@@ -307,7 +313,7 @@ The first version of this came from working with [Hoopla](https://www.hoopladigi
 
 Then we had to add a cron job for uploading usage stats back to Hoopla for two-way accounting.
 
-These iframes have pretty extensive `postMessage` APIs for sizing. Lately I've been wondering if offering a `<script>` tag to handle the embeds is the right abstraction. We have extensive developer docs for folks integrating.
+These iframes have pretty extensive `postMessage` APIs for sizing. Lately I've been wondering if offering a `<script>` tag to handle the embeds is the right abstraction. We have extensive developer docs for folks integrating in our studio.
 
 ### Game Thumbnail Renderer
 
@@ -571,7 +577,7 @@ From last year:
 
 > Consolidating puzzmo.com logic into Relay's [client schema extensions](https://relay.dev/docs/guides/client-schema-extensions/) and using fragment references
 
-I explored Relay [client schema](https://relay.dev/docs/guides/client-schema-extensions/) extensions as a route to handle some of the gnarly logic around offline support. This code ended up being significantly more verbose and required a lot more wiring around the app than I had hoped. So, in the end it wasn't an answer to solving some of our gnarliest state complexity (a big `useReducer` which hosts info for games runtime integrations) which still remains a 'beware dragons here' area of the codebase.
+I explored Relay [client schema](https://relay.dev/docs/guides/client-schema-extensions/) extensions as a route to handle some of the gnarly logic around offline support. This code ended up being significantly more verbose and required a lot more wiring around the app than I had hoped. So, in the end it wasn't an answer to solving some of our gnarliest state complexity (a big `useReducer` which hosts about the application state around playing games integrations) which still remains a _'beware dragons here'_ area of the codebase that always comes with surprises on a change.
 
 ### New heuristics I have learned
 
