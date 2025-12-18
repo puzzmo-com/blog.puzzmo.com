@@ -22,6 +22,8 @@ A few notes before the celebration:
 
 ## 10 amazing apt pairs of 2025
 
+To me, an amazing apt pair is a delightful connection between two phrases that makes you wonder how you never saw (or heard) it yourself — and a perfect title to unite the conection.
+
 | | Constructor(s) | Editor | Date | Title | Apt pair | 
 | - | --- | --- | --- | --- | --- |
 | 1 | [Amie Walker](https://www.puzzmo.com/user/xwc/amie_walker) | [Ori Brian](https://www.puzzmo.com/user/xwc/`oribrian`) | [Apr 29](https://www.puzzmo.com/puzzle/2025-04-29/crossword) | 🌭 Sausage Links | {{<details summary="Spoilers:">}}`HOT DOG WATER` / `FRANK OCEAN`{{</details>}} | 
@@ -36,6 +38,8 @@ A few notes before the celebration:
 | 10 | [kareemayas](https://www.puzzmo.com/user/xwc/kareemayas) | [Amie Walker](https://www.puzzmo.com/user/xwc/amie_walker) | [Nov 20](https://www.puzzmo.com/puzzle/2025-11-20/crossword) | 🪁 Time Flies | {{<details summary="Spoilers:">}}`BIRD-WATCH` / `CUCKOO CLOCK`{{</details>}} |
 
 ## 10 amazing non-apt pair themes of 2025
+
+Midis are a space to be creative well outside of the "apt pair" paradigm. I was super impressed with the uniqueness of each of these themes.
 
 | | Constructor(s) | Editor | Date | Title | Theme | 
 | - | --- | --- | --- | --- | --- |
@@ -52,6 +56,8 @@ A few notes before the celebration:
 
 ## 10 amazing grids of 2025
 
+The list below contains both themed and themeless puzzles: what unites them are their ambitious and artistic grid shapes.
+
 | | Constructor(s) | Editor | Date | Title | Grid notes | 
 | - | --- | --- | --- | --- | --- |
 | 1 | [Priyanka Sethy](https://www.puzzmo.com/user/xwc/priyanka-sethy) & [Rajiv Sethy](https://www.puzzmo.com/user/xwc/rajiv-sethy) | [David Tuffs](https://www.puzzmo.com/user/xwc/david-tuffs) | [Jan 31](https://www.puzzmo.com/puzzle/2025-01-31/crossword) | 💮 Elevenses | Answers are only length 11 or 3 | 
@@ -66,6 +72,8 @@ A few notes before the celebration:
 | 10 | [Katherine Morayati](https://www.puzzmo.com/user/xwc/katherine) | [brooke](https://www.puzzmo.com/user/puz/brooke) | [Dec 19](https://www.puzzmo.com/puzzle/2025-12-19/crossword) | 🛸 Celestial Phenomena | Eight interlocking 10-letter answers | 
 
 ## 10 amazing wordplay clues of 2025
+
+Each of these amazing clues has a crisp misdirect to something plausible — and a satisfying, very different answer.
 
 | | Constructor(s) | Editor | Date | Title | Clue | Answer |  
 | - | --- | --- | --- | --- | --- | --- |
@@ -83,6 +91,8 @@ A few notes before the celebration:
 
 ## 10 amazing non-wordplay clues of 2025
 
+The people who create crosswords make deliberate choices about every clue. I especially like clues that are personally meaningful, voicey and funny, or share an interesting fact.
+
 | | Constructor(s) | Editor | Date | Title | Clue | Answer |  
 | - | --- | --- | --- | --- | --- | --- |
 | 1 | [kjmberly](https://www.puzzmo.com/user/xwc/anableps) | [brooke](https://www.puzzmo.com/user/puz/brooke) | [Jan 9](https://www.puzzmo.com/puzzle/2025-01-09/crossword) | 🦢 so majestical | "Breaking Bad" quote I'd love to say to my boss when she abuses collective pronouns | {{<details summary="6 letters:">}}`WHO'S WE`{{</details>}} | 
@@ -96,6 +106,8 @@ A few notes before the celebration:
 | 9 | [Doug Peterson](https://www.puzzmo.com/user/xwc/xworddoug) | [Ben Zimmer](https://www.puzzmo.com/user/xwc/bgzimmer) | [Dec 2](https://www.puzzmo.com/puzzle/2025-12-02/crossword) | 🍯 Spread Around | Cookie that's called a Choco in DC Comics (for trademark reasons) | {{<details summary="4 letters:">}}`OREO`{{</details>}} | 
 | 10 | [Onefin](https://www.puzzmo.com/user/xwc/onefin) | [brooke](https://www.puzzmo.com/user/puz/brooke) & [Madeline Kaplan](https://www.puzzmo.com/user/puz/madeline-kaplan) | [Dec 15](https://www.puzzmo.com/puzzle/2025-12-15/crossword) | 🍄 No Middle Ground | How someone with aibohphobia might feel while reading this clue | {{<details summary="6 letters:">}}`AFRAID`{{</details>}} | 
 
+* * *
 
+Share this post with a friend — I've made all 50 puzzles highlighted above free to play!
 
 ![Brooke signature](brooke-sig.png)
