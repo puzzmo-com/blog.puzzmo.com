@@ -8,14 +8,14 @@ theme = "bright-white"
 
 I started thinking critically about midi crosswords as a genre when [Chris](https://www.puzzmo.com/user/xwc/piuma), [Enrique](https://www.puzzmo.com/user/xwc/enrique), and I co-founded the midi branch of [AVCX](https://avxwords.com/), where we decided to define midis not by their rows and columns, but by the number of white squares in the grid. The midis we constructed and edited in the first year of our AVCX tenures were so creative in their play with shapes and sizes: even featuring answers longer than the 15-letter cap on a standard/"full-sized" newspaper crossword.
 
-Around the same time, I was commissioned to write a book of fifty-six 10x10 midi crosswords, which got me thinking about how two related answers could constitute a theme: a joke and a punch line, or a set so "tight" that it couldn't have a third member. I now consider these the proto "apt pairs" — a name I gave to a concept that [existed](https://www.xwordinfo.com/Crossword?date=2/21/2009) long before I solved a crossword.
+Around the same time, I was commissioned to write a book of fifty-six 10x10 midi crosswords, which got me thinking about how two related answers could constitute a theme: a joke and a punch line, or a set so "tight" that it couldn't have a third member. I now consider these the proto "apt pairs" — a name I gave to a concept that [existed](https://www.xwordinfo.com/Crossword?date=2/21/2009) long before I had ever solved a crossword.
 
-Before 2026, we'll have run more than 800 "midi" crosswords on [puzzmo.com](https://www.puzzmo.com), representing the work of about 200 different crossword creators. Even if my name isn't on the byline, I've been involved in each of these puzzles, and I'm still learning about new things midis can do and be. I think the Puzzmo midi is a special place for crosswords to live, and I want to celebrate it by highlighting some of my favorite midis of the year in this blog post.
+Before 2026, we'll have run more than 800 midi crosswords on [puzzmo.com](https://www.puzzmo.com), representing the work of about 200 different crossword creators. Even if my name isn't on the byline, I've been involved in each of these puzzles, and I'm still learning from the super-talented constructors I work with about new things midis can do and be. I think the Puzzmo midi is a special place for crosswords to live, and I want to celebrate it by highlighting some of my favorite midis of the year in this blog post.
 
 A few notes before the celebration:
 - I didn't include any puzzles I've co-authored
 - Puzzles within a category are listed in order of appearance
-- An author can only appear once — if you really liked a puzzle, click on the author's name and check out more of their work!
+- An author can only appear once — if you really liked a puzzle, click on the author's name and check out more of their work
 
 Share this post with a friend — I've made all 50 puzzles highlighted above free to play! (If you are considering a subscription, though, now is a good time to [get one](https://www.puzzmo.com/subscribe) — they're half price through December 22.)
 
@@ -25,7 +25,7 @@ Share this post with a friend — I've made all 50 puzzles highlighted above fre
 
 ## 10 amazing apt pairs of 2025
 
-To me, an amazing apt pair is a delightful connection between two phrases that makes you wonder how you never saw (or heard) it yourself — and a perfect title to unite the conection.
+To me, an amazing apt pair is a delightful connection between two phrases that makes you wonder how you never saw (or heard) it yourself — and a perfect title that captures the connection.
 
 | | Constructor(s) | Editor | Date | Title | Apt pair | 
 | - | --- | --- | --- | --- | --- |
@@ -42,7 +42,7 @@ To me, an amazing apt pair is a delightful connection between two phrases that m
 
 ## 10 amazing non-apt pair themes of 2025
 
-Midis are a space to be creative well outside of the "apt pair" paradigm. I was super impressed with the uniqueness of each of these themes.
+Midis are a space to be creative well outside of the "apt pair" paradigm. I was super impressed with the uniqueness of each of the themes below.
 
 | | Constructor(s) | Editor | Date | Title | Theme | 
 | - | --- | --- | --- | --- | --- |
@@ -66,8 +66,8 @@ The list below contains both themed and themeless puzzles: what unites them are 
 | 1 | [Priyanka Sethy](https://www.puzzmo.com/user/xwc/priyanka-sethy) & [Rajiv Sethy](https://www.puzzmo.com/user/xwc/rajiv-sethy) | [David Tuffs](https://www.puzzmo.com/user/xwc/david-tuffs) | [Jan 31](https://www.puzzmo.com/puzzle/2025-01-31/crossword) | 💮 Elevenses | Answers are only length 11 or 3 | 
 | 2 | [jasper](https://www.puzzmo.com/user/xwc/jasbird) | [Ori Brian](https://www.puzzmo.com/user/xwc/oribrian) | [Mar 7](https://www.puzzmo.com/puzzle/2025-03-07/crossword) | 👞 I'm putting my foot down | Themeless-worthy shape with an apt pair | 
 | 3 | [Kenny](https://www.puzzmo.com/user/xwc/kenny) | [David Tuffs](https://www.puzzmo.com/user/xwc/david-tuffs) | [Apr 5](https://www.puzzmo.com/puzzle/2025-04-05/crossword) | 🥋 Out of my way! | Stacked theme answers | 
-| 4 | [Kate Hawkins](https://www.puzzmo.com/user/xwc/kate) | [Ann](https://www.puzzmo.com/user/xwc/annthewriter) | [Sep 8](https://www.puzzmo.com/puzzle/2025-09-08/crossword) | 🤬 @$*% it! | Acrosses are only 4 letter words with a triple-checked revealer | 
-| 5 | [Alex Eaton-Salners](https://www.puzzmo.com/user/xwc/alex) | [Olivia Mitra Framke](https://www.puzzmo.com/user/xwc/livienna) | [Sep 19](https://www.puzzmo.com/puzzle/2025-09-19/crossword) | 🐈 Let's Pounce! | Shaped like a pouncing cat |
+| 4 | [Kate Hawkins](https://www.puzzmo.com/user/xwc/kate) | [Ann](https://www.puzzmo.com/user/xwc/annthewriter) | [Sep 8](https://www.puzzmo.com/puzzle/2025-09-08/crossword) | 🤬 @$*% it! | Acrosses are only four-letter words with a triple-checked revealer | 
+| 5 | [Alex Eaton-Salners](https://www.puzzmo.com/user/xwc/alex) | [Olivia Mitra Framke](https://www.puzzmo.com/user/xwc/livienna) | [Sep 19](https://www.puzzmo.com/puzzle/2025-09-19/crossword) | 🐈 Let's Pounce! | Incredibly, shaped like a pouncing cat |
 | 6 | [kangareuben](https://www.puzzmo.com/user/xwc/kangareuben) | [Ann](https://www.puzzmo.com/user/xwc/annthewriter) | [Oct 11](https://www.puzzmo.com/puzzle/2025-10-11/crossword) | 🏳️‍🌈 The Choice Is Yours | Theme answers in top and bottom row of stacks | 
 | 7 | [JessBevRucks](https://www.puzzmo.com/user/xwc/jessbevr) | [Amie Walker](https://www.puzzmo.com/user/xwc/amie_walker) | [Oct 22](https://www.puzzmo.com/puzzle/2025-10-22/crossword) | ☝️ Sole Mates | Thematically, shaped like a die with one pip showing |
 | 8 | [Enrique](https://www.puzzmo.com/user/xwc/enrique) | [Ori Brian](https://www.puzzmo.com/user/xwc/oribrian) | [Oct 23](https://www.puzzmo.com/puzzle/2025-10-23/crossword) | 💎 Banded Gemstone | Three compact interlocking stacks | 
@@ -94,7 +94,7 @@ Each of these amazing clues has a crisp misdirect to something plausible — and
 
 ## 10 amazing non-wordplay clues of 2025
 
-The people who create crosswords make deliberate choices about every clue. I especially like clues that are personally meaningful, voicey and funny, or share an interesting fact.
+The people who create your crosswords make deliberate choices about every clue. I especially like clues that are personally meaningful, voicey and funny, or share an interesting fact.
 
 | | Constructor(s) | Editor | Date | Title | Clue | Answer |  
 | - | --- | --- | --- | --- | --- | --- |
