@@ -1,6 +1,6 @@
 +++
 title = '50 amazing Puzzmo crosswords from 2025'
-date = 2025-12-16T08:00:00-04:00
+date = 2025-12-19T06:00:00-04:00
 authors = ["brooke"]
 tags = ["crossword"]
 theme = "bright-white"
@@ -13,10 +13,13 @@ Around the same time, I was commissioned to write a book of fifty-six 10x10 midi
 Before 2026, we'll have run more than 800 "midi" crosswords on [puzzmo.com](https://www.puzzmo.com), representing the work of about 200 different crossword creators. Even if my name isn't on the byline, I've been involved in each of these puzzles, and I'm still learning about new things midis can do and be. I think the Puzzmo midi is a special place for crosswords to live, and I want to celebrate it by highlighting some of my favorite midis of the year in this blog post.
 
 A few notes before the celebration:
-- I didn't include any puzzles I'd co-authored
-- Each author can only appear once
+- I didn't include any puzzles I've co-authored
 - Puzzles within a category are listed in order of appearance
-- I've made all the puzzles below free to solve, even if you don't have a Puzzmo Plus subscription (although now is a good time to [get one](https://www.puzzmo.com/subscribe)!)
+- An author can only appear once — if you really liked a puzzle, click on the author's name and check out more of their work!
+
+Share this post with a friend — I've made all 50 puzzles highlighted above free to play! (If you are considering a subscription, though, now is a good time to [get one](https://www.puzzmo.com/subscribe) — they're half price through December 22.)
+
+![Brooke signature](brooke-sig.png)
 
 * * *
 
@@ -105,9 +108,3 @@ The people who create crosswords make deliberate choices about every clue. I esp
 | 8 | [leo tsai](https://www.puzzmo.com/user/xwc/heron) & [owen bergstein](https://www.puzzmo.com/user/xwc/randomsaucepan) | [gritzmac](https://www.puzzmo.com/user/xwc/gritzmac) | [Nov 10](https://www.puzzmo.com/puzzle/2025-11-10/crossword) | 🎲 WHAT are the odds! | Money described as cold and hard, despite being regular temperature and crinkly | {{<details summary="4 letters:">}}`CASH`{{</details>}} | 
 | 9 | [Doug Peterson](https://www.puzzmo.com/user/xwc/xworddoug) | [Ben Zimmer](https://www.puzzmo.com/user/xwc/bgzimmer) | [Dec 2](https://www.puzzmo.com/puzzle/2025-12-02/crossword) | 🍯 Spread Around | Cookie that's called a Choco in DC Comics (for trademark reasons) | {{<details summary="4 letters:">}}`OREO`{{</details>}} | 
 | 10 | [Onefin](https://www.puzzmo.com/user/xwc/onefin) | [brooke](https://www.puzzmo.com/user/puz/brooke) & [Madeline Kaplan](https://www.puzzmo.com/user/puz/madeline-kaplan) | [Dec 15](https://www.puzzmo.com/puzzle/2025-12-15/crossword) | 🍄 No Middle Ground | How someone with aibohphobia might feel while reading this clue | {{<details summary="6 letters:">}}`AFRAID`{{</details>}} | 
-
-* * *
-
-Share this post with a friend — I've made all 50 puzzles highlighted above free to play!
-
-![Brooke signature](brooke-sig.png)
