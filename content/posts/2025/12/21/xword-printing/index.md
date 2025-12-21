@@ -192,4 +192,14 @@ Here's a version of the rendering process happening visually for [a large Crossw
 
 {{< imageHighlight src="layout-renderer.gif" alt="A GIF showing all the layouts being ran through" >}}
 
-Now, doing print focused CSS is nontrivial! The previews are not the
+Now, doing print focused CSS is nontrivial! For example you can't trust the print preview! The map:
+
+{{< imageHighlight src="preview.png" alt="Print preview of a Crossword in Safari" >}}
+
+Is not the territory!
+
+{{< imageHighlight src="reality.png" alt="The actual Crossword as a PDF" >}}
+
+I (luckily for me) was on vacation during some of the polish passes around making sure it fits on the many different formats of "A4" paper in the world and making it all fit and feel great - that's Saman's work!
+
+It'll be cool to come and bring print support to puzzmo.com, and then make this be generally available to anyone looking to make a PDF version of an xd file in the future!
