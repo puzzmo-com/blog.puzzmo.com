@@ -1,6 +1,6 @@
 +++
 title = 'Crossword Printing Techniques'
-date = 2025-12-21T15:39:17Z
+date = 2025-12-22T00:11:17Z
 authors = ["orta"]
 tags = ["tech"]
 theme = "outlook-hayesy-beta"
@@ -210,4 +210,4 @@ Is not the territory!
 
 I (luckily for me) was on vacation during some of the polish passes around making sure it fits on the many different formats of "A4" paper in the world and making it all fit and feel great - that's Saman's work!
 
-It'll be cool to come bring print support to puzzmo.com at some point, and then make this print server be generally available to anyone looking to make a PDF version of an [xd](https://puzzmo-com.github.io/xd-crossword-tools/) file in the future!
+It'll be cool to come bring print support to puzzmo.com at some point, and I've started to make this print server be generally available to anyone looking to print an [xd file](https://puzzmo-com.github.io/xd-crossword-tools/) via the dev site for [our xd implementation in JavaScritp](https://github.com/puzzmo-com/xd-crossword-tools).
