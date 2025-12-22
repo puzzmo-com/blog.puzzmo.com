@@ -69,11 +69,11 @@ export async function generateCrosswordReactHTML(xdFile: string, options: Crossw
 }
 ```
 
-Which is pretty simple, you pass a JSX component into [`renderToString`](https://react.dev/reference/react-dom/server/renderToString) and it turns that into HTML. So, I guess that makes the unknown a known!
+Which is pretty simple, you pass a JSX component into [`renderToString`](https://react.dev/reference/react-dom/server/renderToString) and it turns that into HTML. I guess that makes the unknown a known!
 
 Now, the easy part, making a column layout for the clues which is cross-browser and supports different positions of the Grid crossing many columns depending on sizes and clue length. Easy. Right?
 
-{{< blank height="50" >}}
+{{< blank height="30" >}}
 _Right?!_
 
 {{< blank height="70" >}}
@@ -125,9 +125,9 @@ My goal for our print pages was: try really hard to fit on one page, re-use as m
 
 To figure out the how many columns are a good fit for that height, you need to have a sense of the height of your content and in reality, you can only know how by laying it out and seeing how well it fits. Once I had come to this conclusion, I came up with a pretty solid answer for how to describe algorithm.
 
-We can use a [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm). Not a tool I've really used much in my decades of programming! My approximation/interpretation is an algorithm where you have a defined 'fit' function and a set of parameters which you change to determine how well the fit is.
+We can use a [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm). Not a tool I've really used much in my decades of programming! My approximation/interpretation of the genetic algorithm pattern is that it is an algorithm where you have a defined 'fit' function and a set of parameters which you change to determine how well the fit is and then dependency resolve through them all.
 
-For this project, the 'fit' is how much whitespace is left in the columns. So, we define our layouts and their constraints:
+For this project, the 'fit' is how much whitespace is left in the columns after putting in the clues. So, we define our layouts and their constraints:
 
 ```ts
 /** @type {Omit<ResolutionOption, "clueSpacing">[]} */
