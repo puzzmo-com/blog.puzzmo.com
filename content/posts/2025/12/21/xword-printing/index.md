@@ -15,7 +15,7 @@ The unknown here being that I wanted to avoid having a separate clue rendering s
 Why? The Clue rendering is pretty complex, we support:
 
 - Custom resized emoji
-- All sorts of funkiess around underscores in words `The United ___`
+- All sorts of funkiness around underscores in words `The United ___`
 - Formatting (bold, italics, strike, underscore, links, images, color, subscript, superscript)
 
 Then who knows what in the future. The grid, I don't think we can share code with though, it's just not really built with simplicity in mind. I did already have a separate SVG renderer which we used for our Crossword book! Which made for a great starting point.
@@ -190,7 +190,7 @@ const baseFontSizes = {
 
 The algorithm uses these as parameters, so for each layout run through 5 different sizes and determine the 'fit'.
 
-We use the DOM API [`cloneElement`](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode) to make a replica of every clue DOM node which were server-side rendered into the set of columns. Given the goal is a single sheet of paper, then we have a rough number of how many pixels are available on a sheet of paper, and can use that as a max height. If the new node makes the column taller, then remove it node and migrate to the next column instead.
+We use the DOM API [`cloneElement`](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode) to make a replica of every clue DOM node which were server-side rendered into the set of columns. Given the goal is a single sheet of paper, then we have a rough number of how many pixels are available on a sheet of paper, and can use that as a max height. If the new node makes the column taller, then remove the node and migrate to the next column instead.
 
 If there isn't a next column, then it doesn't fit - in that case, mark the layout as not usable and look at the next layout. If we have run out of clues to migrate over, then it is done. After that count how much whitespace is left in the current and upcoming columns. This is the 'fit' we are looking to get that number as low as possible.
 
@@ -210,4 +210,4 @@ Is not the territory!
 
 I (luckily for me) was on vacation during some of the polish passes around making sure it fits on the many different formats of "A4" paper in the world and making it all fit and feel great - that's Saman's work!
 
-It'll be cool to come and bring print support to puzzmo.com, and then make this be generally available to anyone looking to make a PDF version of an xd file in the future!
+It'll be cool to come bring print support to puzzmo.com at some point, and then make this print server be generally available to anyone looking to make a PDF version of an [xd](https://puzzmo-com.github.io/xd-crossword-tools/) file in the future!
