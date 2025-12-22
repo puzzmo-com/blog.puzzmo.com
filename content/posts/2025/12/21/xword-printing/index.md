@@ -12,7 +12,15 @@ OK, so I admit I didn't come into this _that_ blasé but I sure underestimated t
 
 The unknown here being that I wanted to avoid having a separate clue rendering system, so we would need to be able to handle server-side rendering our clues so that users aren't downloading the whole Crossword game engine to simply make sure our templating system is the same! This would be my first introduction to writing my a server-side React renderer but we needed to understand it anyway as The New Yorker used server-side rendering for showing the Crossword in their articles!
 
-So, that was my thoughts on the big unknown, a little bit of tooling and build infrastructure later I'd built out a small server-side renderer which sits on [fastify](http://fastify.dev) with which corresponds to our print server. It's not too wild, the rendering looks like this:
+Why? The Clue rendering is pretty complex, we support:
+
+- Custom resized emoji
+- All sorts of funkiess around underscores in words `The United ___`
+- Formatting (bold, italics, strike, underscore, links, images, color, subscript, superscript)
+
+Then who knows what in the future. The grid, I don't think we can share code with though, it's just not really built with simplicity in mind. I did already have a separate SVG renderer which we used for our Crossword book! Which made for a great starting point.
+
+So, that was my thoughts on the big "unknown", a little bit of tooling and build infrastructure later I'd built out a small server-side renderer which sits on [fastify](http://fastify.dev). It's not too wild, the rendering looks like this:
 
 ```tsx
 import { renderToString } from "react-dom/server"
