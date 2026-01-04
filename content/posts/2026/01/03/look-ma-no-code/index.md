@@ -11,15 +11,15 @@ Welcome to the fourth post in the series on how Games and Puzzmo infrastructure 
 
 Let me do a quick re-cap for the first three posts:
 
-> 1. I built a plugin system for games inside the API, each game would have a corresponding plugin with a very explicit API for integrations like leaderboards, scores, user stats etc.
+> 1. [I built a plugin system for games inside the API](/posts/2024/03/28/an-ode-to-game-plugins/), each game would have a corresponding plugin with a very explicit API for integrations like leaderboards, scores, user stats etc.
 >
-> 2. I built a new system called 'augmentations'. Augmentations is a catch-all term for a few systems allows a game, individual puzzles and game variants to be able to have custom behavior with the app and api.
+> 2. [I built a system called 'augmentations'](/posts/2024/07/16/augmentations/). Augmentations is a catch-all term for a few systems allows a game, individual puzzles and game variants to be able to have custom behavior with the app and api.
 >
-> 3. I built a new plugin system for the one-off event systems, this allowed us to hook in new systems as games were launched that could be handle independent of giving games access.
+> 3. [I built a plugin system for the one-off event systems](/posts/2024/09/19/plugins-are-back-in-style/), this allowed us to hook in new systems as games were launched that could be handle independent of giving games access.
 
-Now, I think of this of a bit of a tick-tock style system where we build something in code, then refine it into controllable behaviors in the db. Which should tell you exactly where we're about to go.
+Now, I think of this of a bit of a [tick-tock](https://en.wikipedia.org/wiki/Tick–tock_model) style system where we build something in code, then refine it into controllable behaviors in the db. Which should tell you exactly where we're about to go.
 
-On new years day 2026, we released a new game: Ribbit. Ribbit is our first "no code" game, not in the sense that it made with no code (though it is our first non-TypeScript + React game!) Ribbit is the first game we've built with zero integration code in the app nor API.
+On new years day 2026, we released a new game: [Ribbit](https://www.puzzmo.com/+/polygon/puzzle/2026-01-01/ribbit) (this link is always playable). Ribbit is our first "no code" game, not in the sense that it made with no code (though it is our first non-TypeScript + React game!) Ribbit is the first game we've built with zero integration code in the app nor API.
 
 So, let's dig into what has changed in the augmentations system to make it possible for this to happen!
 
@@ -131,7 +131,7 @@ This covers:
 
 Leaderboard haven't had any changes since I introduced group leaderboards to Puzzmo. Puzzmo games run on the same infrastructure as you here.
 
-## User Stat
+## User Stats
 
 I was really stumped on how to make the user stats when I started with Puzzmo. My first approach was that every game would have up to four different 'metrics' which were always a number. The API would have tacit knowledge over what each metric 1-4 did and would have code like:
 
@@ -177,9 +177,9 @@ type PersistedDeed = {
 }
 ```
 
-A Pipeline Deed is a value which can be anything, and will be only used in game completion processing. A Persisted deed is for keepsies.
+A Pipeline Deed is a value which can be anything, and will be only used in game completion processing. This is stored in the database for a day. A Persisted deed is for keepsies.
 
-For example, Ribbit posts deeds like:
+For example, Ribbit posts deeds like this on game completion:
 
 ```json
 [
@@ -195,7 +195,7 @@ For example, Ribbit posts deeds like:
 
 Which is a mix of pipeline and persisted deeds. These deeds get stored in a new key-value store for a user which is persisted to blob storage instead of to the main Puzzmo database. This means I don't need to worry about the db size ballooning up too much!
 
-For example, my user deed storage looks like:
+For example, my deed user storage looks like:
 
 ```json
 {
@@ -223,7 +223,7 @@ For example, my user deed storage looks like:
 }
 ```
 
-So, three games, different settings, all pretty traditional in terms of a JSON object. Then now we have a consistent, easy to think about store store for user stats, we can make it possible to build user stat displays!
+So, three games, different settings, all pretty traditional in terms of a JSON object. Then now we have a consistent, easy to think about store for user stats, we can make it possible to build user stat displays!
 
 So, following the Augmentations above: a completed Ribbit would post a deed like `{ id: "frogs-found", value: 5  }` then during completion processing the augmentation: `"userAggregateStats": [{ "stableID": "frogs", "deedID": "frogs-found"}]` tells the system that we should bump the user deed store attribute `"frogs"` for this game by the value of `5`.
 
@@ -270,13 +270,15 @@ Then for the Today Page, we show different data, and so we have a way to look up
 
 I try to make this sort of work easy to do by providing REPLs (web pages where you can run the augmentations in 'dry run' mode and get introspective information) but that still seemed to still be a bit of a tough sell to the games team.
 
+![REPL example](repl.png)
+
 I originally built the augmentations system to fall back to our staging website infrastructure. Meaning admins can make any changes they want on the staging version of Puzzmo and then migrate their changes back to production when happy.
 
-I built this by using a GitHub repo as a store, where you could sync to/from this stored central infrastructure where you get editor tools, commits, authorship of changes and all sorts.
+I [originally built this by](/posts/2024/07/16/augmentations/#puzzle-completion) using a GitHub repo as a store, where you could sync to/from this stored central infrastructure where you get editor tools, commits, authorship of changes and all sorts.
 
-This also wasn't really used very much and so I came back with a new pattern. Now all folks who are creating a game have the ability to deploy augmentations which affects all contributors.
+This repo wasn't really used very much and so I came back with a new pattern. Now all folks who are creating a game have the ability to deploy augmentations which affects them. Everyone else gets a production version.
 
-These augmentations are then reflected instantly, and when you are happy are deployed to everyone.
+These staging augmentations are then reflected instantly, and when you are happy are deployed to everyone.
 
 This gives us the ability to iterate on production, a thing I have consistently found to be the way to get most people to participate in feature flags / experiments.
 
