@@ -296,11 +296,11 @@ So, I took a shot at trying to get an LLM to be able to respond to questions and
 
 Because the Augmentations are all typed in TypeScript, it was very easy to use JSON schema + JSDocs to describe the API in a way that an editor can work with.
 
-So, I created a way to ping our API for augmentations on a game which consolidates all the built-in documentation, passes in some examples of completed deeds and a bunch of context text from myself.
+So, I created a way to ping our API for augmentations on a game which consolidates all the built-in documentation, passes in some examples of completed deeds and a bunch of context text from myself [into a prompt](https://gist.github.com/orta/a2b0d8aa28b3ba300b7eb37d9627a2f6).
 
-So far, no-one but me hasn't had a need to use it (as I worked on Ribbit) but it's an interesting way to think about how to bake the built-in knowledge we get from being able to read the code into a system.
+So far, no-one but me hasn't had a need to use it (as I worked on Ribbit) but it's an interesting way to think about how to bake the built-in knowledge we get from being able to read the code into a queryable system.
 
-We have a way to validate the JSON schema against a response, but as of yet, I've not built a validator for key/expression usage. Would be an interesting project. I guess I could also give it the URLs for these blog posts too.
+Today we have a way to validate the JSON schema against the response, but as of yet, I've not built a linter for key/expression usage. Would be an interesting project. I guess I could also give it the URLs for these blog posts too for more context!
 
 ## Missing Augmentations?
 
