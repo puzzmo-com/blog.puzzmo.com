@@ -300,7 +300,42 @@ So, I created a way to ping our API for augmentations on a game which consolidat
 
 So far, no-one but me hasn't had a need to use it (as I worked on Ribbit) but it's an interesting way to think about how to bake the built-in knowledge we get from being able to read the code into a queryable system.
 
+{{< imageHighlight src="llm.png" alt="The studio page for editing augmentations via LLMs" >}}
+
 Today we have a way to validate the JSON schema against the response, but as of yet, I've not built a linter for key/expression usage. Would be an interesting project. I guess I could also give it the URLs for these blog posts too for more context!
+
+## New Systems Needed
+
+### Icons
+
+With Ribbit, I launched a new system for game icons! We few constraints on icons because we need to support all possible colour themes because it will be used in all sorts of places. So, I built out a new API driven version of the icons instead of it coming from JSX inside puzzmo.com. This means we can (finally) use icons in admins tools!
+
+{{< imageHighlight src="icons.png" alt="The studio page for a game" >}}
+
+Having this API driven makes me a bit nervous (given how many requests for icons there are) and so I built out a caching system based on how long it has been since created the game:
+
+```ts
+// Cache duration based on game age (in days)
+// < 30 days: 2 hours, < 180 days: 1 day, < 365 days: 2 days, >= 365 days: immutable (1 year)
+const getCacheControlForGameAge = (createdAt: Date | null): string => {
+  if (!createdAt) return "public, max-age=7200" // 2 hours default
+
+  const ageInDays = (Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
+
+  if (ageInDays >= 365) return "public, max-age=31536000, immutable"
+  if (ageInDays >= 180) return "public, max-age=172800" // 2 days
+  if (ageInDays >= 30) return "public, max-age=86400" // 1 day
+  return "public, max-age=7200" // 2 hours
+}
+```
+
+### Locked Games
+
+All Puzzmo games change over to new games at the same time: Chicago midnight.
+
+This time is kinda sucky. For me in London, it's 6am for the team it's either 10pm or 1am. Which is just a sucky time to be releasing a new game!
+
+We eventually got tired of this and introduced a way to suppress a game showing on the home page until a specific time! This system has been built on by a few of us with each game releases constraints. However, it is now fully controlled by the database and doesn't require making code changes.
 
 ## Missing Augmentations?
 
@@ -312,30 +347,16 @@ There are no news system hooks for an augmentation. The news system is some of t
 
 Figuring out a way to do this based on deeds is gonna be an interesting one and I've still not wrapped my head around the necessary abstraction.
 
-### Instructions
-
-We currently have a different system for instructions, which is or is not the right abstraction. I think there's something better here but I don't know what.
-
 ### Tutorials
 
 The tutorials we use to teach people how to play the game has a lot of shared concerns with the Side Quest system we introduced in Pile-Up Poker and haven't re-used since.
 
 At heart, the tutorial system is a list of expressions which run on a checkpoint that passes deeds to the API mid-game.
 
-I think the tutorial could be really succinctly represented in augmentations saving me some database space and reducing the number of
+I think the tutorial could be really succinctly represented in augmentations saving me some database space and simplifying our systemic mental models.
 
 ### Credits
 
 The data model for credits is surprisingly complex, but also so is trying to figure out how to give people credit on a game.
 
 I wouldn't want to simplify that model but it also means referencing users by user IDs and all sorts and probably isn't a good fit for migrating into the system
-
-### Locked Games
-
-All Puzzmo games change over to new games at the same time: Chicago midnight.
-
-This time is kinda sucky. For me in London, it's 6am for the team it's either 10pm or 1am. Which is just a sucky time to be releasing a new game!
-
-We eventually got tired of this and introduced a way to suppress a game showing on the home page until a specific time! This is now fully controlled by the database and doesn't require and code.
-
-That said, I don't think it needs to live in augmentations.
