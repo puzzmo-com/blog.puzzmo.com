@@ -1,0 +1,109 @@
+{{ if .Params.bsky }}
+<section class="bsky-comments-section">
+  <h2>Comments</h2>
+  <p class="bsky-cta">Reply on <a href="{{ .Params.bsky }}" target="_blank" rel="noopener">Bluesky</a> to join the conversation.</p>
+  <div id="bsky-comments" data-uri="{{ .Params.bsky }}"></div>
+  <script src="/js/bsky-comments.js"></script>
+</section>
+
+<style>
+  .bsky-comments-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+  }
+
+  .bsky-comments-section h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .bsky-cta {
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .bsky-comment {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  }
+
+  .bsky-comment:last-child {
+    border-bottom: none;
+  }
+
+  .bsky-comment-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .bsky-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .bsky-avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.3);
+  }
+
+  .bsky-author {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .bsky-display-name {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .bsky-display-name:hover {
+    text-decoration: underline;
+  }
+
+  .bsky-handle {
+    font-size: 0.85em;
+    opacity: 0.6;
+  }
+
+  .bsky-timestamp {
+    font-size: 0.85em;
+    opacity: 0.6;
+    text-decoration: none;
+  }
+
+  .bsky-timestamp:hover {
+    text-decoration: underline;
+  }
+
+  .bsky-comment-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  .bsky-comment-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+
+  .bsky-no-comments,
+  .bsky-error {
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  .bsky-error {
+    color: #c00;
+  }
+</style>
+{{ end }}

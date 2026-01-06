@@ -5,6 +5,8 @@ authors = ["orta"]
 tags = ["tech"]
 theme = "outlook-hayesy-beta"
 series = ["Integrating games to the server"]
+bsky = "https://bsky.app/profile/orta.io/post/3mbqt767pik2c"
+
 +++
 
 Welcome to the fourth post in the series on how Games and Puzzmo infrastructure (the app and the API) come together.

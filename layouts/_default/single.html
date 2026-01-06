@@ -29,6 +29,9 @@
   {{ .Content | replaceRE "(<h[1-6] id=\"(.+)\".*>)(.*)(</h[1-6]>)" `${1}${3}<a href="#${2}" class="hanchor" ariaLabel="Heading anchor">#</a>${4}` | safeHTML }}
 </section>
 
+{{ partial "bsky-comments.html" . }}
+
+
   <!-- Post Tags -->
   {{ if .Params.tags }}
   <footer class="mt-12 flex flex-wrap">
@@ -63,7 +66,9 @@
 
 </article>
 
+
 {{- if .Params.series -}}
 <div class="post-series-bottom">{{ partial "series.html" . }}</div>
-{{- end -}} {{ end }}
+{{- end -}}
+{{ end }}
 
