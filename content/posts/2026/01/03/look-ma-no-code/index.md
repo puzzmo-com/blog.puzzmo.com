@@ -17,7 +17,7 @@ Let me do a quick re-cap for the first three posts:
 >
 > 3. [I built a plugin system for the one-off event systems](/posts/2024/09/19/plugins-are-back-in-style/), this allowed us to hook in new systems as games were launched that could be handle independent of giving games access.
 
-Now, I think of this of a bit of a [tick-tock](https://en.wikipedia.org/wiki/Tick–tock_model) style system where we build something in code, then refine it into controllable behaviors in the db. Which should tell you exactly where we're about to go.
+Now, I wonder if this of a bit of a [tick-tock](https://en.wikipedia.org/wiki/Tick–tock_model) style system where I build something in code, then refine it into controllable behaviors in the db. Which should tell you exactly where we're about to go for the rest of this post.
 
 On new years day 2026, we released a new game: [Ribbit](https://www.puzzmo.com/+/polygon/puzzle/2026-01-01/ribbit) (this link is always playable). Ribbit is our first "no code" game, not in the sense that it made with no code (though it is our first non-TypeScript + React game!) Ribbit is the first game we've built with zero integration code in the app nor API.
 
@@ -129,7 +129,7 @@ This covers:
 
 ## Leaderboards
 
-Leaderboard haven't had any changes since I introduced group leaderboards to Puzzmo. Puzzmo games run on the same infrastructure as you here.
+Leaderboard haven't had any changes since I [introduced group leaderboards](https://blog.puzzmo.com/posts/2024/07/24/groups-to-clubs/#club-leaderboards) to Puzzmo. Puzzmo games run on the same infrastructure as you here.
 
 ## User Stats
 
@@ -149,7 +149,7 @@ These metrics would then be processed into positional arrays on a user and then 
 
 Version two of this system allowed for an arbitrary "pipeline data" array which came from the game. This was game-specific data but was unconstrained by types or length. We used a shared .d.ts to ensure systemic consistency across codebases.
 
-This also worked well for a while, but the niggling itch of this being something which required coordination between the API and the games just didn't feel good to me. So, with Pile-Up Poker, I introduced a new space for games to store data.
+This also worked well for a while, but the niggling itch of this being something which required coordination between the API and the games just didn't feel good to me. So, with Pile-Up Poker, I introduced a new space for games to store data and Ribbit built on this system.
 
 Today, when a game completes we no longer send metrics and pipeline data. We only send "Deeds" - deeds are a 'rebrand' of those two systems:
 
@@ -268,17 +268,15 @@ Then for the Today Page, we show different data, and so we have a way to look up
 
 ## Staging Augmentations
 
-I try to make this sort of work easy to do by providing REPLs (web pages where you can run the augmentations in 'dry run' mode and get introspective information) but that still seemed to still be a bit of a tough sell to the games team.
+I try to make this sort of work understandable to do by providing REPLs (web pages where you can run the augmentations in 'dry run' mode and get introspective information) but that still seemed to still be a bit of a tough sell to the games team.
 
-![REPL example](repl.png)
+{{< imageHighlight src="repl.png" alt="The studio page for editing a game showing REPLs" >}}
 
 I originally built the augmentations system to fall back to our staging website infrastructure. Meaning admins can make any changes they want on the staging version of Puzzmo and then migrate their changes back to production when happy.
 
-I [originally built this by](/posts/2024/07/16/augmentations/#puzzle-completion) using a GitHub repo as a store, where you could sync to/from this stored central infrastructure where you get editor tools, commits, authorship of changes and all sorts.
+My initial [implementation was built](/posts/2024/07/16/augmentations/#puzzle-completion) using a GitHub repo as a store, where you could sync to/from this stored central infrastructure where you get editor tools, commits, authorship of changes and all sorts.
 
-This repo wasn't really used very much and so I came back with a new pattern. Now all folks who are creating a game have the ability to deploy augmentations which affects them. Everyone else gets a production version.
-
-These staging augmentations are then reflected instantly, and when you are happy are deployed to everyone.
+This repo wasn't really used very much and so I came back with a new pattern. Now all folks who are creating a game have the ability to deploy augmentations which affects them. Everyone else gets a production version. These staging augmentations are reflected on the site instantly, and when you are happy it can be deployed to everyone.
 
 This gives us the ability to iterate on production, a thing I have consistently found to be the way to get most people to participate in feature flags / experiments.
 
@@ -290,9 +288,9 @@ An admin today could make a notable, and then a game could use an augmentation t
 
 ## LLM Augmentation Assists
 
-The thing about a "fancy json object" which has a bunch of systems made by one guy that interact with complex expression strings is that other people don't fully grok how they all work.
+The thing about this "fancy json object" has a bunch of systems made by one guy that interact with complex expression strings is that other people don't fully grok how they all work.
 
-So, I took a shot at trying to get an LLM to be able to respond to questions and handle making improvements to the augmentations.
+So, I took a shot at trying to get an LLM responding to questions and handle making improvements to the augmentations.
 
 Because the Augmentations are all typed in TypeScript, it was very easy to use JSON schema + JSDocs to describe the API in a way that an editor can work with.
 
@@ -360,3 +358,7 @@ I think the tutorial could be really succinctly represented in augmentations sav
 The data model for credits is surprisingly complex, but also so is trying to figure out how to give people credit on a game.
 
 I wouldn't want to simplify that model but it also means referencing users by user IDs and all sorts and probably isn't a good fit for migrating into the system
+
+## A Nice Welcome Back
+
+It's been nice to get back to making game systems, 2025 was a year full of B2B style work for me and I plan on switching back to be a lot more gamer-focused this year and this project was a great start!
