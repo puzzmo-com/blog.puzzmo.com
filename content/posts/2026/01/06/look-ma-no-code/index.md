@@ -1,6 +1,6 @@
 +++
 title = 'Daring Deeds: Look Ma No Code'
-date = 2026-01-03T12:57:38Z
+date = 2026-01-06T00:57:38Z
 authors = ["orta"]
 tags = ["tech"]
 theme = "outlook-hayesy-beta"
