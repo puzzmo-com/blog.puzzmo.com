@@ -22,6 +22,6 @@ If we loosen the 'both parties know each other' part of the relationship, then i
 
 So, today we've converted all existing friends on Puzzmo to be mutual followers, removed all friend requests, and places where we you could 'friend' you can now 'follow' - over time, we'll flesh this out more with follower specific parts to the site.
 
-We're also going to give everyone a boost in their friends by adding a set of staff members as friends, I expect we'll be a strange bunch to follow because we're rarely the best at the games and often have played every game exhaustively during testing - sort of like how [MySpace Tom](https://en.wikipedia.org/wiki/Tom_Anderson) was a peculiar friend to everyone!
+We're also going to give everyone a boost in their friends by adding a set of staff members as friends, I expect we'll be a strange bunch to follow because we're rarely the best at the games and often have played every game exhaustively during testing - sort of like how [MySpace Tom](https://en.wikipedia.org/wiki/Tom_Anderson) was a peculiar friend to everyone! If you don't like us (rude) you can unfollow us!
 
 And of course, if you don't want people following you, you can take your profile private and require a confirmation from yourself before anyone can follow you.
