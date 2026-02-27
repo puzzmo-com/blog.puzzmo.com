@@ -2,11 +2,11 @@
 title = 'Bluesky support for Puzzmo'
 date = 2026-02-27T00:42:01Z
 authors = ["orta"]
-tags = ["tech"]
+tags = ["feature", "bluesky"]
 theme = "puzzmo-light"
 +++
 
-So, we've just shipped Bluesky support for Puzzmo! There are three main components:
+So, we've just shipped [Bluesky support for Puzzmo](https://www.puzzmo.com/bluesky)! There are three main components:
 
 - Matching your Bluesky follows on Puzzmo
 - Making it possible to see other Puzzmonauts on Bluesky
@@ -44,3 +44,5 @@ To the non-technical users of Bluesky, this is effectively invisible today, but 
 Both the labeler and the 'store my data on my Bluesky' are options you can toggle as you set up the Bluesky connection for your Puzzmo account!
 
 If you want to give it a shot, it's available at: [puzzmo.com/bluesky](https://www.puzzmo.com/bluesky)
+
+If you want to learn how it works, the technical write-up is [available here](../atproto).
