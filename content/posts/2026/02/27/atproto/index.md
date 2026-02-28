@@ -75,9 +75,15 @@ A JWK (JSON Web Key) was a new concept for me then, it's a JSON object with know
 
 With those two up and running, I used [@atproto/oauth-client-node](https://npmx.dev/package/@atproto/oauth-client-node) to handle the server back-and-forth, did some db work to our existing fastify setup and got to a point where we were able to log in a user and get their profile to set the avatar image and display name.
 
+## 2 Months Ago
+
+I start focusing on Puzzmo.com, after a year of exclusively doing B2B style work behind the scenes. So, I went through every source of feedback (internal and external) we've ever had and [pulled](signal-2026-01-07-044803.jpeg) [out](signal-2026-01-07-044801.jpeg) [all](signal-2026-01-07-044801_002.jpeg) of the features and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
+
+So, I got started on that.
+
 ## 1 Months Ago
 
-I was deep in a multi-month slump. I had tried a lot of different things to get over or around it, but I was just uninspired.
+I was deep in a multi-month slump. I had tried a lot of different things to get over or around it, including working on Puzzmo.com, but I was just uninspired.
 
 So, I'm very grateful Dan Abramov took a third stab at trying to find the right metaphors to describe how atproto works with this post:
 
@@ -90,10 +96,135 @@ Off the bat from that one article, I came out with a bunch of ideas:
 - ![A screenshot of the blog post](Screenshot_2026-02-27_11-42-34.png)
   If it was possible to jump across contexts like this, it would be interesting to be able to show Puzzmo user data like profile stats and streaks.
 
--
+- ![A screenshot of the blog post](Screenshot_2026-02-27_19-27-41.png)
+  If any app can edit any record, then there needs to be a way to prove a record was made by someone!
+
+Then a week later I woke up and couldn't get this idea out of my head:
+
+![A message saying 'Keybase, but for atproto'](Screenshot_2026-02-27_19-31-14.png)
+
+Maybe I could fill that void by working on a tricky atproto app, learn enough to be able to come back to Puzzmo and really nail Bluesky support.
+
+## 3 Weeks Ago
+
+I spend a weekend [researching and making](https://github.com/orta/keytrace/blob/eb784e3ef2d2b57bc8c6213c41b444babee40b79/keytrace-plan.md) a rough version of a Keytrace. If you never used Keybase, it was a startup which took the concept of PGP [keyservers](https://en.wikipedia.org/wiki/Key_server_(cryptographic)) and made them approachable and modern. Once Keybase had your keys set up, the site made it possible for you to be able to hook up other internet accounts to your Keybase as a  [web of trust](https://en.wikipedia.org/wiki/Web_of_trust) system.
+
+So, 12 years ago I made [this gist](https://gist.github.com/orta/9589737):
+
+````
+### Keybase proof
+
+I hereby claim:
+
+  * I am orta on github.
+  * I am orta (https://keybase.io/orta) on keybase.
+  * I have a public key whose fingerprint is E91F 36B1 5554 2702 F46E  E083 9F5E 5653 EE2A C266
+
+To claim this, I am signing this object:
+
+```json
+{
+    "body": {
+        "key": {
+            "fingerprint": "e91f36b155542702f46ee0839f5e5653ee2ac266",
+            "host": "keybase.io",
+            "key_id": "9F5E5653EE2AC266",
+            "uid": "e7369ce59bbd707c2bd1fe55f1f73100",
+            "username": "orta"
+        },
+        "service": {
+            "name": "github",
+            "username": "orta"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1395003014,
+    "expire_in": 157680000,
+    "prev": null,
+    "seqno": 1,
+    "tag": "signature"
+}
+```
+
+with the PGP key whose fingerprint is
+[E91F 36B1 5554 2702 F46E  E083 9F5E 5653 EE2A C266](https://keybase.io/orta)
+(captured above as `body.key.fingerprint`), yielding the PGP signature:
+
+[...]
+````
+
+The Gist's content connects my ["orta"](https://github.com/orta) GitHub account, to my ["orta"](https://keybase.io/orta) Keybase account - only my account can post a gist to my account too! The gist does this by including a proof of identity message which is signed by my PGP key which is attached to my Keybase account. Now, what is interesting with Keybase's approach, and why it's still brought up in many modern contexts is that everything is publicly verifiable. Keybase could trivially have added GitHub Oauth to their site and then privately they can prove that you have logged into another account. However by forcing the full verification process to be done in the public anyone can check, and Keybase itself would occasionally re-checks on a schedule.
+
+Now, Keybase had a bit of a fatal flaw in that it was a real company, and that company got [sold to Zoom](https://www.zoom.com/en/blog/zoom-acquires-keybase-and-announces-goal-of-developing-the-most-broadly-used-enterprise-end-to-end-encryption-offering/) amidst the pandemic lockdowns. I'm sure it was hard to figure out how to get folks paying for Keybase, and credit to the team that the website is still up and running, and the client [seems to still have updates](https://github.com/keybase/client/graphs/contributors).
+
+Keybase's identity coalescing is a great example of the type of problem atproto is trying to solve. If you can separate the data from the application, then if I decide to stop doing work on Keytrace, someone else can just continue with the same data.
+
+Keytrace did have to solve one important problem: data provenance. If anyone can write anything to a users registry... Then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your registry', we should be able to prove that it is from us!
+
+Typically if you want to prove something, you sign in, but Keybase can't manipulate the envelope of a record in a registry. There aren't APIs for that, instead we have an inline signing system. Here is the record of my claim to own the GitHub handle "orta" on [my atproto registry](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/dev.keytrace.claim/3mfjc5hvxkz24):
+
+```json
+{
+  "sigs": [
+    {
+      "kid": "attest:github",
+      "src": "at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23",
+      "signedAt": "2026-02-23T09:02:11.550Z",
+      "attestation": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbVVyaSI6Imh0dHBzOi8vZ2lzdC5naXRodWIuY29tL29ydGEvYjdkY2NkZmIwOGU3ZmJiODU1MzM3YTQ0NGI2MmUyZDMiLCJjcmVhdGVkQXQiOiIyMDI2LTAyLTIzVDA5OjAyOjExLjU1MFoiLCJkaWQiOiJkaWQ6cGxjOnQ3MzJvdHpxdmtjaDd6ejVkMzc1MzdyeSIsImlkZW50aXR5LnN1YmplY3QiOiJvcnRhIiwidHlwZSI6ImdpdGh1YiJ9.Vv566U9wMlqP2ygwme_XwFvyCHChEmremY5x30gwBCdSBRvqpVOvNK_VppxwbMYV3wpvnBofufw2HHlVlJayWg",
+      "signedFields": [
+        "claimUri",
+        "createdAt",
+        "did",
+        "identity.subject",
+        "type"
+      ]
+    },
+    {
+      "kid": "status",
+      "src": "at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-28",
+      "signedAt": "2026-02-28T21:51:56.657Z",
+      "attestation": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbVVyaSI6Imh0dHBzOi8vZ2lzdC5naXRodWIuY29tL29ydGEvYjdkY2NkZmIwOGU3ZmJiODU1MzM3YTQ0NGI2MmUyZDMiLCJkaWQiOiJkaWQ6cGxjOnQ3MzJvdHpxdmtjaDd6ejVkMzc1MzdyeSIsImxhc3RWZXJpZmllZEF0IjoiMjAyNi0wMi0yOFQyMTo1MTo1Ni42NTdaIiwic3RhdHVzIjoidmVyaWZpZWQifQ.bkarHo_BDVmMv7asuqxj8u9JbfESzWfBuJrX4sBvP07WE5ZmQTsKUo50dJBE51IXpaP5D1nThsknScXHtx4l3w",
+      "signedFields": [
+        "claimUri",
+        "did",
+        "lastVerifiedAt",
+        "status"
+      ]
+    }
+  ],
+  "type": "github",
+  "$type": "dev.keytrace.claim",
+  "status": "verified",
+  "claimUri": "https://gist.github.com/orta/b7dccdfb08e7fbb855337a444b62e2d3",
+  "identity": {
+    "subject": "orta",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/49038?v=4",
+    "profileUrl": "https://github.com/orta"
+  },
+  "createdAt": "2026-02-23T09:02:12.733Z",
+  "prerelease": true,
+  "lastVerifiedAt": "2026-02-28T21:51:56.657Z"
+}
+```
+
+There are two different signatures inside the JSON blob, each are a signed by the Keytrace server and describe which fields have been marked as being attested.
+
+- Signature: `attest:github` proves the claimed URL, the creation date, the owner of the registry, the claimed identity and the type as being verified by the Keytrace server on 2026-02-23
+- Signature: `status` proves the claimed URL, the owner of the registry, the verification date, and the result of the verification as being done by the Keytrace server on 2026-02-28
+
+So, it's a mutable "untrustworthy" record, but we have subsets which have been signed by the server. The keys are linked as atproto DIDs, e.g. [`"at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23"`](https://pdsls.dev/at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23) where you can grab the public key if you want to verify the signature yourself.
+
+So, with data verification at a reasonable spot and having got a deeper understanding of atproto. It's time to come back to Puzzmo.
+
+## 2 Weeks Ago
+
+
 
 On the Puzzmo side, Zach had been pushing for a year or so that we switch from a Friends model to a Follow model, but that's an incredible amount of work with an ambiguous initial payoff. Building it is one thing, but so is deploying, dealing with the feedback and handling a whole new class of edge cases. That's a lot of the social work I don't really enjoy doing.
 
 But what is switching Puzzmo to follows made it possible for us to be able to also do Bluesky follower sync?
 
 To get follower sync working
+
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post/3mdkzofxkf22n" data-bluesky-cid="bafyreibwv6t32rlkqajiufy5rarnbh3lbz2zwmplkwmes3xubsxf5yasiq" data-bluesky-embed-color-mode="system"><p lang="en">keybase but on atproto</p>&mdash; Orta Therox (<a href="https://bsky.app/profile/did:plc:t732otzqvkch7zz5d37537ry?ref_src=embed">@orta.io</a>) <a href="https://bsky.app/profile/did:plc:t732otzqvkch7zz5d37537ry/post/3mdkzofxkf22n?ref_src=embed">January 29, 2026 at 2:45 PM</a></blockquote>
