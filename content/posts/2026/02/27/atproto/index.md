@@ -87,7 +87,7 @@ I was deep in a multi-month slump. I had tried a lot of different things to get 
 
 So, I'm very grateful Dan Abramov took a third stab at trying to find the right metaphors to describe how atproto works with this post:
 
-{{< bluesky uri="at://did:plc:fpruhuo22xkm5o7ttr2ktxdo/app.bsky.feed.post/3mcoktonamk2m" >}}
+{{< bluesky uri="at://did:plc:fpruhuo22xkm5o7ttr2ktxdo/app.bsky.feed.post/3mcoktonamk2m" cid="bafyreibsegn5z22rhxoyu2ctv6yar36lrpsuwb2lkm6sngvfgmglbtfzei" >}}
 
 I thought to myself, rather than mulling over something I want to avoid thinking about, maybe I should just throw myself into a completely new technical context. I wasn't interested in learning a new programming language, but trying to think in a de-centralized, file-based system? There could be something there.
 
@@ -227,4 +227,4 @@ But what is switching Puzzmo to follows made it possible for us to be able to al
 
 To get follower sync working
 
-{{< bluesky uri="at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post/3mdkzofxkf22n" >}}
+{{< bluesky uri="at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post/3mdkzofxkf22n" cid="bafyreibwv6t32rlkqajiufy5rarnbh3lbz2zwmplkwmes3xubsxf5yasiq" >}}
