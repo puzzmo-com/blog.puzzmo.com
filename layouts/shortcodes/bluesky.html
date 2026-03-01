@@ -1,6 +1,13 @@
-{{ $uri := .Get "uri" }}
-{{ $cid := .Get "cid" }}
-<blockquote class="bluesky-embed" data-bluesky-uri="{{ $uri }}"{{ with $cid }} data-bluesky-cid="{{ . }}"{{ end }} data-bluesky-embed-color-mode="system">
-  <p lang="en"><a href="https://bsky.app/profile/{{ $uri | replaceRE "^at://" "" | replaceRE "/app.bsky.feed.post/" "/post/" }}?ref_src=embed">View post on Bluesky</a></p>
-</blockquote>
+{{- $uri := .Get "uri" -}}
+{{- $cid := .Get "cid" -}}
+{{- $profileUrl := $uri | replaceRE "^at://" "" | replaceRE "/app.bsky.feed.post/" "/post/" -}}
+{{- $cidAttr := "" -}}
+{{- with $cid -}}
+  {{- $cidAttr = printf " data-bluesky-cid=\"%s\"" . -}}
+{{- end -}}
+{{- $blockquote := printf "<blockquote class=\"bluesky-embed\" data-bluesky-uri=\"%s\"%s data-bluesky-embed-color-mode=\"system\"><p lang=\"en\"><a href=\"https://bsky.app/profile/%s?ref_src=embed\">View post on Bluesky</a></p></blockquote>" $uri $cidAttr $profileUrl | safeHTML -}}
+{{- $blockquote -}}
+{{- if not (.Page.Scratch.Get "bluesky-embed-script") -}}
+{{- .Page.Scratch.Set "bluesky-embed-script" true -}}
 <script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+{{- end -}}

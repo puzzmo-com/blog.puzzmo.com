@@ -75,21 +75,27 @@ A JWK (JSON Web Key) was a new concept for me then, it's a JSON object with know
 
 With those two up and running, I used [@atproto/oauth-client-node](https://npmx.dev/package/@atproto/oauth-client-node) to handle the server back-and-forth, did some db work to our existing fastify setup and got to a point where we were able to log in a user and get their profile to set the avatar image and display name.
 
+## 4 Months Ago
+
+I start to find myself at the beginning of a multi-month slump, just sorta generally uninspired.
+
 ## 2 Months Ago
 
-I start focusing on Puzzmo.com, after a year of exclusively doing B2B style work behind the scenes. So, I went through every source of feedback (internal and external) we've ever had and [pulled](signal-2026-01-07-044803.jpeg) [out](signal-2026-01-07-044801.jpeg) [all](signal-2026-01-07-044801_002.jpeg) of the features and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
+I opt to start focusing on Puzzmo.com, after a year of exclusively doing B2B style work behind the scenes.
+
+To get started on that, I went through every source of feedback (internal and external) we've ever had and [pulled](signal-2026-01-07-044803.jpeg) [out](signal-2026-01-07-044801.jpeg) [all](signal-2026-01-07-044801_002.jpeg) of the features folks have asked fr and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
 
 So, I got started on that.
 
 ## 1 Months Ago
 
-I was deep in a multi-month slump. I had tried a lot of different things to get over or around it, including working on Puzzmo.com, but I was just uninspired.
-
-So, I'm very grateful Dan Abramov took a third stab at trying to find the right metaphors to describe how atproto works with this post:
+I'm very grateful that Dan Abramov took a third stab at trying to find the right metaphors to describe how atproto works with this post:
 
 {{< bluesky uri="at://did:plc:fpruhuo22xkm5o7ttr2ktxdo/app.bsky.feed.post/3mcoktonamk2m" cid="bafyreibsegn5z22rhxoyu2ctv6yar36lrpsuwb2lkm6sngvfgmglbtfzei" >}}
 
-I thought to myself, rather than mulling over something I want to avoid thinking about, maybe I should just throw myself into a completely new technical context. I wasn't interested in learning a new programming language, but trying to think in a de-centralized, file-based system? There could be something there.
+It really clicks with me.
+
+I thought to myself, rather than mulling over something I want to avoid thinking about, maybe I should just throw myself into a completely new technical context. I wasn't interested in learning a new programming language, but trying to think about building apps using in a de-centralized file-based system? There could be something there.
 
 Off the bat from that one article, I came out with a bunch of ideas:
 
