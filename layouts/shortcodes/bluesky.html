@@ -9,5 +9,6 @@
 {{- $blockquote -}}
 {{- if not (.Page.Scratch.Get "bluesky-embed-script") -}}
 {{- .Page.Scratch.Set "bluesky-embed-script" true -}}
+<style>.bluesky-embed { margin-left: auto !important; margin-right: auto !important; }</style>
 <script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 {{- end -}}
