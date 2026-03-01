@@ -1,0 +1,5 @@
+{{ $uri := .Get "uri" }}
+<blockquote class="bluesky-embed" data-bluesky-uri="{{ $uri }}" data-bluesky-embed-color-mode="system">
+  <p lang="en"><a href="https://bsky.app/profile/{{ $uri | replaceRE "^at://" "" | replaceRE "/app.bsky.feed.post/" "/post/" }}?ref_src=embed">View post on Bluesky</a></p>
+</blockquote>
+<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>

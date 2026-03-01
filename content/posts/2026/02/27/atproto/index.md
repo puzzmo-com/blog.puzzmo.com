@@ -87,7 +87,7 @@ I was deep in a multi-month slump. I had tried a lot of different things to get 
 
 So, I'm very grateful Dan Abramov took a third stab at trying to find the right metaphors to describe how atproto works with this post:
 
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:fpruhuo22xkm5o7ttr2ktxdo/app.bsky.feed.post/3mcoktonamk2m" data-bluesky-cid="bafyreibsegn5z22rhxoyu2ctv6yar36lrpsuwb2lkm6sngvfgmglbtfzei" data-bluesky-embed-color-mode="system"><p lang="en">formats over apps<br><br><a href="https://bsky.app/profile/did:plc:fpruhuo22xkm5o7ttr2ktxdo/post/3mcoktonamk2m?ref_src=embed">[image or embed]</a></p>&mdash; dan (<a href="https://bsky.app/profile/did:plc:fpruhuo22xkm5o7ttr2ktxdo?ref_src=embed">@danabra.mov</a>) <a href="https://bsky.app/profile/did:plc:fpruhuo22xkm5o7ttr2ktxdo/post/3mcoktonamk2m?ref_src=embed">January 18, 2026 at 7:05 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+{{< bluesky uri="at://did:plc:fpruhuo22xkm5o7ttr2ktxdo/app.bsky.feed.post/3mcoktonamk2m" >}}
 
 I thought to myself, rather than mulling over something I want to avoid thinking about, maybe I should just throw myself into a completely new technical context. I wasn't interested in learning a new programming language, but trying to think in a de-centralized, file-based system? There could be something there.
 
@@ -227,4 +227,4 @@ But what is switching Puzzmo to follows made it possible for us to be able to al
 
 To get follower sync working
 
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post/3mdkzofxkf22n" data-bluesky-cid="bafyreibwv6t32rlkqajiufy5rarnbh3lbz2zwmplkwmes3xubsxf5yasiq" data-bluesky-embed-color-mode="system"><p lang="en">keybase but on atproto</p>&mdash; Orta Therox (<a href="https://bsky.app/profile/did:plc:t732otzqvkch7zz5d37537ry?ref_src=embed">@orta.io</a>) <a href="https://bsky.app/profile/did:plc:t732otzqvkch7zz5d37537ry/post/3mdkzofxkf22n?ref_src=embed">January 29, 2026 at 2:45 PM</a></blockquote>
+{{< bluesky uri="at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post/3mdkzofxkf22n" >}}
