@@ -1,6 +1,6 @@
 +++
 title = 'Bluesky support for Puzzmo'
-date = 2026-02-27T00:42:01Z
+date = 2026-03-02T00:42:01Z
 authors = ["orta"]
 tags = ["feature", "bluesky"]
 theme = "puzzmo-light"
