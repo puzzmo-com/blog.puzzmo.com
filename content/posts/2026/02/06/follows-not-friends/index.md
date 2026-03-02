@@ -2,8 +2,8 @@
 title = 'Follows Not Friends'
 date = 2026-02-06T00:34:49-05:00
 authors = ["orta"]
-tags = ["tech"]
-theme = "outlook-hayesy-beta"
+tags = ["feature"]
+theme = "puzzmo-light"
 +++
 
 Heyo folks,
