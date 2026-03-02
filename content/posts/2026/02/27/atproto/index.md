@@ -615,4 +615,3 @@ Shipping the Bluesky support has been a lot of code + ideas on my side, but it t
 It's been funny to reflect on my conversations with other developers in the last month, maybe the first time in almost a year - I have not been talking almost exclusively about Claude Code. Talking decentralization with folks has been really fun, and atproto is a very pragmatic approach to the problem. It's interesting that it's tied to a social network, but I think from a bootstrapping perspective they nailed the reference app.
 
 Did it get me over the slump? Kinda. It is cool to have an OSS project I care about in active development again and to be honest, I had kinda given up on the idea that we can build a decentralized web and it's kinda cool to be able to spend some time talking about something which seems to be a really good implementation of it.
-

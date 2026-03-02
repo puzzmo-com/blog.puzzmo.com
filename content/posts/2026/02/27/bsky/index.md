@@ -22,7 +22,7 @@ This feature harks back to an older era of apps where you would log in with Face
 
 Bluesky has a concept of accounts that can add labels to people's accounts and posts, they are usually bots ran by a server and we call them "labelers". Labelers are a key part of the [moderation strategy](https://github.com/bluesky-social/proposals/blob/main/0002-labeling-and-moderation-controls/README.md) for Bluesky (e.g. not just having a centralized moderation team but allowing many folks to participate and have different focuses).
 
-People can subscribe to a labelers and labels can be used to remove things you aren't interested in seeing, but that's not their only use! When I saw this system, I wondered if there was something interesting about trying to use this system to highlight positive traits. For example, there is a [pronoun](https://bsky.app/profile/did:plc:l3nbhdfelt5d26btksecetxu) labeler, a [game dev](https://bsky.app/profile/ozone.birb.house) labeler, why not have a "[Is on Puzzmo](https://bsky.app/profile/did:plc:4p3ilpfcl77fqgoofjmghznc)" labeler?
+People can subscribe to labelers, and labels can be used to remove things folks aren't interested in seeing, but that's not their only use! When I saw this system, I wondered if there was something interesting about trying to use this system to highlight positive traits. For example, there is a [pronoun](https://bsky.app/profile/did:plc:l3nbhdfelt5d26btksecetxu) labeler, a [game dev](https://bsky.app/profile/ozone.birb.house) labeler, why not have a "[Is on Puzzmo](https://bsky.app/profile/did:plc:4p3ilpfcl77fqgoofjmghznc)" labeler?
 
 This is a lesser used feature of Bluesky for sure, but it's an interesting one - we have two labels, "Puzzmonaut" (all of us!) and "Puzzmo Contributor" (if you've ever had a published puzzle on the Puzzmo daily)
 
@@ -30,7 +30,7 @@ This is a lesser used feature of Bluesky for sure, but it's an interesting one -
 
 ## Storing data in the sky
 
-Sometimes it can be hard to predict what is going to be "big" or worth the time until much further down the line. For me, I like the idea of trying to increase the potential for serendipity around Bluesky, and so I wondered what it would mean to start syncing some of the data Puzzmo's stores to a more public space.
+Sometimes it can be hard to predict what is going to be "big" or worth the time until much further down the line. For me, I like the idea of trying to increase the potential for serendipity around Bluesky, and so I wondered what it would mean to start syncing some of the data Puzzmo stores to a more public space.
 
 So, starting today:
 
