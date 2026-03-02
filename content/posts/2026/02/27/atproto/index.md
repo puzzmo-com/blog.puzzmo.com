@@ -49,24 +49,24 @@ But, people I like moved over to Bluesky, and I didn't have to have an algorithm
 
 ## 11 Months Ago
 
-I was looking at adding my pronouns to my Bluesky account, and was reminded of how this system echo'd a Nintendo feature called [StreetPass](https://www.nintendo.com/en-gb/Hardware/Nintendo-3DS-Family/StreetPass/What-is-StreetPass-/What-is-StreetPass-827701.html) that has your Nintendo 3DS track other 3DSes which pass each other in the street.
+I was looking at adding my pronouns to my Bluesky account, and was reminded of how this system echo'd a Nintendo feature called [StreetPass](https://www.nintendo.com/en-gb/Hardware/Nintendo-3DS-Family/StreetPass/What-is-StreetPass-/What-is-StreetPass-827701.html) that has your Nintendo 3DS track other 3DSes that pass each other in the street.
 
 What if we could have the serendipity of StreetPass, but while you were browsing Bluesky? I know we have quite a few micro celebrities using Puzzmo and I would be interested in seeing how they do on Puzzmo.
 
 Having built out Twitch Oauth to Puzzmo a month or two earlier, for an unreleased feature (I think I have a technique for hooking up whether someone was streaming a game on Puzzmo) I
 figured we might have an interesting prototype for a Bluesky integration.
 
-So, where do you start with this?
+So, what is a good starting place?
 
 I took the [Bluesky Labeler starter kit](https://github.com/aliceisjustplaying/labeler-starter-kit-bsky) for a ride and made it so you could like a post to apply a 'Puzzmonaut' label and showed it to the team with the framing of: _"What if we let people sign up to their Bluesky account and we set the label for them"_. I got an "that's interesting", but not much more interesting than other ideas.
 
 Labelers are an interesting system. You take an atproto account and you "change" it into a labeler by posting a record to a specific collection (`'app.bsky.labeler.service'`) on their registry. Here's ours: [puzzmo-labeler.bsky.social](https://pdsls.dev/at://did:plc:4p3ilpfcl77fqgoofjmghznc/app.bsky.labeler.service/self) - it is still a normal account by other means but you declare ahead of time all the possible labels.
 
-( So, if you wanted to make an app which tracks all labelers, you'd listen to the Jetstream for all `app.bsky.labeler.service` records being created/removed. )
+( So, if you wanted to make an app that tracks all labelers, you'd listen to the Jetstream for all `app.bsky.labeler.service` records being created/removed. )
 
 ### Bluesky Oauth
 
-Building Oauth login for Bluesky is a bit different than building a normal OAuth client because it is decentralized. Typically, you would go to the Oauth provider's site and register your application to get a secret and an ID. The Bluesky Oath system doesn't work that way, instead you have two publicly accessible endpoints:
+Building Oauth login for Bluesky is a bit different than building a normal OAuth client because it is decentralized. Typically, you would go to the Oauth provider's site and register your application to get a "client secret" and a "client ID". The Bluesky Oath system doesn't work that way, instead you have two publicly accessible endpoints:
 
 - Oauth config: https://api.puzzmo.com/blueskyApp
 - JWK public keys: https://api.puzzmo.com/atProtoJWKs
@@ -75,11 +75,11 @@ A JWK (JSON Web Key) was a new concept for me then, it's a JSON object with know
 
 With those two endpoints up and running, I used [@atproto/oauth-client-node](https://npmx.dev/package/@atproto/oauth-client-node) to handle the server back-and-forth, did some db work to our existing fastify/prisma setup and got to a point where we were able to log in a user, get their profile and set their avatar image and display name.
 
-It was good enough to make into a feature flag and keep around, but not good enough to inspire anyone to care to do the work to make it shippable.
+It was good enough to make into a feature flag and keep around, but not good enough to inspire someone to do something and make it shippable.
 
 ## 4 Months Ago
 
-I start to find myself at the beginning of a multi-month slump, just sorta generally uninspired.
+I was starting to find myself at the beginning of a multi-month slump, just sorta generally uninspired.
 
 ## 2 Months Ago
 
