@@ -23,15 +23,17 @@ If you are familiar with atproto development, you're welcome to skip this. I am 
 
 If you have 20m to spare, and truly want to grok it read this: [A Social Filesystem](https://overreacted.io/a-social-filesystem/) which was what fully nailed it to me. I will give a few paragraphs to explain what's necessary for this blog post.
 
-When you sign up to Bluesky, you are creating an [atproto](https://atproto.com/) account. An atproto account is a wrapper of cryptographical identity and a collection of typed JSON blobs (records) called a registry. The 'identity' here is a [DID](https://atproto.com/specs/did) (Decentralized IDentifier) which you can think of as a network-unique ID to users/files/content/etc, mine is [`did:plc:t732otzqvkch7zz5d37537ry`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry). It's like a URL.
+When you sign up to Bluesky, you are creating an [atproto](https://atproto.com/) account. An atproto account is a wrapper of a cryptographical identity and a collection of typed JSON blobs (records) called a registry. The 'identity' here is a [DID](https://atproto.com/specs/did) (Decentralized IDentifier) which you can think of as a network-unique ID to users/files/content/etc, mine is [`did:plc:t732otzqvkch7zz5d37537ry`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry). It looks, and acts like a URL does for HTTP.
 
-In an atproto account's registry, a user has 'collections' which are JSON blobs that have the same type. So, when I post to Bluesky, it is a JSON blob in the collection [`'app.bsky.feed.post'`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post). Any client can get access to the firehose of changes (the Jetstream) to JSON blobs for every atproto account. It's also possible to backfill that data.
-
-So, to make an app like Bluesky, you would listen for all `app.bsky.feed.post`s and then do something clever with the realtime data. A lot of bluesky labelers listen to _all likes_ to determine if the post liked was a specific post, and if so apply a label to that user.
+Atproto is a protocol, [made for creating decentralized social applications](https://atproto.com/articles/atproto-ethos).
 
 Bluesky is effectively the reference atproto app, testing and pushing the protocol with real-world constraints while acting as a way to get people interested. If people use Bluesky, then they already have an atproto account so that the next atproto apps are easier to bootstrap and interop with.
 
-So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto registry."_ It's an acceptable fudging we can now move past.
+In an atproto account's registry, a user has 'collections' which are JSON blobs that have the same type. So, when I post to Bluesky, it is a JSON blob in the collection [`'app.bsky.feed.post'`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post). Any client can get access to the firehose of changes (the Jetstream) to JSON blobs for every atproto account. It's also possible to backfill that data, which to my knowledge, is quite the achievement.
+
+So, to make an app like Bluesky, you would listen for all change to `app.bsky.feed.post`s and then do something clever with the realtime data. A lot of bluesky labelers listen to _all likes_ across the network to determine if a specific post was liked, and if so apply a label to that user.
+
+So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's registry."_ It was an acceptable fudging we can now move past.
 
 ## 14 Months Ago
 
@@ -41,9 +43,9 @@ I had been talking to Brooke, who said that the Crossword community had started 
 
 I felt very culturally aligned to Mastodon, I'm a Linux guy who doesn't like algorithms influencing what I see. I enjoy not using tech and products from mega-corps. My mastodon account runs on a small server hosted by friends ([webtoo.ls](https://webtoo.ls)) and I still have a deep sense of loss from what happened to Twitter in the 2020s. Moving to a new American, VC-backed social network was really not something I had active interest in.
 
-I spent quite a lot of time building prototypes of Puzzmo with integrations for ActivityPub (what powers Mastodon), but I just couldn't find a good place to start in terms of features that people would actually want. We could automatically post to people's feeds but that's uninteresting, we auto-post images of our dailies, which is also pretty lame. At best, all I could think of was things which I would never engage with. So they didn't even get sent to the team, let alone the public.
+I spent quite a lot of time building prototypes of Puzzmo with integrations for ActivityPub (what powers Mastodon), but I just couldn't find a good place to start in terms of features that people would actually want. We could automatically post to people's feeds but that's uninteresting, we auto-post images of our dailies, which is also pretty uninspiring. At best, all I could think of were things which I would never engage with. So, they didn't even get sent to the team, let alone the public.
 
-But, people I like moved over to Bluesky, and I didn't have to have an algorithmic feed. I could concede and give it a shot.
+But, people I like moved over to Bluesky, and I didn't have to have an algorithmic feed in their app. I could concede and give it a shot.
 
 ## 11 Months Ago
 
@@ -56,13 +58,11 @@ figured we might have an interesting prototype for a Bluesky integration.
 
 So, where do you start with this?
 
-I took the [Bluesky Labeler starter kit](https://github.com/aliceisjustplaying/labeler-starter-kit-bsky) for a ride and made it so you could like a post to apply a 'Puzzmonaut' label and showed it to the team with the framing of: _"What if we let people sign up to their Bluesky account and we set the label for them"_. I got an "that's interesting", but not much more interesting than some of the other ideas.
+I took the [Bluesky Labeler starter kit](https://github.com/aliceisjustplaying/labeler-starter-kit-bsky) for a ride and made it so you could like a post to apply a 'Puzzmonaut' label and showed it to the team with the framing of: _"What if we let people sign up to their Bluesky account and we set the label for them"_. I got an "that's interesting", but not much more interesting than other ideas.
 
 Labelers are an interesting system. You take an atproto account and you "change" it into a labeler by posting a record to a specific collection (`'app.bsky.labeler.service'`) on their registry. Here's ours: [puzzmo-labeler.bsky.social](https://pdsls.dev/at://did:plc:4p3ilpfcl77fqgoofjmghznc/app.bsky.labeler.service/self) - it is still a normal account by other means but you declare ahead of time all the possible labels.
 
 ( So, if you wanted to make an app which tracks all labelers, you'd listen to the Jetstream for all `app.bsky.labeler.service` records being created/removed. )
-
-Interestingly, the label being applied to something is not stored in the registry. It's a stored at a Bluesky level, so no public audit trail. Sortof like your user preferences on Bluesky.
 
 ### Bluesky Oauth
 
@@ -71,9 +71,11 @@ Building Oauth login for Bluesky is a bit different than building a normal OAuth
 - Oauth config: https://api.puzzmo.com/blueskyApp
 - JWK public keys: https://api.puzzmo.com/atProtoJWKs
 
-A JWK (JSON Web Key) was a new concept for me then, it's a JSON object with known keys describing a cryptographic key. So a way to describe what the key is, and also the key, but also not the key if you want only the public version.
+A JWK (JSON Web Key) was a new concept for me then, it's a JSON object with known keys describing a cryptographic key. It has both public and private key variants.
 
-With those two up and running, I used [@atproto/oauth-client-node](https://npmx.dev/package/@atproto/oauth-client-node) to handle the server back-and-forth, did some db work to our existing fastify setup and got to a point where we were able to log in a user and get their profile to set the avatar image and display name.
+With those two endpoints up and running, I used [@atproto/oauth-client-node](https://npmx.dev/package/@atproto/oauth-client-node) to handle the server back-and-forth, did some db work to our existing fastify/prisma setup and got to a point where we were able to log in a user, get their profile and set their avatar image and display name.
+
+It was good enough to make into a feature flag and keep around, but not good enough to inspire anyone to care to do the work to make it shippable.
 
 ## 4 Months Ago
 
@@ -83,7 +85,7 @@ I start to find myself at the beginning of a multi-month slump, just sorta gener
 
 I opt to start focusing on Puzzmo.com, after a year of exclusively doing B2B style work behind the scenes.
 
-To get started on that, I went through every source of feedback (internal and external) we've ever had and [pulled](signal-2026-01-07-044803.jpeg) [out](signal-2026-01-07-044801.jpeg) [all](signal-2026-01-07-044801_002.jpeg) of the features folks have asked fr and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
+To get started on that, I went through every source of feedback (internal and external) we've ever had and [pulled](signal-2026-01-07-044803.jpeg) [out](signal-2026-01-07-044801.jpeg) [all](signal-2026-01-07-044801_002.jpeg) of the features folks have asked for and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
 
 So, I got started on that.
 
@@ -104,6 +106,8 @@ Off the bat from that one article, I came out with a bunch of ideas:
 
 - ![A screenshot of the blog post](Screenshot_2026-02-27_19-27-41.png)
   If any app can edit any record, then there needs to be a way to prove a record was made by someone!
+
+But also, if I'm in the process of converting Puzzmo to a follower style relationship model, then maybe I can break out that old prototype and add Bluesky follower syncing as the headline feature.
 
 Then a week later I woke up and couldn't get this idea out of my head:
 
@@ -162,13 +166,13 @@ with the PGP key whose fingerprint is
 
 The Gist's content connects my ["orta"](https://github.com/orta) GitHub account, to my ["orta"](https://keybase.io/orta) Keybase account - only my account can post a gist to my account too! The gist does this by including a proof of identity message which is signed by my PGP key which is attached to my Keybase account. Now, what is interesting with Keybase's approach, and why it's still brought up in many modern contexts is that everything is publicly verifiable. Keybase could trivially have added GitHub Oauth to their site and then privately they can prove that you have logged into another account. However by forcing the full verification process to be done in the public anyone can check, and Keybase itself would occasionally re-checks on a schedule.
 
-Now, Keybase had a bit of a fatal flaw in that it was a real company, and that company got [sold to Zoom](https://www.zoom.com/en/blog/zoom-acquires-keybase-and-announces-goal-of-developing-the-most-broadly-used-enterprise-end-to-end-encryption-offering/) amidst the pandemic lockdowns. I'm sure it was hard to figure out how to get folks paying for Keybase, and credit to the team that the website is still up and running, and the client [seems to still have updates](https://github.com/keybase/client/graphs/contributors).
+Now, Keybase had a bit of a fatal flaw in that it was a real company, and that company got [sold to Zoom](https://www.zoom.com/en/blog/zoom-acquires-keybase-and-announces-goal-of-developing-the-most-broadly-used-enterprise-end-to-end-encryption-offering/) amidst the pandemic lockdowns. I'm sure it was hard to figure out how to get folks paying for Keybase, and credit to the team that the website is still up and running, and even the client [seems to still get updates](https://github.com/keybase/client/graphs/contributors).
 
 Keybase's identity coalescing is a great example of the type of problem atproto is trying to solve. If you can separate the data from the application, then if I decide to stop doing work on Keytrace, someone else can just continue with the same data.
 
-Keytrace did have to solve one important problem: data provenance. If anyone can write anything to a users registry... Then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your registry', we should be able to prove that it is from us!
+Keytrace did have to solve one a different problem: data provenance. If any app can write/edit anything to a users registry... Then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your registry', we should be able to prove that it is from us!
 
-Typically if you want to prove something, you sign in, but Keybase can't manipulate the envelope of a record in a registry. There aren't APIs for that, instead we have an inline signing system. Here is the record of my claim to own the GitHub handle "orta" on [my atproto registry](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/dev.keytrace.claim/3mfjc5hvxkz24):
+Typically if you want to prove something, you sign in, but Keytrace can't manipulate the envelope of a record in a registry. There aren't APIs for that, instead we use an inline signing system. As an example, here is the record of my claim to own the GitHub handle "orta" in [my atproto registry](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/dev.keytrace.claim/3mfjc5hvxkz24):
 
 ```json
 {
@@ -221,16 +225,10 @@ There are two different signatures inside the JSON blob, each are a signed by th
 
 So, it's a mutable "untrustworthy" record, but we have subsets which have been signed by the server. The keys are linked as atproto DIDs, e.g. [`"at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23"`](https://pdsls.dev/at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23) where you can grab the public key if you want to verify the signature yourself.
 
+If you want to see the process step-by-step, put 'orta.io' in https://keytrace.dev/developers
+
 So, with data verification at a reasonable spot and having got a deeper understanding of atproto. It's time to come back to Puzzmo.
 
 ## 2 Weeks Ago
 
-
-
-On the Puzzmo side, Zach had been pushing for a year or so that we switch from a Friends model to a Follow model, but that's an incredible amount of work with an ambiguous initial payoff. Building it is one thing, but so is deploying, dealing with the feedback and handling a whole new class of edge cases. That's a lot of the social work I don't really enjoy doing.
-
-But what is switching Puzzmo to follows made it possible for us to be able to also do Bluesky follower sync?
-
-To get follower sync working
-
-{{< bluesky uri="at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post/3mdkzofxkf22n" cid="bafyreibwv6t32rlkqajiufy5rarnbh3lbz2zwmplkwmes3xubsxf5yasiq" >}}
+I have just wrapped up the final polish pass on the Followers, and its time to look at Bluesky follower sync. The concept itself is not too tricky, 
