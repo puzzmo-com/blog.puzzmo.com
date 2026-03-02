@@ -35,9 +35,9 @@ Sometimes it can be hard to predict what is going to be "big" or worth the time 
 So, starting today:
 
 - We are now shipping our Midi Cross|word to be available on the [puzzmo.com](https://pdsls.dev/at://did:plc:p5ode5bkf6vjtt6ahtssuxui) Bluesky's account as data each day at the same time as their release.
-- You can opt-in to having your streaks be placed your own owm Bluesky account.
+- You can opt-in to having your streaks be placed in your own Bluesky account.
 
-To the non-technical users of Bluesky, this is effectively invisible today, but it's an interesting way to encourage network effects which are hard to predict. Even from my beta versions of this upload the [Skyscraper iOS app](https://apps.apple.com/us/app/skyscraper-for-bluesky/id6754198379) for Blueksy added support for showing [Puzzmo streaks](https://bsky.app/profile/cameronbanga.com/post/3mebvo6kchb2t) on a user's profile.
+To the non-technical users of Bluesky, this changes nothing. You can't 'play' a Puzzmo game in Bluesky, and Streaks are not something you can see. However, Puzzmo deploying these features is a way to encourage network effects which are hard to predict. Even from the beta versions of these features, the [Skyscraper iOS app](https://apps.apple.com/us/app/skyscraper-for-bluesky/id6754198379) for Blueksy added support for showing [Puzzmo streaks](https://bsky.app/profile/cameronbanga.com/post/3mebvo6kchb2t) on a user's profile.
 
 ## Getting Set Up
 

@@ -30,7 +30,7 @@ Atproto is a protocol, [made for creating decentralized social applications](htt
 Bluesky is effectively the reference atproto app, testing and pushing the protocol with real-world constraints while acting as a way to get people interested. If people use Bluesky, then they already have an atproto account so that the next atproto apps are easier to bootstrap and interop with.
 
 In an atproto account's registry, a user has 'collections' which are JSON blobs that have the same type. So, when I post to Bluesky, it is a JSON blob in the collection [`'app.bsky.feed.post'`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post). Any client can get access to the firehose of changes (the Jetstream) to JSON blobs for every atproto account. It's also possible to backfill that data, which to my knowledge, is quite the achievement.
-d
+
 So, to make an app like Bluesky, you would listen for all change to `app.bsky.feed.post`s and then do something clever with the realtime data. A lot of bluesky labelers listen to _all likes_ across the network to determine if a specific post was liked, and if so apply a label to that user.
 
 So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's registry."_ It was an acceptable fudging we can now move past.
@@ -39,7 +39,7 @@ So above, when I say _"We store your steak data in your Bluesky account,"_ I rea
 
 I wasn't wild on trying Bluesky.
 
-I had been talking to Brooke, who said that the Crossword community had started to converge on Bluesky, and at the same time some of the developers who had been making the Mastodon web client [Elk](https://elk.zone/) had started to dabble in Bluesky.
+I had been talking to [Brooke](https://www.brookehusic.com/), who said that the Crossword community had started to converge on Bluesky, and at the same time some of the developers who had been making the Mastodon web client [Elk](https://elk.zone/) had started to dabble in Bluesky.
 
 I felt very culturally aligned to Mastodon, I'm a Linux guy who doesn't like algorithms influencing what I see. I enjoy not using tech and products from mega-corps. My mastodon account runs on a small server hosted by friends ([webtoo.ls](https://webtoo.ls)) and I still have a deep sense of loss from what happened to Twitter in the 2020s. Moving to a new American, VC-backed social network was really not something I had active interest in.
 
@@ -49,7 +49,7 @@ But, people I like moved over to Bluesky, and I didn't have to have an algorithm
 
 ## 11 Months Ago
 
-I was looking at adding my pronouns to my Bluesky account, and was reminded of how this system echo'd a Nintendo feature called [StreetPass](https://www.nintendo.com/en-gb/Hardware/Nintendo-3DS-Family/StreetPass/What-is-StreetPass-/What-is-StreetPass-827701.html) which has your Nintendo 3DS track other 3DSes which pass each other in the street.
+I was looking at adding my pronouns to my Bluesky account, and was reminded of how this system echo'd a Nintendo feature called [StreetPass](https://www.nintendo.com/en-gb/Hardware/Nintendo-3DS-Family/StreetPass/What-is-StreetPass-/What-is-StreetPass-827701.html) that has your Nintendo 3DS track other 3DSes which pass each other in the street.
 
 What if we could have the serendipity of StreetPass, but while you were browsing Bluesky? I know we have quite a few micro celebrities using Puzzmo and I would be interested in seeing how they do on Puzzmo.
 
@@ -608,10 +608,10 @@ The code simply maps our db terminology to the lexicon terminology and then uplo
 
 Shipping the Bluesky support has been a lot of code + ideas on my side, but it took a bunch of effort from others:
 
-- Andrew + Brooke helping on figuring out what it means if we ship a daily outside of puzzmo.com
-- Lilith + Craig figuring out how to make this understandable and feel like it's worth the faff to signup
-- Zach helping on weekly design reviews
+- [Andrew](https://www.puzzmo.com/user/puz/dietcoke86) + [Brooke](https://www.brookehusic.com/) helping on figuring out what it means if we ship a daily outside of puzzmo.com
+- [Lilith](https://www.lilithwu.com/) + Craig figuring out how to make this understandable and feel like it's worth the faff to signup
+- [Zach](http://stfj.net/) helping on weekly design reviews
 
 It's been funny to reflect on my conversations with other developers in the last month, maybe the first time in almost a year - I have not been talking almost exclusively about Claude Code. Talking decentralization with folks has been really fun, and atproto is a very pragmatic approach to the problem. It's interesting that it's tied to a social network, but I think from a bootstrapping perspective they nailed the reference app.
 
-Did it get me over the slump? Kinda. It is cool to have an OSS project I care about in active development again and to be honest, I had kinda given up on the idea that we can build a decentralized web and it's kinda cool to be able to spend some time talking about something which seems to be a really good implementation of it.
+Did it get me over the slump? Kinda, maybe. It is cool to have an OSS project I care about in active development again and to be honest, I had kinda given up on the idea that we can build a decentralized web and it's kinda cool to be able to spend some time talking about something which seems to be a really good implementation of it.
