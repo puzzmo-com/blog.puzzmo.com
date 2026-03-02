@@ -1,6 +1,6 @@
 +++
 title = 'Wrangling atproto + Bluesky for Puzzmo.com'
-date = 2026-02-27T00:42:01Z
+date = 2026-03-02T00:42:01Z
 authors = ["orta"]
 tags = ["tech", "atproto"]
 theme = "outlook-hayesy-beta"
@@ -468,9 +468,9 @@ I was finding Bluesky API calls would occasinally timeout but never sent a compl
 
 ### Streak Syncing
 
-Streak syncing was a little bit more nuanced. Steaks occur at a different phase of a game being completed than the usual user data processing, because non-users (anonymous) folks have streaks. So, the streak processing for Bluesky is structured differently from the rest of streak management.
+Streak syncing was a little bit more nuanced. Steaks occur at a different phase of a game being completed than the usual user data processing, because non-users (anonymous folk) have streaks. So, the streak processing for Bluesky is structured differently from the rest of streak management.
 
-Streaks are stored _on the user's regustry_ and not on the puzzmo.com registry. This means we need to do the attestation mentioned above for Keytrace. Here's my [Ribbit streak](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/com.puzzmo.streak/puzzmo-ribbit)
+Streaks are stored _on the user's reguitry_ and not on the puzzmo.com registry. This means we need to do the attestation mentioned above for Keytrace. Here's my [Ribbit streak](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/com.puzzmo.streak/puzzmo-ribbit)
 
 ```json
 {
@@ -510,7 +510,7 @@ Streaks are stored _on the user's regustry_ and not on the puzzmo.com registry. 
 
 I could manually edit my total using [PDSLs](https://pdsls.dev/) but then it won't pass any Keytrace signature checks.
 
-For this the lexicon, I've also tried to keep it as open as possible so that other atproto games can keep track of their streaks using `com.puzzmo.streak`.
+For the lexicon on a Streak, I've also tried to keep it as open as possible so that other atproto games can keep track of their streaks using `com.puzzmo.streak`!
 
 - [com.puzzmo.streak](https://puzzmo.com/.well-known/atproto-lexicon/com.puzzmo.streak)
 
@@ -595,7 +595,7 @@ This represents a daily with one puzzle, that is available at [`at://did:plc:p5o
 }
 ```
 
-We're currently deploying thejust the daily Midi Crossword to atproto for now. It's all quite complicated legally, but this at least is pretty straight forwards.
+We're currently deploying just the daily Midi Crossword to atproto for now. It's all quite complicated legally, but this at least is pretty straightforwards.
 
 We're shipping the lexicons for running our daily. I think they are comprehensive enough for anyone running a daily game to be able to use. I avoided using direct Puzzmo terminology when possible:
 
@@ -608,10 +608,10 @@ The code simply maps our db terminology to the lexicon terminology and then uplo
 
 Shipping the Bluesky support has been a lot of code + ideas on my side, but it took a bunch of effort from others:
 
-- [Andrew](https://www.puzzmo.com/user/puz/dietcoke86) + [Brooke](https://www.brookehusic.com/) helping on figuring out what it means if we ship a daily outside of puzzmo.com
-- [Lilith](https://www.lilithwu.com/) + Craig figuring out how to make this understandable and feel like it's worth the faff to signup
-- [Zach](http://stfj.net/) helping on weekly design reviews
+- [Andrew](https://www.puzzmo.com/user/puz/dietcoke86) + [Brooke](https://www.brookehusic.com/) figuring out what it means if we ship a daily outside of puzzmo.com
+- [Lilith](https://www.lilithwu.com/) + Craig made the Bluesky features understandable and feel like it's worth the faff to sign-up
+- [Zach](http://stfj.net/) for weekly design reviews
 
 It's been funny to reflect on my conversations with other developers in the last month, maybe the first time in almost a year - I have not been talking almost exclusively about Claude Code. Talking decentralization with folks has been really fun, and atproto is a very pragmatic approach to the problem. It's interesting that it's tied to a social network, but I think from a bootstrapping perspective they nailed the reference app.
 
-Did it get me over the slump? Kinda, maybe. It is cool to have an OSS project I care about in active development again and to be honest, I had kinda given up on the idea that we can build a decentralized web and it's kinda cool to be able to spend some time talking about something which seems to be a really good implementation of it.
+Did it get me over the slump? Kinda, maybe. It is cool to have an OSS project I care about in active development again and to be honest, I had kinda given up on the idea that we can build a decentralized web and it's kinda cool to be able to spend some time talking about something that seems to be a really good implementation of it.
