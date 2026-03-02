@@ -229,6 +229,387 @@ If you want to see the process step-by-step, put 'orta.io' in https://keytrace.d
 
 So, with data verification at a reasonable spot and having got a deeper understanding of atproto. It's time to come back to Puzzmo.
 
+While I am wrapping up the final polish pass on the Followers, Craig and Lilith take a stab at the `/bluesky` page.
+
 ## 2 Weeks Ago
 
-I have just wrapped up the final polish pass on the Followers, and its time to look at Bluesky follower sync. The concept itself is not too tricky, 
+Followers are now the relationship system in Puzzmo. Craig discovers that we can use the Bluesky API to add a labeler making it possible for the whole Bluesky integration to just be a one-click style install.
+
+Now we've narrowed the flow down to three tick boxes which we offer ahead of time:
+
+- Followm @puzzmo.com
+- Setup the labeler
+- Sync user data
+
+Those options get turned into flags on a user, and we run a background job which syncs your Bluyesky setup. We track when you last synced and run again in a week.
+
+```ts
+import cuid from "cuid"
+
+import { currentFeatureFlags } from "@puzzmo-com/shared/featureFlagConfig"
+import { UserFlags1, userHasFlag } from "@puzzmo-com/shared/flags/userFlags"
+
+import { getBlueskyFollowersPage, getBlueskyFollowsPage, restoreAgentFromAuthConnection } from "src/lib/bluesky/follows"
+import { amendLabelOnDID } from "src/lib/bluesky/labeler"
+import { timedBlueskyCall } from "src/lib/bluesky/timeout"
+import { puzzmoBlueskyDID, puzzmoLabelerDID } from "src/lib/constants"
+import { _dateToDateKey } from "src/lib/dailies/dailies"
+import { db } from "src/lib/db"
+import { createFollowsFromBlueskySync } from "src/lib/friends/userFollow"
+import { makeFaktoryTask } from "src/lib/tasks/faktory"
+import { createJobLogger } from "src/lib/tasks/jobLogger"
+
+interface ConnectBlueskyArgs {
+  userID: string
+}
+
+const connectBluesky = async (args: ConnectBlueskyArgs) => {
+  const { userID } = args
+  const log = createJobLogger("connectBluesky")
+  log.start(userID)
+
+  log.log(`Loading user and checking opt-out flag`)
+  const user = await db.user.findUnique({ where: { id: userID } })
+
+  if (!user) {
+    log.exception(`User ${userID} not found`)
+    return
+  }
+
+  if (userHasFlag(user, 0, UserFlags1.DisableBlueskyFollowSync)) {
+    log.log(`User ${user.username}#${user.usernameID} has disabled Bluesky follow sync`)
+    log.end()
+    return
+  }
+
+  log.log(`Loading Bluesky auth connection for ${user.username}#${user.usernameID}`)
+  const authConnection = await db.authConnection.findUnique({ where: { userID_type: { userID, type: "Bluesky" } } })
+
+  if (!authConnection) {
+    log.exception(`No Bluesky connection for user ${userID}`)
+    return
+  }
+
+  log.log(`Restoring Bluesky agent from stored tokens`)
+  let agent
+  try {
+    agent = await restoreAgentFromAuthConnection(authConnection)
+  } catch (error) {
+    log.exception(`Failed to restore Bluesky agent:`, error)
+    return
+  }
+
+  const did = authConnection.externalID
+  log.log(`Connecting Bluesky for DID: ${did}`)
+
+  // Follow Puzzmo's Bluesky account and add labeler based on user preference
+  if (userHasFlag(user, 0, UserFlags1.FollowBlueskyAccount))
+    await timedBlueskyCall(agent.follow(puzzmoBlueskyDID), { label: "follow", log })
+  else log.log(`Skipping follow Puzzmo account (user flag not set)`)
+
+  if (userHasFlag(user, 0, UserFlags1.AddBlueskyLabeler))
+    await timedBlueskyCall(agent.addLabeler(puzzmoLabelerDID), { label: "addLabeler", log })
+  else log.log(`Skipping labeler subscription (user flag not set)`)
+
+  // Apply Puzzmo labels to the user's Bluesky account
+  log.log(`Checking puzzle contribution history for labeling`)
+  const hasContributed = await db.puzzle.findFirst({
+    where: {
+      mostRecentPublishDate: { not: null },
+      OR: [{ authors: { some: { id: userID } } }, { editors: { some: { id: userID } } }, { hinters: { some: { id: userID } } }],
+    },
+    select: { id: true },
+  })
+
+  const labels: ("member" | "contributor")[] = hasContributed ? ["member", "contributor"] : ["member"]
+  await timedBlueskyCall(amendLabelOnDID(did, { add: labels }), { label: "amendLabels", log })
+
+  // Track users who receive new follows for social news
+  const usersWhoReceivedFollows: Array<{ userID: string; blueskyHandle: string }> = []
+  let totalPuzzmoUsersFound = 0
+
+  // Phase 1: Sync user's Bluesky follows (people they follow)
+  // Creates follows: current user -> target users
+  log.log(`Phase 1: Syncing user's follows`)
+  let followsCursor: string | undefined
+  let totalFollowsProcessed = 0
+
+  do {
+    const page = await getBlueskyFollowsPage(did, followsCursor)
+    followsCursor = page.cursor
+
+    if (page.dids.length === 0) break
+
+    // Batch lookup: find Puzzmo users with these DIDs
+    const matchingConnections = await db.authConnection.findMany({
+      where: { externalID: { in: page.dids }, type: "Bluesky" },
+      select: { userID: true, externalID: true, handle: true },
+    })
+
+    if (matchingConnections.length > 0) {
+      totalPuzzmoUsersFound += matchingConnections.length
+
+      // Get target users' flags to check opt-out
+      const targetUserIDs = matchingConnections.map((c) => c.userID)
+      const targetUsers = await db.user.findMany({ where: { id: { in: targetUserIDs } }, select: { id: true, flagsArr: true } })
+
+      // Filter out users who have disabled sync
+      const eligibleTargets = targetUsers.filter((u) => !userHasFlag(u, 0, UserFlags1.DisableBlueskyFollowSync))
+
+      // Create follows: current user -> eligible targets
+      const follows = eligibleTargets.map((target) => ({ followerID: userID, followingID: target.id }))
+
+      if (follows.length > 0) {
+        const result = await createFollowsFromBlueskySync(follows)
+        log.log(`Created ${result.created} follows to Bluesky followees (${result.bidirectionalUpdated || 0} bidirectional)`)
+
+        // Track users who actually received new follows for social news
+        const createdFollowingIDs = new Set(result.createdFollows.map((f) => f.followingID))
+        for (const conn of matchingConnections) {
+          if (createdFollowingIDs.has(conn.userID)) usersWhoReceivedFollows.push({ userID: conn.userID, blueskyHandle: conn.handle })
+        }
+      }
+    }
+
+    totalFollowsProcessed += page.dids.length
+    log.log(`Processed ${totalFollowsProcessed} Bluesky follows...`)
+  } while (followsCursor)
+
+  // Phase 2: Sync user's Bluesky followers (people who follow them)
+  // Creates follows: follower users -> current user
+  log.log(`Phase 2: Syncing user's followers`)
+  let followersCursor: string | undefined
+  let totalFollowersProcessed = 0
+
+  do {
+    const page = await getBlueskyFollowersPage(did, followersCursor)
+    followersCursor = page.cursor
+
+    if (page.dids.length === 0) break
+
+    // Batch lookup: find Puzzmo users with these DIDs
+    const matchingConnections = await db.authConnection.findMany({
+      where: { externalID: { in: page.dids }, type: "Bluesky" },
+      select: { userID: true, externalID: true },
+    })
+
+    if (matchingConnections.length > 0) {
+      // Get follower users' flags to check opt-out
+      const followerUserIDs = matchingConnections.map((c) => c.userID)
+      const followerUsers = await db.user.findMany({ where: { id: { in: followerUserIDs } }, select: { id: true, flagsArr: true } })
+
+      // Filter out users who have disabled sync
+      const eligibleFollowers = followerUsers.filter((u) => !userHasFlag(u, 0, UserFlags1.DisableBlueskyFollowSync))
+
+      // Create follows: eligible followers -> current user
+      const follows = eligibleFollowers.map((follower) => ({ followerID: follower.id, followingID: userID }))
+
+      if (follows.length > 0) {
+        const result = await createFollowsFromBlueskySync(follows)
+        log.log(`Created ${result.created} follows from Bluesky followers (${result.bidirectionalUpdated || 0} bidirectional)`)
+      }
+    }
+
+    totalFollowersProcessed += page.dids.length
+    log.log(`Processed ${totalFollowersProcessed} Bluesky followers...`)
+  } while (followersCursor)
+
+  log.log(`Total follows processed: ${totalFollowsProcessed}, Total followers processed: ${totalFollowersProcessed}`)
+
+  // Social news is gated behind the bluesky-oauth feature flag being removed
+  const bskyOauthHasFlag = currentFeatureFlags.some((flag) => flag.id === "bluesky-oauth")
+  if (bskyOauthHasFlag) log.log(`Skipping social news creation (bluesky-oauth feature flag still active)`)
+
+  if (!bskyOauthHasFlag) {
+    // Create social news items
+    const dateKey = _dateToDateKey(new Date())
+
+    // Social news for the syncing user
+    if (totalPuzzmoUsersFound > 0) {
+      await db.socialNewsItem.create({
+        data: {
+          id: cuid() + ":snews",
+          authorID: userID,
+          dateKey,
+          messageMD: `synced Bluesky and found ${totalPuzzmoUsersFound} Puzzmo user${totalPuzzmoUsersFound === 1 ? "" : "s"}`,
+        },
+      })
+      log.log(`Created social news for syncing user: found ${totalPuzzmoUsersFound} users`)
+    }
+
+    // Social news for users who received auto-follows
+    if (usersWhoReceivedFollows.length > 0) {
+      const newsItems = usersWhoReceivedFollows.map((item) => ({
+        id: cuid() + ":snews",
+        authorID: item.userID,
+        dateKey,
+        messageMD: `[@${user.username}#${user.usernameID}](/user/${user.username}/${user.usernameID}) ([@${authConnection.handle}](https://bsky.app/profile/${authConnection.handle})) connected Puzzmo to Bluesky, and you are now following them here too`,
+        private: true,
+      }))
+
+      await db.socialNewsItem.createMany({ data: newsItems, skipDuplicates: true })
+      log.log(`Created ${newsItems.length} social news items for users who received follows`)
+    }
+  }
+
+  // Update lastSyncedAt timestamp
+  await db.authConnection.update({ where: { userID_type: { userID, type: "Bluesky" } }, data: { lastSyncedAt: new Date() } })
+
+  log.log(`Updated lastSyncedAt timestamp`)
+  log.end()
+}
+
+export const scheduleTaskForConnectBluesky = makeFaktoryTask<ConnectBlueskyArgs>("connectBluesky", connectBluesky)
+```
+
+I was finding Bluesky API calls would occasinally timeout but never sent a completion or failing state blocking execution completely, so we have an app-level timeout system.
+
+## 1.5 Weeks Ago
+
+### Streak Syncing
+
+Streak syncing was a little bit more nuanced. Steaks occur at a different phase of a game being completed than the usual user data processing, because non-users (anonymous) folks have streaks. So, the streak processing for Bluesky is structured differently from the rest of streak management.
+
+Streaks are stored _on the user's regustry_ and not on the puzzmo.com registry. This means we need to do the attestation mentioned above for Keytrace. Here's my [Ribbit streak](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/com.puzzmo.streak/puzzmo-ribbit)
+
+```json
+{
+  "uri": "at://did:plc:t732otzqvkch7zz5d37537ry/com.puzzmo.streak/puzzmo-ribbit",
+  "cid": "bafyreih65f3rqw2p3bydbrbkuzqixmbsdtpunrhok3xi2m4mrypyg44tm4",
+  "value": {
+    "sigs": [
+      {
+        "kid": "0f1063cb-81b8-4299-9dc6-f8d03366de56",
+        "src": "at://did:plc:p5ode5bkf6vjtt6ahtssuxui/dev.keytrace.serverPublicKey/signing-keys-1",
+        "signedAt": "2026-03-01T13:59:22.435Z",
+        "attestation": "eyJhbGciOiJFUzI1NiIsImtpZCI6IjBmMTA2M2NiLTgxYjgtNDI5OS05ZGM2LWY4ZDAzMzY2ZGU1NiJ9.eyJjdXJyZW50IjoxLCJnYW1lRGlzcGxheU5hbWUiOiJSaWJiaXQiLCJnYW1lU2x1ZyI6InJpYmJpdCIsImxhc3RVcGRhdGVkIjoiMjAyNi0wMy0wMVQwNjowMDowMC4wMDBaIiwibWF4IjozLCJ0ZWFtU2x1ZyI6InB1enptbyIsInRvdGFsIjoxMn0.x2GEHS1kNohlLTHBDLQWZ7GAZoMKqrGYbXdvzQslbBliX6BEBEUh6Fd-TapqnvYwResDf4oQ5IXTyRGxu4bXJw",
+        "signedFields": [
+          "current",
+          "gameDisplayName",
+          "gameSlug",
+          "lastUpdated",
+          "max",
+          "remixSlug",
+          "teamSlug",
+          "total"
+        ]
+      }
+    ],
+    "$type": "com.puzzmo.streak",
+    "total": 12,
+    "max": 3,
+    "current": 1,
+    "gameSlug": "ribbit",
+    "syncedAt": "2026-03-01T13:59:22.440Z",
+    "teamSlug": "puzzmo",
+    "lastUpdated": "2026-03-01T06:00:00.000Z",
+    "gameDisplayName": "Ribbit"
+  }
+}
+```
+
+I could manually edit my total using [PDSLs](https://pdsls.dev/) but then it won't pass any Keytrace signature checks.
+
+For this the lexicon, I've also tried to keep it as open as possible so that other atproto games can keep track of their streaks using `com.puzzmo.streak`.
+
+- [com.puzzmo.streak](https://puzzmo.com/.well-known/atproto-lexicon/com.puzzmo.streak)
+
+### Last week
+
+I wrapped up sync 
+
+### Getting the Daily Running
+
+Time to get the Puzzmo daily added to the puzzmo.com atproto registry. I started the data modeling for this work [in a gist](https://gist.github.com/orta/3f9a9b63fc6b9d78e2afa944977bd3e3) and to be fair, I didn't change too much from this also.
+
+What I ended up shipping is something which looks like this:
+
+```sh
+@puzzmo.com
+  - com.puzzmo.dailies
+    - 2026-03-01
+    - 2026-03-02
+
+  - com.puzzmo.puzzle
+    - ilobr1ao1
+    - 9j137s1gxb
+```
+
+A daily record looks like:
+
+```json
+{
+  "uri": "at://did:plc:p5ode5bkf6vjtt6ahtssuxui/com.puzzmo.daily/2026-02-27",
+  "cid": "bafyreidgzvt6izzfsnsxtxpqiu5kgcnbsmni7gsp4xvx3pq5qsf3sg7ese",
+  "value": {
+    "$type": "com.puzzmo.daily",
+    "puzzles": [
+      {
+        "urlPath": "2026-02-27/crossword",
+        "puzzleUri": "at://did:plc:p5ode5bkf6vjtt6ahtssuxui/com.puzzmo.puzzle/ilobr1ao1"
+      }
+    ],
+    "createdAt": "2026-02-27T09:06:35.094Z",
+    "dayString": "2026-02-27T00:00:00.000Z",
+    "seriesNumber": 866
+  }
+}
+```
+
+This represents a daily with one puzzle, that is available at [`at://did:plc:p5ode5bkf6vjtt6ahtssuxui/com.puzzmo.puzzle/ilobr1ao1`](https://pdsls.dev/at://did:plc:p5ode5bkf6vjtt6ahtssuxui/com.puzzmo.puzzle/ilobr1ao1#record), which looks like:
+
+```json
+{
+  "uri": "at://did:plc:p5ode5bkf6vjtt6ahtssuxui/com.puzzmo.puzzle/ilobr1ao1",
+  "cid": "bafyreid6tzg63akkr4riatnbmvk4muctusyljsayfrexuoglukmj6dti3y",
+  "value": {
+    "url": "https://www.puzzmo.com/puzzle/2026-02-27/crossword",
+    "name": "I Choose/See You",
+    "$type": "com.puzzmo.puzzle",
+    "emoji": "⚡",
+    "puzzle": "## Metadata\n\ntitle: I Choose/See You\nauthor: Brooke\ndate: Not set\neditor: Not set\ncopyright: © 2025\nblacksquares: 17\nwhitespaces: 83\nacrossclues: 18\ndownclues: 18\nwidth: 10\nheight: 10\nsize: 10x10\nsplitcharacter: |\n\n## Grid\n\nCASTS.OATS\nONTOP.CIAO\nUNAGI.CLUB\nPIKACHU...\nSEE.EUROPE\n...MLS.RRR\n..PEEKABOO\nNBATV.WIND\nFAIRE.ETTE\nLOLOL..SOS\n\n## Clues\n\n[... full puzzle data with all clues ...]",
+    "authors": [
+      {
+        "did": "did:plc:lefausewp2dge736hb3emlfx",
+        "type": "author",
+        "avatarUrl": "https://cdn.puzzmo.com/avatars/pup/8.png",
+        "displayName": "brooke"
+      }
+    ],
+    "editors": [...],
+    "hinters": [...],
+    "gameSlug": "crossword",
+    "createdAt": "2026-02-18T15:01:26.648Z",
+    "difficulty": 8,
+    "editorsNotes": "Happy Pokémon day! 30 years ago today the first Pokémon games launched in Japan.",
+    "publications": [
+      {
+        "url": "https://www.puzzmo.com/puzzle/2026-02-27/crossword",
+        "publishedAt": "2026-02-27T00:00:00.000Z",
+        "seriesNumber": 866
+      }
+    ],
+    "completionNotes": "I came up with this theme when I was at [Zach](@helvetica#puz)'s house and I heard his kid say \"peeeekaaaa\" and wasn't sure if it was going to end in [`-BOO`](#23A) (I see you!) or [`-CHU`](#14A) (I choose you!).\n\n(It was `-BOO`.)",
+    "gameDisplayName": "Cross|word"
+  }
+}
+```
+
+We're currently deploying thejust the daily Midi Crossword to atproto for now. It's all quite complicated legally, but this at least is pretty straight forwards.
+
+We're shipping the lexicons for running our daily. I think they are comprehensive enough for anyone running a daily game to be able to use. I avoided using direct Puzzmo terminology when possible:
+
+- [com.puzzmo.daily](https://puzzmo.com/.well-known/atproto-lexicon/com.puzzmo.daily)
+- [com.puzzmo.puzzle](https://puzzmo.com/.well-known/atproto-lexicon/com.puzzmo.puzzle)
+
+The code simply maps our db terminology to the lexicon terminology and then uploads to our registry via Bluesky's API and an [app password](https://blueskyfeeds.com/faq-app-password).
+
+## Getting Over the Line
+
+Shipping the Bluesky support has been a lot of code on my side, but it took a bunch of effort from others:
+
+- Andrew + Brooke helping on figuring out what it means if we ship a daily outside of puzzmo.com
+- Lilith + Craig figuring out how to make this understandable and feel like it's worth the faff to signup
+- Zach helping on weekly design reviews
+
+It's been a good project to fill that void for a while.
