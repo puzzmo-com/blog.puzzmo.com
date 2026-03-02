@@ -3,7 +3,7 @@ title = 'Wrangling atproto + Bluesky for Puzzmo.com'
 date = 2026-02-27T00:42:01Z
 authors = ["orta"]
 tags = ["tech", "atproto"]
-theme = "puzzmo-light"
+theme = "outlook-hayesy-beta"
 +++
 
 ## Catch-up
@@ -25,12 +25,12 @@ If you have 20m to spare, and truly want to grok it read this: [A Social Filesys
 
 When you sign up to Bluesky, you are creating an [atproto](https://atproto.com/) account. An atproto account is a wrapper of a cryptographical identity and a collection of typed JSON blobs (records) called a registry. The 'identity' here is a [DID](https://atproto.com/specs/did) (Decentralized IDentifier) which you can think of as a network-unique ID to users/files/content/etc, mine is [`did:plc:t732otzqvkch7zz5d37537ry`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry). It looks, and acts like a URL does for HTTP.
 
-Atproto is a protocol, [made for creating decentralized social applications](https://atproto.com/articles/atproto-ethos).
+Atproto is a protocol, [made for creating decentralized social applications](https://atproto.com/articles/atproto-ethos). The Bluesky company provides the atproto file-storage for most users, but as it is decentralized you can host elsewhere. I host mine in the EU at npmx.social. This is invisible to others using Bluesky. 
 
 Bluesky is effectively the reference atproto app, testing and pushing the protocol with real-world constraints while acting as a way to get people interested. If people use Bluesky, then they already have an atproto account so that the next atproto apps are easier to bootstrap and interop with.
 
 In an atproto account's registry, a user has 'collections' which are JSON blobs that have the same type. So, when I post to Bluesky, it is a JSON blob in the collection [`'app.bsky.feed.post'`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post). Any client can get access to the firehose of changes (the Jetstream) to JSON blobs for every atproto account. It's also possible to backfill that data, which to my knowledge, is quite the achievement.
-
+d
 So, to make an app like Bluesky, you would listen for all change to `app.bsky.feed.post`s and then do something clever with the realtime data. A lot of bluesky labelers listen to _all likes_ across the network to determine if a specific post was liked, and if so apply a label to that user.
 
 So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's registry."_ It was an acceptable fudging we can now move past.
@@ -85,7 +85,7 @@ I start to find myself at the beginning of a multi-month slump, just sorta gener
 
 I opt to start focusing on Puzzmo.com, after a year of exclusively doing B2B style work behind the scenes.
 
-To get started on that, I went through every source of feedback (internal and external) we've ever had and [pulled](signal-2026-01-07-044803.jpeg) [out](signal-2026-01-07-044801.jpeg) [all](signal-2026-01-07-044801_002.jpeg) of the features folks have asked for and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
+To get started on that, I went through every source of feedback (internal and external) we've ever had and [pulled](./signal-2026-01-07-044803.jpeg) [out](./signal-2026-01-07-044801.jpeg) [all](./signal-2026-01-07-044801_002.jpeg) of the features folks have asked for and put them on a whiteboard. After sitting with Craig, Zach and Andrew for a few hours, it looked like one of the big blockers for many ideas was '[Follows not Friends](https://blog.puzzmo.com/posts/2026/02/06/follows-not-friends/)', something Zach has been asking about for a year or so.
 
 So, I got started on that.
 
@@ -606,10 +606,12 @@ The code simply maps our db terminology to the lexicon terminology and then uplo
 
 ## Getting Over the Line
 
-Shipping the Bluesky support has been a lot of code on my side, but it took a bunch of effort from others:
+Shipping the Bluesky support has been a lot of code + ideas on my side, but it took a bunch of effort from others:
 
 - Andrew + Brooke helping on figuring out what it means if we ship a daily outside of puzzmo.com
 - Lilith + Craig figuring out how to make this understandable and feel like it's worth the faff to signup
 - Zach helping on weekly design reviews
 
-It's been a good project to fill that void for a while.
+It's been funny to reflect on my conversations with other developers, in the last month, maybe the first time in almost a year - I have not been talking almost exclusively about Claude Code. Talking decentralization with folks has been really fun, and atproto is a very pragmatic approach to the problem.
+
+To be honest, I had kinda given up on the idea that we can build a decentralized web and it's kinda cool to be able to spend some time 
