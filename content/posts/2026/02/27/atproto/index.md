@@ -164,13 +164,13 @@ with the PGP key whose fingerprint is
 [...]
 ````
 
-The Gist's content connects my ["orta"](https://github.com/orta) GitHub account, to my ["orta"](https://keybase.io/orta) Keybase account - only my account can post a gist to my account too! The gist does this by including a proof of identity message which is signed by my PGP key which is attached to my Keybase account. Now, what is interesting with Keybase's approach, and why it's still brought up in many modern contexts is that everything is publicly verifiable. Keybase could trivially have added GitHub Oauth to their site and then privately they can prove that you have logged into another account. However by forcing the full verification process to be done in the public anyone can check, and Keybase itself would occasionally re-checks on a schedule.
+The Gist's content connects my ["orta"](https://github.com/orta) GitHub account, to my ["orta"](https://keybase.io/orta) Keybase account - only my account can post a gist to my account too! The gist does this by including a proof of identity message which is signed by my PGP key which is attached to my Keybase account. Now, what is interesting with Keybase's approach, and why it's still brought up in many modern contexts is that everything is publicly verifiable. Keybase could trivially have added GitHub Oauth to their site and then privately they can prove that you have logged into another account. However by forcing the full verification process to be done in the public anyone can check, and Keybase itself would occasionally re-check on a schedule.
 
 Now, Keybase had a bit of a fatal flaw in that it was a real company, and that company got [sold to Zoom](https://www.zoom.com/en/blog/zoom-acquires-keybase-and-announces-goal-of-developing-the-most-broadly-used-enterprise-end-to-end-encryption-offering/) amidst the pandemic lockdowns. I'm sure it was hard to figure out how to get folks paying for Keybase, and credit to the team that the website is still up and running, and even the client [seems to still get updates](https://github.com/keybase/client/graphs/contributors).
 
 Keybase's identity coalescing is a great example of the type of problem atproto is trying to solve. If you can separate the data from the application, then if I decide to stop doing work on Keytrace, someone else can just continue with the same data.
 
-Keytrace did have to solve one a different problem: data provenance. If any app can write/edit anything to a users registry... Then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your registry', we should be able to prove that it is from us!
+Keytrace did have to solve one a problem unique to atproto: data provenance. If any app can write/edit anything to a users registry... then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your registry', we should be able to prove that it is from us!
 
 Typically if you want to prove something, you sign in, but Keytrace can't manipulate the envelope of a record in a registry. There aren't APIs for that, instead we use an inline signing system. As an example, here is the record of my claim to own the GitHub handle "orta" in [my atproto registry](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/dev.keytrace.claim/3mfjc5hvxkz24):
 
@@ -227,7 +227,7 @@ So, it's a mutable "untrustworthy" record, but we have subsets which have been s
 
 If you want to see the process step-by-step, put 'orta.io' in https://keytrace.dev/developers
 
-So, with data verification at a reasonable spot and having got a deeper understanding of atproto. It's time to come back to Puzzmo.
+So, with data verification at a reasonable spot and having gotten a deeper understanding of atproto. It's time to come back to Puzzmo.
 
 While I am wrapping up the final polish pass on the Followers, Craig and Lilith take a stab at the `/bluesky` page.
 
