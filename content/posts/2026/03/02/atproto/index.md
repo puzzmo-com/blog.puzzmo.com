@@ -23,17 +23,17 @@ If you are familiar with atproto development, you're welcome to skip this. I am 
 
 If you have 20m to spare, and truly want to grok it read this: [A Social Filesystem](https://overreacted.io/a-social-filesystem/) which was what fully nailed it to me. I will give a few paragraphs to explain what's necessary for this blog post.
 
-When you sign up to Bluesky, you are creating an [atproto](https://atproto.com/) account. An atproto account is a wrapper of a cryptographical identity and a collection of typed JSON blobs (records) called a registry. The 'identity' here is a [DID](https://atproto.com/specs/did) (Decentralized IDentifier) which you can think of as a network-unique ID to users/files/content/etc, mine is [`did:plc:t732otzqvkch7zz5d37537ry`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry). It looks, and acts like a URL does for HTTP.
+When you sign up to Bluesky, you are creating an [atproto](https://atproto.com/) account. An atproto account is a wrapper of a cryptographical identity and a collection of typed JSON blobs (records) called a repository (like git.) The 'identity' here is a [DID](https://atproto.com/specs/did) (Decentralized IDentifier) which you can think of as a network-unique ID to users/files/content/etc, mine is [`did:plc:t732otzqvkch7zz5d37537ry`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry). It looks, and acts like a URL does for HTTP.
 
-Atproto is a protocol, [made for creating decentralized social applications](https://atproto.com/articles/atproto-ethos). The Bluesky company provides the atproto file-storage for most users, but as it is decentralized you can host elsewhere. I host mine in the EU at npmx.social. This is invisible to others using Bluesky. 
+Atproto is a protocol, [made for creating decentralized social applications](https://atproto.com/articles/atproto-ethos). The Bluesky company provides the atproto file-storage for most users, but as it is decentralized you can host elsewhere. I host mine in the EU at npmx.social. This is invisible to others using Bluesky.
 
 Bluesky is effectively the reference atproto app, testing and pushing the protocol with real-world constraints while acting as a way to get people interested. If people use Bluesky, then they already have an atproto account so that the next atproto apps are easier to bootstrap and interop with.
 
-In an atproto account's registry, a user has 'collections' which are JSON blobs that have the same type. So, when I post to Bluesky, it is a JSON blob in the collection [`'app.bsky.feed.post'`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post). Any client can get access to the firehose of changes (the Jetstream) to JSON blobs for every atproto account. It's also possible to backfill that data, which to my knowledge, is quite the achievement.
+In an atproto account's repository, a user has 'collections' which are JSON blobs that have the same type. So, when I post to Bluesky, it is a JSON blob in the collection [`'app.bsky.feed.post'`](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/app.bsky.feed.post). Any client can get access to the firehose of changes (the Jetstream) to JSON blobs for every atproto account. It's also possible to backfill that data, which to my knowledge, is quite the achievement.
 
 So, to make an app like Bluesky, you would listen for all change to `app.bsky.feed.post`s and then do something clever with the realtime data. A lot of bluesky labelers listen to _all likes_ across the network to determine if a specific post was liked, and if so apply a label to that user.
 
-So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's registry."_ It was an acceptable fudging we can now move past.
+So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's repository."_ It was an acceptable fudging we can now move past.
 
 ## 14 Months Ago
 
@@ -60,7 +60,7 @@ So, what is a good starting place?
 
 I took the [Bluesky Labeler starter kit](https://github.com/aliceisjustplaying/labeler-starter-kit-bsky) for a ride and made it so you could like a post to apply a 'Puzzmonaut' label and showed it to the team with the framing of: _"What if we let people sign up to their Bluesky account and we set the label for them"_. I got an "that's interesting", but not much more interesting than other ideas.
 
-Labelers are an interesting system. You take an atproto account and you "change" it into a labeler by posting a record to a specific collection (`'app.bsky.labeler.service'`) on their registry. Here's ours: [puzzmo-labeler.bsky.social](https://pdsls.dev/at://did:plc:4p3ilpfcl77fqgoofjmghznc/app.bsky.labeler.service/self) - it is still a normal account by other means but you declare ahead of time all the possible labels.
+Labelers are an interesting system. You take an atproto account and you "change" it into a labeler by posting a record to a specific collection (`'app.bsky.labeler.service'`) on their repository. Here's ours: [puzzmo-labeler.bsky.social](https://pdsls.dev/at://did:plc:4p3ilpfcl77fqgoofjmghznc/app.bsky.labeler.service/self) - it is still a normal account by other means but you declare ahead of time all the possible labels.
 
 ( So, if you wanted to make an app that tracks all labelers, you'd listen to the Jetstream for all `app.bsky.labeler.service` records being created/removed. )
 
@@ -170,9 +170,9 @@ Now, Keybase had a bit of a fatal flaw in that it was a real company, and that c
 
 Keybase's identity coalescing is a great example of the type of problem atproto is trying to solve. If you can separate the data from the application, then if I decide to stop doing work on Keytrace, someone else can just continue with the same data.
 
-Keytrace did have to solve one a problem unique to atproto: data provenance. If any app can write/edit anything to a users registry... then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your registry', we should be able to prove that it is from us!
+Keytrace did have to solve one a problem unique to atproto: data provenance. If any app can write/edit anything to a users repository... then anyone can say they are anyone else! That's a bit of a blocker. I knew this was going to be an issue with Puzzmo too, if we want to present ourselves as 'putting your data on your repository', we should be able to prove that it is from us!
 
-Typically if you want to prove something, you sign in, but Keytrace can't manipulate the envelope of a record in a registry. There aren't APIs for that, instead we use an inline signing system. As an example, here is the record of my claim to own the GitHub handle "orta" in [my atproto registry](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/dev.keytrace.claim/3mfjc5hvxkz24):
+Typically if you want to prove something, you sign in, but Keytrace can't manipulate the envelope of a record in a repository. There aren't APIs for that, instead we use an inline signing system. As an example, here is the record of my claim to own the GitHub handle "orta" in [my atproto repository](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/dev.keytrace.claim/3mfjc5hvxkz24):
 
 ```json
 {
@@ -220,8 +220,8 @@ Typically if you want to prove something, you sign in, but Keytrace can't manipu
 
 There are two different signatures inside the JSON blob, each are a signed by the Keytrace server and describe which fields have been marked as being attested.
 
-- Signature: `attest:github` proves the claimed URL, the creation date, the owner of the registry, the claimed identity and the type as being verified by the Keytrace server on 2026-02-23
-- Signature: `status` proves the claimed URL, the owner of the registry, the verification date, and the result of the verification as being done by the Keytrace server on 2026-02-28
+- Signature: `attest:github` proves the claimed URL, the creation date, the owner of the repository, the claimed identity and the type as being verified by the Keytrace server on 2026-02-23
+- Signature: `status` proves the claimed URL, the owner of the repository, the verification date, and the result of the verification as being done by the Keytrace server on 2026-02-28
 
 So, it's a mutable "untrustworthy" record, but we have subsets which have been signed by the server. The keys are linked as atproto DIDs, e.g. [`"at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23"`](https://pdsls.dev/at://did:plc:hcwfdlmprcc335oixyfsw7u3/dev.keytrace.serverPublicKey/2026-02-23) where you can grab the public key if you want to verify the signature yourself.
 
@@ -470,7 +470,7 @@ I was finding Bluesky API calls would occasinally timeout but never sent a compl
 
 Streak syncing was a little bit more nuanced. Steaks occur at a different phase of a game being completed than the usual user data processing, because non-users (anonymous folk) have streaks. So, the streak processing for Bluesky is structured differently from the rest of streak management.
 
-Streaks are stored _on the user's reguitry_ and not on the puzzmo.com registry. This means we need to do the attestation mentioned above for Keytrace. Here's my [Ribbit streak](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/com.puzzmo.streak/puzzmo-ribbit)
+Streaks are stored _on the user's reguitry_ and not on the puzzmo.com repository. This means we need to do the attestation mentioned above for Keytrace. Here's my [Ribbit streak](https://pdsls.dev/at://did:plc:t732otzqvkch7zz5d37537ry/com.puzzmo.streak/puzzmo-ribbit)
 
 ```json
 {
@@ -520,7 +520,7 @@ I wrapped up sync, handled edge cases like timeouts, ENV vars being set in the r
 
 ### Getting the Daily Running
 
-Time to get the Puzzmo daily added to the puzzmo.com atproto registry. I started the data modeling for this work [in a gist](https://gist.github.com/orta/3f9a9b63fc6b9d78e2afa944977bd3e3) and to be fair, I didn't change too much from this also.
+Time to get the Puzzmo daily added to the puzzmo.com atproto repository. I started the data modeling for this work [in a gist](https://gist.github.com/orta/3f9a9b63fc6b9d78e2afa944977bd3e3) and to be fair, I didn't change too much from this also.
 
 What I ended up shipping is something which looks like this:
 
@@ -602,7 +602,7 @@ We're shipping the lexicons for running our daily. I think they are comprehensiv
 - [com.puzzmo.daily](https://puzzmo.com/.well-known/atproto-lexicon/com.puzzmo.daily)
 - [com.puzzmo.puzzle](https://puzzmo.com/.well-known/atproto-lexicon/com.puzzmo.puzzle)
 
-The code simply maps our db terminology to the lexicon terminology and then uploads to our registry via Bluesky's API and an [app password](https://blueskyfeeds.com/faq-app-password).
+The code simply maps our db terminology to the lexicon terminology and then uploads to our repository via Bluesky's API and an [app password](https://blueskyfeeds.com/faq-app-password).
 
 ## Getting Over the Line
 
