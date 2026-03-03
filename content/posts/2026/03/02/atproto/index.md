@@ -12,7 +12,7 @@ If you want the end-user perspective of what we have shipped read: [Bluesky on P
 
 - We have Bluesky follower sync
 - We have a labeler which sets labels so you can see other Puzzmonauts on Bluesky
-- We store your steak data in your Bluesky account
+- We store your streak data in your Bluesky account
 - We post the Cross|word midi dailies to our Bluesky account
 
 But getting to this feature set was not a linear path and I think it's interesting to both cover the autobiographical reasons for why these exist, and the technical foundations so that more folks can consider what it means to interact with the Atmosphere.
@@ -33,7 +33,7 @@ In an atproto account's repository, a user has 'collections' which are JSON blob
 
 So, to make an app like Bluesky, you would listen for all change to `app.bsky.feed.post`s and then do something clever with the realtime data. A lot of bluesky labelers listen to _all likes_ across the network to determine if a specific post was liked, and if so apply a label to that user.
 
-So above, when I say _"We store your steak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's repository."_ It was an acceptable fudging we can now move past.
+So above, when I say _"We store your streak data in your Bluesky account,"_ I really mean: _"We post a Streak JSON blob to the com.puzzmo.streak collection on your atproto account's repository."_ It was an acceptable fudging we can now move past.
 
 ## 14 Months Ago
 
