@@ -88,7 +88,7 @@ In a true Lord of The Rings style 'power corrupts' I think being such an active 
 
 I find myself perceive the folks who are not adopting these types of tools differently. A recent example is that I have never been great at estimating how long other folks can perform tasks, so I usually make a relative tally and keep a multiplier in my head for how long it would take relative to myself. For the longest time, I've been trying to resist updating my own time estimations to include my Claude Code usage because that means either updating the multipliers for them too to the point where it starts to feel a bit silly.
 
-They've not changed, but it feels like they are on a casual stroll when you are running and watching them get smaller in the distance behind.
+They've not changed, I changed, but it feels like they are on a casual stroll when you are running and watching them get smaller in the distance behind.
 
 ### Owning the Stack
 
@@ -98,4 +98,14 @@ I've never found software to be more malleable than this last 6 months. Here's s
 
   We're talking re-implementing a SoundCloud player, the Signal Messenger client, dumb desktop toys I enjoyed in my youth.
 
-- Other peoples software which previously relied on "security by obscurity" is absolutely an open book now. I've built non-trivial decryption algorithms, extracted full API client specs from de-compiling Android apks, collected HARs from web UIs to re-implement clients against private APIs - unless you are 100% server side rendering, the ability for Claude to be tasked to 'figure out how this works and make me a JavaScript implementation' is further than my own personal capabilities.
+- Other peoples software which previously relied on "security by obscurity" is absolutely an open book now. I've built non-trivial decryption algorithms, extracted full API client specs from de-compiling Android apks, collected HARs from web UIs to re-implement clients against private APIs. 
+
+  Unless you are 100% server side rendering, the ability for Claude to be tasked to 'figure out how this works and make me a JavaScript implementation' is further than my own personal capabilities.
+
+- I have sent multiple pull requests in languages and ecosystems I am not familiar with. This is fraught with Danger in my opinion, but I try to be very upfront about how I have tested and verified it, but that the code itself is coming from an LLM. I've definitely been in PRs where both me and the other person are just LLMing at each other until we found the right midway point.
+
+- I have attempted re-writes in areas I would have ignored due to time constraints, I re-created Danger JS over a weekend by using the same test suite and coming in with new constraints of modernization
+
+There is a new breed of open open source projects like my friend Pete's OpenClaw, or Daniel Roe + Patak npmx which really attempt a "Yes, and" approach to open source software development with is an interesting perspective. On a personal note, I've been making open source which is less conveniently packaged in favour of having others use an LLM to fuse the code into your own codebase instead of treating it as a vendored black box.
+
+Open source will not be the same, but it also wasn't looking too great, the generations after mine weren't as interested in contributing to the commons in the same way. That's fine, but maintainers are not going to pivot to video to try find new contributors.
