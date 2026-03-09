@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Chat Messages</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", monospace;
+      font-size: 11px;
+      line-height: 1.3;
+      background: #1a1a1a;
+      color: #c0c0c0;
+      overflow: hidden;
+    }
+
+    #container {
+      width: 100%;
+      height: 100%;
+      padding: 2px;
+      column-count: auto;
+      column-width: 40ch;
+      column-gap: 2px;
+      overflow: auto;
+      cursor: move;
+      user-select: none;
+    }
+
+    #container.dragging {
+      cursor: grabbing;
+    }
+
+    .message {
+      background: #252525;
+      padding: 2px 3px;
+      border-radius: 1px;
+      margin-bottom: 2px;
+      break-inside: avoid;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Subtle color variations for mosaic feel */
+    .message:nth-child(7n+1) { background: #252528; }
+    .message:nth-child(7n+2) { background: #282525; }
+    .message:nth-child(7n+3) { background: #252825; }
+    .message:nth-child(7n+4) { background: #262526; }
+    .message:nth-child(7n+5) { background: #242527; }
+    .message:nth-child(7n+6) { background: #272524; }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script>
+    const MAX_WIDTH = 40;
+    const MAX_LINES = 6;
+
+    // Wrap text to fit within MAX_WIDTH characters, limit to MAX_LINES
+    function wrapText(text) {
+      // Normalize whitespace - collapse multiple spaces/newlines
+      text = text.replace(/\s+/g, ' ').trim();
+
+      if (text.length <= MAX_WIDTH) {
+        return text;
+      }
+
+      const lines = [];
+      const words = text.split(' ');
+      let currentLine = '';
+
+      for (const word of words) {
+        if (lines.length >= MAX_LINES) break;
+
+        if (word.length > MAX_WIDTH) {
+          // Word is too long, need to break it
+          if (currentLine) {
+            lines.push(currentLine);
+            currentLine = '';
+          }
+          if (lines.length >= MAX_LINES) break;
+          // Break long word into chunks
+          for (let i = 0; i < word.length && lines.length < MAX_LINES; i += MAX_WIDTH) {
+            lines.push(word.slice(i, i + MAX_WIDTH));
+          }
+        } else if (currentLine.length + word.length + 1 <= MAX_WIDTH) {
+          currentLine = currentLine ? currentLine + ' ' + word : word;
+        } else {
+          if (currentLine) lines.push(currentLine);
+          if (lines.length >= MAX_LINES) break;
+          currentLine = word;
+        }
+      }
+      if (currentLine && lines.length < MAX_LINES) lines.push(currentLine);
+
+      return lines.join('\n');
+    }
+
+    fetch('./chat-messages.json')
+      .then(res => res.json())
+      .then(messages => {
+        const container = document.getElementById('container');
+
+        messages.forEach(msg => {
+          const div = document.createElement('div');
+          div.className = 'message';
+          div.textContent = wrapText(msg.message);
+          const date = msg.date ? new Date(msg.date).toLocaleDateString() : 'Unknown date';
+          div.title = `${date} - ${msg.project}`;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        document.getElementById('container').textContent = 'Error loading messages: ' + err.message;
+      });
+
+    // Drag to scroll
+    const container = document.getElementById('container');
+    let isDragging = false;
+    let startX, startY, scrollLeft, scrollTop;
+
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      container.classList.add('dragging');
+      startX = e.pageX - container.offsetLeft;
+      startY = e.pageY - container.offsetTop;
+      scrollLeft = container.scrollLeft;
+      scrollTop = container.scrollTop;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isDragging = false;
+      container.classList.remove('dragging');
+    });
+
+    container.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.classList.remove('dragging');
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const y = e.pageY - container.offsetTop;
+      const walkX = (x - startX);
+      const walkY = (y - startY);
+      container.scrollLeft = scrollLeft - walkX;
+      container.scrollTop = scrollTop - walkY;
+    });
+  </script>
+</body>
+</html>

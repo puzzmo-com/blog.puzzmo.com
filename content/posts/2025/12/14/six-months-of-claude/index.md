@@ -30,8 +30,11 @@ The [list of changes](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-clau
 
 Interestingly, I found it [very hard to quantify](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#quantifying-the-change-is-hard) the change in a concrete metric like Pull Requests, commits or lines of code changed. I will re-explore this.
 
+One final note before I get started, these posts end up outside of the programing ecosystem - so if you are deeply pessimistic about LLMs and their consequences, [so am I](https://blog.puzzmo.com/posts/2025/06/07/orta-on-claude/#before-we-start)! I don't want to just put my head in the sand and pretend we are still in a pre-Claude Code world though. This stuff should be understood
+
 ---
 
+<<<<<<< HEAD
 ## LLMs as the "killer app" Of This Generation
 
 I've seen _many_ technical fads come and go: 'ChatBots', 'Metaverse', 'Edutainment', 'Crypto', 'AR/VR', 'Uber for X', 'Apps' etc. I try to understand their underlying 'why is this happening now?' and 'what tech underpins this?' but I absolutely bet against all of them.
