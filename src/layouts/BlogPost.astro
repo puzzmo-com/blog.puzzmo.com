@@ -1,0 +1,149 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { AUTHORS } from '../consts';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage, authors, tags, series, theme } = Astro.props;
+const themeFile = theme || 'puzzmo-light';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<link rel="stylesheet" href={`/themes/${themeFile}.css`} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: var(--theme-fg, rgb(var(--gray-dark)));
+			}
+			.prose :global(a) {
+				color: var(--theme-a_anchor, rgb(var(--accent)));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+			.meta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				justify-content: center;
+				margin-top: 0.5rem;
+			}
+			.meta a {
+				font-size: 0.85rem;
+				padding: 0.15rem 0.5rem;
+				background: var(--theme-g_bgAlt, rgb(var(--gray-light)));
+				border-radius: 4px;
+				text-decoration: none;
+				color: var(--theme-fg, inherit);
+			}
+			.meta a:hover {
+				background: var(--theme-key, rgb(var(--accent)));
+				color: var(--theme-keyFG, white);
+			}
+			.authors {
+				color: rgb(var(--gray));
+				margin-bottom: 0.25rem;
+			}
+			.authors a {
+				background: none;
+				padding: 0;
+				color: rgb(var(--gray-dark));
+			}
+			.authors a:hover {
+				background: none;
+				color: rgb(var(--accent));
+			}
+			.series-note {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				</div>
+				<div class="prose">
+					<div class="title">
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Last updated on <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+						</div>
+						<h1>{title}</h1>
+						{authors && authors.length > 0 && (
+							<div class="authors">
+								by {authors.map((a, i) => (
+									<>
+										{i > 0 && ', '}
+										<a href={`/authors/${a}/`}>{AUTHORS[a]?.name ?? a}</a>
+									</>
+								))}
+							</div>
+						)}
+						{series && series.length > 0 && (
+							<div class="series-note">Part of the series: {series.join(', ')}</div>
+						)}
+						{tags && tags.length > 0 && (
+							<div class="meta">
+								{tags.map((tag) => (
+									<a href={`/tags/${tag}/`}>{tag}</a>
+								))}
+							</div>
+						)}
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

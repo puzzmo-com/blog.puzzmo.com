@@ -1,0 +1,22 @@
+---
+interface Props {
+	src: string;
+	alt: string;
+	maxWidth?: string;
+	class?: string;
+}
+
+const { src, alt, maxWidth } = Astro.props;
+const isVideo = src.endsWith('.mov') || src.endsWith('.mp4');
+const style = maxWidth
+	? `max-width:${maxWidth};margin:0 auto;display:block;`
+	: `margin-left:-10%;margin-right:-10%;max-width:120%;`;
+---
+
+{isVideo ? (
+	<video controls style="width:100%">
+		<source src={src} type="video/mp4" />
+	</video>
+) : (
+	<a href={src}><img src={src} alt={alt} style={style} class="zoomable" /></a>
+)}
