@@ -1,13 +1,13 @@
 +++
 title = 'What is it like to construct Puzzmo Cross|words?'
 date = 2024-08-02T05:00:00-04:00
-authors = ["madison"]
+authors = ["max"]
 tags = ["crossword"]
 theme = "bright-white"
 comments = false
 +++
 
-Hi all! [Madison](https://www.puzzmo.com/user/puz/mgreens) (Puzzmo’s Cross|word intern) here!
+Hi all! [Max](https://www.puzzmo.com/user/xwc/mgreens) (Puzzmo’s Cross|word intern) here!
 
 For the past eight weeks, I have been working closely with Brooke on various Cross|word tasks. I have had the opportunity to observe and take part in all the work that goes into publishing Puzzmo Cross|words, and even try my hand at constructing! You can read more about my thoughts on [reviewing submissions](https://link.mailer.puzzmo.com/view/652eb296b069b512940514d1lb7eq.dw4/d9fa12e7), [editing](https://link.mailer.puzzmo.com/view/652eb296b069b512940514d1levfb.hr0/0f032ecf), [co-constructing my first puzzle](https://link.mailer.puzzmo.com/view/6606d36670a6f5f63c022f93lggf6.mz5/addffddb), [writing hints](https://link.mailer.puzzmo.com/view/652eb296b069b512940514d1ldbgg.gz8/a7ce782c), [test solving and fact checking](https://link.mailer.puzzmo.com/view/6606d36670a6f5f63c022f93li4y2.oil/b70da9cc), and [end-of-internship reflections](https://link.mailer.puzzmo.com/view/6606d36670a6f5f63c022f93llk1r.m70/1f5cf96b) in more detail in my past newsletters.
 
@@ -279,9 +279,9 @@ As I wrap up my internship, I plan on bringing Puzzmo’s philosophy with me. To
 
 ---
 
-![Madison Greenstein](madison_sm.png)
+![Max Greenstein](madison_sm.png)
 
-**Name:** [Madison Greenstein](https://www.puzzmo.com/user/puz/mgreens) (they/them)
+**Name:** [Max Greenstein](https://www.puzzmo.com/user/xwc/mgreens) (they/them)
 
 **Crossword involvement:** Puzzmo Crossword Intern!
 
