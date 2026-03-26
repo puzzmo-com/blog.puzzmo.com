@@ -1,4 +1,4 @@
 ---
 name: "Madeline Kaplan"
-bio: "Assistant crossword editor"
+bio: "Assistant puzzle editor"
 ---
