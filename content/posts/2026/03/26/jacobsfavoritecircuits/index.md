@@ -1,5 +1,5 @@
 +++
-title = 'Jacob's Favorite Circuits'
+title = "Jacob's Favorite Circuits"
 date = 2026-03-26T00:28:18Z
 authors = ["madeline"]
 tags = ["tech"]
