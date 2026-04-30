@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import { AUTHORS, tagClass } from '../consts';
+import { postUrl, readMinutes } from '../lib/posts';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+	emptyMessage?: string;
+}
+
+const { posts, emptyMessage = 'No posts yet — check back soon.' } = Astro.props;
+---
+
+{posts.length === 0 ? (
+	<p class="idx-empty">{emptyMessage}</p>
+) : (
+	<ol class="idx-list">
+		{posts.map((post) => {
+			const tag = post.data.tags?.[0];
+			const authors = post.data.authors ?? [];
+			const minutes = readMinutes(post);
+			return (
+				<li class="idx-row">
+					<div class="idx-meta">
+						<FormattedDate date={post.data.pubDate} />
+						{tag && (
+							<a href={`/tags/${tag}/`} class:list={['idx-tag', tagClass(tag)]}>{tag}</a>
+						)}
+					</div>
+					<div class="idx-body">
+						<h3 class="idx-title"><a href={postUrl(post)}>{post.data.title}</a></h3>
+						{post.data.description && (
+							<p class="idx-blurb">{post.data.description}</p>
+						)}
+						<div class="idx-byline">
+							{authors.length > 0 ? (
+								<span>
+									{authors.map((slug, i) => (
+										<>
+											{i > 0 && (i === authors.length - 1 ? ' & ' : ', ')}
+											<a href={`/authors/${slug}/`}>{AUTHORS[slug]?.name ?? slug}</a>
+										</>
+									))}
+								</span>
+							) : (
+								<span>puzzmo team</span>
+							)}
+							<span class="idx-dot">·</span>
+							<span>{minutes} min read</span>
+						</div>
+					</div>
+					<a href={postUrl(post)} class="idx-arrow" aria-label={`Read: ${post.data.title}`}>→</a>
+				</li>
+			);
+		})}
+	</ol>
+)}

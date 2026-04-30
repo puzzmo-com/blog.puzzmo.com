@@ -11,40 +11,26 @@ const tags = await getAllTags();
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Tags - ${SITE_TITLE}`} description="All tags" />
+		<BaseHead title={`Tags — ${SITE_TITLE}`} description="All tags" />
 	</head>
 	<body>
-		<Header />
-		<main>
-			<h1>Tags</h1>
-			<ul class="tags">
-				{tags.map(([tag, count]) => (
-					<li>
-						<a href={`/tags/${tag}/`}>{tag} ({count})</a>
-					</li>
-				))}
-			</ul>
-		</main>
-		<Footer />
-		<style>
-			.tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-				list-style: none;
-				padding: 0;
-			}
-			.tags a {
-				display: inline-block;
-				padding: 0.25rem 0.75rem;
-				background: rgb(var(--gray-light));
-				border-radius: 4px;
-				text-decoration: none;
-			}
-			.tags a:hover {
-				background: rgb(var(--accent));
-				color: white;
-			}
-		</style>
+		<div class="page">
+			<Header />
+			<main class="idx">
+				<header class="idx-pagehead">
+					<p class="eyebrow">topics</p>
+					<h1>All tags</h1>
+					<p class="blurb">Sorted by how often we end up writing about them.</p>
+				</header>
+				<ul class="tags-grid">
+					{tags.map(([tag, count]) => (
+						<li>
+							<a href={`/tags/${tag}/`}>{tag}<span class="count">{count}</span></a>
+						</li>
+					))}
+				</ul>
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>

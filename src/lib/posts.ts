@@ -27,3 +27,10 @@ export async function getAllTags() {
 	}
 	return [...tagMap.entries()].sort((a, b) => b[1] - a[1]);
 }
+
+/** Approximate read time (in minutes) from a post's raw body. */
+export function readMinutes(post: CollectionEntry<'blog'>): number {
+	const source = (post as { body?: string }).body ?? '';
+	const words = source.trim().split(/\s+/).filter(Boolean).length;
+	return Math.max(1, Math.round(words / 220));
+}

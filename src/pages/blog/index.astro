@@ -1,10 +1,10 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import PostList from '../../components/PostList.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
-import { getPublishedPosts, postUrl } from '../../lib/posts';
+import { getPublishedPosts } from '../../lib/posts';
 
 const posts = await getPublishedPosts();
 ---
@@ -13,49 +13,19 @@ const posts = await getPublishedPosts();
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			.post-list {
-				list-style: none;
-				padding: 0;
-			}
-			.post-list li {
-				margin-bottom: 0.5rem;
-			}
-			.post-list a {
-				display: flex;
-				justify-content: space-between;
-				align-items: baseline;
-				gap: 1rem;
-				text-decoration: none;
-				padding: 0.5rem 0;
-				border-bottom: 1px solid rgb(var(--gray-light));
-			}
-			.post-list a:hover .title {
-				color: rgb(var(--accent));
-			}
-			.date {
-				color: rgb(var(--gray));
-				font-size: 0.875rem;
-				white-space: nowrap;
-			}
-		</style>
 	</head>
 	<body>
-		<Header />
-		<main>
-			<section>
-				<ul class="post-list">
-					{posts.map((post) => (
-						<li>
-							<a href={postUrl(post)}>
-								<span class="title">{post.data.title}</span>
-								<span class="date"><FormattedDate date={post.data.pubDate} /></span>
-							</a>
-						</li>
-					))}
-				</ul>
-			</section>
-		</main>
-		<Footer />
+		<div class="page">
+			<Header />
+			<main class="idx">
+				<header class="idx-pagehead">
+					<p class="eyebrow">archive</p>
+					<h1>All posts</h1>
+					<p class="blurb">Every post we've ever shipped, newest first.</p>
+				</header>
+				<PostList posts={posts} />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>

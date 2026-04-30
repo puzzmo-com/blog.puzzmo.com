@@ -1,10 +1,10 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import PostList from '../../components/PostList.astro';
 import { SITE_TITLE } from '../../consts';
-import { getPublishedPosts, postUrl } from '../../lib/posts';
+import { getPublishedPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
 	const posts = await getPublishedPosts();
@@ -29,49 +29,21 @@ const { tag, posts } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`${tag} - ${SITE_TITLE}`} description={`Posts tagged "${tag}"`} />
+		<BaseHead title={`${tag} — ${SITE_TITLE}`} description={`Posts tagged "${tag}"`} />
 	</head>
 	<body>
-		<Header />
-		<main>
-			<h1>Tag: {tag}</h1>
-			<ul class="post-list">
-				{posts.map((post: any) => (
-					<li>
-						<a href={postUrl(post)}>
-							<span class="title">{post.data.title}</span>
-							<span class="date"><FormattedDate date={post.data.pubDate} /></span>
-						</a>
-					</li>
-				))}
-			</ul>
-		</main>
-		<Footer />
-		<style>
-			.post-list {
-				list-style: none;
-				padding: 0;
-			}
-			.post-list li {
-				margin-bottom: 0.5rem;
-			}
-			.post-list a {
-				display: flex;
-				justify-content: space-between;
-				align-items: baseline;
-				gap: 1rem;
-				text-decoration: none;
-				padding: 0.5rem 0;
-				border-bottom: 1px solid rgb(var(--gray-light));
-			}
-			.post-list a:hover .title {
-				color: rgb(var(--accent));
-			}
-			.date {
-				color: rgb(var(--gray));
-				font-size: 0.875rem;
-				white-space: nowrap;
-			}
-		</style>
+		<div class="page">
+			<Header />
+			<main class="idx">
+				<header class="idx-pagehead">
+					<p class="eyebrow">topic</p>
+					<h1>#{tag}</h1>
+					<p class="blurb">{posts.length} {posts.length === 1 ? 'post' : 'posts'} on this topic.</p>
+					<p class="links"><a href="/tags/">← all tags</a></p>
+				</header>
+				<PostList posts={posts} emptyMessage="Nothing here yet." />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>

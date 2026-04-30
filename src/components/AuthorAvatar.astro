@@ -1,0 +1,21 @@
+---
+import type { EnrichedAuthor } from '../lib/authors';
+
+interface Props {
+	author?: EnrichedAuthor | null;
+	size?: number;
+	class?: string;
+}
+
+const { author, size = 30, class: extraClass = '' } = Astro.props;
+const initial = (author?.name ?? '✏️').trim().charAt(0).toUpperCase() || '✏️';
+const style = `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.55)}px;`;
+---
+
+<span class:list={['post-avatar', extraClass]} aria-hidden="true" style={style}>
+	{author?.avatarURL ? (
+		<img src={author.avatarURL} alt="" loading="lazy" decoding="async" />
+	) : (
+		initial
+	)}
+</span>

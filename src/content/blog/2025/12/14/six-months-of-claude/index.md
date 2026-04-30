@@ -1,6 +1,6 @@
 ---
 title: "9 Months of Claude"
-description: "I try to commit to things. My relationship with the craft of programming is significantly more intense than most of people I have worked with in my career. This isn't a slight to others, a more div..."
+description: "I try to commit to things. My relationship with the craft of programming is significantly more intense than most of people I have worked with in my career..."
 pubDate: "2025-12-14T12:00:22Z"
 authors:
   - "orta"
@@ -37,7 +37,6 @@ One final note before I get started, these posts end up outside of the programin
 
 ---
 
-<<<<<<< HEAD
 ## LLMs as the "killer app" Of This Generation
 
 I've seen _many_ technical fads come and go: 'ChatBots', 'Metaverse', 'Edutainment', 'Crypto', 'AR/VR', 'Uber for X', 'Apps' etc. I try to understand their underlying 'why is this happening now?' and 'what tech underpins this?' but I absolutely bet against all of them.
@@ -46,7 +45,7 @@ To me, there's not been many 'Killer Apps', ones which literally change how you 
 
 I think LLMs, Reasoning Loops and Code is the next 'Killer App' - it's not reached accessibility for everyone yet but almost everyone I've met who has genuinely engaged with it comes out changed. When I consider:
 
-- The complexity of actually understanding how a computer works, how far away people are starting to get from some of the most primitive abstractions like files and folders due to consolidation on apps which aim to replace understanding 
+- The complexity of actually understanding how a computer works, how far away people are starting to get from some of the most primitive abstractions like files and folders due to consolidation on apps which aim to replace understanding
 
 - The security theatre offered via app stores on Android and iOS, and the dance they force you to commit to put software on a device you own
 
@@ -82,7 +81,7 @@ Now the easy stuff is all done, (which was _years of backlog_ done in weeks!), I
 
 ### What a Feature Looks Like
 
-Today, I bucket the work based on a guess for its relative size. If I think I'll be thinking about it for an hour or two, then I'll start in a plan mode where I work back and forth on a single markdown document for a while. I'm trying to anticipate all of the upcoming peculiarities of what we're trying to mkae 
+Today, I bucket the work based on a guess for its relative size. If I think I'll be thinking about it for an hour or two, then I'll start in a plan mode where I work back and forth on a single markdown document for a while. I'm trying to anticipate all of the upcoming peculiarities of what we're trying to mkae
 
 ### An Over-reliance?
 
@@ -104,7 +103,7 @@ I've never found software to be more malleable than this last 6 months. Here's s
 
   We're talking re-implementing a SoundCloud player, the Signal Messenger client, dumb desktop toys I enjoyed in my youth.
 
-- Other peoples software which previously relied on "security by obscurity" is absolutely an open book now. I've built non-trivial decryption algorithms, extracted full API client specs from de-compiling Android apks, collected HARs from web UIs to re-implement clients against private APIs. 
+- Other peoples software which previously relied on "security by obscurity" is absolutely an open book now. I've built non-trivial decryption algorithms, extracted full API client specs from de-compiling Android apks, collected HARs from web UIs to re-implement clients against private APIs.
 
   Unless you are 100% server side rendering, the ability for Claude to be tasked to 'figure out how this works and make me a JavaScript implementation' is further than my own personal capabilities.
 

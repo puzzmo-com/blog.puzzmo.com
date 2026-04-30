@@ -1,10 +1,12 @@
 ---
+import AuthorAvatar from '../../components/AuthorAvatar.astro';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { AUTHORS, SITE_TITLE } from '../../consts';
-import { getPublishedPosts, postUrl } from '../../lib/posts';
+import PostList from '../../components/PostList.astro';
+import { SITE_TITLE } from '../../consts';
+import { getAuthor } from '../../lib/authors';
+import { getPublishedPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
 	const posts = await getPublishedPosts();
@@ -18,68 +20,70 @@ export async function getStaticPaths() {
 		params: { author: slug },
 		props: {
 			slug,
-			author: AUTHORS[slug] ?? { name: slug, bio: '' },
 			posts: posts.filter((p) => p.data.authors?.includes(slug)),
 		},
 	}));
 }
 
-const { slug, author, posts } = Astro.props;
+const { slug, posts } = Astro.props;
+const author = await getAuthor(slug);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`${author.name} - ${SITE_TITLE}`} description={author.bio} />
+		<BaseHead title={`${author.name} — ${SITE_TITLE}`} description={author.bio} />
 	</head>
 	<body>
-		<Header />
-		<main>
-			<h1>{author.name}</h1>
-			<p class="bio">{author.bio}</p>
-			{author.twitter && <p><a href={`https://twitter.com/${author.twitter}`}>@{author.twitter}</a></p>}
-			<h2>Posts</h2>
-			<ul class="post-list">
-				{posts.map((post: any) => (
-					<li>
-						<a href={postUrl(post)}>
-							<span class="title">{post.data.title}</span>
-							<span class="date"><FormattedDate date={post.data.pubDate} /></span>
-						</a>
-					</li>
-				))}
-			</ul>
-		</main>
-		<Footer />
-		<style>
-			.bio {
-				color: rgb(var(--gray));
-				font-style: italic;
-			}
-			.post-list {
-				list-style: none;
-				padding: 0;
-			}
-			.post-list li {
-				margin-bottom: 0.5rem;
-			}
-			.post-list a {
-				display: flex;
-				justify-content: space-between;
-				align-items: baseline;
-				gap: 1rem;
-				text-decoration: none;
-				padding: 0.5rem 0;
-				border-bottom: 1px solid rgb(var(--gray-light));
-			}
-			.post-list a:hover .title {
-				color: rgb(var(--accent));
-			}
-			.date {
-				color: rgb(var(--gray));
-				font-size: 0.875rem;
-				white-space: nowrap;
-			}
-		</style>
+		<div class="page">
+			<Header />
+			<main class="idx">
+				<header class="idx-pagehead">
+					<p class="eyebrow">author</p>
+					<div class="author-card">
+						<AuthorAvatar author={author} size={56} />
+						<div>
+							<h1 style="margin: 0 0 4px;">{author.name}</h1>
+							{author.bio && <p class="bio" style="margin: 0;">{author.bio}</p>}
+						</div>
+					</div>
+					{(author.blueskyURL || author.twitch) && (
+						<p class="links">
+							{author.blueskyURL && (
+								<a href={author.blueskyURL} target="_blank" rel="noopener">@{author.bsky} on bluesky</a>
+							)}
+							{author.blueskyURL && author.twitch && ' · '}
+							{author.twitch && (
+								<a href={`https://twitch.tv/${author.twitch}`} target="_blank" rel="noopener">{author.twitch} on twitch</a>
+							)}
+						</p>
+					)}
+					{(author.followersCount !== undefined || author.highlightedStats?.length) && (
+						<div class="author-stats">
+							{author.followersCount !== undefined && (
+								<div class="stat">
+									<span class="num">{author.followersCount.toLocaleString()}</span>
+									<span class="label">followers</span>
+								</div>
+							)}
+							{author.followingCount !== undefined && (
+								<div class="stat">
+									<span class="num">{author.followingCount.toLocaleString()}</span>
+									<span class="label">following</span>
+								</div>
+							)}
+							{author.highlightedStats?.map((stat) => (
+								<div class="stat">
+									<span class="num">{stat.msg}</span>
+									<span class="label">{stat.section}</span>
+								</div>
+							))}
+						</div>
+					)}
+				</header>
+				<PostList posts={posts} emptyMessage="No posts yet." />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>
