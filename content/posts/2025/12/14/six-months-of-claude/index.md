@@ -6,9 +6,9 @@ tags = ["tech"]
 theme = "outlook-hayesy-beta"
 +++
 
-I try to commit to things. My relationship with the craft of programming is significantly more intense than most of people I have worked with in my career. This isn't a slight to others, a more diverse set of interests makes for more well-rounded people and there's a lot of things to do as a human in a lifetime! My commitment to the craft comes with a cost - I am extremely wary of adding dependents and taking on responsibilies which do not give me maximal time and space to further the work on my craft.
+I try to commit to things. My relationship with the craft of programming is significantly more intense than most of people I have worked with in my career. This isn't a slight to others, a more diverse set of interests makes for more well-rounded people and there's a lot of things to do as a human in a lifetime! My commitment to the craft comes with a cost - I am extremely wary of adding dependents and taking on responsibilities which do not give me maximal time and space to further the work on my craft.
 
-The reason for being dependant phobic is the effort takes time. Unbelievable amounts of time. Since I started to commit to programming as a craft about 13 years ago, I have programmed almost every day for somewhere between 8 to 10 hours. I have devoted tens of thousands of hours to understanding and contributing back to each ecosystem I've relied on: Ruby, iOS Native, Node, Browsers and Server Infra over that time. Those hours are based on one simple foundational concept which I grasped right at the beginning of my career: Every day I build on the work and knowledge of past me. So, any extra work I put in today gives me the chance to build upon this further tomorrow.
+The reason for being dependant phobic is the effort takes time. Unbelievable amounts of time. Since {{< hover-image src="./pic-of-my-github-graphs-2009-2020.jpg" alt="My 2009 - 2020 github activity, I can get a new one end of year!" >}}I started to commit{{< /hover-image >}} to programming as a craft about 13 years ago, I have programmed almost every day for somewhere between 8 to 10 hours. I have devoted tens of thousands of hours to understanding and contributing back to each ecosystem I've relied on: Ruby, iOS Native, Node, Browsers and Server Infra over that time. Those hours are based on one simple foundational concept which I grasped right at the beginning of my career: Every day I build on the work and knowledge of past me. So, any extra work I put in today gives me the chance to build upon this further tomorrow.
 
 My last 12 months of using Claude Code has really shaken that foundations, because I think at heart, it allows for others to have access to the skills you can gain from that commitment, without putting in the time.
 
@@ -48,7 +48,7 @@ I think LLMs, Reasoning Loops and Code is the next 'Killer App' - it's not reach
 
 Something derived from the lineage of Claude Code has the potential to fully undermine these systems and make computing far more accessible to individuals.
 
-We used to need to print out instructions from Google Maps. Today to be effective with Claude Code you need the mind of a computer systems expert, but most people don't need that level of application. We found the shape of next the killer app.
+We used to need to print out instructions from Google Maps. Today to be effective with Claude Code you need the mind of a computer systems expert, but most people don't need that level of application. With agentic loops like Claude Code found the shape of the next killer app.
 
 ## 12 Months of Claude Code
 
@@ -61,6 +61,8 @@ I'd argue that overuse in both cases is a phase you go through, and on the other
 I am at the comfy stage of Claude Code usage. I would say that I effectively don't write features by hand now, and when I don't have internet access I work in notation form on what an upcoming project should be e.g. doing spec work instead which is a far cry from the last decade of 'offline means I can concentrate on writing code.'
 
 There's no denying this is a big change, and it does come with trade-offs. Not feeling like I get the value from writing code line-by-line has a strange emotional edginess to me.
+
+{{< claude-iframe id="chat-messages" src="./chat-messages/index.html" >}}{{< /claude-iframe >}}
 
 ### On Models and Agents
 
