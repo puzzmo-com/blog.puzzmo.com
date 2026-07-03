@@ -1,6 +1,6 @@
 +++
 title = '12 Months of Claude'
-date = 2025-12-14T12:00:22Z
+date = 2026-07-03T09:00:00Z
 authors = ["orta"]
 tags = ["tech"]
 theme = "outlook-hayesy-beta"
@@ -48,28 +48,6 @@ I think LLMs, Reasoning Loops and Code is the next 'Killer App' - it's not reach
 Something derived from the lineage of Claude Code has the potential to fully undermine these systems and make computing far more accessible to individuals. I just keep seeing people making new software to solve problems that is so far out of what they previously could have done.
 
 When it first came out, we used to need to print out instructions from Google Maps. Today to be effective with Claude Code you need the mind of a computer systems expert, but most people don't need that level of technical appreciation. I'd expect that to get simpler, with agentic loops like Claude Code found the shape of a truly epochal change to how we interface with computers.
-
-### What do I mean by "shape"
-
-A good example of using Claude Code's capabilities to be good with code but operate in a different space is Claude Design. It's an interesting abstraction: you start by creating a design system:
-
-![The Claude Design (Beta) home screen at claude.ai/design, headed "What will you design today?". A prompt box invites you to describe an app idea using the Puzzmo Design System with Claude Opus 4.8, above template options (Prototype, Slides, Document, Wireframe, Animation) and a list of saved design systems including Danger, Codiff, Puzzmo and Keytrace design systems.](./claude-design-blank.png)
-
-Then you work on the design system itself by iterating with the chat panel on the left while a live preview of the components builds up on the right.
-
-![The Codiff Design System open in Claude Design, with a chat panel on the left and a scrollable preview of the design-system components on the right — a Command Bar, Review Comment, Floating Action Buttons and a sidebar listing the components, spacing and type styles.](./claude-design-design-system-components.png)
-
-Then once you're happy you can create projects with that design system:
-
-![A Codiff walkthrough project built from the Codiff design system, showing a grid of generated artboards — results, contract, composer and diff views — produced from a chat prompt on the left.](./claude-design-project-codiff-example.png)
-
-I've found it a tool worth exploration and is excellent for getting ideas but the results are very derivative and have a pretty obvious Claude-design smell. When I first used it for [keytrace.dev](https://keytrace.dev/) on the Claude Design launch weekend it felt freeing to be able to take my existing designs and just clean it up and professionalize it.
-
-Now, 3 months later as more people have been using the tool - it's hard to not see the AI-design-yness in the site. Hard to say if this is in the "how many fingers" period of AI design because it's just not as formally verifiable as code is.
-
-But as a 'give me a prototype so we collectively can talk about it' tool, Claude Design is exceptional and I find myself regularly working through a redesign of a section of Puzzmo and then presenting it to others to figure if it's inspiring to put the real work in.
-
-I'd expect there to be many many of these types of applications to explore in the future.  
 
 ## 12 Months of Claude Code
 
@@ -126,7 +104,7 @@ I think that for most engineers on our team the productivity boost for making ch
 
 ### Personal Productivity
 
-I feel like I'm operating in integer multiples of productivity gains from being able to work with Claude Code.
+I think I'm operating in integer multiples of productivity gains from being able to work with Claude Code.
 
 In a blog post [about context switching, 8 years ago](https://artsy.github.io/blog/2018/08/10/On-Context-Switching), I wrote:
 
@@ -138,7 +116,7 @@ That blog post goes through a bunch of techniques I still use today on how to be
 
 Perhaps a decade of preparation for a lot of concurrent work has helped!
 
-I have tried to figure out if there are ways to quantify, here are all of my notes:
+I have tried to figure out if there are ways to quantify, here some of my stats:
 
 {{< iframe src="/activity-stats/index.html" title="@orta — GitHub activity, Jan 2024 → Jul 2026" height="90vh" >}}
 
@@ -162,6 +140,26 @@ I've never found software to be more malleable than this last year. Here's some 
 
 - I migrated Puzzmo off React Native and Redwood JS. Literally re-rooting the entire project.
 
-There is a new breed of open open source projects like my friend Pete's OpenClaw, or Daniel Roe + Patak's npmx which really attempt a ["Yes, and ..."](https://en.wikipedia.org/wiki/Yes,_and_...) approach to open source software development with is an interesting perspective. On a personal note, I've been making open source which is less conveniently packaged in favour of having others use an LLM to fuse the code into your own codebase instead of treating it as a vendored black box.
+There is a new breed of open open source projects like my friend Pete's OpenClaw, or Daniel Roe + Patak's npmx which really attempt a "Yes, and" approach to open source software development with is an interesting perspective. On a personal note, I've been making open source which is less conveniently packaged in favour of having others use an LLM to fuse the code into your own codebase instead of treating it as a vendored black box.
 
 Open source will not be the same, but it also wasn't looking too great, the generations after mine weren't as interested in contributing to the commons in the same way. That's fine, but maintainers are not going to pivot to video to try find new contributors.
+
+### More than development?
+
+I've been watching Claude Design pretty closely during the last few months. It's an interesting abstraction: you iterate first on creating a design system
+
+![The Claude Design (Beta) home screen at claude.ai/design, headed "What will you design today?". A prompt box invites you to describe an app idea using the Puzzmo Design System with Claude Opus 4.8, above template options (Prototype, Slides, Document, Wireframe, Animation) and a list of saved design systems including Danger, Codiff, Puzzmo and Keytrace design systems.](./claude-design-blank.png)
+
+Then you work on the design system itself by iterating with the chat panel on the left while a live preview of the components builds up on the right.
+
+![The Codiff Design System open in Claude Design, with a chat panel on the left and a scrollable preview of the design-system components on the right — a Command Bar, Review Comment, Floating Action Buttons and a sidebar listing the components, spacing and type styles.](./claude-design-design-system-components.png)
+
+Then once you're happy you can create projects with that design system:
+
+![A Codiff walkthrough project built from the Codiff design system, showing a grid of generated artboards — results, contract, composer and diff views — produced from a chat prompt on the left.](./claude-design-project-codiff-example.png)
+
+It's an example of using Claude's skills as a programmer in other domains and I've found it a tool worth exploration and is excellent for getting ideas but the results are very derivative and have a pretty obvious Claude-design smell. When I first used it for [keytrace.dev](https://keytrace.dev/) on the Claude Design launch weekend it felt freeing to be able to take my existing designs and just clean it up and professionalize it.
+
+Now, 3 months later as more people have been using the tool - it's hard to not see the AI-design-yness in the site. Hard to say if this is in the "how many fingers" period of AI design because it's just not as formally verifiable as code is.
+
+But as a 'give me a prototype so we collectively can talk about it' tool, Claude Design is exceptional and I find myself regularly working through a redesign of a section of Puzzmo and then presenting it to others to figure if it's inspiring to put the real work in.
