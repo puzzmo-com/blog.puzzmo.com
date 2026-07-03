@@ -2,6 +2,7 @@
 languageCode = 'en-us'
 title = 'Puzzmo Blog'
 theme = 'paper'
+publishDir = 'dist'
 
 [params]
   # color style

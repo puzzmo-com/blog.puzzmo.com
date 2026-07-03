@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>orta — GitHub activity 2024 → Jul 2026</title>
+<style>
+  .viz-root {
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #898781;
+    --gridline: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11, 11, 11, 0.10);
+    --series-1: #2a78d6; /* blue */
+    --series-2: #1baf7a; /* aqua */
+    --diverge-pos: #2a78d6;
+    --diverge-neg: #e34948;
+    --delta-good: #006300;
+  }
+  @media (prefers-color-scheme: dark) {
+    .viz-root {
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted: #898781;
+      --gridline: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255, 255, 255, 0.10);
+      --series-1: #3987e5;
+      --series-2: #199e70;
+      --diverge-pos: #3987e5;
+      --diverge-neg: #e66767;
+      --delta-good: #0ca30c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body.viz-root {
+    margin: 0; padding: 32px 24px 64px; background: var(--page); color: var(--text-primary);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 1020px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--text-secondary); margin: 0 0 28px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .tile .label { color: var(--text-secondary); font-size: 13px; }
+  .tile .value { font-size: 30px; font-weight: 600; margin: 2px 0; }
+  .tile .delta { font-size: 13px; color: var(--text-secondary); }
+  .tile .delta .up { color: var(--delta-good); font-weight: 600; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 18px 18px 10px; margin-bottom: 20px; }
+  .card h2 { font-size: 15px; margin: 0 0 2px; }
+  .card .desc { color: var(--text-secondary); font-size: 13px; margin: 0 0 10px; }
+  .legend { display: flex; gap: 16px; font-size: 12.5px; color: var(--text-secondary); margin-bottom: 6px; }
+  .legend .key { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .legend .linekey { width: 16px; height: 2px; border-radius: 1px; display: inline-block; }
+  svg { display: block; width: 100%; height: auto; }
+  #tooltip {
+    position: fixed; pointer-events: none; z-index: 10; display: none;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12); padding: 8px 10px; font-size: 12.5px; min-width: 130px;
+  }
+  #tooltip .t-title { color: var(--text-secondary); margin-bottom: 4px; }
+  #tooltip .t-row { display: flex; align-items: center; gap: 6px; }
+  #tooltip .t-row .linekey { width: 12px; height: 2px; border-radius: 1px; }
+  #tooltip .t-row b { font-weight: 600; margin-left: auto; padding-left: 12px; }
+  details { margin-top: 8px; }
+  summary { cursor: pointer; color: var(--text-secondary); }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 12.5px; }
+  th, td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--gridline); font-variant-numeric: tabular-nums; }
+  th[scope="row"], thead th:first-child { text-align: left; }
+  thead th { color: var(--text-secondary); font-weight: 600; }
+  .foot { color: var(--text-muted); font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body class="viz-root">
+<main>
+  <h1>@orta — GitHub activity, Jan 2024 → Jul 2026</h1>
+  <p class="sub">All-of-GitHub contribution counts (public + private). The marker on each chart is <strong>Jul 3 2025</strong>, when Claude Code entered the workflow. Stat tiles compare the 12 complete months either side of it.</p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card" id="chart-commits"></div>
+  <div class="card" id="chart-prs"></div>
+  <div class="card" id="chart-loc"></div>
+  <div class="card" id="chart-prsize"></div>
+  <div class="card" id="chart-share"></div>
+  <div class="card" id="chart-split"></div>
+  <div class="card" id="chart-claude"></div>
+
+  <div class="card">
+    <h2>Every number, as a table</h2>
+    <details>
+      <summary>Per-month data</summary>
+      <table>
+        <thead><tr><th>Month</th><th>Commits</th><th>PRs</th><th>Commits in puzzmo-com</th><th>Commits elsewhere</th><th>My puzzmo-com PRs</th><th>All puzzmo-com PRs</th><th>PR share</th><th>Avg PR lines</th><th>Median PR lines</th><th>Lines added (app)</th><th>Lines removed (app)</th></tr></thead>
+        <tbody>
+<tr><th scope="row">2024-01</th><td>392</td><td>61</td><td>375</td><td>17</td><td>56</td><td>132</td><td>42.4%</td><td>197</td><td>55</td><td>+7,663</td><td>−2,702</td></tr>
+<tr><th scope="row">2024-02</th><td>338</td><td>33</td><td>323</td><td>15</td><td>31</td><td>105</td><td>29.5%</td><td>268</td><td>101</td><td>+10,396</td><td>−3,811</td></tr>
+<tr><th scope="row">2024-03</th><td>682</td><td>74</td><td>676</td><td>6</td><td>74</td><td>146</td><td>50.7%</td><td>268</td><td>112</td><td>+15,274</td><td>−4,783</td></tr>
+<tr><th scope="row">2024-04</th><td>523</td><td>91</td><td>492</td><td>31</td><td>88</td><td>178</td><td>49.4%</td><td>154</td><td>82</td><td>+8,403</td><td>−3,050</td></tr>
+<tr><th scope="row">2024-05</th><td>748</td><td>92</td><td>731</td><td>17</td><td>91</td><td>198</td><td>46.0%</td><td>258</td><td>107</td><td>+14,836</td><td>−5,721</td></tr>
+<tr><th scope="row">2024-06</th><td>562</td><td>67</td><td>545</td><td>17</td><td>67</td><td>152</td><td>44.1%</td><td>173</td><td>55</td><td>+6,858</td><td>−2,960</td></tr>
+<tr><th scope="row">2024-07</th><td>422</td><td>53</td><td>415</td><td>7</td><td>53</td><td>138</td><td>38.4%</td><td>180</td><td>62</td><td>+5,257</td><td>−2,226</td></tr>
+<tr><th scope="row">2024-08</th><td>626</td><td>83</td><td>604</td><td>22</td><td>82</td><td>174</td><td>47.1%</td><td>154</td><td>48</td><td>+10,601</td><td>−8,458</td></tr>
+<tr><th scope="row">2024-09</th><td>378</td><td>73</td><td>368</td><td>10</td><td>71</td><td>125</td><td>56.8%</td><td>210</td><td>59</td><td>+10,098</td><td>−7,657</td></tr>
+<tr><th scope="row">2024-10</th><td>259</td><td>36</td><td>253</td><td>6</td><td>36</td><td>99</td><td>36.4%</td><td>222</td><td>96</td><td>+5,193</td><td>−2,421</td></tr>
+<tr><th scope="row">2024-11</th><td>399</td><td>80</td><td>391</td><td>8</td><td>78</td><td>212</td><td>36.8%</td><td>199</td><td>81</td><td>+10,082</td><td>−4,043</td></tr>
+<tr><th scope="row">2024-12</th><td>216</td><td>55</td><td>206</td><td>10</td><td>52</td><td>130</td><td>40.0%</td><td>190</td><td>38</td><td>+4,513</td><td>−3,453</td></tr>
+<tr><th scope="row">2025-01</th><td>353</td><td>61</td><td>261</td><td>92</td><td>59</td><td>116</td><td>50.9%</td><td>213</td><td>35</td><td>+6,767</td><td>−5,331</td></tr>
+<tr><th scope="row">2025-02</th><td>255</td><td>47</td><td>200</td><td>55</td><td>47</td><td>135</td><td>34.8%</td><td>149</td><td>40</td><td>+3,710</td><td>−2,325</td></tr>
+<tr><th scope="row">2025-03</th><td>297</td><td>59</td><td>267</td><td>30</td><td>59</td><td>194</td><td>30.4%</td><td>152</td><td>60</td><td>+6,952</td><td>−3,104</td></tr>
+<tr><th scope="row">2025-04</th><td>209</td><td>54</td><td>194</td><td>15</td><td>54</td><td>141</td><td>38.3%</td><td>224</td><td>68</td><td>+5,197</td><td>−4,444</td></tr>
+<tr><th scope="row">2025-05</th><td>416</td><td>111</td><td>384</td><td>32</td><td>105</td><td>237</td><td>44.3%</td><td>137</td><td>34</td><td>+5,653</td><td>−2,240</td></tr>
+<tr><th scope="row">2025-06</th><td>444</td><td>101</td><td>437</td><td>7</td><td>101</td><td>158</td><td>63.9%</td><td>298</td><td>117</td><td>+18,583</td><td>−7,436</td></tr>
+<tr><th scope="row">2025-07</th><td>466</td><td>107</td><td>436</td><td>30</td><td>107</td><td>192</td><td>55.7%</td><td>218</td><td>92</td><td>+16,292</td><td>−4,748</td></tr>
+<tr><th scope="row">2025-08</th><td>477</td><td>112</td><td>462</td><td>15</td><td>111</td><td>178</td><td>62.4%</td><td>209</td><td>55</td><td>+14,590</td><td>−4,494</td></tr>
+<tr><th scope="row">2025-09</th><td>162</td><td>40</td><td>153</td><td>9</td><td>39</td><td>94</td><td>41.5%</td><td>164</td><td>29</td><td>+6,590</td><td>−2,057</td></tr>
+<tr><th scope="row">2025-10</th><td>232</td><td>65</td><td>216</td><td>16</td><td>65</td><td>110</td><td>59.1%</td><td>373</td><td>91</td><td>+15,189</td><td>−5,155</td></tr>
+<tr><th scope="row">2025-11</th><td>329</td><td>88</td><td>313</td><td>16</td><td>85</td><td>130</td><td>65.4%</td><td>297</td><td>72</td><td>+19,107</td><td>−14,567</td></tr>
+<tr><th scope="row">2025-12</th><td>363</td><td>98</td><td>359</td><td>4</td><td>98</td><td>127</td><td>77.2%</td><td>287</td><td>106</td><td>+17,320</td><td>−5,574</td></tr>
+<tr><th scope="row">2026-01</th><td>295</td><td>65</td><td>252</td><td>43</td><td>61</td><td>139</td><td>43.9%</td><td>206</td><td>102</td><td>+16,738</td><td>−5,950</td></tr>
+<tr><th scope="row">2026-02</th><td>419</td><td>93</td><td>293</td><td>126</td><td>79</td><td>145</td><td>54.5%</td><td>315</td><td>138</td><td>+16,344</td><td>−8,395</td></tr>
+<tr><th scope="row">2026-03</th><td>390</td><td>81</td><td>307</td><td>83</td><td>80</td><td>147</td><td>54.4%</td><td>320</td><td>70</td><td>+15,510</td><td>−4,604</td></tr>
+<tr><th scope="row">2026-04</th><td>334</td><td>91</td><td>294</td><td>40</td><td>85</td><td>191</td><td>44.5%</td><td>284</td><td>107</td><td>+17,486</td><td>−7,484</td></tr>
+<tr><th scope="row">2026-05</th><td>464</td><td>122</td><td>441</td><td>23</td><td>121</td><td>189</td><td>64.0%</td><td>314</td><td>116</td><td>+39,359</td><td>−16,253</td></tr>
+<tr><th scope="row">2026-06</th><td>474</td><td>155</td><td>458</td><td>16</td><td>147</td><td>216</td><td>68.1%</td><td>223</td><td>67</td><td>+31,036</td><td>−13,245</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </div>
+
+  <p class="foot">Generated 2026-07-03. 2026-07 excluded as a partial month. Lines-of-code stats are from the local puzzmo-com/app checkout only, exclude generated/lock files, and drop 62 bulk commits over 2,000 changed lines (see data/loc.json for the list). PR sizes exclude PRs over 2,000 changed lines. Claude Code usage is merged from both machines' local logs; days before late May 2026 undercount (older transcripts are pruned), and Mac data ends at its latest copy (Jun 28 2026).</p>
+</main>
+<div id="tooltip" role="status"></div>
+<script src="data.js"></script>
+<script src="chart-app.js"></script>
+</body>
+</html>
