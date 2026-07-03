@@ -43,12 +43,11 @@ To me, there's not been many 'Killer Apps', ones which literally change how you 
 I think LLMs, Reasoning Loops and Code is the next 'Killer App' - it's not reached accessibility for everyone yet but almost everyone I've met who has genuinely engaged with it comes out changed. When I consider:
 
 - The complexity of actually understanding how a computer works, how far away people are starting to get from some of the most primitive abstractions like files and folders due to consolidation on apps which aim to replace understanding
-
 - The security theatre offered via app stores on Android and iOS, and the dance they force you to commit to put software on a device you own
 
-Something derived from the lineage of Claude Code has the potential to fully undermine these systems and make computing far more accessible to individuals.
+Something derived from the lineage of Claude Code has the potential to fully undermine these systems and make computing far more accessible to individuals. I just keep seeing people making new software to solve problems that is so far out of what they previously could have done.
 
-We used to need to print out instructions from Google Maps. Today to be effective with Claude Code you need the mind of a computer systems expert, but most people don't need that level of application. With agentic loops like Claude Code found the shape of the next killer app.
+When it first came out, we used to need to print out instructions from Google Maps. Today to be effective with Claude Code you need the mind of a computer systems expert, but most people don't need that level of technical appreciation. I'd expect that to get simpler, with agentic loops like Claude Code found the shape of a truly epochal change to how we interface with computers.
 
 ## 12 Months of Claude Code
 
@@ -58,17 +57,20 @@ The simile which might work for some folks is learning TypeScript and having a f
 
 I'd argue that overuse in both cases is a phase you go through, and on the other side you start writing less types. (Except you "[Doom in TypeScript](https://www.tomshardware.com/video-games/porting-doom-to-typescript-types-took-3-5-trillion-lines-90gb-of-ram-and-a-full-year-of-work)" guy, never change.) You end up being more comfortable not passing in the whole type for a function but just the parts it needs, using type drilling syntax (`Type["field"]`) to avoid duplications, groking systems that affect the flow graph for a type and instead of _more_ you find that _less_ ends up being a great spot for flexibility but with enough coverage that you feel comfy.
 
-I am at the comfy stage of Claude Code usage. I would say that I effectively don't write features by hand now, and when I don't have internet access I work in notation form on what an upcoming project should be e.g. doing spec work instead which is a far cry from the last decade of 'offline means I can concentrate on writing code.'
+I am at the comfy stage of Claude Code usage. I would say that I effectively don't write features by hand now, and when I don't have internet access I work in notation form on what an upcoming project should be e.g. doing spec work instead which is a far cry from the last decade of 'offline means I can concentrate on writing code.
 
-There's no denying this is a big change, and it does come with trade-offs. Not feeling like I get the value from writing code line-by-line has a strange emotional edginess to me.
+There's no denying this is a big change, and it does come with trade-offs. Like, I loved the feeling of putting on some music and just disappearing into flow state for a few hours on a hard problem! Now I can concurrently work on a few problems at a time, at a significantly larger scale and its different (but not as flow-y)!
 
+Want to get a general sense of how I interact with Claude Code? Here's almost everything I have said to it over the last year:
+
+<!-- find somehwer for this -->
 {{< claude-iframe id="chat-messages" src="./chat-messages/index.html" >}}{{< /claude-iframe >}}
 
 ### On Models and Agents
 
-I have still not tried anything other than Claude Code as an agent, for anything other than simple 'Claude is down, lets try _x_.' In part, because it is an effective tool and the rate of change for just this one single application is very high. You get new features at a daily/weekly basis, and trying to keep up with the community of hackers making systems around Claude Code is pretty exhausting (even when you're IRL buddies with steipete of OpenClaw).
+I have still not tried anything other than Claude Code as an agent harness. In part, because it is an effective tool and the rate of change for just this one single application is very high. You get new features at a daily/weekly basis, and trying to keep up with the community of hackers making systems around Claude Code is pretty exhausting (even when you're IRL buddies with steipete of OpenClaw).
 
-For most of the year, the models themselves have come and gone. I did't really think much about them. This changed with [Fable](https://www.anthropic.com/news/claude-fable-5-mythos-5), which I think was a significant jump in capabilities. Usually for a point release I'll go back to some old projects and give them a 'examine this and offer some advice for refactors' type of prompts. With Fable I went back to some of the trickiest problems I have in the Puzzmo codebases and we made significant headway in a single weekend.
+For most of the year, the models themselves have come and gone. I didn't really think much about them. This changed with [Fable](https://www.anthropic.com/news/claude-fable-5-mythos-5), which I think was a significant jump in capabilities. Usually for a point release I'll go back to some old projects and give them a 'examine this and offer some advice for refactors' type of prompts. With Fable I went back to some of the trickiest problems I have in the Puzzmo codebases and we made significant headway in a single weekend.
 
 When I am asked about models and their capabilities for writing code, I describe the capabilities of the tool as being in the range of an engineer with ~5-6 years of programming experience in my domain, with a really good amount of focus oon the actual problem - with the capacity to ask insightful questions ahead of time. This alone is an incredible accomplishment for a tool, literally like science fiction. Fable certainly moves the baseline here, I have friends who have have access to Mythos + Fable and it sounds very legitimate (the Mythos addition to the equation sounds to be an unrelenting focus and capacity to dive between systems for greater understanding )
 
@@ -80,13 +82,13 @@ Once I had started to settle in with Claude Code; I started to really feel like 
 
 Now the easy stuff is all done, (which was _years of backlog_ done in weeks!), I've been trying to reflect on how easy Claude Code has made systemic changes to our codebase. Changes are not as trivial as the beginning, where you could just eyeball the changes and be certain everything is correct off the ball.
 
-What I have been thinking about is that it has moved the capacity to 'do something' to be incredibly cheap, especially on a small team with pretty established domains. When I talked this through with Brooke (or Puzzles Editor) she noted an interesting analogy:
+What I have been thinking about is that it has moved the capacity to 'do something' to be incredibly cheap, especially on a small team with pretty established domains. When I talked this through with Brooke (our Puzzles Editor) she noted an interesting analogy:
 
 ![A Slack conversation where Orta says the pre-Claude Code days were "where things took time, not activation energy", and Brooke replies "thermodynamics vs kinetics! an apt metaphor in multiple ways — claude: kinetics: activation energy determines whether it happens, result is usually not optimal; pre-claude: thermo: time determines whether it happens, result is usually optimal."](./activation-energy.png)
 
 It used to take a lot of engineer's time to make things, I used to be willing to commit unreasonable hours to make sure the things I built were systemically correct and broadly usable. I could justify that by knowing I got to build on that work in the future, so I could get work done which didn't pass other engineer's energy filter.
 
-In a world where the implementation is cheap: the activation energy for fixing bugs, doing systemic refactors, software updates is mostly the verification phase. You're not learning the same, but you are building on your existing work if you're careful and deliberate in your process.s
+In a world where the implementation is cheap: the activation energy for fixing bugs, doing systemic refactors, software updates is mostly the verification phase. You're not learning the same personally, but you are building on your existing work if you're careful and deliberate in your process.
 
 ### Team "Productivity"
 
@@ -99,6 +101,26 @@ From operating a team which has been using Claude Code for about a year now I'd 
 LLMs haven't really change the rate of contributions for people individually in our team, if you were shipping a chunky feature a month in the pre-claude world you are probably shipping one a month in the Claude Code days but also occasionally fixing a bug or if we're lucky two features in a month.
 
 I think that for most engineers on our team the productivity boost for making changes to Puzzmo is by-in-large in the 1.x range. Which for $100 a month is substantial! It's not really what LLM boosters pitch but it's a big win for a bunch of seniors.
+
+### Personal Productivity
+
+I think I'm operating in integer multiples of productivity gains from being able to work with Claude Code.
+
+In a blog post [about context switching, 8 years ago](https://artsy.github.io/blog/2018/08/10/On-Context-Switching), I wrote:
+
+> In the last 2 years, most of my work at Artsy (and in the OSS world) has been less about longer-term building of hard things, but working on many smaller tasks across a lot of different areas.
+
+> Somehow, during this period I managed to end up in the top of “most active” GitHub members, I feel like a lot of this is due to doing Open Source by Default at Artsy and second to being good at context switching.
+
+That blog post goes through a bunch of techniques I still use today on how to be able to quickly jump through different contexts making sweeping and safe changes fast. Claude Code makes the implementation details trivial and so a lot of the work is now the parts that surround 'the work.'
+
+Perhaps a decade of preparation for a lot of concurrent work has helped!
+
+I have tried to figure out if there are ways to quantify, here some of my stats:
+
+{{< iframe src="/activity-stats/index.html" title="@orta — GitHub activity, Jan 2024 → Jul 2026" height="90vh" >}}
+
+Again, nothing which screams "multiplier" and maybe the real truth to the matter is that from an internal observation it feels like a integer multiplier but to an outside observer (slash any quantified data I've seen or made) it really is a 1.x output multiplier.
 
 ### Owning the Stack
 
