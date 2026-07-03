@@ -218,3 +218,11 @@ I've got Claude hooked up to do a few things weekly on our main monorepo:
 - Daily create a standup bot which gives a summary of all the merged PRs in the last 24hrs into slack (then humans reply with their plans for the day)
 
 All of these are pretty useful assists and not really a technical overreach. I experimented with a 'if you use this issue template, Claude will try make a PR and assign it to me' feature but no-one used it, so I let it fall to the wayside. I'm still trying to find the balance between last year's engineering rigour and giving space for taking ideas from the bleeding edges of vibers.
+
+#### Vibin' in Public
+
+I have grown to the perspective where I feel like the API (and the backend in general) is the place where we still need significant oversight on all of the code going in. Abstractions in this space require real thoroughness and an understanding of how many different systems interact. Which is kinda a shame, as I think the `input -> output` oriented nature of APIs makes it much easier to work with using an agent.
+
+On the flip-side, I have reached a point where front-end code is something we can just whip up and the level of trust I have that it is correct out of the box is significantly higher. I still read it during reviews, but I don't spend much mental energy on it. We have established patterns for all of our projects (React, Relay, Wouter, base-ui, StyleX and our own design systems) and the groves are so well marked into our codebases that it really just doesn't get anything wrong. It's more about whether you can describe the problem, verify it and ensure it covers non-trivial edge-cases - the verification steps.
+
+So, within ...
