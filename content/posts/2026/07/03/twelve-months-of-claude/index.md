@@ -246,6 +246,12 @@ There are people for whom the code is 'the thing', and maybe those types of peop
 
 Without a doubt, LLMs are changing what the craft of programming is, you can adapt or find yourself with fewer career options on the other side, alas. On the flip side, the breadth of digital products which it is possible for a motivated person to create without years of experience is deeply shocking. I've worked with a NYC bootcamp ([Pursuit](https://www.pursuit.org)) for ~12 years and seeing the projects from this year's cohort which is now "AI-native" was a real eye-opener. With only a month or two under their belt, people were porting their 3D games from Unreal to Unity, making non-trivial web, iOS and Android apps, creating AR experiences - basically stuff which would have been the output of a full, focused, bootcamp run.
 
+I just asked what sort of projects the cohort did:
+
+> There was one person (Josue Villanueva) who 3 months in built a heat map that visualized various co-morbitities of diabetes, laid them over zip codes, and then created a 1-click way to generate a grant proposal for researchers to submit — cutting down a weeks-long process into seconds.
+
+> Another group of three (led by Val Rene) after 6 months built a fully automated AI SDR, with a live 3D virtual avatar that is trained on a RAG database of your company's product lineup, to be able to capture long-tail leads for the 80% of people that visit your website that a regular SDR doesn't have time to handle. He and his team ended up working on this for months after Pursuit and even had a few customers set to convert before they decided to go the job route.
+
 Even if every senior programmer gets to be 1.x times more productive, that could effectively turn the output of our four-engineer team into the equivalent of 5-8 of 2024's engineers. That's pretty wild.
 
 It is still very early days for how LLMs will affect programming. I am hoping that we are a year or two away from self-hosting becoming a possible option and I think in that space we're basically at the 'you can buy free-range eggs' phase of where the ethics for all this sits.
@@ -266,4 +272,4 @@ You don't get nuanced opinions in a vacuum.
 
 Over the last year, I've had two conversations on repeat - either Claude Code or atproto.
 
-I'd like to give a ![cap](https://ortastuff.s3.amazonaws.com/gifs/subtle-nod.gif) tip to [Zach Gage](http://stfj.net/), [Joe Fabisevich](https://mergesort.me/), [Peter Steinberger](https://steipete.me), [Igor Borisevich](https://www.linkedin.com/in/igor-borisevich-b805a0294/), [Eloy Durán](https://mastodon.social/@alloy), [Brooke Husic](https://www.brookehusic.com/), participants in the [iOS Folks](https://ios-developers.io/) #ai-dev channel and my wife, Danger, who had to deal with at least a month of me being just flabbergasted at what Claude was doing.
+I'd like to give a [cap](https://ortastuff.s3.amazonaws.com/gifs/subtle-nod.gif) tip to [Zach Gage](http://stfj.net/), [Joe Fabisevich](https://mergesort.me/), [Peter Steinberger](https://steipete.me), [Igor Borisevich](https://www.linkedin.com/in/igor-borisevich-b805a0294/), [Eloy Durán](https://mastodon.social/@alloy), [Brooke Husic](https://www.brookehusic.com/), participants in the [iOS Folks](https://ios-developers.io/) #ai-dev channel and my wife, Danger, who had to deal with at least a month of me being just flabbergasted at what Claude was doing.
