@@ -118,11 +118,13 @@ In a true Lord of The Rings style 'power corrupts' I think being such an active 
 
 I found myself perceiving the folks who are not adopting these types of tools differently, but they haven't changed - I have! Wholesale adoption took a while in our team, but that's reasonable: LLMs and the people selling them suck.
 
-From operating a team which has been using Claude Code for about a year now I'd say that collectively we're more productive. Each individual has increased their breadth of capabilities to contribute but that the thing that hasn't really changed is the general cadence of change.
+After the first few months, and before other had really adopted the tools - I wondered if using Claude Code would sort of move more folks to be closer in terms of contributions to what I was like prior to adoption, but overall, I'd say its not that ground-breaking.
+
+From operating a team which has been using Claude Code for about 6 month now I'd say that collectively we're more productive. Each individual has increased their breadth of capabilities to contribute but I've not really seen a change in the general cadence of change.
 
 LLMs haven't really change the rate of contributions for people individually in our team, if you were shipping a chunky feature a month in the pre-claude world you are probably shipping one a month in the Claude Code days but also occasionally fixing a bug or if we're lucky two features in a month.
 
-I think that for most engineers on our team the productivity boost for making changes to Puzzmo is by-in-large in the 1.x range. Which for $100 a month is substantial! It's not really what LLM boosters pitch but it's a big win for a bunch of seniors.
+I think that for most engineers on our team the productivity boost for making changes to Puzzmo is by-in-large in the 1.x range of before. Which for $100 a month is substantial! It's not really what LLM boosters pitch but it's a big win for a bunch of seniors working on real-world codebases.
 
 ### Personal Productivity
 
