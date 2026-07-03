@@ -5,7 +5,7 @@ import { transformerTwoslash } from "@shikijs/twoslash"
 import { readdirSync, readFileSync, writeFileSync } from "fs"
 import { parse } from "node-html-parser"
 
-const posts = "public/posts"
+const posts = "dist/posts"
 const files = await readdirSync(posts, { recursive: true, encoding: "utf-8" })
 const indexFiles = files.filter((file) => file.endsWith("index.html") && file.split("/").length > 3)
 
