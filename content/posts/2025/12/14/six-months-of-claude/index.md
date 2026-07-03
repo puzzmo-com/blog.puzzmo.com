@@ -30,7 +30,7 @@ The [list of changes](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-clau
 
 Interestingly, I found it [very hard to quantify](https://blog.puzzmo.com/posts/2025/07/30/six-weeks-of-claude-code/#quantifying-the-change-is-hard) the change in a concrete metric like Pull Requests, commits or lines of code changed. I will re-explore this.
 
-One final note before I get started, these posts sometimes end up outside of the programing ecosystem - so if you are deeply pessimistic about LLMs and their consequences, [so am I](https://blog.puzzmo.com/posts/2025/06/07/orta-on-claude/#before-we-start)! I don't want to just put my head in the sand and pretend we are still in a pre-Claude Code world though. This stuff should be understood and discussed among domain experts.
+One final note before I get started, these posts sometimes end up outside of the programming ecosystem - so if you are deeply pessimistic about LLMs and their consequences, [so am I](https://blog.puzzmo.com/posts/2025/06/07/orta-on-claude/#before-we-start)! I don't want to just put my head in the sand and pretend we are still in a pre-Claude Code world though. This stuff should be understood and discussed among domain experts.
 
 ---
 
@@ -96,7 +96,7 @@ For most of the year, the models themselves have come and gone. I didn't really 
 
 When I am asked about models and their capabilities for writing code, I describe the capabilities of the tool as being in the range of an engineer with ~5-6 years of programming experience in my domain, with a really good amount of focus oon the actual problem - with the capacity to ask insightful questions ahead of time. This alone is an incredible accomplishment for a tool, literally like science fiction. Fable certainly moves the baseline here, I have friends who have have access to Mythos + Fable and it sounds very legitimate (the Mythos addition to the equation sounds to be an unrelenting focus and capacity to dive between systems for greater understanding )
 
-Fable aside, I know its easy to to be super excited for these updates and read a bunch of interesting graphs and comparisons but I try to ground myself with this: a year and a half ago this wasn't really possible and we are incredibly lucky to have tools of this calibre. Fretting over increments between Claude/GPT/Gemini/etc is like arguing over centimeters when we're collectively traveled meters. Fun, but pedantic.
+Fable aside, I know its easy to to be super excited for these updates and read a bunch of interesting graphs and comparisons but I try to ground myself with this: a year and a half ago this wasn't really possible and it is wild to have tools of this calibre. Fretting over increments between Claude/GPT/Gemini/etc is like arguing over centimeters when we're collectively traveled meters. Fun, but pedantic.
 
 ### Ease of Change
 
@@ -166,7 +166,11 @@ I've never found software to be more malleable than this last year. Here's some 
 
 There is a new breed of open open source projects like my friend Pete's OpenClaw, or Daniel Roe + Patak's npmx which really attempt a ["Yes, and ..."](https://en.wikipedia.org/wiki/Yes,_and_...) approach to open source software development with is an interesting perspective. On a personal note, I've been making open source which is less conveniently packaged in favour of having others use an LLM to fuse the code into your own codebase instead of treating it as a vendored black box.
 
-Open source will not be the same, but it also wasn't looking too great, the generations after mine weren't as interested in contributing to the commons in the same way. That's fine, but maintainers are not going to [pivot to video](https://github.blog/open-source/maintainers/who-will-maintain-the-future-rethinking-open-source-leadership-for-a-new-generation/#h-let-s-build-a-future-together) to try find new contributors.
+Open source will not be the same, but it also wasn't looking too great, the generations [after mine weren't as interested in contributing to the commons](https://github.blog/open-source/maintainers/who-will-maintain-the-future-rethinking-open-source-leadership-for-a-new-generation/#h-let-s-build-a-future-together) in the same way.
+
+![https://github.blog/wp-content/uploads/2025/08/slide.jpg?w=1024](https://github.blog/wp-content/uploads/2025/08/slide.jpg?w=1024)
+
+That's fine, but I think the extra stressors which LLM contributions are giving are going to make it even less likely that maintainers are will do things specifically to target an additional set of concerns that are not 'make the thing and treat people who want to contribute well.'
 
 ### Boundaries of the leash
 
@@ -223,6 +227,30 @@ All of these are pretty useful assists and not really a technical overreach. I e
 
 I have grown to the perspective where I feel like the API (and the backend in general) is the place where we still need significant oversight on all of the code going in. Abstractions in this space require real thoroughness and an understanding of how many different systems interact. Which is kinda a shame, as I think the `input -> output` oriented nature of APIs makes it much easier to work with using an agent.
 
-On the flip-side, I have reached a point where front-end code is something we can just whip up and the level of trust I have that it is correct out of the box is significantly higher. I still read it during reviews, but I don't spend much mental energy on it. We have established patterns for all of our projects (React, Relay, Wouter, base-ui, StyleX and our own design systems) and the groves are so well marked into our codebases that it really just doesn't get anything wrong. It's more about whether you can describe the problem, verify it and ensure it covers non-trivial edge-cases - the verification steps.
+On the flip-side, I have reached a point where front-end code is something we can just whip up and the level of trust I have that it is correct out of the box is significantly higher. I still read it during reviews, but I don't spend much mental energy on it. We have established patterns for all of our projects (React, Relay, Wouter, base-ui, StyleX and our own design systems) and the groves are so engraved into our codebases that Claude Code really just doesn't get anything wrong. It's more about whether you can describe the problem, verify it and ensure it covers non-trivial edge-cases - the verification steps.
 
-So, within ...
+So, in the year we've shipped a few projects where we've allowed for a more looser engineering approach: the print server (which recently got a Fable re-write), multiplayer (also getting a re-write), workshop (which is also in the process of a re-architecture and re-design), the game Missing Link and the game Ribbit. The games aren't planned to get a re-write: Missing Link and Ribbit we're OK with what the codebases look and feel like. Given that we are expecting to eventually support third-party games this year, those two games are more indicative of what a third-party game would feel like.
+
+The re-writes are not strictly 'the code is bad' more that 'the first pass did what we needed, and now we can come at it with a more informed view of the domain.' I drastically reduced the complexity of the [print server](https://blog.puzzmo.com/posts/2025/12/22/xword-printing/) by doing a clean-room re-implementation where I could reference the codebase, re-use its tests and talk architecture-first rather then trying to figure out how to build the damn thing.
+
+### But LLMs Suck
+
+Yeah dude, you're right. No debates from me.
+
+I don't like arguments like 'technology is neutral' because I'm giving money to a company that is [not neutral](https://www.theguardian.com/technology/2026/mar/01/claude-anthropic-iran-strikes-us-military) in an impossible to be neutral world (even if Anthropic may be [less bad](https://thenextweb.com/news/anthropic-pentagon-emails-amodei-michael-guardrails) than others of its ilk.)
+
+I don't like the idea that I have my own carve out for programming in the space of generative uses of LLMs. I genuinely don't think it's quite the same as image, video, audio generation. With those, you are generating the actual 'thing' - writing the code is not the output. You can still pour your soul into a product that has had an LLM write the code for, I do it every day. I've done it every day for a year.
+
+There are people for whom the code is 'the thing', and maybe those types of people will churn out of programming because they don't want to be interacting with tools like these. I would argue that sucks, but just because people can have a car doesn't mean you can't still bike. I'd expect that cultural norms will move.
+
+Without a doubt, LLMs are changing what the craft of programming is, you can adapt or find yourself with less career options on the other side alas. On the flip side, the breadth of things which is possible for a motivated person to create digital products without years of experience is deeply shocking. I've worked with a NYC bootcamp ([Pursuit](www.pursuit.org)) for ~12 years and seeing the projects from this year's cohort which is now "AI-native" was a real eye-opener. With only a month or two under their belt, people were porting their 3d games from Unreal to Unity, making non-trivial iOS and Android apps, creating AR experiences and building  
+
+It is still very early days for how LLMs will affect programming, I am hoping that we are a year or two away from self-hosting becoming a possible option and I think in that space we're basically at the 'you can buy free-range eggs' phase of where the ethics for all this sits.
+
+### Thanks
+
+You don't get a nuanced opinions in a vacuum.
+
+Over the last year, I've had two conversations on repeat - either Claude Code or atproto.
+
+I'd like to give a cap tip to [Zach Gage](http://stfj.net/), [Joe Fabisevich](https://mergesort.me/), [Peter Steinberger](https://steipete.me), [Igor Borisevich](https://www.linkedin.com/in/igor-borisevich-b805a0294/), [Eloy Durán](https://mastodon.social/@alloy), [Brook Husic](https://www.brookehusic.com/) participants in the [iOS Folks](https://ios-developers.io/) #ai-dev channel and my wife, Danger, who had to deal with at least a month of be being just flabbergasted at what Claude was doing.
