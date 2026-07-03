@@ -2,4 +2,8 @@
 <cite>
   <a href="{{ .Params.src }}">{{ .Params.ref }}</a>
 </cite>
+{{ else }}
+<cite>
+  {{ .Params.ref }}</a>
+</cite>
 {{ end }}

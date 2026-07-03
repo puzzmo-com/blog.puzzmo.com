@@ -9,7 +9,7 @@ publishDir = 'dist'
   color = 'gray'                           # linen, wheat, gray, light
 
   description = 'The blog for puzzmo.com news and updates.'
-  twitter = 'puzzmotoday'
+  bluesky = 'puzzmo.com'
   github = 'puzzmo-com'
   instagram = 'puzzmo'
   rss = true
