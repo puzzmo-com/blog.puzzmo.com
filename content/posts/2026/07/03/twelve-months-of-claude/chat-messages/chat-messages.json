@@ -16,7 +16,7 @@
   },
   {
     "date": "2025-09-29T04:13:18.957Z",
-    "message": "pg_dump: error: connection to server at \"dpg-cgv6kk0dh87i4q0ptpa0-a.oregon-postgres.render.com\" (35.227.164.209), port 5432 failed: FATAL:  role \"nakama_db_prod_user\" is not permitted to log in\nnode:internal/errors:983\n  const err = new Error(message);",
+    "message": "pg_dump: error: connection to server at \"xxx-a.oregon-postgres.render.com\" (35.227.164.209), port 5432 failed: FATAL:  role \"nakama_db_prod_user\" is not permitted to log in\nnode:internal/errors:983\n  const err = new Error(message);",
     "project": "puzmo/app"
   },
   {
