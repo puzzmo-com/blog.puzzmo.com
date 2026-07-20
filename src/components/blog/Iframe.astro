@@ -1,0 +1,15 @@
+---
+interface Props {
+	src: string;
+	title?: string;
+	height?: string;
+}
+
+const { src, title = 'Embedded page', height = '600px' } = Astro.props;
+---
+
+<iframe
+	src={src}
+	title={title}
+	loading="lazy"
+	style={`display: block; width: 100%; height: ${height}; border: 1px solid var(--theme-g_outline, #ddd); border-radius: 8px; background: transparent;`}></iframe>

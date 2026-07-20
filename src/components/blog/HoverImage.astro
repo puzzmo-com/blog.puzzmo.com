@@ -1,0 +1,52 @@
+---
+interface Props {
+	src: string;
+	alt?: string;
+	width?: string;
+}
+
+const { src, alt = '', width = '440px' } = Astro.props;
+---
+
+<span class="hover-image" tabindex="0"><slot /><span class="hover-image-preview" style={`--hover-image-width: ${width};`}><a href={src} target="_blank" rel="noopener"><img src={src} alt={alt} loading="lazy" /></a></span></span>
+
+<style>
+	.hover-image {
+		position: relative;
+		text-decoration: underline dotted;
+		text-underline-offset: 3px;
+		cursor: help;
+	}
+	.hover-image-preview {
+		position: absolute;
+		left: 0;
+		bottom: 1.6em;
+		z-index: 50;
+		width: var(--hover-image-width, 440px);
+		max-width: 80vw;
+		padding: 4px;
+		background: #fff;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-radius: 6px;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+		opacity: 0;
+		transform: translateY(6px);
+		pointer-events: none;
+		transition: opacity 0.15s ease, transform 0.15s ease;
+	}
+	.hover-image-preview img {
+		display: block;
+		width: 100%;
+		height: auto;
+		margin: 0;
+		border-radius: 4px;
+		cursor: zoom-in;
+	}
+	.hover-image:hover .hover-image-preview,
+	.hover-image:focus .hover-image-preview,
+	.hover-image:focus-within .hover-image-preview {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+</style>

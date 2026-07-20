@@ -1,0 +1,21 @@
+---
+interface Props {
+	uri: string;
+	cid?: string;
+}
+
+const { uri, cid } = Astro.props;
+const profileUrl = uri.replace(/^at:\/\//, '').replace('/app.bsky.feed.post/', '/post/');
+---
+
+<blockquote class="bluesky-embed" data-bluesky-uri={uri} data-bluesky-cid={cid} data-bluesky-embed-color-mode="system">
+	<p lang="en"><a href={`https://bsky.app/profile/${profileUrl}?ref_src=embed`}>View post on Bluesky</a></p>
+</blockquote>
+<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8" is:inline></script>
+
+<style is:global>
+	.bluesky-embed {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+</style>

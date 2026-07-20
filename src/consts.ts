@@ -6,7 +6,8 @@ export const AUTHORS: Record<string, { name: string; bio: string; bsky?: string;
 	brooke: { name: 'Brooke Husic', bio: 'Crossword editor of sorts', bsky: 'xandraladee', puzzmoID: 'cldj3irbx05jd1ukd06uydr0q:user' },
 	saman: { name: 'Saman Bemel Benrud', bio: 'Game developer', bsky: 'samanbb', puzzmoID: 'clci3pnsa000m1vmhbdjphxez:user' },
 	zach: { name: 'Zach Gage', bio: 'Game designer', bsky: 'stfj.net', puzzmoID: 'clccar02b002k1vqye12gd4oc:user' },
-	madison: { name: 'Madison Greenstein', bio: 'Crossword intern',  },
+	max: { name: 'Max Greenstein', bio: 'Crossword intern',  },
+	madeline: { name: 'Madeline Kaplan', bio: 'Assistant puzzle editor' },
 	gary: { name: 'Gary Josack', bio: 'Software Person', puzzmoID: 'clonr3jhf1b0y1vng3zx672i5:user' },
 };
 
