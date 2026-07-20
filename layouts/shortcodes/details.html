@@ -1,0 +1,10 @@
+<details {{ if eq (.Get "open" | default "false") "true" }}open{{ end }}>
+    <summary>
+        {{ .Get "summary" | default "Details:" }}
+    </summary>
+    <div class="details-content">
+        
+    {{ .Inner | markdownify }}
+    </div>
+    
+</details>

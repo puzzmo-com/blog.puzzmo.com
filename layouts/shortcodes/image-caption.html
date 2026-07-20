@@ -1,0 +1,9 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" -}}
+{{- $caption := .Get "caption" -}}
+{{- $link := .Get "link" -}}
+
+<img src="{{ $src }}" alt="{{ $alt }}" style="width: 100%; height: auto;">
+<p style="text-align: center; font-size: 0.9em; color: #666; margin-top: -1.5em;">
+  {{ if $link }}<a href="{{ $link }}">{{ $caption }}</a>{{ else }}{{ $caption }}{{ end }}
+</p>

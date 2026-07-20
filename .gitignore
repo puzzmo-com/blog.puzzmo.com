@@ -1,5 +1,6 @@
 # build output
 dist/
+.hugo_build.lock
 # generated types
 .astro/
 

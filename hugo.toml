@@ -1,0 +1,38 @@
+# baseURL = 'https://blog.puzzmo.com/'
+languageCode = 'en-us'
+title = 'Puzzmo Blog'
+theme = 'paper'
+publishDir = 'dist'
+
+[params]
+  # color style
+  color = 'gray'                           # linen, wheat, gray, light
+
+  description = 'The blog for puzzmo.com news and updates.'
+  bluesky = 'puzzmo.com'
+  github = 'puzzmo-com'
+  instagram = 'puzzmo'
+  rss = true
+
+[params.giscus]
+  repo = 'puzzmo-com/blog.puzzmo.com'                 # see https://giscus.app for more details
+  repoId = 'R_kgDOK5Q10A'
+  category = 'Blog Posts'
+  categoryId = 'DIC_kwDOK5Q10M4CbtK1'
+  mapping = 'pathname'
+  theme = 'light'
+  lang = 'en'
+
+staticDir = ['static']
+
+[markup]
+  [markup.highlight]
+    codeFences = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
+  controller = "controllers"

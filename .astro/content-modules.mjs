@@ -1,0 +1,11 @@
+
+export default new Map([
+["src/content/blog/2024/07/16/augmentations/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2024%2F07%2F16%2Faugmentations%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/02/06/digging-into-perf/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F02%2F06%2Fdigging-into-perf%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/05/24/clue-glossaries/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F05%2F24%2Fclue-glossaries%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/06/01/ios-app-architecture/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F06%2F01%2Fios-app-architecture%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/06/07/orta-on-claude/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F06%2F07%2Forta-on-claude%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/07/11/on-pre-solving/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F07%2F11%2Fon-pre-solving%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/07/30/six-weeks-of-claude-code/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F07%2F30%2Fsix-weeks-of-claude-code%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/blog/2025/12/9/tech-2025/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fblog%2F2025%2F12%2F9%2Ftech-2025%2Findex.mdx&astroContentModuleFlag=true")]]);
+		
