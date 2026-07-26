@@ -93,11 +93,34 @@ model TeamPreviewer {
   @@unique([teamID, userID])
 }
 
+// A token scoped to a team (not a user) for CLI / API access —
+// this is what lets a third party upload a game without ever
+// touching our infrastructure keys.
+model TeamAccessToken {
+  id    String @id
+  token String @unique   // the opaque secret sent on each request
+
+  // human-readable label, e.g. "CI deploy token" or "Orta's laptop"
+  description String
+
+  // handy for spotting stale / unused tokens
+  lastUsedAt DateTime?
+  
+  // which team this grants access to…
+  teamID String
+  team   Team   @relation(fields: [teamID], references: [id])
+
+  // …and who minted it (audit trail)
+  createdByID String
+  createdBy   User   @relation(fields: [createdByID], references: [id])
+
+  @@index([teamID])
+}
 ```
 
 ## How we Upload Games
 
-I started Puzzmo with uploads being a real simple concept. We use Azure as a blob storage system, and after every git push we would deploy the build assets to Azure. This is a great system, but it's only possible to do with our Azure keys! That's not really a great system for third parties
+I started Puzzmo with uploads being a real simple concept. We use Azure as a blob storage system, and after every git push it would deploy the build assets to Azure. This is a great simple system, but it's only possible to do with our Azure keys! That's not really a great system for third parties. So, I added a command line tool for
 
 ## How Games Used To Run
 
