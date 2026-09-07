@@ -16,7 +16,9 @@ Here's [the fixed link btw](https://github.com/artsy/README/blob/e4b7dff3209b43f
 
 I've been wondering just how sturdy those values are in the face of a dancing landscape.
 
-From my Artsy era, I had a principle of _'if someone asks to take a software project from me, I should give it away'_. Post-LLMs I found myself examining this as the barrier to entry of complex work was lowered but the rigor of integrating with existing production software still stayed at the same place and the principle failed me.
+Aside from our [xd language tools](https://github.com/puzzmo-com/xd-crossword-tools) project, a lot of my open source at Puzzmo has been closer to source-available instead of a fully committed open source project. For some projects I opted out of making packaging easy on npm, and the rest live in our [OSS repo](https://github.com/puzzmo-com/oss) for people to read and reference - but not really contribute. This is not _open source by default_, a tenet of my last decade.
+
+From my Artsy era, I had a principle of _'if someone I trust asks to take a software project from me, I should give it away'_. Post-LLMs I found myself examining this as the barrier to entry of complex work has been lowered but the rigor of integrating with existing production software and the cultural work of alignment still stayed at the same place and the principle gave me the wrong answer.
 
 But, what made me really reflect is that I don't think so much about writing up my work anymore.
 
@@ -30,15 +32,17 @@ I don't have a single answer, but writing about the problem seems as good a reas
 
 2. Managing multiple streams of work is much easier, and any actual wins are just notes on a chord now. Why write up about my techniques for sandboxing thumbnails on Puzzmo when I'm still half-way though reducing the time an opengraph image renders.
 
-3. I knew 2026 was going to be a meh year (a mix of Puzzmo legal faff, some unlucky decisions and life stuff), so I dropped a lot of the engineering beaurocratic work to give myself some space. Surely that has eaten into the time that I would have given to write-ups, given that a write-up is high on the maslow's heirarchy of engineering needs.
+3. I knew 2026 was going to be a meh year (a mix of Puzzmo legal faff, some unlucky decisions and life stuff), so I dropped a lot of the engineering beaurocratic work to give myself some space. It's likely this has eaten into the time that I would have given to write-ups, given that a write-up is high on the maslow's heirarchy of engineering needs.
 
 4. How much of the work am _I_ doing? I give pretty specific instructions, read all the code for Puzzmo systems and am very present in reviewing the output of an LLM but every line of code used to be a journey and now it's a transaction.
 
-   Is the write-up journey of making the thing less interesting to make because the journey featured less of an arc?
+   Is the write-up journey of making the thing less interesting to make because the journey featured less of an arc? A lot of my larger posts are on the 'well we tried x, and eventually got to y' but if the A -> B is so easy; that's less of a worthy pitch.
 
 5. If I'm writing to explain a problem, does my version of the write-up add that much for the rest of the world or the team?
 
    I've found it's better to assume workmates haven't read these blog posts, and I've finding there's little point in documentation for our codebases because pairing with an LLM is such a stronger way to get the outline of a system than me extensively writing about it. Then you can talk to a human.
+
+6. I use a write-up to sort things out in my head. Now I have a permanent and always attentive oracle for asking questions about my decisions to. It often knows more than me on a topic, and most likely has a breadth of examples from people who have solved similar issues before me. So, like, is my answer going to end up as more of a remix?
 
 The write-ups are often about the human parts of it all and it's not like I've been working on uninteresting things. In 2026 I've shipped 800+ PRs, gotta be a bunch of things worth writing about there! Yet there are really only three blog posts for the year (on Claude Code and Bluesky).
 
@@ -48,4 +52,4 @@ Maybe it's time to re-examine my principles under the new constraints - unlike f
 
 It has historically been easier to point at Artsy's as a great example of what a _team's_ principles were and that I tried to operate teams under those principles.
 
-Then potentially stay tuned for another post in the vein of working through what my principles are in this new era.
+Then potentially stay tuned for another post in the vein of working through what my principles could be in this new era.
