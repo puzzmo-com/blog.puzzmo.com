@@ -124,7 +124,7 @@ I started Puzzmo with uploads being a real simple concept. We use Azure as a blo
 
 ## How Games Used To Run
 
-When I first architected the games, we had a few moving parts. This meant that I could maintain a bridge between games and the Puzzmo app. This bridge meant any systemic upgrades of Puzzmo features meant we didn't need to update all our games to the latest version of their source code. We call this bridge 'the runtime' and it was responsible for booting up the games and sending functions into the game for callbacks.
+When I first architected the games, we had a few moving parts. This meant that I could maintain a bridge between games and the Puzzmo app. This bridge meant any systemic upgrades of Puzzmo didn't force an update to all our games to the latest version of their source code. We call this bridge 'the runtime' and it was responsible for booting up the games and sending functions into the game for callbacks.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
