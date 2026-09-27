@@ -14,13 +14,15 @@ The link was a markdown document in Artsy's shared open-source documentation rep
 
 Here's [the fixed link btw](https://github.com/artsy/README/blob/e4b7dff3209b43f4ab63bad919f2500972aade1b/culture/engineering-principles.md) because it's a git repo. I think the removal of the engineering principles isn't some ominous mark against the current day Artsy dev team, but I wonder if they just spotted a cultural change before I noticed it.
 
-Since then I've been wondering just how sturdy those values, and my own are in the face of a [dancing landscape](https://www.youtube.com/watch?v=doqeXBoFiGU).
+Since then I've been wondering just how sturdy those values, and my own, are in the face of a [dancing landscape](https://www.youtube.com/watch?v=doqeXBoFiGU).
 
 I've been finding myself re-evaluating a lot of my core principles lately:
 
 _Open Source by Default_: Aside from Puzzmo's [xd language tools](https://github.com/puzzmo-com/xd-crossword-tools) project, a lot of my open source at Puzzmo has been closer to source-available instead of a fully committed open source project. For some projects I opted out of making packaging easy on npm, and the rest live in our [OSS repo](https://github.com/puzzmo-com/oss) for people to read and reference - but not really contribute. I built my career on this tenet, and yet, through a mix of the time constraint of having to run a company, feeling less like we have something to share and feeling less invested in the process of sharing code. I just do it less.
 
-_If someone I trust asks to take a software project from me, I should give it away_: From my Artsy era, when I started to really understand that a [focus on breadth of contribution](https://artsy.github.io/blog/2018/08/10/On-Context-Switching/) was something I could really work on. The downside of this was that I left a lot of systems in my wake! I got good at shipping small fixes to done software to keep it afloat. These projects which didn't quite need active maintenance are perfect for people to use for growing and understanding new systems and getting a better world model of the company. So, I made a principle of _'always give it away'_ - there will always be more things to do! Post-LLMs I found myself examining this as the barrier to entry of complex work has been lowered code-wise but the rigor of integrating with existing production software and the cultural work of getting people aligned on the plan still stayed at the same place. I feel like I am less inclined to give away key systems now.
+_If someone I trust asks to take a software project from me, I should give it away_: From my Artsy era, when I started to understand that a [focus on breadth of contribution](https://artsy.github.io/blog/2018/08/10/On-Context-Switching/) was something I could work on. The downside of breadth was that I left a lot of systems in my wake! I worked hard at constantly shipping small fixes to done software to keep them afloat.
+
+There are a lot of projects which don't quite need active maintenance are perfect for people to use for growing and understanding new systems and getting a better world model of the company. So, I made a principle of _'always give it away'_ - there will always be more things to do! Post-LLMs I found myself examining this idea as the barrier to entry of complex work has been lowered code-wise but the rigor of integrating with existing production software and the cultural work of getting people aligned on the plan still stayed at the same place. I feel like I am less inclined to give away key systems now.
 
 _Offline is the best place to do your work_: I used to get [so much done](https://artsy.github.io/blog/2015/09/30/Work-Offline-More/) on a bus, train or plane. Now I will write some prompts for when I get back and will even occasionally buy WIFI on planes. Unprecedented.
 
@@ -44,7 +46,7 @@ I don't have a single answer, but writing about the problem seems as good a reas
 
 4. How much of the work am _I_ doing? I give pretty specific instructions, read all the code for Puzzmo systems and am very present in reviewing the output of an LLM but every line of code used to be a journey and now it's a transaction.
 
-   Is the write-up journey of making the thing less interesting to make because the journey featured less of an arc? A lot of my larger posts are on the 'well we tried x, and eventually got to y' but if the A -> B is so easy; that's less of a worthy pitch.
+   Is the write-up journey of making the thing less interesting to make because completing it featured less of an arc? A lot of my larger posts are on the 'well we tried x, and eventually got to y' but if the A -> B is so easy; that's less of a worthy pitch.
 
 5. If I'm writing to explain a problem, does my version of the write-up add that much for the rest of the world or the team?
 
@@ -52,13 +54,12 @@ I don't have a single answer, but writing about the problem seems as good a reas
 
 6. I use a write-up to sort things out in my head. Now I have a permanent and always attentive oracle for asking questions about my decisions to. It often knows more than me on a topic, and most likely has a breadth of examples from people who have solved similar issues before me. So, like, is my answer going to end up as more of a remix?
 
-The write-ups are often about the human parts of it all and it's not like I've been working on uninteresting things. In 2026 I've shipped 800+ PRs, gotta be a bunch of things worth writing about there! Yet there are really only three blog posts for the year (on Claude Code and Bluesky).
+The write-ups are often about the human parts of it all and it's not like I've been working on uninteresting things. In 2026 I've shipped 800+ PRs, gotta be a bunch of things worth writing about there! Yet there are really only three non-release blog posts for the year (Deeds, on Claude Code and Bluesky.)
 
 Though I do appreciate the irony in making a post about not posting!
 
 ## So, what now?
 
-It has historically been easier to point at Artsy's as a great example of what a _team's_ principles were and I try to operate engineering teams under those principles.
+It has historically been easier to point at Artsy's principles as a great example of what a _team's_ principles were and I try to operate engineering teams under those principles.
 
 So, it's probably time to re-examine my principles under the new constraints - I don't even know if I could make a set of engineering principles for Puzzmo in this era.
-
