@@ -23,7 +23,7 @@ Zach's and my most ambitious version of the Daily Challenge basically involves h
 
 ## API Side
 
-I still tend to build these things out with the API design first, so I make a high-level proposal GitHub issue to give others a chance to influence the architecture before I start. After a few days I take a stab at implementing the systems, then once that's got a shape I take a stab at the user interface.
+I still tend to build these things out with the API design first, so I make a [high-level proposal GitHub issue](./issue-5485.png) to give others a chance to influence the architecture before I start. After a few days I take a stab at implementing the systems, then once that's got a shape I take a stab at the user interface.
 
 I thought back to my time at [Artsy](https://github.com/artsy/artsy-event_publisher), one of the scaling solutions we used for allowing microservices was switching to an [event source](https://martinfowler.com/eaaDev/EventSourcing.html) architecture using rabbitmq. I enjoy the conceptual idea of splitting into microservices but want nothing to do with the actual implementation of it. So, my first stab at this was an in-memory event sourcing system. I went down this rabbit hole for a few days and came out thinking, maybe this could work and before committing to the idea, I took a break to work on something else.
 
