@@ -59,9 +59,12 @@ jobs:
           # For maximum backward compatibility with Hugo modules
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
+        # Pretend it's the end of today (in the furthest-behind timezone, UTC-12) so that
+        # any post dated today publishes regardless of its hour or timezone offset
         run: |
           hugo \
             --gc \
+            --clock "$(date -u -d 'tomorrow' +%Y-%m-%dT11:59:59Z)" \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Setup Node
